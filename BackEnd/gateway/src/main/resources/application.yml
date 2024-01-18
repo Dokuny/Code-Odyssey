@@ -1,0 +1,31 @@
+# gateway
+server:
+  port: 8888
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      routes:
+        - id: auth-service
+          uri: lb://COMMON-SERVICE
+          predicates:
+            - Path=/auth/**
+        - id: common-service
+          uri: lb://COMMON-SERVICE
+          predicates:
+            - Path=/test
+          filters:
+            - AuthorizationHeaderFilter
+
+jwt:
+  access-key: TestSecretKey123asdasdadadwadwawdawdadwddwawdadwadawadwdwaawdawdwaddwadwawad
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
