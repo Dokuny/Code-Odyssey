@@ -21,6 +21,14 @@ const StyledTypography = styled.span<{ color: string; fontsize: number; fontWeig
   `}
 `;
 
+export const Header1 = (props: TypographyProps) => {
+  return <StyledTypography color={props.color} fontsize={44} fontWeight={props.fontWeight || ''} children={props.children} />;
+};
+
+export const Header2 = (props: TypographyProps) => {
+  return <StyledTypography color={props.color} fontsize={36} fontWeight={props.fontWeight || ''} children={props.children} />;
+};
+
 export const Body1 = (props: TypographyProps) => {
   return <StyledTypography color={props.color} fontsize={20} fontWeight={props.fontWeight || ''} children={props.children} />;
 };
