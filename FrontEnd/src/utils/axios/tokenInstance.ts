@@ -1,6 +1,8 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import { BASE_URL, CONTENT_TYPE, TIMEOUT } from '../../config/Axios';
 import { getStorage, setStorage } from '../localstorage/storageUtil';
+import { refresh } from '../api/auth/auth';
+import { getCookie, setCookie } from '../cookie/cookieUtil';
 
 const tokenInstance = axios.create({
   baseURL: BASE_URL,
@@ -23,19 +25,14 @@ const setCommonHeaders = async (config: any) => {
 
 const refreshAccessTokenAndRetry = async (config: AxiosRequestConfig) => {
   try {
-    const response = await axios.post(
-      `${BASE_URL}/auth/refresh`,
-      {},
-      {
-        headers: {
-          'Content-Type': CONTENT_TYPE,
-          Authorization: await getAuthorizationHeader('refreshToken'),
-        },
-      }
-    );
+    const accessToken = (await getStorage('accessToken')) as string;
+    const refreshToken = getCookie('refreshToken') as string;
+    const response = await refresh({ accessToken, refreshToken });
     if (response.status === 201) {
       const newAccessToken = response.data.data.accessToken;
+      const newRefreshToken = response.data.data.refreshToken;
       await setStorage('accessToken', newAccessToken);
+      setCookie('refreshToken', newRefreshToken, 20160, '/');
       if (!config.headers) {
         config.headers = {};
       }
@@ -58,7 +55,6 @@ const refreshAccessTokenAndRetry = async (config: AxiosRequestConfig) => {
 const handleResponseError = async (error: AxiosError) => {
   if (!error.response) return Promise.reject(error);
   const { status, config } = error.response;
-  console.log('status :', status);
 
   switch (status) {
     case 400:
