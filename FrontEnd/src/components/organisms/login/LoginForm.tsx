@@ -40,6 +40,10 @@ const StyledImage = styled.img`
 `;
 
 const LoginForm = () => {
+  const clickLoginBtn = async (oauthprovider: string) => {
+    window.location.replace(`http://localhost:8888/auth/${oauthprovider}`);
+  };
+
   return (
     <StyledContainer>
       <StyledImageContainer>
@@ -47,7 +51,7 @@ const LoginForm = () => {
       </StyledImageContainer>
 
       <StyledLoginContainer>
-        <LoginButton event={() => {}} basicColor={colors.GrayBlue[800]} deepColor={colors.GrayBlue[900]}>
+        <LoginButton event={() => clickLoginBtn('GOOGLE')} basicColor={colors.GrayBlue[800]} deepColor={colors.GrayBlue[900]}>
           <StyledLoginContent>
             <img src='/images/sns/GoogleLogo.png' alt='google' />
             <Spacer space={'2vh'} horizontal />
@@ -56,7 +60,7 @@ const LoginForm = () => {
         </LoginButton>
         <Spacer space={'3vh'} />
 
-        <LoginButton event={() => {}} basicColor={colors.Naver[500]} deepColor={colors.Naver[800]}>
+        <LoginButton event={() => clickLoginBtn('NAVER')} basicColor={colors.Naver[500]} deepColor={colors.Naver[800]}>
           <StyledLoginContent>
             <img src='/images/sns/NaverLogo.png' alt='naver' />
             <Spacer space={'2vh'} horizontal />
@@ -65,7 +69,7 @@ const LoginForm = () => {
         </LoginButton>
         <Spacer space={'3vh'} />
 
-        <LoginButton event={() => {}} basicColor={colors.Kakao[500]} deepColor={colors.Kakao[800]}>
+        <LoginButton event={() => clickLoginBtn('KAKAO')} basicColor={colors.Kakao[500]} deepColor={colors.Kakao[800]}>
           <StyledLoginContent>
             <img src='/images/sns/KakaoLogo.png' alt='kakao' />
             <Spacer space={'2vh'} horizontal />

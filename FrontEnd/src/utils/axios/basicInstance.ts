@@ -14,7 +14,6 @@ const setCommonHeaders = async (config: any) => {
 const handleResponseError = async (error: AxiosError) => {
   if (!error.response) return Promise.reject(error);
   const { status } = error.response;
-  console.log('status :', status);
 
   switch (status) {
     case 400:
