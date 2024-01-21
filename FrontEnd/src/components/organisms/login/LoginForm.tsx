@@ -25,6 +25,7 @@ const StyledLoginContainer = styled.div`
 `;
 
 const StyledLoginContent = styled.div`
+  padding: 0.2vh;
   align-items: center;
   display: flex;
   justify-content: center;

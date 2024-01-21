@@ -14,7 +14,7 @@ const Login = () => {
     if (accessToken && refreshToken) {
       const tokenData = await refresh({
         // accessToken: accessToken,
-        memberId: 2,
+        memberId: 1,
         refreshToken: refreshToken,
       });
       if (tokenData) {

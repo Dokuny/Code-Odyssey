@@ -13,10 +13,10 @@ interface BasicButtonProps {
   active?: boolean;
 }
 
-const StyledButton = styled.button<{ theme: { [key: string]: string }; width: number | string; borderRadius: number | string; active?: boolean }>`
+const StyledButton = styled.button<{ theme: { [key: string]: string }; width: number | string; borderradius: number | string; active?: boolean }>`
   padding: 1.2vmin;
   border: 2px solid ${(props) => props.theme.borderColor};
-  border-radius: ${(props) => props.borderRadius};
+  border-radius: ${(props) => props.borderradius};
   background-color: ${(props) => props.theme.bgColor};
   width: ${(props) => props.width};
   color: ${(props) => props.theme.color};
@@ -45,7 +45,7 @@ const BasicButton = (props: BasicButtonProps) => {
       theme={{ borderColor: props.borderColor, bgColor: props.bgColor, deepColor: props.deepColor }}
       className={props.btnClass}
       width={props.width || '100%'}
-      borderRadius={props.borderRadius || '12px'}
+      borderradius={props.borderRadius || '12px'}
       active={props.active}
     >
       {props.children}
