@@ -38,7 +38,7 @@ const StyledMyImgContainer = styled.div`
 
 const StyledMyImage = styled.img`
   width: 100%;
-  object-fit: contain;
+  object-fit: cover;
   border-radius: 5em;
   border: 2px solid ${colors.Gray[700]};
 `;
