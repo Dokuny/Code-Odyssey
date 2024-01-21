@@ -12,11 +12,11 @@ const StyledTypography = styled.span<{ color: string; fontsize: number; fontWeig
   font-size: ${(props) => props.fontsize}px;
   ${(props) => css`
     @media (max-width: 1020px) {
-      font-size: ${(props.fontsize - 2) / 16}rem;
+      font-size: ${(props.fontsize - 6) / 16}rem;
     }
 
     @media (max-width: 768px) {
-      font-size: ${(props.fontsize - 4) / 16}rem;
+      font-size: ${(props.fontsize - 12) / 16}rem;
     }
   `}
 `;

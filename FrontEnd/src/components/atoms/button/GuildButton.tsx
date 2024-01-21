@@ -12,13 +12,13 @@ const StyledGuildBtnContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.5vw;
-  min-width: 2.5vw;
-  height: 2.5vw;
-  min-height: 2.5vw;
+  width: 2.5vmax;
+  min-width: 2.5vmax;
+  height: 2.5vmax;
+  min-height: 2.5vmax;
 `;
 
-const StyledButton = styled.button<{ theme: { [key: string]: string }; width: number | string; src: string }>`
+const StyledButton = styled.button<{ theme: { [key: string]: string }; src: string }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -53,11 +53,11 @@ const StyledButton = styled.button<{ theme: { [key: string]: string }; width: nu
 const GuildButton = (props: GuildBasicButtonProps) => {
   return (
     <>
-      <Spacer space={props.spacer || '2vh'} />
+      <Spacer space={props.spacer || '2vmin'} />
       <StyledGuildBtnContainer>
-        <StyledButton type='button' onClick={props.event} width={'100%'} src={props.src} />
+        <StyledButton onClick={props.event} src={props.src} />
       </StyledGuildBtnContainer>
-      <Spacer space={props.spacer || '2vh'} />
+      <Spacer space={props.spacer || '2vmin'} />
     </>
   );
 };

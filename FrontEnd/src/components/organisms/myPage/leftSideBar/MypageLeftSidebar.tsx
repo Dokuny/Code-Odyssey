@@ -1,14 +1,9 @@
 import styled from 'styled-components';
-import MyGuildList from '../../MyGuildList';
-import MyMenu from '../../MyMenu';
-
-const StyledImageContainer = styled.div`
-  width: 20vw;
-  display: flex;
-  overflow: hidden;
-`;
+import MyGuildList from './MyGuildList';
+import MyMenu from './MyMenu';
 
 const StyledImage = styled.div`
+  display: flex;
   position: relative;
   width: 100%;
   height: 100vh;
@@ -29,6 +24,8 @@ const StyledImage = styled.div`
 `;
 
 const StyledBlurImage = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 4vw;
   max-height: 100vh;
   min-height: 100vh;
@@ -36,21 +33,19 @@ const StyledBlurImage = styled.div`
   position: absolute;
   backdrop-filter: blur(10px);
   align-items: center;
-  display: flex;
-  flex-direction: column;
 `;
 
-const MypageSidebar = () => {
+const MypageLeftSidebar = () => {
   return (
-    <StyledImageContainer>
+    <>
       <StyledBlurImage>
         <MyGuildList />
       </StyledBlurImage>
       <StyledImage>
         <MyMenu />
       </StyledImage>
-    </StyledImageContainer>
+    </>
   );
 };
 
-export default MypageSidebar;
+export default MypageLeftSidebar;
