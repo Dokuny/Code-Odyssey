@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import MyGuildList from '../../MyGuildList';
+import MyMenu from '../../MyMenu';
 
 const StyledImageContainer = styled.div`
   width: 20vw;
@@ -45,7 +46,9 @@ const MypageSidebar = () => {
       <StyledBlurImage>
         <MyGuildList />
       </StyledBlurImage>
-      <StyledImage />
+      <StyledImage>
+        <MyMenu />
+      </StyledImage>
     </StyledImageContainer>
   );
 };

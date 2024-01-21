@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 interface BasicButtonProps {
   event: () => void;
@@ -9,12 +9,14 @@ interface BasicButtonProps {
   children: React.ReactNode;
   btnClass?: string;
   width?: string | number;
+  borderRadius?: string | number;
+  active?: boolean;
 }
 
-const StyledButton = styled.button<{ theme: { [key: string]: string }; width: number | string }>`
+const StyledButton = styled.button<{ theme: { [key: string]: string }; width: number | string; borderRadius: number | string; active?: boolean }>`
   padding: 1.5vh;
   border: 2px solid ${(props) => props.theme.borderColor};
-  border-radius: 12px;
+  border-radius: ${(props) => props.borderRadius};
   background-color: ${(props) => props.theme.bgColor};
   width: ${(props) => props.width};
   color: ${(props) => props.theme.color};
@@ -27,21 +29,24 @@ const StyledButton = styled.button<{ theme: { [key: string]: string }; width: nu
     cursor: pointer;
   }
 
-  &.active {
-    border: 2px solid ${(props) => props.theme.deepColor};
-    background-color: ${(props) => props.theme.deepColor};
-    color: ${(props) => props.theme.deepColor};
-  }
+  ${(props) =>
+    props.active &&
+    css`
+      border: 2px solid ${props.theme.deepColor};
+      background-color: ${props.theme.deepColor};
+      color: ${props.theme.deepColor};
+    `}
 `;
 
 const BasicButton = (props: BasicButtonProps) => {
   return (
     <StyledButton
-      type='button'
       onClick={props.event}
       theme={{ borderColor: props.borderColor, bgColor: props.bgColor, deepColor: props.deepColor }}
       className={props.btnClass}
       width={props.width || '100%'}
+      borderRadius={props.borderRadius || '12px'}
+      active={props.active}
     >
       {props.children}
     </StyledButton>
