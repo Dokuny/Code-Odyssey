@@ -3,6 +3,7 @@ import { Spacer } from '../../atoms/basic/Spacer';
 import { Body2 } from '../../atoms/basic/Typography';
 import LoginButton from '../../atoms/button/LoginButton';
 import styled from 'styled-components';
+import LoginLogo from '../../atoms/logo/LoginLogo';
 
 const StyledContainer = styled.div`
   box-shadow: 0px 0px 20px ${colors.Gray[600]};
@@ -29,16 +30,6 @@ const StyledLoginContent = styled.div`
   justify-content: center;
 `;
 
-const StyledImageContainer = styled.div`
-  display: flex;
-  overflow: hidden;
-`;
-
-const StyledImage = styled.img`
-  width: 100%;
-  object-fit: contain;
-`;
-
 const LoginForm = () => {
   const clickLoginBtn = async (oauthprovider: string) => {
     window.location.replace(`http://localhost:8888/auth/${oauthprovider}`);
@@ -46,9 +37,7 @@ const LoginForm = () => {
 
   return (
     <StyledContainer>
-      <StyledImageContainer>
-        <StyledImage src={'/images/code_odyssey/LoginLogo.svg'} alt='로그인 창 이미지' />
-      </StyledImageContainer>
+      <LoginLogo />
 
       <StyledLoginContainer>
         <LoginButton event={() => clickLoginBtn('GOOGLE')} basicColor={colors.GrayBlue[800]} deepColor={colors.GrayBlue[900]}>

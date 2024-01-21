@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../config/Color';
 import { Spacer } from '../atoms/basic/Spacer';
-import { Body1, Body2 } from '../atoms/basic/Typography';
+import { Body1, Body2, Header2 } from '../atoms/basic/Typography';
 import IconButton from '../atoms/button/IconButton';
 import { IoIcon } from '../atoms/icon/Icons';
 
@@ -33,13 +33,14 @@ const StyledMyImgContainer = styled.div`
   display: flex;
   width: 4vmax;
   height: 4vmax;
-  border-radius: 2em;
+  border-radius: 5em;
 `;
 
 const StyledMyImage = styled.img`
   width: 100%;
   object-fit: contain;
-  border-radius: 2em;
+  border-radius: 5em;
+  border: 2px solid ${colors.Gray[700]};
 `;
 
 const StyledMyInfoContainer = styled.div`
@@ -58,13 +59,16 @@ const StyledMyInfoContentContainer = styled.div`
 
 const StyledGradeImgContainer = styled.div`
   display: flex;
+  justify-content: center;
+  padding-bottom: 1vh;
+  overflow: hidden;
   width: 2vw;
-  height: 100%;
-`;
-
-const StyledGradeImage = styled.img`
-  width: 100%;
-  object-fit: cover;
+  max-height: 100%;
+  background-image: url('/images/code_odyssey/Gold.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+  box-sizing: border-box;
 `;
 
 const MyProfileDetailCard = () => {
@@ -95,7 +99,7 @@ const MyProfileDetailCard = () => {
         </StyledMyInfoContentContainer>
         <Spacer space={'1vw'} horizontal />
         <StyledGradeImgContainer>
-          <StyledGradeImage src={data.thumbnail} />
+          <Header2 children={data.class} color={colors.White} fontWeight={'bold'} />
         </StyledGradeImgContainer>
       </StyledMyInfoContainer>
       <Spacer space={'1vh'} />

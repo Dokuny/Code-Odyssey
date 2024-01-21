@@ -10,6 +10,7 @@ const StyledContainer = styled.div`
 
 const StyledLeftSidebar = styled.div`
   display: flex;
+  max-height: 100vh;
   width: 20%;
   overflow: hidden;
 `;
@@ -35,7 +36,11 @@ const StyledMain = styled.div`
 const StyledRightSidebar = styled.div`
   display: flex;
   width: 18%;
-  overflow: hidden;
+  padding: 1vmax;
+  padding-top: 0;
+  box-sizing: border-box;
+  border-left: 1px solid ${colors.Gray[800]};
+  background-color: ${colors.Gray[900]};
 `;
 
 const MyPageTemplate = () => {
