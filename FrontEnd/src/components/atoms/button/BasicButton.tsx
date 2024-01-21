@@ -14,7 +14,7 @@ interface BasicButtonProps {
 }
 
 const StyledButton = styled.button<{ theme: { [key: string]: string }; width: number | string; borderRadius: number | string; active?: boolean }>`
-  padding: 1.5vh;
+  padding: 1.2vmin;
   border: 2px solid ${(props) => props.theme.borderColor};
   border-radius: ${(props) => props.borderRadius};
   background-color: ${(props) => props.theme.bgColor};

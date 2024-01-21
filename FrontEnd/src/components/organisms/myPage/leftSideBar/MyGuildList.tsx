@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { colors } from '../../../config/Color';
-import GuildButton from '../../atoms/button/GuildButton';
+import { colors } from '../../../../config/Color';
+import GuildButton from '../../../atoms/button/GuildButton';
 import styled from 'styled-components';
 
 const StyledGuildContainer = styled.div`
   border-right-width: 0;
-  max-height: 60vh;
+  max-height: 60vmin;
+  margin-left: 0.5vw;
   border-radius: 4em 0 0 4em;
   padding: 0.5em;
   padding-bottom: 1.5em;
@@ -31,8 +32,8 @@ const MyGuildList = () => {
 
   return (
     <>
-      <GuildButton event={() => {}} src={'/images/code_odyssey/MyInfo.svg'} spacer={'1vh'} />
-      <GuildButton event={() => {}} src={'/images/code_odyssey/Navi.svg'} spacer={'1vh'} />
+      <GuildButton event={() => {}} src={'/images/code_odyssey/MyInfo.svg'} spacer={'1vmin'} />
+      <GuildButton event={() => {}} src={'/images/code_odyssey/Navi.svg'} spacer={'1vmin'} />
       <StyledGuildContainer>
         {data.map((value) => (
           <GuildButton event={() => {}} src={value.image} key={value.guild_id} />
