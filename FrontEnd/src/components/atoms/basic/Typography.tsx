@@ -22,11 +22,15 @@ const StyledTypography = styled.span<{ color: string; fontSize: number; fontWeig
 `;
 
 export const Header1 = (props: TypographyProps) => {
-  return <StyledTypography color={props.color} fontSize={40} fontWeight={props.fontWeight || ''} children={props.children} />;
+  return <StyledTypography color={props.color} fontSize={44} fontWeight={props.fontWeight || ''} children={props.children} />;
 };
 
 export const Header2 = (props: TypographyProps) => {
-  return <StyledTypography color={props.color} fontSize={32} fontWeight={props.fontWeight || ''} children={props.children} />;
+  return <StyledTypography color={props.color} fontSize={36} fontWeight={props.fontWeight || ''} children={props.children} />;
+};
+
+export const Header3 = (props: TypographyProps) => {
+  return <StyledTypography color={props.color} fontSize={28} fontWeight={props.fontWeight || ''} children={props.children} />;
 };
 
 export const Body1 = (props: TypographyProps) => {
@@ -35,6 +39,10 @@ export const Body1 = (props: TypographyProps) => {
 
 export const Body2 = (props: TypographyProps) => {
   return <StyledTypography color={props.color} fontSize={16} fontWeight={props.fontWeight || ''} children={props.children} />;
+};
+
+export const Body3 = (props: TypographyProps) => {
+  return <StyledTypography color={props.color} fontSize={14} fontWeight={props.fontWeight || ''} children={props.children} />;
 };
 
 export const Caption1 = (props: TypographyProps) => {
