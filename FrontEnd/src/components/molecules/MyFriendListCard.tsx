@@ -1,10 +1,10 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import FriendProfile from '../atoms/image/FriendProfile';
 import { Body3, Caption1 } from '../atoms/basic/Typography';
 import { colors } from '../../config/Color';
 import { Spacer } from '../atoms/basic/Spacer';
 
-const StyledContainer = styled.div`
+const StyledContainer = styled.button<{ theme: { [key: string]: string }; active?: boolean }>`
   display: flex;
   width: 100%;
   height: fit-content;
@@ -15,6 +15,19 @@ const StyledContainer = styled.div`
   box-sizing: border-box;
   background-color: ${colors.Gray[800]};
   border-radius: 1em;
+  border: 0;
+
+  &:hover {
+    background-color: ${(props) => props.theme.deepColor};
+    cursor: pointer;
+  }
+
+  ${(props) =>
+    props.active &&
+    css`
+      background-color: ${props.theme.deepColor};
+      color: ${props.theme.deepColor};
+    `}
 `;
 
 const StyledContentContainer1 = styled.div`
@@ -32,11 +45,13 @@ interface MyFriendListCardProps {
   name: string;
   state: string;
   time: string;
+  active?: boolean;
+  event: () => void;
 }
 
 const MyFriendListCard = (props: MyFriendListCardProps) => {
   return (
-    <StyledContainer>
+    <StyledContainer theme={{ deepColor: colors.Indigo[900] }} active={props.active} onClick={props.event}>
       <FriendProfile src={props.src} />
       <Spacer space={'1vw'} horizontal />
 
