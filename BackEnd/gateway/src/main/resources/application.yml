@@ -19,7 +19,21 @@ spring:
             - Path=/test
           filters:
             - AuthorizationHeaderFilter
-
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: 'http://localhost:3000'
+            allow-credentials: true
+            allowedHeaders: '*'
+            allowedMethods:
+              - PUT
+              - GET
+              - POST
+              - PATCH
+              - DELETE
+              - OPTIONS
 jwt:
   access-key: TestSecretKey123asdasdadadwadwawdawdadwddwawdadwadawadwdwaawdawdwaddwadwawad
 
