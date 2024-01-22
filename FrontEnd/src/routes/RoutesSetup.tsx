@@ -2,7 +2,6 @@ import { Routes, Route } from 'react-router-dom';
 import Login from '../pages/login/Login';
 import MyPage from '../pages/myPage/MyPage';
 import LoginRedirectPage from '../pages/login/LoginRedirectPage';
-import DailyCard from '../components/molecules/DailyCard';
 
 const RoutesSetup = () => {
   return (
@@ -13,7 +12,6 @@ const RoutesSetup = () => {
       <Route path='/oauth/redirected/naver' element={<LoginRedirectPage oauthProvider={'naver'} />} />
       <Route path='/oauth/redirected/google' element={<LoginRedirectPage oauthProvider={'google'} />} />
       <Route path='*' element={<Login />} />
-      <Route path='/test' element={<DailyCard />} />
     </Routes>
   );
 };
