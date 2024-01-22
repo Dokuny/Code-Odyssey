@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../config/Color';
 import { Spacer } from '../atoms/basic/Spacer';
-import { Body1, Body2, Header2 } from '../atoms/basic/Typography';
+import { Body1, Body2, Header3 } from '../atoms/basic/Typography';
 import IconButton from '../atoms/button/IconButton';
 import { IoIcon } from '../atoms/icon/Icons';
 
@@ -41,6 +41,7 @@ const StyledMyImage = styled.img`
   object-fit: cover;
   border-radius: 5em;
   border: 2px solid ${colors.Gray[700]};
+  box-sizing: border-box;
 `;
 
 const StyledMyInfoContainer = styled.div`
@@ -54,14 +55,14 @@ const StyledMyInfoContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
 `;
 
 const StyledGradeImgContainer = styled.div`
   display: flex;
   justify-content: center;
-  padding-bottom: 1vh;
   overflow: hidden;
+  padding-bottom: 1.5vh;
   width: 2vw;
   max-height: 100%;
   background-image: url('/images/code_odyssey/Gold.svg');
@@ -99,7 +100,7 @@ const MyProfileDetailCard = () => {
         </StyledMyInfoContentContainer>
         <Spacer space={'1vw'} horizontal />
         <StyledGradeImgContainer>
-          <Header2 children={data.class} color={colors.White} fontWeight={'bold'} />
+          <Header3 children={data.class} color={colors.White} fontWeight={'bold'} />
         </StyledGradeImgContainer>
       </StyledMyInfoContainer>
       <Spacer space={'1vh'} />

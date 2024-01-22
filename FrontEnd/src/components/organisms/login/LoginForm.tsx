@@ -3,7 +3,7 @@ import { Spacer } from '../../atoms/basic/Spacer';
 import { Body2 } from '../../atoms/basic/Typography';
 import LoginButton from '../../atoms/button/LoginButton';
 import styled from 'styled-components';
-import LoginLogo from '../../atoms/logo/LoginLogo';
+import LoginLogo from '../../atoms/image/LoginLogo';
 
 const StyledContainer = styled.div`
   box-shadow: 0px 0px 20px ${colors.Gray[600]};
