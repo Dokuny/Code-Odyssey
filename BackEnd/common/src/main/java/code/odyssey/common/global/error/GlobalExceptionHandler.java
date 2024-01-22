@@ -1,5 +1,6 @@
 package code.odyssey.common.global.error;
 
+import code.odyssey.common.domain.guild.exception.GuildException;
 import code.odyssey.common.domain.member.exception.MemberException;
 import code.odyssey.common.global.jwt.exception.JwtException;
 import org.springframework.web.ErrorResponse;
@@ -18,6 +19,12 @@ public class GlobalExceptionHandler {
 	public ErrorResponse memberExceptionHandler(MemberException e) {
 		return ErrorResponse.builder(e, e.getErrorCode().getHttpStatus(), e.getMessage()).build();
 	}
+
+	@ExceptionHandler(GuildException.class)
+	public ErrorResponse guildExceptionHandler(GuildException e) {
+		return ErrorResponse.builder(e, e.getErrorCode().getHttpStatus(), e.getMessage()).build();
+	}
+
 
 
 }
