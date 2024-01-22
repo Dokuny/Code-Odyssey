@@ -81,7 +81,9 @@ public class OAuthService {
 
 	public Tokens refreshToken(TokenRefreshRequest request) {
 
-		String refreshToken = refreshTokenRepository.find(String.valueOf(request.memberId()))
+		Long memberId = jwtTokenProvider.parseAccessTokenByBase64(request.accessToken());
+
+		String refreshToken = refreshTokenRepository.find(String.valueOf(memberId))
 			.orElseThrow(() -> new JwtException(JwtErrorCode.INVALID_TOKEN));
 
 
@@ -89,11 +91,11 @@ public class OAuthService {
 			throw new JwtException(JwtErrorCode.INVALID_TOKEN);
 		}
 
-		String newAccessToken = jwtTokenProvider.issueAccessToken(request.memberId());
+		String newAccessToken = jwtTokenProvider.issueAccessToken(memberId);
 		String newRefreshToken = jwtTokenProvider.issueRefreshToken();
 
 		refreshTokenRepository.delete(request.refreshToken());
-		refreshTokenRepository.save(newRefreshToken, String.valueOf(request.memberId()));
+		refreshTokenRepository.save(newRefreshToken, String.valueOf(memberId));
 
 		return Tokens.builder()
 			.accessToken(newAccessToken)
