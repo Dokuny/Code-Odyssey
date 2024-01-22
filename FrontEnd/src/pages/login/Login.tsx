@@ -13,8 +13,7 @@ const Login = () => {
     const refreshToken = getCookie('refreshToken') as string;
     if (accessToken && refreshToken) {
       const tokenData = await refresh({
-        // accessToken: accessToken,
-        memberId: 2,
+        accessToken: accessToken,
         refreshToken: refreshToken,
       });
       if (tokenData) {
@@ -23,7 +22,7 @@ const Login = () => {
         navigate('/main', { replace: true });
       }
     }
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
     inits();

@@ -9,8 +9,7 @@ export const login = async (code: string, oauthProvider: string) => {
 
 interface RefreshParams {
   refreshToken: string;
-  accessToken?: string;
-  memberId?: number;
+  accessToken: string;
 }
 
 export const refresh = async (params: RefreshParams) => {
