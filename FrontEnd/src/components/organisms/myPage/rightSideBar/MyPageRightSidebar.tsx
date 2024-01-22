@@ -31,16 +31,18 @@ const StyledFriendListContainer = styled.div`
 `;
 
 const MyPageRightSidebar = () => {
+  const [activeFriend, setActiveFriend] = useState<number | null>(null);
   const [data, setData] = useState([
     { src: 'https://picsum.photos/300', member_id: 1, name: 'FriendName1', state: 'started', time: '20 min ago' },
     { src: 'https://picsum.photos/300', member_id: 2, name: 'FriendName2', state: 'started', time: '20 min ago' },
     { src: 'https://picsum.photos/300', member_id: 3, name: 'FriendName3', state: 'started', time: '20 min ago' },
     { src: 'https://picsum.photos/300', member_id: 4, name: 'FriendName4', state: 'started', time: '20 min ago' },
     { src: 'https://picsum.photos/300', member_id: 5, name: 'FriendName5', state: 'started', time: '20 min ago' },
-    { src: 'https://picsum.photos/300', member_id: 5, name: 'FriendName5', state: 'started', time: '20 min ago' },
-    { src: 'https://picsum.photos/300', member_id: 5, name: 'FriendName5', state: 'started', time: '20 min ago' },
-    { src: 'https://picsum.photos/300', member_id: 5, name: 'FriendName5', state: 'started', time: '20 min ago' },
-    { src: 'https://picsum.photos/300', member_id: 5, name: 'FriendName5', state: 'started', time: '20 min ago' },
+    { src: 'https://picsum.photos/300', member_id: 6, name: 'FriendName6', state: 'started', time: '20 min ago' },
+    { src: 'https://picsum.photos/300', member_id: 7, name: 'FriendName7', state: 'started', time: '20 min ago' },
+    { src: 'https://picsum.photos/300', member_id: 8, name: 'FriendName8', state: 'started', time: '20 min ago' },
+    { src: 'https://picsum.photos/300', member_id: 9, name: 'FriendName9', state: 'started', time: '20 min ago' },
+    { src: 'https://picsum.photos/300', member_id: 10, name: 'FriendName10', state: 'started', time: '20 min ago' },
   ]);
 
   return (
@@ -57,8 +59,17 @@ const MyPageRightSidebar = () => {
       <Spacer space={'0.5vh'} />
 
       <StyledFriendListContainer>
+        <MyFriendListCard src={'/images/code_odyssey/plus.svg'} name={''} state={'친구 추가하기'} time={''} key={0} active={activeFriend === 0} event={() => setActiveFriend(0)} />
         {data.map((value) => (
-          <MyFriendListCard src={value.src} name={value.name} state={value.state} time={value.time} key={value.member_id} />
+          <MyFriendListCard
+            src={value.src}
+            name={value.name}
+            state={value.state}
+            time={value.time}
+            key={value.member_id}
+            active={activeFriend === value.member_id}
+            event={() => setActiveFriend(value.member_id)}
+          />
         ))}
       </StyledFriendListContainer>
     </StyledContainer>

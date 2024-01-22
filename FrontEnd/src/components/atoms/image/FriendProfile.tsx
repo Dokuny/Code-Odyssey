@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { colors } from '../../../config/Color';
 
 const StyledContainer = styled.div`
   width: 2.5vmax;
@@ -13,6 +14,7 @@ const StyledImageContainer = styled.div`
 
 const StyledImage = styled.img`
   width: 100%;
+  background-color: ${colors.Gray[400]};
   object-fit: cover;
 `;
 
