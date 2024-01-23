@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import { colors } from '../../config/Color';
-import { Spacer } from '../atoms/basic/Spacer';
 import { Header3 } from './../atoms/basic/Typography';
 import { useState } from 'react';
+import DropDown from '../atoms/select/Dropdown';
+import { Spacer } from './../atoms/basic/Spacer';
 
 const DailyCardDiv = styled.div`
   background-color: ${colors.Gray[500]};
@@ -30,10 +31,11 @@ const Wrapper = styled.form`
   text-align: center;
   box-sizing: border-box;
   width: 100%;
-  padding: 0;
+  padding: 1vh min(3px);
+  padding-top: min(10px);
+
   margin: 0;
   height: 30%;
-  flex-wrap: wrap;
   justify-content: center;
   align-content: space-around;
 `;
@@ -42,30 +44,16 @@ const TextDiv = styled.div`
   height: 30%;
 `;
 
-const Select = styled.select`
-  display: inline-block;
-  text-align: center;
-  width: 40%;
-  font-size: small;
-  margin: 0%;
-  padding: 0;
-  height: 25px;
-  color: ${colors.Gray[300]};
-  background-color: ${colors.Gray[500]};
-  box-shadow: 2px 2px 4px ${colors.Gray[800]};
-  border-radius: 4px;
-`;
-
-const Options = styled.option`
-  display: inline-block;
-  color: ${colors.Gray[300]};
-`;
+interface ValueList {
+  id: number;
+  key: string | number;
+}
 
 interface DailyCardProps {
   day: string;
 }
 
-interface AlgoDataProps {
+interface AlgoDataProps extends ValueList {
   id: number;
   key: string;
   value: string;
@@ -73,23 +61,20 @@ interface AlgoDataProps {
 
 // const DailyCard = (props: DailyCardProps) => {
 const DailyCard = (props: DailyCardProps) => {
-  const categories = [
-    { id: 1, value: 'math' },
-    { id: 2, value: 'DP' },
-    { id: 3, value: 'Brute-Force' },
-  ];
-
   const [srcData, setSrcData] = useState('https://picsum.photos/300');
 
   const [selectCategory, setSelectCategory] = useState('');
-  const categoryChanged = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedCategory = event.target.value;
-    setSelectCategory(selectedCategory);
-    AlgoData.find((element) => {
-      if (element.key === selectedCategory) {
-        setSrcData(element.value);
-      }
-    });
+
+  const categoryChanged = (event: any) => {
+    if (event.target.id === 'category') {
+      const selectedCategory = event.target.value;
+      setSelectCategory(selectedCategory);
+      AlgoData.find((element) => {
+        if (element.key === selectedCategory) {
+          setSrcData(element.value);
+        }
+      });
+    }
   };
 
   const AlgoData: AlgoDataProps[] = [
@@ -98,34 +83,47 @@ const DailyCard = (props: DailyCardProps) => {
     { id: 3, key: 'Brute-Force', value: '/images/code_odyssey/algo_pics/algoPic3.png' },
   ];
 
+  const Levels = [
+    { id: 1, key: 'level1' },
+    { id: 2, key: 'level2' },
+  ];
+
+  const [selectValueLevel, setSelectValueLevel] = useState('난이도');
+  const [selectValueCategory, setSelectValueCategory] = useState('유형');
+
   return (
     <DailyCardDiv>
       <TextDiv>
         <Header3 children={props.day} color={colors.Gray[300]} />
       </TextDiv>
       <ImageStyle src={srcData} alt='AlgoCategoryPic' />
-      <Wrapper id='problem'>
-        <Select id='level'>
-          <Options value='' disabled hidden>
-            난이도
-          </Options>
-          <Options value='level1'>level1</Options>
-          <Options value='level2'>level2</Options>
-        </Select>
-        <Spacer space={'0.5vw'} horizontal />
-        <Select id='category' onChange={categoryChanged} value={selectCategory}>
-          <Options value='' disabled hidden>
-            유형
-          </Options>
-          {categories.map((ele) => (
-            <Options value={ele.value} key={ele.id}>
-              {ele.value}
-            </Options>
-          ))}
-        </Select>
+      <Wrapper id='problem' onChange={categoryChanged}>
+        <DropDown
+          id='levels'
+          setSelectValue={setSelectValueLevel}
+          optionHint={'난이도'}
+          values={Levels}
+          bgColor={colors.Gray[500]}
+          height={'25px'}
+          fontcolor={colors.White}
+          selectedValue={selectValueLevel}
+          width={'50%'}
+        ></DropDown>
+        <Spacer space={'5px'} horizontal></Spacer>
+        <DropDown
+          id={'category'}
+          setSelectValue={setSelectValueCategory}
+          optionHint={'유형'}
+          values={AlgoData}
+          bgColor={colors.Gray[500]}
+          height={'25px'}
+          fontcolor={colors.White}
+          selectedValue={selectValueCategory}
+          width={'50%'}
+        ></DropDown>
       </Wrapper>
+      <Spacer space={'3vw'} horizontal></Spacer>
     </DailyCardDiv>
   );
 };
-
 export default DailyCard;
