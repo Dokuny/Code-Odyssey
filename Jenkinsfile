@@ -17,8 +17,8 @@ pipeline {
                     // 변경된 브랜치와 머지 대상 브랜치 출력
                     // 현재 빌드 중인 브랜치명 확인
                     def currentBranch = env.BRANCH_NAME
-                    echo "Merge Target Branch : ${CHANGE_TARGET}"
-                    echo "Current Branch: ${currentBranch}"
+                    echo "Merge Target Branch : \${CHANGE_TARGET}"
+                    echo "Current Branch: \${currentBranch}"
 
                     echo "test1"
                     
