@@ -2,6 +2,9 @@ package code.odyssey.common.domain.guild.service;
 
 import code.odyssey.common.domain.guild.entity.Guild;
 import code.odyssey.common.domain.guild.entity.GuildApplication;
+import code.odyssey.common.domain.guild.entity.GuildMember;
+import code.odyssey.common.domain.guild.enums.GuildApplicationResult;
+import code.odyssey.common.domain.guild.enums.GuildRole;
 import code.odyssey.common.domain.guild.exception.GuildException;
 import code.odyssey.common.domain.guild.repository.GuildApplicationRepository;
 import code.odyssey.common.domain.guild.repository.GuildMemberRepository;
@@ -14,6 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import static code.odyssey.common.domain.guild.enums.GuildApplicationResult.WAIT;
+import static code.odyssey.common.domain.guild.enums.GuildRole.MASTER;
+import static code.odyssey.common.domain.guild.enums.GuildRole.MEMBER;
 import static code.odyssey.common.domain.guild.exception.GuildErrorCode.*;
 import static code.odyssey.common.domain.member.exception.MemberErrorCode.NOT_EXISTS_MEMBER;
 
@@ -41,7 +46,8 @@ public class GuildApplyService {
 
 
         // 길드 멤버가 아니여야 함
-        if (guildMemberRepository.checkMemberIsInGuild(guildId, memberId)) {
+
+        if (guildMemberRepository.findByMemberInGuild(guildId, memberId).isPresent()) {
             throw new GuildException(ALREADY_JOINED_GUILD);
         }
 
@@ -56,7 +62,39 @@ public class GuildApplyService {
                 .member(member)
                 .result(WAIT)
                 .build()).getId();
-
     }
+
+    public void acceptApplication(Long applicationId, Long memberId) {
+        GuildApplication application = guildApplicationRepository.findById(applicationId)
+                .filter(a -> WAIT.equals(a.getResult()))
+                .orElseThrow(() -> new GuildException(NOT_EXISTS_APPLICATION));
+
+        // 요청자가 길드 마스터인지 확인
+        guildMemberRepository.findByMemberInGuild(application.getGuild().getId(), memberId)
+                .filter(gm -> MASTER.equals(gm.getRole()))
+                .orElseThrow(() -> new GuildException(NO_AUTHENTICATION));
+
+        application.accept();
+
+        // 길드원으로 등록
+        guildMemberRepository.save(GuildMember.builder()
+                .member(application.getMember())
+                .guild(application.getGuild())
+                .role(MEMBER)
+                .build());
+    }
+
+    public void rejectApplication(Long applicationId, Long memberId) {
+        GuildApplication application = guildApplicationRepository.findById(applicationId)
+                .filter(a -> WAIT.equals(a.getResult()))
+                .orElseThrow(() -> new GuildException(NOT_EXISTS_APPLICATION));
+
+        guildMemberRepository.findByMemberInGuild(application.getGuild().getId(), memberId)
+                .filter(gm -> MASTER.equals(gm.getRole()))
+                .orElseThrow(() -> new GuildException(NO_AUTHENTICATION));
+
+        application.reject();
+    }
+
 
 }

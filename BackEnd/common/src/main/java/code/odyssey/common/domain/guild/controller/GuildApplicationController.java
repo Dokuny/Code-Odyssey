@@ -20,4 +20,22 @@ public class GuildApplicationController {
     ) {
         return ResponseEntity.ok(guildApplyService.applyGuild(memberId, guildId));
     }
+
+    @GetMapping("/{applicationId}/accept")
+    public ResponseEntity<Void> acceptApplication(
+            @RequestHeader("X-Authorization-Id") Long memberId,
+            @PathVariable Long applicationId
+    ) {
+        guildApplyService.acceptApplication(applicationId, memberId);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{applicationId}/reject")
+    public ResponseEntity<Void> rejectApplication(
+            @RequestHeader("X-Authorization-Id") Long memberId,
+            @PathVariable Long applicationId
+    ) {
+        guildApplyService.rejectApplication(applicationId, memberId);
+        return ResponseEntity.ok().build();
+    }
 }
