@@ -3,7 +3,6 @@ import { colors } from '../../../config/Color';
 import GuildLeftSidebar from '../../organisms/guild/leftSideBar/GuildLeftSidebar';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import GuildRightSidebar from '../../organisms/guild/rightSideBar/GuildRightSidebar';
-import GuildMain from '../../organisms/guild/main/GuildSprint';
 import GuildFind from '../../organisms/guild/main/GuildFind';
 import GuildAdd from '../../organisms/guild/main/GuildAdd';
 import GuildProfile from '../../organisms/guild/main/GuildProfile';
