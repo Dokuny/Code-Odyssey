@@ -3,8 +3,6 @@ package code.odyssey.common.domain.guild.service;
 import code.odyssey.common.domain.guild.entity.Guild;
 import code.odyssey.common.domain.guild.entity.GuildApplication;
 import code.odyssey.common.domain.guild.entity.GuildMember;
-import code.odyssey.common.domain.guild.enums.GuildApplicationResult;
-import code.odyssey.common.domain.guild.enums.GuildRole;
 import code.odyssey.common.domain.guild.exception.GuildException;
 import code.odyssey.common.domain.guild.repository.GuildApplicationRepository;
 import code.odyssey.common.domain.guild.repository.GuildMemberRepository;
@@ -95,6 +93,7 @@ public class GuildApplyService {
 
         application.reject();
     }
+
 
 
 }
