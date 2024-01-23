@@ -20,7 +20,7 @@ pipeline {
                     echo "Merge Target Branch : \${CHANGE_TARGET}"
                     echo "Current Branch: \${currentBranch}"
 
-                    echo "test12"
+                    echo "프론트엔드입니다."
                     
                     // 여기에 빌드 스텝 추가
                 }
