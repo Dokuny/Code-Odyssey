@@ -15,8 +15,12 @@ pipeline {
             steps {
                 script {
                     // 변경된 브랜치와 머지 대상 브랜치 출력
-                    echo "Changed Branch: \${CHANGE_BRANCH}"
-                    echo "Merge Target Branch: \${CHANGE_TARGET}"
+                    // 현재 빌드 중인 브랜치명 확인
+                    def currentBranch = env.BRANCH_NAME
+                    echo "Merge Target Branch : ${CHANGE_TARGET}"
+                    echo "Current Branch: ${currentBranch}"
+
+                    echo "test1"
                     
                     // 여기에 빌드 스텝 추가
                 }
