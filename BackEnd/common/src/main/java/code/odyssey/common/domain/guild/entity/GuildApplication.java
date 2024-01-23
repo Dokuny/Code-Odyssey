@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+import static code.odyssey.common.domain.guild.enums.GuildApplicationResult.ACCEPT;
+import static code.odyssey.common.domain.guild.enums.GuildApplicationResult.REJECT;
 import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -38,5 +40,13 @@ public class GuildApplication extends BaseEntity {
     @Enumerated(STRING)
     @Column
     private GuildApplicationResult result;
+
+    public void accept() {
+        this.result = ACCEPT;
+    }
+
+    public void reject() {
+        this.result = REJECT;
+    }
 
 }

@@ -1,6 +1,10 @@
 package code.odyssey.common.domain.guild.repository;
 
+import code.odyssey.common.domain.guild.entity.GuildMember;
+
+import java.util.Optional;
+
 public interface GuildMemberRepositoryCustom {
 
-    boolean checkMemberIsInGuild(Long guildId, Long memberId);
+    Optional<GuildMember> findByMemberInGuild(Long guildId, Long memberId);
 }
