@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Code Odessey Code Crawling Extension",
+  "name": "Code Odyssey Code Crawling Extension",
   "version": "1.0",
-  "description": "Code Odessey problem crawling extension",
+  "description": "Code Odyssey problem crawling extension",
   "icons": {
     "16": "thumbnail.png"
   },
@@ -14,7 +14,6 @@
     "service_worker": "background.js",
     "type": "module"
   },
-  "permissions": ["unlimitedStorage", "storage"],
   "host_permissions": [
     "https://school.programmers.co.kr/",
     "https://swexpertacademy.com/",
