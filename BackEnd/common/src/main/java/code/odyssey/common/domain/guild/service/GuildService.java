@@ -14,9 +14,11 @@ import code.odyssey.common.domain.member.exception.MemberException;
 import code.odyssey.common.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @RequiredArgsConstructor
+@Transactional
 @Service
 public class GuildService {
 

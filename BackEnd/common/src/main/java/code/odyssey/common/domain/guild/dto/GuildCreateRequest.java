@@ -29,6 +29,9 @@ public record GuildCreateRequest(
         return Guild.builder()
                 .name(name)
                 .image(image)
+                .language(language)
+                .problemCapacity(problemCapacity)
+                .difficulty(difficulty)
                 .introduction(introduction)
                 .capacity(capacity)
                 .build();
