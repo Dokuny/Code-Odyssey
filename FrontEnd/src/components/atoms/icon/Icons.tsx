@@ -43,6 +43,7 @@ export const FiIcon = (props: IconProps) => {
 export const FaIcon = (props: IconProps) => {
   const icons: { [key: string]: React.ElementType } = {
     brush: FA.FaBrush,
+    star: FA.FaStar,
     // 다른 아이콘들도 필요에 따라 추가 가능
   };
 
