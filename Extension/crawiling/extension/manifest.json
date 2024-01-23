@@ -1,0 +1,46 @@
+{
+  "manifest_version": 3,
+  "name": "Code Odessey Code Crawling Extension",
+  "version": "1.0",
+  "description": "Code Odessey problem crawling extension",
+  "icons": {
+    "16": "thumbnail.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "thumbnail.png"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "permissions": ["unlimitedStorage", "storage"],
+  "host_permissions": [
+    "https://school.programmers.co.kr/",
+    "https://swexpertacademy.com/",
+    "https://www.acmicpc.net/",
+    "https://solved.ac/api/v3/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://www.acmicpc.net/problem/*"],
+      "js": ["scripts/baekjoon/problem.js"]
+    },
+    {
+      "matches": [
+        "https://swexpertacademy.com/main/code/problem/problemDetail.do?*"
+      ],
+      "js": ["scripts/swea/problem.js"]
+    },
+    {
+      "matches": [
+        "https://school.programmers.co.kr/learn/courses/30/lessons/*"
+      ],
+      "js": ["scripts/programmers/problem.js"]
+    },
+    {
+      "matches": ["https://www.acmicpc.net/problemset/*"],
+      "js": ["scripts/baekjoon/get-list.js"]
+    }
+  ]
+}
