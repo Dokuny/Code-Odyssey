@@ -9,5 +9,4 @@ public interface GuildMemberRepository extends JpaRepository<GuildMember, Long>,
 
     @Query("select count(gm.id) from GuildMember gm where gm.member.id = :memberId and gm.resigned_at is null")
     Long countJoinGuild(@Param("memberId") Long memberId);
-
 }
