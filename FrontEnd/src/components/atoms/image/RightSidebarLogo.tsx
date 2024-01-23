@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 const StyledImageContainer = styled.div`
   display: flex;
-  overflow: hidden;
 `;
 
 const StyledImage = styled.img`
