@@ -19,7 +19,7 @@ export const MyResponsiveRadar = (props: MyResponsiveRadarProps) => {
       animate={false}
       gridLabelOffset={12}
       gridShape='linear'
-      theme={{ text: { fill: colors.Gray[300] } }}
+      theme={{ text: { fill: colors.Gray[300], fontSize: '0.6em' } }}
     />
   );
 };
