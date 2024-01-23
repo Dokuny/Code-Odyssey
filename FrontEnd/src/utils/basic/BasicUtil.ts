@@ -8,3 +8,8 @@
 export const AddComma = (number: number): string => {
   return number.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
 };
+
+export const NowYear = (): number => {
+  const currentYear = new Date().getFullYear();
+  return currentYear;
+};
