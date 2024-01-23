@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 import { colors } from '../../../config/Color';
+import { Dispatch, SetStateAction, useState } from 'react';
+import MusicBot from '../../organisms/myPage/main/MusicBot';
+import SolveProblem from '../../organisms/myPage/main/SolveProblem';
+import SettingSprint from '../../organisms/myPage/main/SettingSprint';
 import MypageLeftSidebar from '../../organisms/myPage/leftSideBar/MypageLeftSidebar';
 import MyPageMain from '../../organisms/myPage/main/MyPageMain';
 import MyPageRightSidebar from '../../organisms/myPage/rightSideBar/MyPageRightSidebar';
@@ -41,14 +45,24 @@ const StyledRightSidebar = styled.div`
   background-color: ${colors.Gray[900]};
 `;
 
-const MyPageTemplate = () => {
+interface MyPageTemplateProps {
+  GuildSelectProps: { guildListIndex: number; setGuildListIndex: Dispatch<SetStateAction<number>> };
+}
+
+const MyPageTemplate = (props: MyPageTemplateProps) => {
+  const [activeMenuIndex, setActiveMenuIndex] = useState(0);
+  const GuildSelectProps = props.GuildSelectProps;
+
   return (
     <StyledContainer>
       <StyledLeftSidebar>
-        <MypageLeftSidebar />
+        <MypageLeftSidebar MyMenuProps={{ activeIndex: activeMenuIndex, setActiveIndex: setActiveMenuIndex }} MyGuildListProps={GuildSelectProps} />
       </StyledLeftSidebar>
       <StyledMain>
-        <MyPageMain />
+        {activeMenuIndex === 0 && <MyPageMain />}
+        {activeMenuIndex === 1 && <MusicBot />}
+        {activeMenuIndex === 2 && <SolveProblem />}
+        {activeMenuIndex === 3 && <SettingSprint />}
       </StyledMain>
       <StyledRightSidebar>
         <MyPageRightSidebar />

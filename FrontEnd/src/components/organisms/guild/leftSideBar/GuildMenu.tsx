@@ -33,19 +33,17 @@ interface MyMenuProps {
   setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const MyMenu = (props: MyMenuProps) => {
+const GuildMenu = (props: MyMenuProps) => {
   const MenuList = [
-    { content: '내 프로필', event: () => props.setActiveIndex(0), active: props.activeIndex === 0, icon: 'compass' },
-    { content: '노래봇', event: () => props.setActiveIndex(1), active: props.activeIndex === 1, icon: 'music' },
-    { content: '문제 풀기', event: () => props.setActiveIndex(2), active: props.activeIndex === 2, icon: 'game' },
-    { content: '스프린트 관리', event: () => props.setActiveIndex(3), active: props.activeIndex === 3, icon: 'map' },
+    { content: '길드 찾기', event: () => props.setActiveIndex(0), active: props.activeIndex === 0, icon: 'compass' },
+    { content: '길드 추가', event: () => props.setActiveIndex(1), active: props.activeIndex === 1, icon: 'music' },
   ];
 
   return (
     <StyledContainer>
       <StyledContentContainer>
-        <Header3 children={"Dokuny's"} color={colors.Gray[200]} fontWeight={'bold'} />
-        <Body1 children={'항해일지'} color={colors.Gray[300]} />
+        <Header3 children={'선착장'} color={colors.Gray[200]} fontWeight={'bold'} />
+        <Body1 children={'동료를 모아보세요'} color={colors.Gray[300]} />
       </StyledContentContainer>
       <StyledContentContainer>
         {MenuList.map((value, index) => (
@@ -69,4 +67,4 @@ const MyMenu = (props: MyMenuProps) => {
   );
 };
 
-export default MyMenu;
+export default GuildMenu;

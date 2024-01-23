@@ -33,12 +33,12 @@ interface MyMenuProps {
   setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const MyMenu = (props: MyMenuProps) => {
+const GuildDetailMenu = (props: MyMenuProps) => {
   const MenuList = [
-    { content: '내 프로필', event: () => props.setActiveIndex(0), active: props.activeIndex === 0, icon: 'compass' },
-    { content: '노래봇', event: () => props.setActiveIndex(1), active: props.activeIndex === 1, icon: 'music' },
-    { content: '문제 풀기', event: () => props.setActiveIndex(2), active: props.activeIndex === 2, icon: 'game' },
-    { content: '스프린트 관리', event: () => props.setActiveIndex(3), active: props.activeIndex === 3, icon: 'map' },
+    { content: '내 프로필', event: () => props.setActiveIndex(2), active: props.activeIndex === 2, icon: 'compass' },
+    { content: '스프린트', event: () => props.setActiveIndex(3), active: props.activeIndex === 3, icon: 'map' },
+    { content: '같이 풀기', event: () => props.setActiveIndex(4), active: props.activeIndex === 4, icon: 'music' },
+    { content: '크루원', event: () => props.setActiveIndex(5), active: props.activeIndex === 5, icon: 'game' },
   ];
 
   return (
@@ -69,4 +69,4 @@ const MyMenu = (props: MyMenuProps) => {
   );
 };
 
-export default MyMenu;
+export default GuildDetailMenu;
