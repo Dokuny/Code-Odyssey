@@ -1,3 +1,11 @@
+// https://www.acmicpc.net/problem/1022 // 테이블
+// https://www.acmicpc.net/problem/7873 // 이미지 여러개
+// https://www.acmicpc.net/problem/1015 // 입출력 여러개
+
+// https://www.acmicpc.net/problem/14890 // 힌트- 이미지
+
+// https://www.acmicpc.net/problem/1042 // 출력 예시 있을 경우
+
 
 // 문제 번호
 const num = document.querySelector(
@@ -107,28 +115,49 @@ const output = problemBody[2].innerHTML
 
 let description = descriptionContent + input + output
 
+const sampleInput = document.querySelector("#sample-input-1").innerHTML.replaceAll(/\n/g, '<br>');
+const sampleOutput = document.querySelector("#sample-output-1").innerHTML.replaceAll(/\n/g, '<br>');
+
+
+description += "<div> <br><strong>[입력예시]</strong><br>" + sampleInputs  + "</div> <div> <br><strong>[출력예시]</strong><br>" + sampleOutputs + "</div>"
+
+// 출력 예시 있을 경우
+const outputSample = document.querySelector("#problem_sample_explain_1");
+if(outputSample){
+  description += outputSample.innerHTML
+}
+// 힌트 있을 경우
 const hint = document.querySelector("#problem_hint");
 if(hint){
-  description = description + hint.innerHTML
+  description = description + "<div> <br><strong>[힌트]</strong><br>" + hint.innerHTML + "</div>"
 }
 // description : 현재 저장될 때 자동으로 JSON.stringfy 되어서 객체에 저장됨.
 // 파싱 데이터 확인하니 그대로 나옴.
 
+const tempBody = document.querySelector("#problem-body").innerHTML;
+let parser = new DOMParser();
+let doc = parser.parseFromString(tempBody, 'text/html');
+
+let buttons = doc.querySelectorAll("button")
+buttons.forEach(function(button) {
+  button.remove();
+});
+
+let problemBody1 = doc.documentElement.innerHTML.replaceAll(/\n/g, '<br>');
 
 const problemContent = document.querySelector("#problem-body").innerHTML;
-console.log(problemContent)
 const problemData = {
-  url,
-  num,
-  title,
-  time,
-  memory,
-  difficulty,
-  description,
+  url, // 문제 링크
+  num, // 번호
+  title, // 제목
+  time, // 시간제한
+  memory, // 메모리제한
+  difficulty, // 난이도
+  "description" : problemBody1, // 문제설명
   // 
-  sampleInputs,
-  sampleOutputs,
-  categories,
+  sampleInput, // 입력예시 : 첫번째만 가져오게 설정
+  sampleOutput, // 출력예시 : 첫번째만 가져오게 설정
+  categories, // 유형
   // problemContent
 };
 
@@ -136,9 +165,9 @@ console.log(problemData)
 // window.localStorage.setItem("problemData", JSON.stringify(problemData));
 
 // 1. Send a message to the service worker requesting the user's data
-chrome.runtime.sendMessage('get-user-data', (response) => {
-  // 3. Got an asynchronous response with the data from the service worker
-  console.log('received user data', response);
-  initializeUI(response);
-});
-window.close();
+// chrome.runtime.sendMessage('get-user-data', (response) => {
+//   // 3. Got an asynchronous response with the data from the service worker
+//   console.log('received user data', response);
+//   initializeUI(response);
+// });
+// window.close();
