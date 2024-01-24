@@ -68,7 +68,7 @@ pipeline {
             steps {
                 script {
                     // SSH Agent 설정
-                    sshagent(credentials: [ORACLE_1_CREDENTIAL]) {
+                    sshagent(credentials: ['ORACLE_1_CREDENTIAL']) {
                         // 원격 호스트에 SSH로 접속하여 Docker 이미지를 pull 및 실행
                         sh """
                             ssh user@${REMOTE_HOST} 'docker pull \${repository}:FE_\${BUILD_NUMBER}'
