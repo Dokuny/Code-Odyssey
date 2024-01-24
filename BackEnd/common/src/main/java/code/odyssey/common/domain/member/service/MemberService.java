@@ -8,7 +8,9 @@ import code.odyssey.common.domain.member.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Transactional
@@ -32,6 +34,23 @@ public class MemberService {
     public Long resignMember(Long memberId) {
         memberRepository.deleteById(memberId);
         return memberId;
+    }
+
+    public List<MemberInfo> findByNicknameOrEmail(String nickname, String email) {
+        List<Member> members = memberRepository.findByNicknameOrEmail(nickname, email);
+
+        if (members.isEmpty()) {
+            throw new MemberException(MemberErrorCode.NOT_EXISTS_MEMBER);
+        }
+
+        return members.stream()
+                .map(member -> MemberInfo.builder()
+                        .id(member.getId())
+                        .nickname(member.getNickname())
+                        .email(member.getEmail())
+                        .thumbnail(member.getThumbnail())
+                        .build())
+                .collect(Collectors.toList());
     }
 
 }
