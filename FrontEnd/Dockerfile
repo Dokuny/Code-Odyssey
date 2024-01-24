@@ -6,12 +6,12 @@ COPY . ./
 RUN npm install 
 RUN npm run build 
 
+# Final build stage
+FROM amd64/nginx:latest
+RUN [ ! -d /etc/nginx/conf.d ] && mkdir -p /etc/nginx/conf.d
 
-FROM nginx:latest 
-RUN rm -rf /etc/nginx/conf.d 
+COPY --from=builder /app/build /usr/share/nginx/html
 COPY conf /etc/nginx
-COPY --from=builder ./build /usr/share/nginx/html 
 
-
-EXPOSE 80 
+EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
