@@ -19,7 +19,7 @@ pipeline {
         stage('Build FE Image') {
             steps {
                 script {
-                    dockerImage = docker.build("${repository}:${BUILD_NUMBER}")
+                    dockerImage = docker.build("${repository}:${BUILD_NUMBER}", "-f FrontEnd/Dockerfile")
                 }
             }
         }
