@@ -71,8 +71,10 @@ pipeline {
                     sshagent(credentials: ['ORACLE_1_CREDENTIAL']) {
                         // 원격 호스트에 SSH로 접속하여 Docker 이미지를 pull 및 실행
                         sh """
-                            ssh user@${REMOTE_HOST} 'docker pull \${repository}:FE_\${BUILD_NUMBER}'
-                            ssh user@${REMOTE_HOST} 'docker run -d -p 80:80 \${repository}:FE_\${BUILD_NUMBER}'
+                            ssh -o StrictHostKeyChecking=no ubuntu@152.67.210.191'
+                            docker pull \${repository}:FE_\${BUILD_NUMBER}
+                            docker run -d -p 80:80 \${repository}:FE_\${BUILD_NUMBER}
+                            '
                         """
                     }
                 }
