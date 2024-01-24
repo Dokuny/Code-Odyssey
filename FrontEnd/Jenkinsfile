@@ -1,7 +1,5 @@
-
-
 pipeline {
-    environment{
+    environment {
         repository = "1w2k/code-odyssesy"
         DOCKERHUB_CREDENTIALS = credentials('docker_credentials')
         dockerImage = ''
@@ -18,26 +16,35 @@ pipeline {
             }
         }
 
-        stage('Builde FE Image'){
-            steps{
-                dockerImage = docker.build repository + ":$BUILD_NUMBER"
-            }
-        }
-        stage('Login'){
-            steps{
-                sh "echo $DOCKERHUB_CREDNETIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
-            }
-        }
-        stage('Push FE Image to Docker Hub'){
-            steps{
-                script{
-                    sh "docker push $repository:$BUILD_NUMBER"
+        stage('Build FE Image') {
+            steps {
+                script {
+                    dockerImage = docker.build("${repository}:${BUILD_NUMBER}")
                 }
             }
         }
-        stage('Clean FE Image'){
-            steps{
-                sh "docker rmi $repository:$BUILD_NUMBER"
+
+        stage('Login') {
+            steps {
+                script {
+                    sh "echo \${DOCKERHUB_CREDENTIALS_PSW} | docker login -u \${DOCKERHUB_CREDENTIALS_USR} --password-stdin"
+                }
+            }
+        }
+
+        stage('Push FE Image to Docker Hub') {
+            steps {
+                script {
+                    sh "docker push \${repository}:\${BUILD_NUMBER}"
+                }
+            }
+        }
+
+        stage('Clean FE Image') {
+            steps {
+                script {
+                    sh "docker rmi \${repository}:\${BUILD_NUMBER}"
+                }
             }
         }
 
@@ -51,7 +58,7 @@ pipeline {
                     echo "Current Branch: \${currentBranch}"
 
                     echo "프론트엔드입니다."
-                    
+
                     // 여기에 빌드 스텝 추가
                 }
             }
