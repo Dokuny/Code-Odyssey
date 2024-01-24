@@ -37,5 +37,14 @@ public class ScoreController {
         return ResponseEntity.ok(stype);
     }
 
+    // 개인 전체 랭킹 조회
+    @GetMapping("/rank")
+    public ResponseEntity<Long> getMyRank(
+            @RequestHeader("X-Authorization-Id") Long memberId
+    ) {
+        Long rank = scoreService.getMyRank(memberId);
+        return ResponseEntity.ok(rank);
+    }
+
 
 }

@@ -20,14 +20,9 @@ public class ScoreService {
                 .orElseThrow(() -> new ScoreException(ScoreErrorCode.NO_AVAILABLE_SCORES));
     }
 
-    // 푼 문제 수 조회
-
-    // 스트릭 달성 수 조회
-
-    // 유저 티어 조회
-
-    // 페널티
-
-    // 개인 점수 구하기
+    // 랭크 조회
+    public Long getMyRank (Long memberId) {
+        return scoreRepository.getMyRank(memberId);
+    }
 
 }

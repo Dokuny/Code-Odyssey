@@ -20,19 +20,19 @@ public class Score {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @Column
-    private int numSolvedProblems;
+    @Column(name = "num_solved_problems")
+    private Integer numSolvedProblems;
 
     @Column
-    private int streak;
+    private Integer streak;
 
     @Column
-    private int tier;
+    private Integer tier;
 
     @Column
-    private int penalty;
+    private Integer penalty;
 
-    @Column
-    private int ranking_score;
+    @Column(name = "ranking_score")
+    private Integer rankingScore;
 
 }

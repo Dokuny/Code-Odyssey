@@ -24,38 +24,38 @@ public class ScoreType {
     private Member member;
 
     @Column
-    private int simulation;
+    private Integer simulation;
 
     @Column
-    private int dataStructure;
+    private Integer dataStructure;
 
     @Column
-    private int graph;
+    private Integer graph;
 
     @Column
-    private int string;
+    private Integer string;
 
     @Column
-    private int bruteForce;
+    private Integer bruteForce;
 
     @Column
-    private int tree;
+    private Integer tree;
 
     @Column
-    private int adhoc;
+    private Integer adhoc;
 
     @Column
-    private int dp;
+    private Integer dp;
 
     @Column
-    private int shortestPath;
+    private Integer shortestPath;
 
     @Column
-    private int twoPointer;
+    private Integer twoPointer;
 
     @Column
-    private int greedy;
+    private Integer greedy;
 
     @Column
-    private int math;
+    private Integer math;
 }
