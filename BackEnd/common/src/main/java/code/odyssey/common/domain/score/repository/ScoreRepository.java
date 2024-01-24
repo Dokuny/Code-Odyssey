@@ -15,21 +15,10 @@ public interface ScoreRepository extends JpaRepository<Score, Long> {
     @Query("select s from Score s where s.member.id = :memberId")
     Optional<Score> findStatsByMemberId(@Param("memberId") Long memberId);
 
-    // 푼 문제 수 조회
-//    @Query("select s.numSolvedProblems from Score s where s.member.id = :memberId")
-//    int findNumSolvedProblems(@Param("memberId") Long memberId);
-
-    // 스트릭 달성 수 조회
-//    @Query("select s.streak from Score s where s.member.id = :memberId")
-//    int findStreaks(@Param("memberId") Long memberId);
-
-    // 유저 티어 조회
-
-    // 페널티
-
-    // 개인 점수 구하기
-
-    // 유저 티어 계산
+    // 랭크 조회
+    @Query("SELECT COUNT(s) + 1 FROM Score s " +
+            "WHERE s.rankingScore > (SELECT s2.rankingScore FROM Score s2 WHERE s2.member.id = :memberId)")
+    Long getMyRank(@Param("memberId") Long memberId);
 
 
 }

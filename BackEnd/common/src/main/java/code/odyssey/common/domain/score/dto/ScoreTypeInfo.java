@@ -5,18 +5,18 @@ import lombok.Builder;
 
 @Builder
 public record ScoreTypeInfo(
-        int simulation,
-        int dataStructure,
-        int graph,
-        int string,
-        int bruteForce,
-        int tree,
-        int adhoc,
-        int dp,
-        int shortestPath,
-        int twoPointer,
-        int greedy,
-        int math
+        Integer simulation,
+        Integer dataStructure,
+        Integer graph,
+        Integer string,
+        Integer bruteForce,
+        Integer tree,
+        Integer adhoc,
+        Integer dp,
+        Integer shortestPath,
+        Integer twoPointer,
+        Integer greedy,
+        Integer math
 
 ) {
 
