@@ -33,7 +33,7 @@ const SolveProblem = () => {
         }
       />
       <Spacer space={'3vmin'} />
-      <BasicTable tableData={tableData} setSelectData={setSelectProblem} percentData={percentData} />
+      <BasicTable tableData={tableData} setSelectData={setSelectProblem} percentData={percentData} color={colors.Gray[600]} />
       <Body1 children={selectProblem?.id} color={colors.Gray[300]} />
     </>
   );
