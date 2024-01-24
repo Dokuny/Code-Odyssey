@@ -3,7 +3,6 @@ pipeline {
         repository = "1w2k/code-odyssesy"
         DOCKERHUB_CREDENTIALS = credentials('docker_credentials')
         dockerImage = ''
-        TARGET_HOST = "ubuntu@152.67.210.191"
     }
     agent any
 
@@ -71,7 +70,7 @@ pipeline {
                     continueOnError: true, failOnError: false,
                     publishers: [
                         sshPublisherDesc(
-                            configName: "ORACLE_SERVER_1",
+                            configName: "SSAFY_EC2",
                             verbose: true,
                             transfers: [
                                 sshTransfer(execCommand: "docker kill \$(docker ps | grep mize | tr ' ' '\t' | cut -f1)"),
@@ -89,7 +88,7 @@ pipeline {
                     continueOnError: false, failOnError: true,
                     publishers: [
                         sshPublisherDesc(
-                            configName: "ORACLE_SERVER_1",
+                            configName: "SSAFY_EC2",
                             verbose: true,
                             transfers: [
                                 sshTransfer(execCommand: "docker pull " + repository +":FE$BUILD_NUMBER"),
