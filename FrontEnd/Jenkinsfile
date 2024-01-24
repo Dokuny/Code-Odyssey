@@ -63,8 +63,7 @@ pipeline {
                 }
             }
         }
-    }
-     stages {
+
         stage('FE Image Deploy') {
             steps {
                 script {
@@ -80,4 +79,6 @@ pipeline {
             }
         }
     }
+    
+    
 }
