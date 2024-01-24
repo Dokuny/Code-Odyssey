@@ -6,4 +6,5 @@ export const colors = {
   Naver: { 500: '#03C75A', 800: '#00873C' },
   White: '#FFF',
   Black: '#000',
+  Puple: '#BB86FC'
 };
