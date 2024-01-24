@@ -73,8 +73,8 @@ pipeline {
                             configName: "SSAFY_EC2",
                             verbose: true,
                             transfers: [
-                                sshTransfer(execCommand: "docker kill \$(docker ps | grep mize | tr ' ' '\t' | cut -f1)"),
-                                sshTransfer(execCommand: "docker system prune -af")
+                                sshTransfer(execCommand: "sudo docker kill \$(docker ps | grep mize | tr ' ' '\t' | cut -f1)"),
+                                sshTransfer(execCommand: "sudo docker system prune -af")
                             ]
                         )
                     ]
@@ -91,8 +91,8 @@ pipeline {
                             configName: "SSAFY_EC2",
                             verbose: true,
                             transfers: [
-                                sshTransfer(execCommand: "docker pull " + repository +":FE$BUILD_NUMBER"),
-                                sshTransfer(execCommand: "docker run -d -p 80:80 " + repository +":FE$BUILD_NUMBER")
+                                sshTransfer(execCommand: "sudo docker pull " + repository +":FE$BUILD_NUMBER"),
+                                sshTransfer(execCommand: "sudo docker run -d -p 80:80 " + repository +":FE$BUILD_NUMBER")
                             ]
                         )
                     ]
