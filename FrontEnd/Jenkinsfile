@@ -19,7 +19,7 @@ pipeline {
         stage('Build FE Image') {
             steps {
                 script {
-                    dockerImage = docker.build("${repository}:${BUILD_NUMBER}", "-f FrontEnd/Dockerfile ./FrontEnd")
+                    dockerImage = docker.build("${repository}:FE_${BUILD_NUMBER}", "-f FrontEnd/Dockerfile ./FrontEnd")
                 }
             }
         }
@@ -35,7 +35,7 @@ pipeline {
         stage('Push FE Image to Docker Hub') {
             steps {
                 script {
-                    sh "docker push \${repository}:\${BUILD_NUMBER}"
+                    sh "docker push \${repository}:FE_\${BUILD_NUMBER}"
                 }
             }
         }
@@ -43,7 +43,7 @@ pipeline {
         stage('Clean FE Image') {
             steps {
                 script {
-                    sh "docker rmi \${repository}:\${BUILD_NUMBER}"
+                    sh "docker rmi \${repository}:FE_\${BUILD_NUMBER}"
                 }
             }
         }
