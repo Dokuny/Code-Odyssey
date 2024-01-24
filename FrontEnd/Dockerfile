@@ -1,4 +1,4 @@
-FROM node:18.14.2 as builder 
+FROM amd64/node:18.14.2 as builder 
 WORKDIR ./
 ENV PATH ./node_modules/.bin:$PATH 
 
