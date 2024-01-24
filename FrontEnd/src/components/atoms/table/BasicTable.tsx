@@ -3,10 +3,24 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../../config/Color';
 import { FaIcon } from '../icon/Icons';
+import { Body1 } from '../basic/Typography';
+import { Spacer } from '../basic/Spacer';
+
+const StyledContainer = styled.div<{ color: string }>`
+  display: flex;
+  padding: 2vmin;
+  background-color: ${(props) => props.color};
+  border-radius: 2em;
+  box-sizing: border-box;
+  flex-direction: column;
+`;
+
+const StyledTitleContainer = styled.div`
+  display: flex;
+  padding-bottom: 1vmin;
+`;
 
 const StyledTable = styled.table`
-  width: 100%;
-  background-color: ${colors.GrayBlue[800]};
   font-size: 0.8em;
   border-radius: 2em;
   box-sizing: border-box;
@@ -54,6 +68,7 @@ interface BasicTableProps {
   tableData: any;
   setSelectData: React.Dispatch<any>;
   percentData: String[];
+  color?: string;
 }
 
 const BasicTable = (props: BasicTableProps) => {
@@ -82,40 +97,46 @@ const BasicTable = (props: BasicTableProps) => {
   };
 
   return (
-    <StyledTable>
-      <StyledThead>
-        {table.getHeaderGroups().map((headerGroup) => (
-          <tr key={headerGroup.id}>
-            {headerGroup.headers.map((header) => (
-              <StyledTh key={header.id} style={{ width: header.getSize(), cursor: header.column.getCanSort() ? 'pointer' : 'default' }} onClick={header.column.getToggleSortingHandler()}>
-                <StyledHeaderContainer>
-                  {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                  {{ asc: <FaIcon name='sortup' size={'1em'} />, desc: <FaIcon name='sortdown' size={'1em'} /> }[header.column.getIsSorted() as 'asc' | 'desc']}
-                  {header.column.getCanSort() && !header.column.getIsSorted() ? <FaIcon name='sort' size={'1em'} /> : null}
-                </StyledHeaderContainer>
-              </StyledTh>
-            ))}
-          </tr>
-        ))}
-      </StyledThead>
+    <StyledContainer color={props.color || colors.GrayBlue[800]}>
+      <StyledTitleContainer>
+        <Spacer space={'1vw'} horizontal />
+        <Body1 children={'title'} color={colors.Gray[300]} fontWeight={'bold'} />
+      </StyledTitleContainer>
+      <StyledTable>
+        <StyledThead>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map((header) => (
+                <StyledTh key={header.id} style={{ width: header.getSize(), cursor: header.column.getCanSort() ? 'pointer' : 'default' }} onClick={header.column.getToggleSortingHandler()}>
+                  <StyledHeaderContainer>
+                    {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                    {{ asc: <FaIcon name='sortup' size={'1em'} />, desc: <FaIcon name='sortdown' size={'1em'} /> }[header.column.getIsSorted() as 'asc' | 'desc']}
+                    {header.column.getCanSort() && !header.column.getIsSorted() ? <FaIcon name='sort' size={'1em'} /> : null}
+                  </StyledHeaderContainer>
+                </StyledTh>
+              ))}
+            </tr>
+          ))}
+        </StyledThead>
 
-      <StyledTbody>
-        {table.getRowModel().rows.map((row) => (
-          <tr key={row.id}>
-            {row.getVisibleCells().map((cell) => (
-              <StyledTd key={cell.id} onClick={() => handleTdClick(row.original)}>
-                {!props.percentData.includes(cell.column.columnDef.header as string) && flexRender(cell.column.columnDef.cell, cell.getContext())}
-                {props.percentData.includes(cell.column.columnDef.header as string) && (
-                  <Container>
-                    <ProgressBar progress={cell.getValue() as number} />
-                  </Container>
-                )}
-              </StyledTd>
-            ))}
-          </tr>
-        ))}
-      </StyledTbody>
-    </StyledTable>
+        <StyledTbody>
+          {table.getRowModel().rows.map((row) => (
+            <tr key={row.id}>
+              {row.getVisibleCells().map((cell) => (
+                <StyledTd key={cell.id} onClick={() => handleTdClick(row.original)}>
+                  {!props.percentData.includes(cell.column.columnDef.header as string) && flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  {props.percentData.includes(cell.column.columnDef.header as string) && (
+                    <Container>
+                      <ProgressBar progress={cell.getValue() as number} />
+                    </Container>
+                  )}
+                </StyledTd>
+              ))}
+            </tr>
+          ))}
+        </StyledTbody>
+      </StyledTable>
+    </StyledContainer>
   );
 };
 
