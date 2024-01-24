@@ -3,6 +3,7 @@ pipeline {
         repository = "1w2k/code-odyssesy"
         DOCKERHUB_CREDENTIALS = credentials('docker_credentials')
         dockerImage = ''
+        TARGET_HOST = "ubuntu@152.67.210.191"
     }
     agent any
 
@@ -64,20 +65,41 @@ pipeline {
             }
         }
 
-        stage('FE Image Deploy') {
+        #이 부분을 지난번에 추가로 작성합니다.
+        #GarbageCollecTESTSERV 는 현재 돌아가고 있는 서버의 컨테이너와 자원을 정리합니다.
+        stage("GarbageCollecTESTSERV") {
             steps {
-                script {
-                    // SSH Agent 설정
-                    sshagent(credentials: ['ORACLE_1_CREDENTIAL']) {
-                        // 원격 호스트에 SSH로 접속하여 Docker 이미지를 pull 및 실행
-                        sh """
-                            ssh -i ubuntu@152.67.210.191'
-                            docker pull \${repository}:FE_\${BUILD_NUMBER}
-                            docker run -d -p 80:80 \${repository}:FE_\${BUILD_NUMBER}
-                            '
-                        """
-                    }
-                }
+                sshPublisher(
+                    continueOnError: true, failOnError: false,
+                    publishers: [
+                        sshPublisherDesc(
+                            configName: "ORACLE_SERVER_1",
+                            verbose: true,
+                            transfers: [
+                                sshTransfer(execCommand: "docker kill \$(docker ps | grep mize | tr ' ' '\t' | cut -f1)"),
+                                sshTransfer(execCommand: "docker system prune -af")
+                            ]
+                        )
+                    ]
+                )
+            }
+        }
+        #여기에서는 배포를 실행합니다.
+        stage("TestDeploy") {
+            steps {
+                sshPublisher(
+                    continueOnError: false, failOnError: true,
+                    publishers: [
+                        sshPublisherDesc(
+                            configName: "ORACLE_SERVER_1",
+                            verbose: true,
+                            transfers: [
+                                sshTransfer(execCommand: "docker pull " + repository +":FE$BUILD_NUMBER"),
+                                sshTransfer(execCommand: "docker run -d -p 80:80 " + repository +":FE$BUILD_NUMBER")
+                            ]
+                        )
+                    ]
+                )
             }
         }
     }
