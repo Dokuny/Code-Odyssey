@@ -1,10 +1,13 @@
 package code.odyssey.common.domain.guild.controller;
 
 import code.odyssey.common.domain.guild.dto.GuildCreateRequest;
+import code.odyssey.common.domain.guild.dto.GuildInfo;
 import code.odyssey.common.domain.guild.service.GuildService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/guilds")
@@ -19,5 +22,12 @@ public class GuildController {
             @RequestHeader("X-Authorization-Id") Long memberId
     ) {
         return ResponseEntity.ok(guildService.createGuild(memberId, request));
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<List<GuildInfo>> getMyGuildList(
+            @RequestHeader("X-Authorization-Id") Long memberId
+    ){
+        return ResponseEntity.ok(guildService.getGuildListOfMember(memberId));
     }
 }
