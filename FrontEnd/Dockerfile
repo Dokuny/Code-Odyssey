@@ -8,8 +8,6 @@ RUN npm run build
 
 # Final build stage
 FROM amd64/nginx:latest
-RUN [ ! -d /etc/nginx/conf.d ] && mkdir -p /etc/nginx/conf.d
-
 COPY --from=builder /app/build /usr/share/nginx/html
 COPY conf /etc/nginx
 
