@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../config/Color';
 import { Spacer } from '../atoms/basic/Spacer';
-import { Body1, Body2, Header3 } from '../atoms/basic/Typography';
+import { Body1, Body2 } from '../atoms/basic/Typography';
 import IconButton from '../atoms/button/IconButton';
 import { IoIcon } from '../atoms/icon/Icons';
 import { difficulty } from '../../utils/json/difficulty';
@@ -59,20 +59,6 @@ const StyledMyInfoContentContainer = styled.div`
   justify-content: space-around;
 `;
 
-const StyledGradeImgContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  overflow: hidden;
-  padding-bottom: 1.5vh;
-  width: 2vw;
-  max-height: 100%;
-  background-image: url('/images/code_odyssey/Gold.svg');
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center center;
-  box-sizing: border-box;
-`;
-
 const DiffImgageDiv = styled.img`
   width: 4%;
 `;
@@ -82,7 +68,7 @@ const MyProfileDetailCard = () => {
     thumbnail: 'https://picsum.photos/300',
     nickname: 'testNickName',
     email: 'test@test.com',
-    difficulty: difficulty[31],
+    difficulty: 31,
     collect_star_cnt: 17,
     collect_week_star_cnt: 2,
     bad_cnt: 1,
@@ -103,7 +89,7 @@ const MyProfileDetailCard = () => {
           <Body2 children={data.email} color={colors.Gray[500]} />
         </StyledMyInfoContentContainer>
         <Spacer space={'1vw'} horizontal />
-        <DiffImgageDiv src={data.difficulty}></DiffImgageDiv>
+        <DiffImgageDiv src={difficulty[data.difficulty]}></DiffImgageDiv>
       </StyledMyInfoContainer>
       <Spacer space={'1vh'} />
 

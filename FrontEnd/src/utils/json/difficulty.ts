@@ -1,4 +1,4 @@
-export const difficulty = {
+export const difficulty: Record<string | number, string> = {
   '0': '/images/difficulty/unrated.svg',
   '1': '/images/difficulty/bronze5.svg',
   '2': '/images/difficulty/bronze4.svg',
