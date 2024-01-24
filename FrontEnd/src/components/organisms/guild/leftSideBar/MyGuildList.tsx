@@ -11,8 +11,8 @@ const StyledGuildContainer = styled.div`
   padding: 0.5em;
   padding-bottom: 1.5em;
   padding-top: 1.5em;
-  background-color: rgba(44, 47, 72, 0.1);
-  box-shadow: ${colors.GrayBlue[700]} -2em -0.5em 2em -0.5em, ${colors.Gray[600]} -0.5em 2em 2em -0.5em;
+  background-color: rgba(70, 74, 100, 0.1);
+  box-shadow: ${colors.Gray[800]} -2em -0.5em 2em -0.5em, ${colors.Gray[700]} -0.5em 2em 2em -0.5em;
   overflow: scroll;
   -ms-overflow-style: none; /* 인터넷 익스플로러 */
   scrollbar-width: none; /* 파이어폭스 */
@@ -37,11 +37,11 @@ const MyGuildList = (props: MyGuildListProps) => {
 
   return (
     <>
-      <GuildButton event={() => props.setGuildListIndex(-1)} src={'/images/code_odyssey/MyInfo.svg'} spacer={'1vmin'} />
-      <GuildButton event={() => props.setGuildListIndex(-2)} src={'/images/code_odyssey/Navi.svg'} spacer={'1vmin'} />
+      <GuildButton event={() => props.setGuildListIndex(-1)} src={'/images/code_odyssey/MyInfo.svg'} spacer={'1vmin'} active={props.guildListIndex === -1} />
+      <GuildButton event={() => props.setGuildListIndex(-2)} src={'/images/code_odyssey/Navi.svg'} spacer={'1vmin'} active={props.guildListIndex === -2} />
       <StyledGuildContainer>
         {data.map((value) => (
-          <GuildButton event={() => props.setGuildListIndex(value.guild_id)} src={value.image} key={value.guild_id} />
+          <GuildButton event={() => props.setGuildListIndex(value.guild_id)} src={value.image} key={value.guild_id} active={props.guildListIndex === value.guild_id} />
         ))}
       </StyledGuildContainer>
     </>

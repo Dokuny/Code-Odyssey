@@ -34,7 +34,7 @@ const BasicInput = (props: BasicInputProps) => {
     }
   };
 
-  return <StyleInput fontSize={props.fontSize || '16px'} placeholder={props.placeholder} onChange={onChangeInput} onKeyDown={handleKeyDown} />;
+  return <StyleInput fontSize={props.fontSize || '1em'} placeholder={props.placeholder} onChange={onChangeInput} onKeyDown={handleKeyDown} />;
 };
 
 export default BasicInput;
