@@ -5,6 +5,7 @@ import { Spacer } from '../atoms/basic/Spacer';
 import { Body1, Body2, Header3 } from '../atoms/basic/Typography';
 import IconButton from '../atoms/button/IconButton';
 import { IoIcon } from '../atoms/icon/Icons';
+import { difficulty } from '../../utils/json/difficulty';
 
 const StyledContainer = styled.div`
   background-color: ${colors.GrayBlue[200]};
@@ -72,13 +73,16 @@ const StyledGradeImgContainer = styled.div`
   box-sizing: border-box;
 `;
 
+const DiffImgageDiv = styled.img`
+  width: 4%;
+`;
+
 const MyProfileDetailCard = () => {
   const [data, setData] = useState({
     thumbnail: 'https://picsum.photos/300',
     nickname: 'testNickName',
     email: 'test@test.com',
-    grade: 'gold',
-    class: 3,
+    difficulty: difficulty[31],
     collect_star_cnt: 17,
     collect_week_star_cnt: 2,
     bad_cnt: 1,
@@ -99,9 +103,7 @@ const MyProfileDetailCard = () => {
           <Body2 children={data.email} color={colors.Gray[500]} />
         </StyledMyInfoContentContainer>
         <Spacer space={'1vw'} horizontal />
-        <StyledGradeImgContainer>
-          <Header3 children={data.class} color={colors.White} fontWeight={'bold'} />
-        </StyledGradeImgContainer>
+        <DiffImgageDiv src={data.difficulty}></DiffImgageDiv>
       </StyledMyInfoContainer>
       <Spacer space={'1vh'} />
 
