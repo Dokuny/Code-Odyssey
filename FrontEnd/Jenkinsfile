@@ -1,4 +1,11 @@
+
+
 pipeline {
+    environment{
+        repository = "1w2k/code-odyssesy"
+        DOCKERHUB_CREDENTIALS = credentials('docker_credentials')
+        dockerImage = ''
+    }
     agent any
 
     stages {
@@ -11,7 +18,30 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Builde FE Image'){
+            steps{
+                dockerImage = docker.build repository + ":$BUILD_NUMBER"
+            }
+        }
+        stage('Login'){
+            steps{
+                sh "echo $DOCKERHUB_CREDNETIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
+            }
+        }
+        stage('Push FE Image to Docker Hub'){
+            steps{
+                script{
+                    sh "docker push $repository:$BUILD_NUMBER"
+                }
+            }
+        }
+        stage('Clean FE Image'){
+            steps{
+                sh "docker rmi $repository:$BUILD_NUMBER"
+            }
+        }
+
+        stage('Print') {
             steps {
                 script {
                     // 변경된 브랜치와 머지 대상 브랜치 출력
