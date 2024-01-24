@@ -1,9 +1,10 @@
 package code.odyssey.common.domain.guild.service;
 
 import code.odyssey.common.domain.guild.dto.GuildCreateRequest;
-import code.odyssey.common.domain.guild.enums.GuildRole;
+import code.odyssey.common.domain.guild.dto.GuildInfo;
 import code.odyssey.common.domain.guild.entity.Guild;
 import code.odyssey.common.domain.guild.entity.GuildMember;
+import code.odyssey.common.domain.guild.enums.GuildRole;
 import code.odyssey.common.domain.guild.exception.GuildErrorCode;
 import code.odyssey.common.domain.guild.exception.GuildException;
 import code.odyssey.common.domain.guild.repository.GuildMemberRepository;
@@ -15,6 +16,10 @@ import code.odyssey.common.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+import static code.odyssey.common.domain.member.exception.MemberErrorCode.NOT_EXISTS_MEMBER;
 
 
 @RequiredArgsConstructor
@@ -30,10 +35,10 @@ public class GuildService {
 
         // 회원 확인
         Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new MemberException(MemberErrorCode.NOT_EXISTS_MEMBER));
+                .orElseThrow(() -> new MemberException(NOT_EXISTS_MEMBER));
 
         if (member.getResignedAt() != null) {
-            throw new MemberException(MemberErrorCode.NOT_EXISTS_MEMBER);
+            throw new MemberException(NOT_EXISTS_MEMBER);
         }
 
         // 길드 가입이 5개인지 확인
@@ -56,6 +61,14 @@ public class GuildService {
         guildMemberRepository.save(guildMember);
 
         return guild.getId();
+    }
+
+    public List<GuildInfo> getGuildListOfMember(Long memberId) {
+        memberRepository.findById(memberId)
+                .filter(m -> m.getResignedAt() == null)
+                .orElseThrow(() -> new MemberException(NOT_EXISTS_MEMBER));
+
+        return guildMemberRepository.getGuildListOfMember(memberId);
     }
 
 }

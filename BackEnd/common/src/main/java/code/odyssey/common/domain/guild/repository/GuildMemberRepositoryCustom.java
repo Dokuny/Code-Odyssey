@@ -1,5 +1,6 @@
 package code.odyssey.common.domain.guild.repository;
 
+import code.odyssey.common.domain.guild.dto.GuildInfo;
 import code.odyssey.common.domain.guild.dto.GuildMemberInfo;
 import code.odyssey.common.domain.guild.entity.GuildMember;
 
@@ -11,5 +12,7 @@ public interface GuildMemberRepositoryCustom {
     Optional<GuildMember> findByMemberInGuild(Long guildId, Long memberId);
 
     List<GuildMemberInfo> getGuildMemberList(Long guildId);
+
+    List<GuildInfo> getGuildListOfMember(Long memberId);
 
 }
