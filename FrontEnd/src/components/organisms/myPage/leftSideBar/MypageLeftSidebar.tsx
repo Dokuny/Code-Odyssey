@@ -20,7 +20,7 @@ const StyledImage = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(44, 47, 72, 0.5);
+    background-color: rgba(80, 80, 120, 0.5);
   }
 `;
 

@@ -44,6 +44,9 @@ export const FaIcon = (props: IconProps) => {
   const icons: { [key: string]: React.ElementType } = {
     brush: FA.FaBrush,
     star: FA.FaStar,
+    sortup: FA.FaSortUp,
+    sortdown: FA.FaSortDown,
+    sort: FA.FaSort,
     // 다른 아이콘들도 필요에 따라 추가 가능
   };
 
@@ -92,6 +95,9 @@ export const IoIcon = (props: IconProps) => {
     game: IO.IoLogoGameControllerB,
     map: IO.IoMdMap,
     brush: IO.IoMdBrush,
+    down: IO.IoMdArrowDown,
+    up: IO.IoMdArrowUp,
+    minus: IO.IoMdArrowUp,
     // 다른 아이콘들도 필요에 따라 추가 가능
   };
 

@@ -32,6 +32,7 @@ const StyledContainer = styled.button<{ theme: { [key: string]: string }; active
 
 const StyledContentContainer1 = styled.div`
   display: flex;
+  text-align: start;
   flex-direction: column;
 `;
 
