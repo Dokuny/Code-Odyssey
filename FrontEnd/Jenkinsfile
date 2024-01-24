@@ -65,8 +65,6 @@ pipeline {
             }
         }
 
-        #이 부분을 지난번에 추가로 작성합니다.
-        #GarbageCollecTESTSERV 는 현재 돌아가고 있는 서버의 컨테이너와 자원을 정리합니다.
         stage("GarbageCollecTESTSERV") {
             steps {
                 sshPublisher(
@@ -84,7 +82,7 @@ pipeline {
                 )
             }
         }
-        #여기에서는 배포를 실행합니다.
+        
         stage("TestDeploy") {
             steps {
                 sshPublisher(
