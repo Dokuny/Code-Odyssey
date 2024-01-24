@@ -70,7 +70,7 @@ pipeline {
                     continueOnError: true, failOnError: false,
                     publishers: [
                         sshPublisherDesc(
-                            configName: "SSAFY_EC2",
+                            configName: "FRONT_EC2",
                             verbose: true,
                             transfers: [
                                 sshTransfer(execCommand: "sudo docker kill \$(docker ps | grep mize | tr ' ' '\t' | cut -f1)"),
@@ -88,7 +88,7 @@ pipeline {
                     continueOnError: false, failOnError: true,
                     publishers: [
                         sshPublisherDesc(
-                            configName: "SSAFY_EC2",
+                            configName: "FRONT_EC2",
                             verbose: true,
                             transfers: [
                                 sshTransfer(execCommand: "sudo docker pull " + repository +":FE_$BUILD_NUMBER"),
