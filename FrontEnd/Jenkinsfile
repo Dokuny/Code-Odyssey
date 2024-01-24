@@ -19,7 +19,6 @@ pipeline {
         stage('Build FE Image') {
             steps {
                 script {
-                    sh 'apk --no-cache add docker-cli'
                     dockerImage = docker.build("${repository}:${BUILD_NUMBER}")
                 }
             }
