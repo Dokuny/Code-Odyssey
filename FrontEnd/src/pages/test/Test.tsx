@@ -7,6 +7,9 @@ import SelectBar from "../../components/molecules/SelectBar";
 import { useState } from "react";
 import SprintSelectBar from "../../components/molecules/SprintSelectBar";
 import MakeGuildForm from "../../components/molecules/MakeGuildForm";
+import CheckCard from "../../components/molecules/CheckCard";
+import SelectButton from "../../components/atoms/button/SelectButton";
+import GuildButton from "../../components/atoms/button/GuildButton";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -49,6 +52,7 @@ const StyledRightSidebar = styled.div`
 
 
 const Test = () => {
+
   const [activeIndex, setActiveIndex] = useState(0);
   const Data = [
     { content: '진행중', event: () => setActiveIndex(0), active: activeIndex === 0},
@@ -60,7 +64,8 @@ const Test = () => {
       <StyledLeftSidebar>
       </StyledLeftSidebar>
       <StyledMain>
-        <MakeGuildForm />
+        <SprintSelectBar data={Data}></SprintSelectBar>
+        <CheckCard />
       </StyledMain>
       <StyledRightSidebar>
         <MyPageRightSidebar />

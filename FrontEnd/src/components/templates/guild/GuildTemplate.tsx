@@ -4,11 +4,11 @@ import GuildLeftSidebar from '../../organisms/guild/leftSideBar/GuildLeftSidebar
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import GuildRightSidebar from '../../organisms/guild/rightSideBar/GuildRightSidebar';
 import GuildFind from '../../organisms/guild/main/GuildFind';
-import GuildAdd from '../../organisms/guild/main/GuildAdd';
 import GuildProfile from '../../organisms/guild/main/GuildProfile';
 import GuildSprint from '../../organisms/guild/main/GuildSprint';
 import GuildSolveProblem from '../../organisms/guild/main/GuildSolveProblem';
 import GuildSetting from '../../organisms/guild/main/GuildSetting';
+import GuildAdd from '../../organisms/guild/main/GuildAdd';
 
 const StyledContainer = styled.div`
   display: flex;

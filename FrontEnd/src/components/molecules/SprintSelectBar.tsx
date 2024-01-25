@@ -35,8 +35,8 @@ const SprintSelectBar: React.FC<DataProps> = ({ data }) => {
   return (
     <StyledContainer>
       {data.map(({ content, event, active }, index) => (
-        <SelectButton event={event} borderColor={colors.Black} deepColor={colors.Gray[800]} bgColor={colors.Gray[800]} borderRadius='0px' borderWidth='0px' color={colors.Gray[800]} active={active} color2={colors.Puple}>
-          { active ? <Body1 children={content} color={colors.Puple} /> : <Body1 children={content} color={colors.Gray[500]} /> }
+        <SelectButton event={event} borderColor={colors.Black} deepColor={colors.Gray[800]} bgColor={colors.Gray[800]} borderRadius='0px' borderWidth='0px' color={colors.Gray[800]} active={active} color2={colors.Puple[25]}>
+          { active ? <Body1 children={content} color={colors.Puple[25]} /> : <Body1 children={content} color={colors.Gray[500]} /> }
         </SelectButton>
       ))}
     </StyledContainer>
