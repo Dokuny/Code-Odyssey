@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { colors } from '../../config/Color';
-import { useEffect, useRef, useState } from 'react';
-import { Body1, Body2, Body3, Header3 } from '../atoms/basic/Typography';
+import { useState } from 'react';
+import { Body1, Body2, Header3 } from '../atoms/basic/Typography';
 import { Spacer } from '../atoms/basic/Spacer';
 
 interface ProblemCardProps {
