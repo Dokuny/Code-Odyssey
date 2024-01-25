@@ -1,8 +1,10 @@
 package code.odyssey.common.domain.guild.service;
 
+import code.odyssey.common.domain.guild.dto.GuildApplicationInfo;
 import code.odyssey.common.domain.guild.entity.Guild;
 import code.odyssey.common.domain.guild.entity.GuildApplication;
 import code.odyssey.common.domain.guild.entity.GuildMember;
+import code.odyssey.common.domain.guild.enums.GuildRole;
 import code.odyssey.common.domain.guild.exception.GuildException;
 import code.odyssey.common.domain.guild.repository.GuildApplicationRepository;
 import code.odyssey.common.domain.guild.repository.GuildMemberRepository;
@@ -13,6 +15,8 @@ import code.odyssey.common.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 import static code.odyssey.common.domain.guild.enums.GuildApplicationResult.WAIT;
 import static code.odyssey.common.domain.guild.enums.GuildRole.MASTER;
@@ -94,6 +98,27 @@ public class GuildApplyService {
         application.reject();
     }
 
+    public List<GuildApplicationInfo> getGuildApplications(Long memberId, Long guildId) {
+
+        GuildMember guildMember = guildMemberRepository.findByMemberInGuild(guildId, memberId)
+                .filter(gm -> MASTER.equals(gm.getRole()))
+                .orElseThrow(() -> new GuildException(NO_AUTHENTICATION));
+
+        // 회원 검증
+        memberRepository.findById(memberId)
+                .filter(m -> m.getResignedAt() == null)
+                .orElseThrow(() -> new MemberException(NOT_EXISTS_MEMBER));
+
+        // 길드 검증
+        guildRepository.findById(guildId)
+                .filter(g -> g.getDisbandedAt() == null)
+                .orElseThrow(() -> new GuildException(NOT_EXISTS_GUILD));
+
+        // 처리가 안된 가입 신청 리스트 조회
+        return guildApplicationRepository.findAllByGuildApplicationList(guildId, WAIT)
+                .stream().map(GuildApplicationInfo::from)
+                .toList();
+    }
 
 
 }
