@@ -16,7 +16,7 @@ public interface ScoreRepository extends JpaRepository<Score, Long> {
     Optional<Score> findStatsByMemberId(@Param("memberId") Long memberId);
 
     // 랭크 조회
-    @Query("SELECT COUNT(s) + 1 FROM Score s " +
+    @Query("SELECT COUNT(s.member.id) + 1 FROM Score s " +
             "WHERE s.rankingScore > (SELECT s2.rankingScore FROM Score s2 WHERE s2.member.id = :memberId)")
     Long getMyRank(@Param("memberId") Long memberId);
 

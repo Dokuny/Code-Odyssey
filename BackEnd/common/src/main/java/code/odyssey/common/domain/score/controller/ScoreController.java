@@ -1,5 +1,6 @@
 package code.odyssey.common.domain.score.controller;
 
+import code.odyssey.common.domain.score.dto.RankTypeInfo;
 import code.odyssey.common.domain.score.dto.ScoreInfo;
 import code.odyssey.common.domain.score.dto.ScoreTypeInfo;
 import code.odyssey.common.domain.score.service.ScoreService;
@@ -44,6 +45,15 @@ public class ScoreController {
     ) {
         Long rank = scoreService.getMyRank(memberId);
         return ResponseEntity.ok(rank);
+    }
+
+    // 개인 유형별 랭킹 조회
+    @GetMapping("/rank/type")
+    public ResponseEntity<RankTypeInfo> getMyRankByType(
+            @RequestHeader("X-Authorization-Id") Long memberId
+    ) {
+        RankTypeInfo rtype = scoreTypeService.findRankByMemberId(memberId);
+        return ResponseEntity.ok(rtype);
     }
 
 
