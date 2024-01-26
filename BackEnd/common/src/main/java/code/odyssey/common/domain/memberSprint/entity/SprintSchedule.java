@@ -1,4 +1,4 @@
-package code.odyssey.common.domain.guildSprint.entity;
+package code.odyssey.common.domain.memberSprint.entity;
 
 import code.odyssey.common.domain.problem.entity.enums.ProblemType;
 import jakarta.persistence.*;

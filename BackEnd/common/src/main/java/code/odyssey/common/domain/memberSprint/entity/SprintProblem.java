@@ -1,4 +1,4 @@
-package code.odyssey.common.domain.guildSprint.entity;
+package code.odyssey.common.domain.memberSprint.entity;
 
 import code.odyssey.common.domain.problem.entity.Problem;
 import code.odyssey.common.global.common.BaseEntity;

@@ -1,13 +1,14 @@
 package code.odyssey.common.domain.memberSprint.entity;
 
-import code.odyssey.common.domain.problem.entity.enums.ProblemType;
+import code.odyssey.common.domain.guild.entity.Guild;
+import code.odyssey.common.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -16,25 +17,20 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor
 @Builder @Getter
 @Entity
-public class GuildSprintSchedule {
+public class Sprint {
 
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "guild_id")
+    @Column(name = "sprint_id")
     @Id
     private Long id;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "guild_sprint_id")
-    private GuildSprint sprint;
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     @Column
-    private Integer dayNum;
+    private LocalDateTime startedAt;
 
     @Column
-    private ProblemType problemType;
-
-    @Column
-    private LocalDate date;
-
-
+    private LocalDateTime endedAt;
 }

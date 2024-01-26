@@ -1,4 +1,4 @@
-package code.odyssey.common.domain.memberSprint.entity;
+package code.odyssey.common.domain.guildSprint.entity;
 
 import code.odyssey.common.domain.problem.entity.Problem;
 import code.odyssey.common.global.common.BaseEntity;
@@ -13,7 +13,8 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder @Getter
+@Builder
+@Getter
 @Entity
 public class GuildSprintProblem extends BaseEntity {
 
@@ -22,16 +23,12 @@ public class GuildSprintProblem extends BaseEntity {
     @Id
     private Long id;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "problem_id")
+    @ManyToOne(fetch = LAZY, optional = false)
+    @JoinColumn(name = "problem_id", nullable = false)
     private Problem problem;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "guild_sprint_schedule_id")
+    @ManyToOne(fetch = LAZY, optional = false)
+    @JoinColumn(name = "guild_sprint_schedule_id", nullable = false)
     private GuildSprintSchedule schedule;
-
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "guild_sprint_id")
-    private GuildSprint sprint;
 
 }
