@@ -28,7 +28,7 @@ public class GuildSprintProblem extends BaseEntity {
     private Problem problem;
 
     @ManyToOne(fetch = LAZY, optional = false)
-    @JoinColumn(name = "guild_sprint_schedule_id", nullable = false)
-    private GuildSprintSchedule schedule;
+    @JoinColumn(name = "guild_sprint_id", nullable = false)
+    private GuildSprint guildSprint;
 
 }
