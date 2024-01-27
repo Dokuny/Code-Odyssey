@@ -27,7 +27,7 @@ pipeline {
                     echo "Current Branch: \${currentBranch}"
 
                     echo "discovery server 입니다."
-
+                    sh 'pwd'
                     //gradlew 빌드
                     sh 'chmod +x gradlew'
                     sh './gradlew clean build'
