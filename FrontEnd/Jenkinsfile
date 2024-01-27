@@ -92,7 +92,7 @@ pipeline {
                             verbose: true,
                             transfers: [
                                 sshTransfer(execCommand: "sudo docker pull " + repository +":FE_$BUILD_NUMBER"),
-                                sshTransfer(execCommand: "sudo docker run -d -p 80:80 --name ReactApp  --network front" + repository + ":FE_${BUILD_NUMBER}")
+                                sshTransfer(execCommand: "sudo docker run -d -p 80:80 --name ReactApp  --network front " + repository + ":FE_${BUILD_NUMBER}")
                             ]
                         )
                     ]
