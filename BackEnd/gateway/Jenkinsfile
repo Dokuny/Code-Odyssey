@@ -18,6 +18,7 @@ pipeline {
         }
 
         stage('Build Gateway-Server .JAR') {
+<<<<<<< Updated upstream
             steps {
                 script {
                     // 변경된 브랜치와 머지 대상 브랜치 출력
@@ -33,6 +34,24 @@ pipeline {
                         cd ./BackEnd/gateway
                         ./gradlew clean build
                     '''
+=======
+                steps {
+                    script {
+                        // 변경된 브랜치와 머지 대상 브랜치 출력
+                        // 현재 빌드 중인 브랜치명 확인
+                        def currentBranch = env.BRANCH_NAME
+                        echo "Merge Target Branch : \${CHANGE_TARGET}"
+                        echo "Current Branch: \${currentBranch}"
+
+                        echo "gateway server 입니다."
+                        //gradlew 빌드
+                        sh 'chmod +x ./BackEnd/gateway/gradlew'
+                        sh '''
+                            cd ./BackEnd/gateway
+                            ./gradlew clean build
+                        '''
+                    }
+>>>>>>> Stashed changes
                 }
             }
         }
@@ -96,8 +115,13 @@ pipeline {
                             configName: "EC2_1",
                             verbose: true,
                             transfers: [
+<<<<<<< Updated upstream
                                 sshTransfer(execCommand: "sudo docker pull " + repository + ":Gateway_$BUILD_NUMBER"),
                                 sshTransfer(execCommand: "sudo docker run -d -p 8888:8888 --name Gateway " + repository + ":Gateway_${BUILD_NUMBER}")
+=======
+                                sshTransfer(execCommand: "sudo docker pull " + repository +":Gateway_$BUILD_NUMBER"),
+                                sshTransfer(execCommand: "sudo docker run -d -p 8888:8888 --name Gateway --network front" + repository + ":Gateway_{BUILD_NUMBER}")
+>>>>>>> Stashed changes
                             ]
                         )
                     ]
