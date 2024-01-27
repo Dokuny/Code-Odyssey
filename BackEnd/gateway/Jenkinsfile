@@ -17,20 +17,23 @@ pipeline {
             }
         }
 
-        stage('Build Gate-Way .JAR') {
-            steps {
-                script {
-                    // 변경된 브랜치와 머지 대상 브랜치 출력
-                    // 현재 빌드 중인 브랜치명 확인
-                    def currentBranch = env.BRANCH_NAME
-                    echo "Merge Target Branch : \${CHANGE_TARGET}"
-                    echo "Current Branch: \${currentBranch}"
+        stage('Build Gateway-Server .JAR') {
+                steps {
+                    script {
+                        // 변경된 브랜치와 머지 대상 브랜치 출력
+                        // 현재 빌드 중인 브랜치명 확인
+                        def currentBranch = env.BRANCH_NAME
+                        echo "Merge Target Branch : \${CHANGE_TARGET}"
+                        echo "Current Branch: \${currentBranch}"
 
-                    echo "Gate Way server 입니다."
-
-                    //gradlew 빌드
-                    sh 'chmod +x gradlew'
-                    sh './gradlew clean build'
+                        echo "gateway server 입니다."
+                        //gradlew 빌드
+                        sh 'chmod +x ./BackEnd/gateway/gradlew'
+                        sh '''
+                            cd ./BackEnd/gateway
+                            ./gradlew clean build
+                        '''
+                    }
                 }
             }
         }
