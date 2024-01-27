@@ -30,10 +30,11 @@ pipeline {
                     sh 'pwd'
                     sh 'ls -al'
                     //gradlew 빌드
-                    sh 'chmod +x ./BackEnd/service-discovery/gradlew'
-                    sh './BackEnd/service-discovery/gradlew wrapper --gradle-version=9.0'
                     sh 'java --version'
-                    sh './BackEnd/service-discovery/gradlew clean build'
+                    sh 'chmod +x ./BackEnd/service-discovery/gradlew'
+                    sh 'cd ./BackEnd/service-discovery'
+                    sh './gradlew wrapper --gradle-version=9.0'
+                    sh './gradlew clean build'
                 }
             }
         }
