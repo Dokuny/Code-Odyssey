@@ -34,7 +34,6 @@ pipeline {
                     sh 'chmod +x ./BackEnd/service-discovery/gradlew'
                     sh '''
                         cd ./BackEnd/service-discovery
-                        ./gradlew wrapper --gradle-version=9.0
                         ./gradlew clean build
                     '''
                 }
