@@ -73,7 +73,7 @@ pipeline {
                             configName: "EC2_1",
                             verbose: true,
                             transfers: [
-                                sshTransfer(execCommand: "sudo docker kill \$(docker ps | grep mize | tr ' ' '\t' | cut -f1)"),
+                                sshTransfer(execCommand: "sudo docker kill \$(docker ps | grep ReactApp | tr ' ' '\t' | cut -f1)"),
                                 sshTransfer(execCommand: "sudo docker system prune -af")
                             ]
                         )
@@ -91,10 +91,8 @@ pipeline {
                             configName: "EC2_1",
                             verbose: true,
                             transfers: [
-                                sshTransfer(execCommand: "sudo docker rm -f ReactApp"),
                                 sshTransfer(execCommand: "sudo docker pull " + repository +":FE_$BUILD_NUMBER"),
-                                sshTransfer(execCommand: "sudo docker run -d -p 80:80 --name ReactApp" + repository +":FE_$BUILD_NUMBER"),
-                                sshTransfer(execCommand: "sudo docker image prune -f")
+                                sshTransfer(execCommand: "sudo docker run -d -p 80:80 --name ReactApp " + repository + ":FE_${BUILD_NUMBER}")
                             ]
                         )
                     ]
