@@ -18,43 +18,42 @@ pipeline {
         }
 
         stage('Build Gateway-Server .JAR') {
-                steps {
-                    script {
-                        // 변경된 브랜치와 머지 대상 브랜치 출력
-                        // 현재 빌드 중인 브랜치명 확인
-                        def currentBranch = env.BRANCH_NAME
-                        echo "Merge Target Branch : \${CHANGE_TARGET}"
-                        echo "Current Branch: \${currentBranch}"
+            steps {
+                script {
+                    // 변경된 브랜치와 머지 대상 브랜치 출력
+                    // 현재 빌드 중인 브랜치명 확인
+                    def currentBranch = env.BRANCH_NAME
+                    echo "Merge Target Branch : \${CHANGE_TARGET}"
+                    echo "Current Branch: \${currentBranch}"
 
-                        echo "gateway server 입니다."
-                        //gradlew 빌드
-                        sh 'chmod +x ./BackEnd/gateway/gradlew'
-                        sh '''
-                            cd ./BackEnd/gateway
-                            ./gradlew clean build
-                        '''
-                    }
+                    echo "gateway server 입니다."
+                    // gradlew 빌드
+                    sh 'chmod +x ./BackEnd/gateway/gradlew'
+                    sh '''
+                        cd ./BackEnd/gateway
+                        ./gradlew clean build
+                    '''
                 }
             }
         }
 
-        stage('Build Gateway Image'){
-            steps{
-                script{
+        stage('Build Gateway Image') {
+            steps {
+                script {
                     dockerImage = docker.build("${repository}:Gateway_${BUILD_NUMBER}", "-f BackEnd/gateway/Dockerfile ./BackEnd/gateway")
                 }
             }
         }
 
-        stage('DockerHub Login'){
-            steps{
-                script{
+        stage('DockerHub Login') {
+            steps {
+                script {
                     sh "echo \${DOCKERHUB_CREDENTIALS_PSW} | docker login -u \${DOCKERHUB_CREDENTIALS_USR} --password-stdin"
                 }
             }
         }
 
-        stage('Push Gateway Image to DockerHub'){
+        stage('Push Gateway Image to DockerHub') {
             steps {
                 script {
                     sh "docker push \${repository}:Gateway_\${BUILD_NUMBER}"
@@ -62,9 +61,9 @@ pipeline {
             }
         }
 
-        stage('Clean Gateway Image'){
-            steps{
-                script{
+        stage('Clean Gateway Image') {
+            steps {
+                script {
                     sh "docker rmi \${repository}:Gateway_\${BUILD_NUMBER}"
                 }
             }
@@ -88,8 +87,8 @@ pipeline {
             }
         }
 
-        stage("Deploy"){
-            steps{
+        stage("Deploy") {
+            steps {
                 sshPublisher(
                     continueOnError: false, failOnError: true,
                     publishers: [
@@ -97,12 +96,13 @@ pipeline {
                             configName: "EC2_1",
                             verbose: true,
                             transfers: [
-                                sshTransfer(execCommand: "sudo docker pull " + repository +":Gateway_$BUILD_NUMBER"),
-                                sshTransfer(execCommand: "sudo docker run -d -p 8888:8888 --name Gateway " + repository + ":Gateway_{BUILD_NUMBER}")
+                                sshTransfer(execCommand: "sudo docker pull " + repository + ":Gateway_$BUILD_NUMBER"),
+                                sshTransfer(execCommand: "sudo docker run -d -p 8888:8888 --name Gateway " + repository + ":Gateway_${BUILD_NUMBER}")
                             ]
                         )
                     ]
                 )
             }
         }
+    }
 }
