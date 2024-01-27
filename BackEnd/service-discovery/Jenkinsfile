@@ -28,6 +28,7 @@ pipeline {
 
                     echo "discovery server 입니다."
                     sh 'pwd'
+                    sh 'ls -al'
                     //gradlew 빌드
                     sh 'chmod +x gradlew'
                     sh './gradlew clean build'
