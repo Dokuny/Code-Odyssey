@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface SubmissionRepository extends JpaRepository<Submission, Long> {
@@ -17,5 +18,9 @@ public interface SubmissionRepository extends JpaRepository<Submission, Long> {
             "WHERE sub.member.id = :memberId " +
             "GROUP BY DATE(sub.createdAt)")
     List<Object[]> countSubmissionsByDate(@Param("memberId") Long memberId);
+
+    // 개인 제출 코드 조회
+    Optional<Submission> findByProblemIdAndMemberId(Long problemId, Long memberId);
+
 
 }

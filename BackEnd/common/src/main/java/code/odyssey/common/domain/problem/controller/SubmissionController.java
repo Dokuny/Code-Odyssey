@@ -1,13 +1,11 @@
 package code.odyssey.common.domain.problem.controller;
 
+import code.odyssey.common.domain.problem.dto.SubmissionInfo;
 import code.odyssey.common.domain.problem.dto.SubmissionNumInfo;
 import code.odyssey.common.domain.problem.service.SubmissionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,6 +26,16 @@ public class SubmissionController {
         return ResponseEntity.ok(sNum);
     }
 
+    // 개인 제출 코드 조회
+    @GetMapping("/{problemId}")
+    public ResponseEntity<SubmissionInfo> getSubmissionResult(
+            @RequestHeader("X-Authorization-Id") Long memberId,
+            @PathVariable Long problemId
+
+    ) {
+        SubmissionInfo result = submissionService.getSubmissionResult(problemId, memberId);
+        return ResponseEntity.ok(result);
+    }
 
 
 }
