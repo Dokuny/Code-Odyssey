@@ -3,9 +3,22 @@ server:
   port: 8888
 
 spring:
+  profiles:
+    active: prod
+    group: 
+      local:
+        - common 
+      prod:
+        - common 
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: common 
   application:
     name: api-gateway
-
   cloud:
     gateway:
       routes:
@@ -21,6 +34,16 @@ spring:
             - AuthorizationHeaderFilter
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
+jwt:
+  access-key: ${JWT_SECRET_KEY}
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  cloud:
+    gateway:
       globalcors:
         cors-configurations:
           '[/**]':
@@ -34,8 +57,6 @@ spring:
               - PATCH
               - DELETE
               - OPTIONS
-jwt:
-  access-key: TestSecretKey123asdasdadadwadwawdawdadwddwawdadwadawadwdwaawdawdwaddwadwawad
 
 eureka:
   client:
@@ -43,3 +64,32 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://localhost:8761/eureka
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: 'http://3.35.176.227:80'
+            allow-credentials: true
+            allowedHeaders: '*'
+            allowedMethods:
+              - PUT
+              - GET
+              - POST
+              - PATCH
+              - DELETE
+              - OPTIONS
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://3.35.176.227:8761/eureka
+
+---
