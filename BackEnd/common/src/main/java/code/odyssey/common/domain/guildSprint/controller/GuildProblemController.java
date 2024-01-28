@@ -5,6 +5,7 @@ import code.odyssey.common.domain.guildSprint.service.GuildProblemService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +20,7 @@ public class GuildProblemController {
 
 	private final GuildProblemService guildProblemService;
 
-	@PostMapping("/problems")
+	@PatchMapping("/problems")
 	public ResponseEntity<Void> editGuildProblems(
 		@RequestHeader("X-Authorization-Id") Long memberId,
 		@PathVariable("sprintId") Long sprintId,

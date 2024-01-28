@@ -13,7 +13,9 @@ public enum GuildSprintErrorCode {
 	NOT_EXISTS_GUILD("길드를 찾을 수 없습니다.",BAD_REQUEST),
 	NO_AUTHNETICATION("권한이 없습니다.", FORBIDDEN),
 	NOT_EXISTS_PROBLEM("문제를 찾을 수 없습니다.", BAD_REQUEST),
-	ALREADY_COMPLETED_SPRINT("이미 완료된 스프린트 입니다.",BAD_REQUEST)
+	ALREADY_COMPLETED_SPRINT("이미 완료된 스프린트 입니다.",BAD_REQUEST),
+	CANNOT_DELETE_SPRINT("스프린트를 삭제할 수 없습니다.", BAD_REQUEST),
+
 	;
 
 	private final String message;
