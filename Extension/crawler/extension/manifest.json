@@ -14,6 +14,11 @@
     "service_worker": "background.js",
     "type": "module"
   },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'",
+    "sandbox": "sandbox allow-scripts; allow-same-origin",
+    "script-src": ["self", "http://127.0.0.1:*"]
+  },
   "host_permissions": [
     "https://school.programmers.co.kr/",
     "https://swexpertacademy.com/",
@@ -36,10 +41,6 @@
         "https://school.programmers.co.kr/learn/courses/30/lessons/*"
       ],
       "js": ["scripts/programmers/problem.js"]
-    },
-    {
-      "matches": ["https://www.acmicpc.net/problemset/*"],
-      "js": ["scripts/baekjoon/get-list.js"]
     }
   ]
 }
