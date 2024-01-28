@@ -3,9 +3,9 @@ package code.odyssey.common.domain.guildSprint.service;
 import static code.odyssey.common.domain.guild.enums.GuildRole.MASTER;
 import static code.odyssey.common.domain.guildSprint.entity.enums.GuildSprintStatus.IN_PROGRESS;
 import static code.odyssey.common.domain.guildSprint.entity.enums.GuildSprintStatus.WAITING;
-import static code.odyssey.common.domain.guildSprint.exception.GuildSprintErrorCode.ALREADY_COMPLETED_SPRINT;
+import static code.odyssey.common.domain.guildSprint.exception.GuildSprintErrorCode.ALREADY_ENDED_SPRINT;
 import static code.odyssey.common.domain.guildSprint.exception.GuildSprintErrorCode.CANNOT_DELETE_SPRINT;
-import static code.odyssey.common.domain.guildSprint.exception.GuildSprintErrorCode.NOT_STARTED_SPRINT;
+import static code.odyssey.common.domain.guildSprint.exception.GuildSprintErrorCode.NOT_SPRINT_IN_PROGRESS;
 import static code.odyssey.common.domain.guildSprint.exception.GuildSprintErrorCode.NO_AUTHNETICATION;
 import static code.odyssey.common.domain.guildSprint.exception.GuildSprintErrorCode.SPRINT_IN_PROGRESS;
 
@@ -64,7 +64,7 @@ public class GuildSprintService {
 		// 스프린트 검증
 		GuildSprint sprint = guildSprintRepository.findById(guildSprintId)
 			.filter(guildSprint -> guildSprint.getStatus().equals(WAITING))
-			.orElseThrow(() -> new GuildSprintException(ALREADY_COMPLETED_SPRINT));
+			.orElseThrow(() -> new GuildSprintException(ALREADY_ENDED_SPRINT));
 
 		// 권한 검증
 		guildMemberRepository.findByMemberInGuild(
@@ -74,6 +74,22 @@ public class GuildSprintService {
 
 		// 스프린트 시작
 		sprint.start();
+	}
+
+	public void endGuildSprint(Long memberId, Long guildSprintId) {
+		// 스프린트 검증
+		GuildSprint sprint = guildSprintRepository.findById(guildSprintId)
+			.filter(guildSprint -> guildSprint.getStatus().equals(IN_PROGRESS))
+			.orElseThrow(() -> new GuildSprintException(NOT_SPRINT_IN_PROGRESS));
+
+		// 권한 검증
+		guildMemberRepository.findByMemberInGuild(
+				sprint.getGuild().getId(), memberId)
+			.filter(gm -> MASTER.equals(gm.getRole()))
+			.orElseThrow(() -> new GuildSprintException(NO_AUTHNETICATION));
+
+		// 스프린트 종료
+		sprint.end();
 	}
 
 }
