@@ -16,10 +16,10 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Builder
 @Getter
 @Entity
-public class GuildSprintProblem extends BaseEntity {
+public class GuildProblem extends BaseEntity {
 
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "guild_sprint_problem_id")
+    @Column(name = "guild_problem_id")
     @Id
     private Long id;
 

@@ -17,7 +17,7 @@ public class GuildSprintController {
     @PostMapping
     public ResponseEntity<Long> createGuildSprint(
             @RequestHeader("X-Authorization-Id") Long memberId,
-            @PathVariable Long guildId,
+            @PathVariable("guildId") Long guildId,
             @RequestBody @Valid GuildSprintCreateRequest request
     ) {
         return ResponseEntity.ok(guildSprintService.createGuildSprint(memberId, guildId, request));

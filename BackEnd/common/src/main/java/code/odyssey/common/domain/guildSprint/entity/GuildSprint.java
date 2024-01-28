@@ -2,7 +2,6 @@ package code.odyssey.common.domain.guildSprint.entity;
 
 import code.odyssey.common.domain.guild.entity.Guild;
 import code.odyssey.common.domain.guildSprint.entity.enums.GuildSprintStatus;
-import code.odyssey.common.domain.guildSprint.exception.GuildSprintException;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -49,7 +48,7 @@ public class GuildSprint {
     private LocalDate endedAt;
 
     @OneToMany(mappedBy = "guildSprint", orphanRemoval = true, cascade = ALL)
-    private List<GuildSprintProblem> problems = new ArrayList<>();
+    private List<GuildProblem> problems = new ArrayList<>();
 
     public static GuildSprint createGuildSprint(Guild guild, String title, Integer period) {
         GuildSprint guildSprint = new GuildSprint();
