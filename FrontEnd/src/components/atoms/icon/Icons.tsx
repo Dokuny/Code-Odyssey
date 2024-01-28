@@ -2,6 +2,7 @@ import * as FI from 'react-icons/fi';
 import * as FA from 'react-icons/fa';
 import * as BS from 'react-icons/bs';
 import * as IO from 'react-icons/io';
+import * as MD from 'react-icons/md';
 import { LengthType } from 'react-spinners/helpers/props';
 
 interface IconProps {
@@ -98,7 +99,31 @@ export const IoIcon = (props: IconProps) => {
     down: IO.IoMdArrowDown,
     up: IO.IoMdArrowUp,
     minus: IO.IoMdArrowUp,
+    boat: IO.IoMdBoat,
+    easel: IO.IoMdEasel,
     // 다른 아이콘들도 필요에 따라 추가 가능
+  };
+
+  const { name, ...rest } = props;
+  const SelectedIcon = icons[name];
+
+  if (!SelectedIcon) {
+    console.error(`Icon "${name}" not found`);
+    return null;
+  }
+  return <SelectedIcon {...rest} />;
+};
+
+/**
+ * Md icon 가져오기
+ * @param props
+ * @returns
+ * @author 김수린
+ */
+export const MdIcon = (props: IconProps) => {
+  const icons: { [key: string]: React.ElementType } = {
+    sail: MD.MdSailing,
+    anchor: MD.MdAnchor,
   };
 
   const { name, ...rest } = props;

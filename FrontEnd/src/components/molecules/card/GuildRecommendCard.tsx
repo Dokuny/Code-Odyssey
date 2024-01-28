@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { colors } from '../../config/Color';
+import { colors } from '../../../config/Color';
 import { useState } from 'react';
-import { Body1, Body2, Body3, Header3 } from '../atoms/basic/Typography';
-import { Spacer } from '../atoms/basic/Spacer';
-import { difficulty } from '../../utils/json/difficulty';
+import { Body1, Body2, Body3, Header3 } from '../../atoms/basic/Typography';
+import { Spacer } from '../../atoms/basic/Spacer';
+import { difficulty } from '../../../utils/json/difficulty';
 
 const radius: number = 20;
 const testText: string = '여덟글자팀명짓기';

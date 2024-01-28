@@ -1,6 +1,6 @@
 import { Body1 } from '../../../atoms/basic/Typography';
 import { colors } from '../../../../config/Color';
-import GuildSprintImageCard from '../../../molecules/GuildSprintImageCard';
+import GuildSprintImageCard from '../../../molecules/card/GuildSprintImageCard';
 
 interface GuildSprintProps {
   guild_id: number;

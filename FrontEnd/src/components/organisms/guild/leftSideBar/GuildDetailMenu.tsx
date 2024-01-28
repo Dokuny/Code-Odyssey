@@ -37,8 +37,8 @@ const GuildDetailMenu = (props: MyMenuProps) => {
   const MenuList = [
     { content: '내 프로필', event: () => props.setActiveIndex(2), active: props.activeIndex === 2, icon: 'compass' },
     { content: '스프린트', event: () => props.setActiveIndex(3), active: props.activeIndex === 3, icon: 'map' },
-    { content: '같이 풀기', event: () => props.setActiveIndex(4), active: props.activeIndex === 4, icon: 'music' },
-    { content: '크루원', event: () => props.setActiveIndex(5), active: props.activeIndex === 5, icon: 'game' },
+    { content: '같이 풀기', event: () => props.setActiveIndex(4), active: props.activeIndex === 4, icon: 'easel' },
+    { content: '크루원', event: () => props.setActiveIndex(5), active: props.activeIndex === 5, icon: 'boat' },
   ];
 
   return (

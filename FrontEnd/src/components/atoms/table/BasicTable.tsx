@@ -69,6 +69,7 @@ interface BasicTableProps {
   setSelectData: React.Dispatch<any>;
   percentData: String[];
   color?: string;
+  title?: string;
 }
 
 const BasicTable = (props: BasicTableProps) => {
@@ -100,7 +101,7 @@ const BasicTable = (props: BasicTableProps) => {
     <StyledContainer color={props.color || colors.GrayBlue[800]}>
       <StyledTitleContainer>
         <Spacer space={'1vw'} horizontal />
-        <Body1 children={'title'} color={colors.Gray[300]} fontWeight={'bold'} />
+        <Body1 children={props.title} color={colors.Gray[300]} fontWeight={'bold'} />
       </StyledTitleContainer>
       <StyledTable>
         <StyledThead>

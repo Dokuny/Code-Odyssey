@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { Spacer } from '../../../atoms/basic/Spacer';
 import RightSidebarLogo from '../../../atoms/image/RightSidebarLogo';
-import MyProfileSimpleCard from '../../../molecules/MyProfileSimpleCard';
-import MyFriendListCard from '../../../molecules/MyFriendListCard';
+import MyProfileSimpleCard from '../../../molecules/card/MyProfileSimpleCard';
+import MyFriendListCard from '../../../molecules/card/MyFriendListCard';
 import { useState } from 'react';
 import { Header3 } from '../../../atoms/basic/Typography';
 import { colors } from '../../../../config/Color';

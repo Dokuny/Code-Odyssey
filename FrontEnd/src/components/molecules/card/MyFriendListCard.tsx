@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
-import FriendProfile from '../atoms/image/FriendProfile';
-import { Body3, Caption1 } from '../atoms/basic/Typography';
-import { colors } from '../../config/Color';
-import { Spacer } from '../atoms/basic/Spacer';
+import FriendProfile from '../../atoms/image/FriendProfile';
+import { Body3, Caption1 } from '../../atoms/basic/Typography';
+import { colors } from '../../../config/Color';
+import { Spacer } from '../../atoms/basic/Spacer';
 
 const StyledContainer = styled.button<{ theme: { [key: string]: string }; active?: boolean }>`
   display: flex;

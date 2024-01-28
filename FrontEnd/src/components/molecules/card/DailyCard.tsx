@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { colors } from '../../config/Color';
-import { Header3 } from './../atoms/basic/Typography';
+import { colors } from '../../../config/Color';
+import { Header3 } from './../../atoms/basic/Typography';
 import { useState } from 'react';
-import DropDown from '../atoms/select/Dropdown';
-import { Spacer } from './../atoms/basic/Spacer';
+import DropDown from '../../atoms/select/Dropdown';
+import { Spacer } from '../../atoms/basic/Spacer';
 
 const DailyCardDiv = styled.div`
   background-color: ${colors.Gray[500]};

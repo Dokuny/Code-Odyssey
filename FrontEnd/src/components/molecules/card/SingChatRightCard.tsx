@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Body1, Caption1 } from '../atoms/basic/Typography';
-import { colors } from '../../config/Color';
+import { Body2, Caption1 } from '../../atoms/basic/Typography';
+import { colors } from '../../../config/Color';
 
 const Styledleft = styled.div`
   display: flex;
@@ -25,21 +25,21 @@ const StyledText = styled.div`
   align-items: center;
 `;
 
-const SingChatRightCard = () => {
-  const [data, setData] = useState({
-    text: '안녕하세요',
-    date: 'Today,2.02pm',
-  });
+interface SingChatRightCardProps {
+  text: string;
+  date: string;
+}
 
+const SingChatRightCard = (props: SingChatRightCardProps) => {
   return (
     <Styledleft>
       <StyledPolygon>
         <StyledText>
-          <Body1 children={data.text} color={colors.Gray[25]} fontWeight={'bold'} />
+          <Body2 children={props.text} color={colors.Gray[25]} fontWeight={'bold'} />
         </StyledText>
       </StyledPolygon>
       <div>
-        <Caption1 children={data.date} color={colors.Gray[25]} />
+        <Caption1 children={props.date} color={colors.Gray[25]} />
       </div>
     </Styledleft>
   );

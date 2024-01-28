@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Body1, Body2, Caption1 } from '../atoms/basic/Typography';
-import { colors } from '../../config/Color';
-import { Spacer } from '../atoms/basic/Spacer';
+import { Body1, Body2, Caption1 } from '../../atoms/basic/Typography';
+import { colors } from '../../../config/Color';
+import { Spacer } from '../../atoms/basic/Spacer';
 
 const StyledPolygon = styled.div`
   width: 70%;
@@ -23,10 +22,10 @@ const StyledYoutube = styled.div`
   position: relative;
   padding: 10px;
 `;
-const StyledYoutube__area = styled.div`
+const StyledYoutubeArea = styled.div<{ imageUrl: string }>`
   width: 100%;
   background-color: ${colors.Gray[25]};
-  background-image: url('/images/image 9.png'); /* 이미지 경로를 실제 이미지 파일의 경로로 변경하세요. */
+  background-image: url(${(props) => props.imageUrl}); /* 이미지 경로를 실제 이미지 파일의 경로로 변경하세요. */
   background-size: cover; /* 원하는 크기 및 배치 설정에 따라 조절하세요. */
   background-position: center; /* 원하는 배치 설정에 따라 조절하세요. */
 
@@ -40,28 +39,27 @@ const StyledYoutube__area = styled.div`
   }
 `;
 
-const SingChatLeftCard = () => {
-  const [data, setData] = useState({
-    channel: '김수린 쇼',
-    video: '김수린의 프론트 쇼',
-    date: 'Today,2.02pm',
-  });
+interface SingChatLeftCardProps {
+  channel: string;
+  video: string;
+  date: string;
+  imageUrl: string;
+}
 
+const SingChatLeftCard = (props: SingChatLeftCardProps) => {
   return (
     <div>
       <StyledPolygon>
         <StyledYoutube>
           <Caption1 children={'YouTube'} color={colors.Gray[25]} />
-          <Body2 children={data.channel} color={colors.Gray[25]} fontWeight={'bold'} />
+          <Body2 children={props.channel} color={colors.Gray[25]} fontWeight={'bold'} />
           <Spacer space={'1vh'} />
-          <Body1 children={data.video} color={colors.Gray[25]} fontWeight={'bold'} />
+          <Body1 children={props.video} color={colors.Gray[25]} fontWeight={'bold'} />
           <Spacer space={'1vh'} />
-          <StyledYoutube__area>
-            <div id='player'></div>
-          </StyledYoutube__area>
+          <StyledYoutubeArea imageUrl={props.imageUrl} />
         </StyledYoutube>
       </StyledPolygon>
-      <Caption1 children={data.date} color={colors.Gray[25]} />
+      <Caption1 children={props.date} color={colors.Gray[25]} />
     </div>
   );
 };

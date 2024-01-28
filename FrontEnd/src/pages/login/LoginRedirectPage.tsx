@@ -5,8 +5,6 @@ import { colors } from '../../config/Color';
 import styled from 'styled-components';
 import { setStorage } from '../../utils/localstorage/storageUtil';
 import { login } from '../../utils/api/auth/auth';
-import { useRecoilState } from 'recoil';
-import { memberInfoState } from '../../utils/recoil/Atoms';
 import { setCookie } from '../../utils/cookie/cookieUtil';
 
 const StyledContainer = styled.div`
@@ -22,7 +20,6 @@ interface LoginRedirectPageProps {
 const LoginRedirectPage = ({ oauthProvider }: LoginRedirectPageProps) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [, setMemeberInfo] = useRecoilState(memberInfoState);
 
   const handleOAuthKakao = useCallback(
     async (code: string) => {
@@ -31,14 +28,13 @@ const LoginRedirectPage = ({ oauthProvider }: LoginRedirectPageProps) => {
         const tokens = data.tokens;
         await setStorage('accessToken', tokens.accessToken);
         setCookie('refreshToken', tokens.refreshToken, 20160, '/');
-        setMemeberInfo(data.memberInfo);
         navigate('/main', { replace: true });
       } else {
         alert('로그인에 실패했습니다.');
         navigate('/', { replace: true });
       }
     },
-    [navigate, oauthProvider, setMemeberInfo]
+    [navigate, oauthProvider]
   );
 
   useEffect(() => {

@@ -1,6 +1,6 @@
 import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
 import styled from 'styled-components';
-import { colors } from '../../config/Color';
+import { colors } from '../../../config/Color';
 
 const StyledSprintContainer = styled.div<{ isFin: boolean }>`
   width: 8vmax;
