@@ -1,8 +1,8 @@
 package code.odyssey.common.domain.guildSprint.service;
 
 import static code.odyssey.common.domain.guild.enums.GuildRole.MASTER;
-import static code.odyssey.common.domain.guildSprint.entity.enums.GuildSprintStatus.COMPLETED;
-import static code.odyssey.common.domain.guildSprint.exception.GuildSprintErrorCode.ALREADY_COMPLETED_SPRINT;
+import static code.odyssey.common.domain.guildSprint.entity.enums.GuildSprintStatus.ENDED;
+import static code.odyssey.common.domain.guildSprint.exception.GuildSprintErrorCode.ALREADY_ENDED_SPRINT;
 import static code.odyssey.common.domain.guildSprint.exception.GuildSprintErrorCode.NO_AUTHNETICATION;
 
 import code.odyssey.common.domain.guild.repository.GuildMemberRepository;
@@ -31,8 +31,8 @@ public class GuildProblemService {
 		GuildProblemEditRequest request) {
 
 		GuildSprint sprint = guildSprintRepository.findById(guildSprintId)
-			.filter(gs -> !COMPLETED.equals(gs.getStatus()))
-			.orElseThrow(() -> new GuildSprintException(ALREADY_COMPLETED_SPRINT));
+			.filter(gs -> !ENDED.equals(gs.getStatus()))
+			.orElseThrow(() -> new GuildSprintException(ALREADY_ENDED_SPRINT));
 
 		// 권한 체크
 		guildMemberRepository.findByMemberInGuild(
