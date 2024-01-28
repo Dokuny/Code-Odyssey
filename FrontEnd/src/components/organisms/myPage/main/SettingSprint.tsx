@@ -1,35 +1,34 @@
-import styled from 'styled-components';
-import { colors } from '../../../../config/Color';
-import { Body1 } from '../../../atoms/basic/Typography';
-import StarGraph from '../../../atoms/graph/StarGraph';
 import { useState } from 'react';
+import MainTopCard from '../../../molecules/card/MainTopCard';
+import SelectBar from '../../../molecules/buttonBar/SelectBar';
+import MyRunningSprint from './mySprintView/MyRunningSprint';
+import SettingMySprint from './mySprintView/SettingMySprint';
+import LastMySprint from './mySprintView/LastMySprint';
 
-const StyledContainer = styled.div`
-  display: flex;
-  height: 35vh;
-`;
 const SettingSprint = () => {
-  const [data, setData] = useState([
-    {
-      id: 'rank',
-      data: [
-        { x: '월', y: 1 },
-        { x: '화', y: 1.5 },
-        { x: '수', y: 1.2 },
-        { x: '목', y: 1.4 },
-        { x: '금', y: 0.5 },
-        { x: '토', y: 0.6 },
-        { x: '일', y: 1.8 },
-      ],
-    },
-  ]);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   return (
     <>
-      <Body1 children={'SettingSprint'} color={colors.Gray[300]} />
-      <StyledContainer>
-        <StarGraph data={data} />
-      </StyledContainer>
+      <MainTopCard
+        src={'/images/code_odyssey/MySpringBg.svg'}
+        title={'스프린트로 실력 상승하기'}
+        subTitle={'스프린트를 생성하고 연습해보세요'}
+        content={
+          <div style={{ width: '80%' }}>
+            <SelectBar
+              data={[
+                { content: '진행 중', event: () => setActiveIndex(0), active: activeIndex === 0 },
+                { content: '설정', event: () => setActiveIndex(1), active: activeIndex === 1 },
+                { content: '지난 스프린트', event: () => setActiveIndex(2), active: activeIndex === 2 },
+              ]}
+            />
+          </div>
+        }
+      />
+      {activeIndex === 0 && <MyRunningSprint />}
+      {activeIndex === 1 && <SettingMySprint />}
+      {activeIndex === 2 && <LastMySprint />}
     </>
   );
 };

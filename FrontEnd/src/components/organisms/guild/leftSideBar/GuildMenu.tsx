@@ -3,7 +3,7 @@ import { colors } from '../../../../config/Color';
 import { Body1, Body2, Header3 } from '../../../atoms/basic/Typography';
 import MenuButton from '../../../atoms/button/MenuButton';
 import { Spacer } from '../../../atoms/basic/Spacer';
-import { IoIcon } from '../../../atoms/icon/Icons';
+import { MdIcon } from '../../../atoms/icon/Icons';
 
 const StyledContainer = styled.div`
   position: relative;
@@ -35,8 +35,8 @@ interface MyMenuProps {
 
 const GuildMenu = (props: MyMenuProps) => {
   const MenuList = [
-    { content: '길드 찾기', event: () => props.setActiveIndex(0), active: props.activeIndex === 0, icon: 'compass' },
-    { content: '길드 추가', event: () => props.setActiveIndex(1), active: props.activeIndex === 1, icon: 'music' },
+    { content: '길드 찾기', event: () => props.setActiveIndex(0), active: props.activeIndex === 0, icon: 'sail' },
+    { content: '길드 추가', event: () => props.setActiveIndex(1), active: props.activeIndex === 1, icon: 'anchor' },
   ];
 
   return (
@@ -52,7 +52,7 @@ const GuildMenu = (props: MyMenuProps) => {
               active={value.active}
               children={
                 <StyledButtonContentContainer>
-                  <IoIcon name={value.icon} color={colors.Gray[25]} size={'2vmin'} />
+                  <MdIcon name={value.icon} color={colors.Gray[25]} size={'2vmin'} />
                   <Spacer space={'0.5vmax'} horizontal />
                   <Body2 children={value.content} color={colors.Gray[25]} />
                 </StyledButtonContentContainer>

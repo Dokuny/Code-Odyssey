@@ -16,7 +16,7 @@ const StarGraph = (props: MyResponsiveLineProps) => {
       xScale={{ type: 'point' }}
       yScale={{ type: 'linear', min: 0, max: 2, stacked: false, reverse: false }}
       pointSize={14}
-      colors={colors.GrayBlue[200]}
+      colors={colors.White}
       useMesh={false}
       theme={{ text: { fill: colors.Gray[300], fontSize: '0.6em' } }}
     />

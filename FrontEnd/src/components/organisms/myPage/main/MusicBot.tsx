@@ -1,34 +1,57 @@
-import { useState } from 'react';
-import { colors } from '../../../../config/Color';
-import { Body1 } from '../../../atoms/basic/Typography';
+import { useEffect, useState } from 'react';
 import BasicInput from '../../../atoms/input/BasicInput';
-import MainTopCard from '../../../molecules/MainTopCard';
-import SingChatLeftCard from '../../../molecules/SingChatLeftCard';
-import SingChatRightCard from '../../../molecules/SingChatRightCard';
+import MainTopCard from '../../../molecules/card/MainTopCard';
+import SingChatLeftCard from '../../../molecules/card/SingChatLeftCard';
+import SingChatRightCard from '../../../molecules/card/SingChatRightCard';
 import { Spacer } from '../../../atoms/basic/Spacer';
+import { useRecoilState } from 'recoil';
+import { MusicBotChatState } from '../../../../utils/recoil/Atoms';
 
 const MusicBot = () => {
-   const [searchInput, setSearchInput] = useState('');
-  const [selectProblem, setSelectProblem] = useState<any>(null);
+  const [searchInput, setSearchInput] = useState('');
+  const [botChatting, setBotChatting] = useState({});
+  const [chat, setChat] = useRecoilState(MusicBotChatState);
+
+  useEffect(() => {
+    if (Object.keys(botChatting).length !== 0) {
+      setChat([...chat, ['bot', botChatting]]);
+      setBotChatting({});
+    }
+  }, [botChatting, chat, setChat]);
+
+  const getData = () => {
+    setTimeout(() => {
+      setBotChatting({ channel: 'channel Name', video: 'video Name', date: 'Today, 2:02pm', imageUrl: 'https://picsum.photos/300' });
+    }, 1);
+  };
+
   return (
     <>
-    <MainTopCard
-        src={'/images/code_odyssey/ProblemSolveBg.svg'}
+      <MainTopCard
+        src={'/images/code_odyssey/MusicBotBg.svg'}
         title={'세이렌에게 노래 부탁하기'}
         subTitle={'링크를 입력하면 노래를 불러줘요'}
         content={
-          <BasicInput
-            placeholder={'문제 찾아보기'}
-            setInput={setSearchInput}
-            onKeyDown={() => {
-              console.log(searchInput);
-            }}
-          />
+          <div style={{ width: '80%' }}>
+            <BasicInput
+              placeholder={'유튜브 링크를 입력해보세요'}
+              setInput={setSearchInput}
+              onKeyDown={() => {
+                setChat([...chat, ['user', { text: searchInput, date: 'Today, 2:02pm' }]]);
+                getData();
+              }}
+            />
+          </div>
         }
       />
-    <Spacer space={'2vh'} />
-    <SingChatLeftCard />
-    <SingChatRightCard />
+      <Spacer space={'2vh'} />
+      {chat.map((value, index) =>
+        value[0] === 'bot' ? (
+          <SingChatLeftCard key={index} channel={value[1].channel} video={value[1].video} date={value[1].date} imageUrl={value[1].imageUrl} />
+        ) : (
+          <SingChatRightCard key={index} text={value[1].text} date={value[1].date} />
+        )
+      )}
     </>
   );
 };

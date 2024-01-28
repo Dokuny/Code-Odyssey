@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
 import styled from 'styled-components';
-import { colors } from '../../config/Color';
-import { Body1 } from '../atoms/basic/Typography';
-import SelectButton from '../atoms/button/SelectButton';
+import { colors } from '../../../config/Color';
+import { Body2 } from '../../atoms/basic/Typography';
+import SelectButton from '../../atoms/button/SelectButton';
 
 //   예시 - props 내릴때,
 
@@ -27,7 +26,6 @@ interface DataProps {
 
 const StyledContainer = styled.div`
   display: flex;
-  border: 2px solid ${colors.Black};
   overflow: hidden;
 `;
 
@@ -35,8 +33,18 @@ const SprintSelectBar: React.FC<DataProps> = ({ data }) => {
   return (
     <StyledContainer>
       {data.map(({ content, event, active }, index) => (
-        <SelectButton event={event} borderColor={colors.Black} deepColor={colors.Gray[800]} bgColor={colors.Gray[800]} borderRadius='0px' borderWidth='0px' color={colors.Gray[800]} active={active} color2={colors.Puple[25]}>
-          { active ? <Body1 children={content} color={colors.Puple[25]} /> : <Body1 children={content} color={colors.Gray[500]} /> }
+        <SelectButton
+          event={event}
+          borderColor={colors.Black}
+          deepColor={colors.Gray[800]}
+          bgColor={colors.Gray[800]}
+          borderRadius='0px'
+          borderWidth='0px'
+          color={colors.Gray[800]}
+          active={active}
+          color2={colors.Puple[25]}
+        >
+          {active ? <Body2 children={content} color={colors.Puple[25]} /> : <Body2 children={content} color={colors.Gray[500]} />}
         </SelectButton>
       ))}
     </StyledContainer>
