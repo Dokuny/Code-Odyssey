@@ -12,14 +12,23 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class GuildSprintController {
 
-    private final GuildSprintService guildSprintService;
+	private final GuildSprintService guildSprintService;
 
-    @PostMapping
-    public ResponseEntity<Long> createGuildSprint(
-            @RequestHeader("X-Authorization-Id") Long memberId,
-            @PathVariable("guildId") Long guildId,
-            @RequestBody @Valid GuildSprintCreateRequest request
-    ) {
-        return ResponseEntity.ok(guildSprintService.createGuildSprint(memberId, guildId, request));
-    }
+	@PostMapping
+	public ResponseEntity<Long> createGuildSprint(
+		@RequestHeader("X-Authorization-Id") Long memberId,
+		@PathVariable("guildId") Long guildId,
+		@RequestBody @Valid GuildSprintCreateRequest request
+	) {
+		return ResponseEntity.ok(guildSprintService.createGuildSprint(memberId, guildId, request));
+	}
+
+	@DeleteMapping("/{sprintId}")
+	public ResponseEntity<Void> deleteGuildSprint(
+		@RequestHeader("X-Authorization-Id") Long memberId,
+		@PathVariable("sprintId") Long sprintId
+	) {
+		guildSprintService.deleteGuildSprint(memberId, sprintId);
+		return ResponseEntity.ok().build();
+	}
 }
