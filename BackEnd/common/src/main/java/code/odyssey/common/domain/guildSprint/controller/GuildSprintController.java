@@ -31,4 +31,14 @@ public class GuildSprintController {
 		guildSprintService.deleteGuildSprint(memberId, sprintId);
 		return ResponseEntity.ok().build();
 	}
+
+	@PatchMapping("/{sprintId}/start")
+	public ResponseEntity<Void> startGuildSprint(
+		@RequestHeader("X-Authorization-Id") Long memberId,
+		@PathVariable("guildId") Long guildId,
+		@PathVariable("sprintId") Long sprintId
+	) {
+		guildSprintService.startGuildSprint(memberId, guildId, sprintId);
+		return ResponseEntity.ok().build();
+	}
 }

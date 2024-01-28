@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static code.odyssey.common.domain.guildSprint.entity.enums.GuildSprintStatus.IN_PROGRESS;
 import static code.odyssey.common.domain.guildSprint.entity.enums.GuildSprintStatus.WAITING;
 import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.EnumType.STRING;
@@ -64,5 +65,13 @@ public class GuildSprint {
         guildSprint.status = WAITING;
 
         return guildSprint;
+    }
+
+    public void start() {
+        if (!this.status.equals(WAITING)) {
+            return;
+        }
+
+        this.status = IN_PROGRESS;
     }
 }

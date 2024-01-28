@@ -15,6 +15,7 @@ public enum GuildSprintErrorCode {
 	NOT_EXISTS_PROBLEM("문제를 찾을 수 없습니다.", BAD_REQUEST),
 	ALREADY_COMPLETED_SPRINT("이미 완료된 스프린트 입니다.",BAD_REQUEST),
 	CANNOT_DELETE_SPRINT("스프린트를 삭제할 수 없습니다.", BAD_REQUEST),
+	NOT_STARTED_SPRINT("스프린트를 시작할 수 없습니다.", BAD_REQUEST),
 
 	;
 
