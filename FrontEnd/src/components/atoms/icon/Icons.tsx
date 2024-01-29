@@ -101,6 +101,9 @@ export const IoIcon = (props: IconProps) => {
     minus: IO.IoMdArrowUp,
     boat: IO.IoMdBoat,
     easel: IO.IoMdEasel,
+    chat: IO.IoMdChatbubbles,
+    person: IO.IoMdPerson,
+    setting: IO.IoMdSettings,
     // 다른 아이콘들도 필요에 따라 추가 가능
   };
 

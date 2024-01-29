@@ -6,9 +6,9 @@ import GuildRightSidebar from '../../organisms/guild/rightSideBar/GuildRightSide
 import GuildFind from '../../organisms/guild/main/GuildFind';
 import GuildProfile from '../../organisms/guild/main/GuildProfile';
 import GuildSprint from '../../organisms/guild/main/GuildSprint';
-import GuildSolveProblem from '../../organisms/guild/main/GuildSolveProblem';
 import GuildSetting from '../../organisms/guild/main/GuildSetting';
 import GuildAdd from '../../organisms/guild/main/GuildAdd';
+import GuildChatting from '../../organisms/guild/main/GuildChatting';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -71,8 +71,8 @@ const GuildTemplate = (props: GuildTemplateProps) => {
         {activeMenuIndex === 1 && <GuildAdd guild_id={props.guild_id} />}
         {activeMenuIndex === 2 && <GuildProfile guild_id={props.guild_id} />}
         {activeMenuIndex === 3 && <GuildSprint guild_id={props.guild_id} />}
-        {activeMenuIndex === 4 && <GuildSolveProblem guild_id={props.guild_id} />}
-        {activeMenuIndex === 5 && <GuildSetting guild_id={props.guild_id} />}
+        {activeMenuIndex === 4 && <GuildSetting guild_id={props.guild_id} />}
+        {activeMenuIndex === 5 && <GuildChatting guild_id={props.guild_id} />}
       </StyledMain>
       <StyledRightSidebar>
         <GuildRightSidebar />

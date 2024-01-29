@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { colors } from '../../../config/Color';
-import { Body1, Body2 } from '../../atoms/basic/Typography';
+import { Body3 } from '../../atoms/basic/Typography';
 import SelectButton from '../../atoms/button/SelectButton';
 
 //   예시 - props 내릴때,
@@ -49,7 +49,7 @@ const SelectBar: React.FC<DataProps> = ({ data }) => {
           active={active}
           key={index}
         >
-          <Body2 children={content} color={colors.Gray[200]} />
+          <Body3 children={content} color={colors.Gray[200]} />
         </SelectButton>
       ))}
     </StyledContainer>
