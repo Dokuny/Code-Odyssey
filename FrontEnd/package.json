@@ -19,6 +19,7 @@
     "@uiw/react-md-editor": "^4.0.3",
     "axios": "^1.6.5",
     "chance": "^1.1.11",
+    "date-fns": "^3.3.1",
     "luxon": "^3.4.4",
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",
@@ -64,6 +65,7 @@
     ]
   },
   "devDependencies": {
+    "@iconify/react": "^4.1.1",
     "@tailwindcss/line-clamp": "^0.4.4",
     "@types/chance": "^1.1.6",
     "@types/luxon": "^3.4.0",
