@@ -1,5 +1,6 @@
 package code.odyssey.common.domain.problem.controller;
 
+import code.odyssey.common.domain.problem.dto.ProblemSubmitRequest;
 import code.odyssey.common.domain.problem.dto.SubmissionInfo;
 import code.odyssey.common.domain.problem.dto.SubmissionNumInfo;
 import code.odyssey.common.domain.problem.service.SubmissionService;
@@ -34,6 +35,16 @@ public class SubmissionController {
 
     ) {
         SubmissionInfo result = submissionService.getSubmissionResult(problemId, memberId);
+        return ResponseEntity.ok(result);
+    }
+
+    // 개인 코드 제출
+    @PostMapping
+    public ResponseEntity<Long> postSubmissionResult(
+            @RequestHeader("X-Authorization-Id") Long memberId,
+            @RequestBody ProblemSubmitRequest request
+    ){
+        Long result = submissionService.postSubmissionResult(memberId, request);
         return ResponseEntity.ok(result);
     }
 
