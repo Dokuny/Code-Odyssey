@@ -8,7 +8,7 @@ import StarGraph from '../../atoms/graph/StarGraph';
 
 const StyledContainer = styled.div`
   display: flex;
-  height: 35%;
+  height: 80%;
 `;
 
 const RunningSprintGraph = () => {
