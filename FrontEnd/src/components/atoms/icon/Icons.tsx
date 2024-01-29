@@ -3,6 +3,7 @@ import * as FA from 'react-icons/fa';
 import * as BS from 'react-icons/bs';
 import * as IO from 'react-icons/io';
 import * as MD from 'react-icons/md';
+import * as FA6 from 'react-icons/fa6';
 import { LengthType } from 'react-spinners/helpers/props';
 
 interface IconProps {
@@ -49,6 +50,28 @@ export const FaIcon = (props: IconProps) => {
     sortdown: FA.FaSortDown,
     sort: FA.FaSort,
     // 다른 아이콘들도 필요에 따라 추가 가능
+  };
+
+  const { name, ...rest } = props;
+  const SelectedIcon = icons[name];
+
+  if (!SelectedIcon) {
+    console.error(`Icon "${name}" not found`);
+    return null;
+  }
+  return <SelectedIcon {...rest} />;
+};
+
+/**
+ * Font Awesome icon 가져오기
+ * @param props
+ * @returns
+ * @author 김수린
+ */
+export const Fa6Icon = (props: IconProps) => {
+  const icons: { [key: string]: React.ElementType } = {
+    left: FA6.FaChevronLeft,
+    doubleleft: FA6.FaAngleLeft,
   };
 
   const { name, ...rest } = props;

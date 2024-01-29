@@ -28,6 +28,7 @@ interface DataProps {
 const StyledContainer = styled.div`
   display: flex;
   width: 100%;
+  min-height: 5.5vh;
   border-radius: 2em;
   border: 1px solid ${colors.Gray[500]};
   overflow: hidden;
