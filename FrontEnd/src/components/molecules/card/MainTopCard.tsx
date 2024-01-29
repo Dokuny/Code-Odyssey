@@ -48,9 +48,9 @@ const MainTopCard = (props: MainTopCardProps) => {
       <BackgroundImageBlur imagesrc={props.src} />
       <StyledContentContainer>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <Body1 children={props.title} color={colors.Gray[300]} fontWeight={'bold'} />
+          <Body1 children={props.title} color={colors.Gray[100]} fontWeight={'bold'} />
           <Spacer space={'1vh'} />
-          <Body3 children={props.subTitle} color={colors.Gray[300]} fontWeight={'bold'} />
+          <Body3 children={props.subTitle} color={colors.Gray[100]} fontWeight={'bold'} />
         </div>
         {props.content}
       </StyledContentContainer>

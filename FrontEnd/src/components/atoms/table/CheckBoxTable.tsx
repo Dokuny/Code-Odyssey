@@ -83,6 +83,7 @@ const StyledPageButton = styled.button<{ isActive?: boolean; pageBtnColor: strin
 
 interface BasicTableProps {
   tableData: any;
+  selectData: any;
   setSelectData: React.Dispatch<any>;
   percentData: String[];
   state: PaginationState;
@@ -94,7 +95,7 @@ interface BasicTableProps {
   title?: string;
 }
 
-const BasicTable = (props: BasicTableProps) => {
+const CheckBoxTable = (props: BasicTableProps) => {
   const [data] = useState(props.tableData.data);
   const columnHelper = createColumnHelper<any>();
   const columns =
@@ -118,13 +119,20 @@ const BasicTable = (props: BasicTableProps) => {
     },
   });
 
-  const handleTdClick = (row: unknown) => {
-    props.setSelectData(row);
+  const handleTdClick = (row: any) => {
+    const isRowSelected = (props.selectData || []).some((selectedRow: any) => selectedRow.id === row.id);
+
+    if (isRowSelected) {
+      const updatedData = (props.selectData || []).filter((selectedRow: any) => selectedRow.id !== row.id);
+      props.setSelectData(updatedData);
+    } else {
+      props.setSelectData([...(props.selectData || []), row]);
+    }
   };
 
   const renderPageButtons = () => {
-    const totalPages = Math.min(props.totalPages, 5); // 전체 페이지 수와 5 중 작은 값을 사용
-    const startIndex = Math.min(Math.max(0, props.totalPages - 5), Math.max(0, props.state.pageIndex - 2)); // 현재 페이지를 중심으로 좌우로 2개씩 표시
+    const totalPages = Math.min(props.totalPages, 5);
+    const startIndex = Math.min(Math.max(0, props.totalPages - 5), Math.max(0, props.state.pageIndex - 2));
 
     return [...Array(totalPages)].map((_, index) => (
       <StyledPageButton
@@ -149,6 +157,9 @@ const BasicTable = (props: BasicTableProps) => {
         <StyledThead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
+              <StyledTh>
+                <StyledHeaderContainer></StyledHeaderContainer>
+              </StyledTh>
               {headerGroup.headers.slice(1).map((header) => (
                 <StyledTh key={header.id} style={{ width: header.getSize(), cursor: header.column.getCanSort() ? 'pointer' : 'default' }} onClick={header.column.getToggleSortingHandler()}>
                   <StyledHeaderContainer>
@@ -165,6 +176,9 @@ const BasicTable = (props: BasicTableProps) => {
         <StyledTbody>
           {table.getRowModel().rows.map((row) => (
             <tr key={row.id}>
+              <StyledTd onClick={() => handleTdClick(row.original)}>
+                <input type='checkbox' checked={props.selectData && props.selectData.some((selectedRow: any) => selectedRow.id === row.original.id)} />
+              </StyledTd>
               {row
                 .getVisibleCells()
                 .slice(1)
@@ -221,4 +235,4 @@ const BasicTable = (props: BasicTableProps) => {
   );
 };
 
-export default BasicTable;
+export default CheckBoxTable;

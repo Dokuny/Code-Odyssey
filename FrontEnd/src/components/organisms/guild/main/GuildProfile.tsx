@@ -24,7 +24,7 @@ const GuildProfile = (props: GuildProfileProps) => {
       <SelectBar
         data={[
           { content: '길드 정보', event: () => setActiveIndex(0), active: activeIndex === 0 },
-          { content: '진행 중 스프린트 정보', event: () => setActiveIndex(1), active: activeIndex === 1 },
+          { content: '길드원 보기', event: () => setActiveIndex(1), active: activeIndex === 1 },
         ]}
       />
       <Body1 children={'GuildProfile'} color={colors.Gray[300]} />
