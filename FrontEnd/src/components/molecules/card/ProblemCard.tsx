@@ -1,6 +1,7 @@
+import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../../config/Color';
-import { Body1, Body2, Header3 } from '../../atoms/basic/Typography';
+import { Body1, Body2, Header2, Header3 } from '../../atoms/basic/Typography';
 import { Spacer } from '../../atoms/basic/Spacer';
 import { difficulty } from '../../../utils/json/difficulty';
 
@@ -17,19 +18,20 @@ interface ProblemCardProps {
 }
 
 const ProblemCardDiv = styled.div`
-  aspect-ratio: 15 / 22;
   background-color: ${colors.Gray[700]};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 22%;
   min-width: 22%;
-  height: 30%;
-  min-height: 30%;
-  border-radius: 15px;
+  aspect-ratio: 15 / 22;
+  /* height: 300px; */
+  /* min-height: 200px; */
+  border-radius: 20px;
   box-sizing: border-box;
-  padding: 2vh 0;
+  padding-top: 1vh;
   box-shadow: 2px 2px 4px ${colors.Gray[800]};
+  margin-bottom: 20px;
   margin-right: 2vw;
 
   /* 내부 요소 스타일 수정 */
@@ -40,6 +42,7 @@ const ProblemCardDiv = styled.div`
 `;
 
 const HeaderDiv = styled.div`
+  padding-top: 10px;
   padding-left: 15px;
   display: flex;
   justify-content: space-between;
@@ -82,13 +85,13 @@ const FooterDiv = styled.div`
 const DetailButton = styled.button`
   margin-top: 10px;
   color: ${colors.GrayBlue[400]};
-  width: 80px;
-  height: 40px;
+  width: 100px;
+  height: 60px;
   border-radius: 50px;
   background-color: ${colors.Gray[700]};
   border: 1px solid ${colors.Gray[300]};
   transition: box-shadow 0.3s ease-in-out;
-  font-size: 1rem;
+  font-size: 1.2rem;
 
   &:hover {
     box-shadow: 0 0 0 1px ${colors.Gray[300]};
@@ -108,17 +111,17 @@ const ProblemCard = (props: ProblemCardProps) => {
       <HeaderDiv>
         <DiffImgageDiv src={difficulty[props.data.difficulty]} />
         <TextDiv>
-          <Header3 children={props.data.source} color={''}></Header3>
+          <Header2 children={props.data.source} color={''}></Header2>
           <Spacer space={'5px'}></Spacer>
-          <Body2 children={props.data.proNum} color={''}></Body2>
+          <Body1 children={props.data.proNum} color={''}></Body1>
         </TextDiv>
       </HeaderDiv>
       <ImageStyle src={props.data.imagesrc} />
       <FooterDiv>
         <div className='seperate-1'>
-          <Body1 children={props.data.title} color={''}></Body1>
+          <Header3 children={props.data.title} color={''}></Header3>
           <Spacer space={'5px'}></Spacer>
-          <Body2 children={props.data.isDone ? '풀었습니다!' : '도전해보세요!'} color={props.data.isDone ? 'green' : 'Orangered'}></Body2>
+          <Body1 children={props.data.isDone ? '풀었습니다!' : '도전해보세요!'} color={props.data.isDone ? 'green' : 'Orangered'}></Body1>
         </div>
         <SeperateDiv>
           <DetailButton type='submit' disabled={!props.data.isDone}>
