@@ -3,7 +3,7 @@ package code.odyssey.common.domain.problem.entity.enums;
 public enum ProblemType {
     SIMULATION,
     DATA_STRUCTURE,
-    GRAPH_SEARCH,
+    GRAPH,
     STRING,
     BRUTE_FORCE,
     TREE,

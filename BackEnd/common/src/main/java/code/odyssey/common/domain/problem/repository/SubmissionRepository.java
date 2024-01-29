@@ -23,4 +23,6 @@ public interface SubmissionRepository extends JpaRepository<Submission, Long> {
     Optional<Submission> findByProblemIdAndMemberId(Long problemId, Long memberId);
 
 
+    // 회원 아이디로 제출 코드 개수 조회
+    int countByMemberId(Long memberId);
 }
