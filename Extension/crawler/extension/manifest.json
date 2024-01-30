@@ -6,10 +6,6 @@
   "icons": {
     "16": "thumbnail.png"
   },
-  "action": {
-    "default_popup": "popup.html",
-    "default_icon": "thumbnail.png"
-  },
   "background": {
     "service_worker": "background.js",
     "type": "module"
@@ -41,6 +37,10 @@
         "https://school.programmers.co.kr/learn/courses/30/lessons/*"
       ],
       "js": ["scripts/programmers/problem.js"]
+    },
+    {
+      "matches": ["https://www.acmicpc.net/problemset/*"],
+      "js": ["scripts/baekjoon/get-list.js"]
     }
   ]
 }

@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 class ProblemData(models.Model):
     platform = models.CharField(max_length=20);
-    link = models.URLField(max_length=200)
+    link = models.TextField()
     num = models.IntegerField()
     title = models.CharField(max_length=200)
     timeLimits = models.CharField(max_length=200)

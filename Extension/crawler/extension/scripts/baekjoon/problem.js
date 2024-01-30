@@ -33,6 +33,7 @@ const tierImgNum = document
   )
   .src.substring(tierImgSrc.length - 6, tierImgSrc.length - 4)
   .replace("/", "");
+
 const tierList = {
   0: "0",
   1: "1", // bronze 5
@@ -67,7 +68,7 @@ const tierList = {
   30: "30",
   31: "31", // master
 };
-const difficulty = tierList[tierImgNum];
+const difficulty = tierList[tierImgNum] || 0;
 
 // 예제 입력 (여러 개)
 const sampleInputs = [];
@@ -208,6 +209,7 @@ fetch("http://127.0.0.1:8081/save-data/save/", {
   .then((response) => {
     if (response.ok) {
       console.log("데이터를 성공적으로 서버로 보냈습니다.");
+      window.close();
     } else {
       console.error("서버로 데이터를 보내는 중 오류가 발생했습니다.");
     }
