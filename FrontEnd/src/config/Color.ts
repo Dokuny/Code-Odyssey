@@ -13,5 +13,6 @@ export const colors = {
   Skin: '#fff1c9',
   Red: '#da6e6a',
   Green: '#81BD7D',
+  GrayBlack : '#272727'
 };
 

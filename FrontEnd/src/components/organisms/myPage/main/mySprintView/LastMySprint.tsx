@@ -4,6 +4,9 @@ import { Spacer } from '../../../../atoms/basic/Spacer';
 import { Body1 } from '../../../../atoms/basic/Typography';
 import SprintSelectBar from '../../../../molecules/buttonBar/SprintSelectBar';
 import MyCalender from '../../../../molecules/calender/MyCalender';
+import TypeByProblem from '../../../../molecules/dropdown/SprintDropDown';
+import DropDown from '../../../../molecules/dropdown/SprintDropDown';
+import MoveProblem from '../../../../molecules/moveproblem/MoveProblem';
 
 const LastMySprint = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -19,8 +22,10 @@ const LastMySprint = () => {
             { content: '난이도별', event: () => setActiveIndex(2), active: activeIndex === 2 },
           ]}
         />
-      </div>
       {activeIndex === 0 && <MyCalender />}
+      {activeIndex === 1 && <DropDown />}
+      {activeIndex === 2 && <MoveProblem />}
+      </div>
     </>
   );
 };

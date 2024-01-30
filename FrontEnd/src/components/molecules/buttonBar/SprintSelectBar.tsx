@@ -36,8 +36,8 @@ const SprintSelectBar: React.FC<DataProps> = ({ data }) => {
         <SelectButton
           event={event}
           borderColor={colors.Black}
-          deepColor={colors.Gray[800]}
-          bgColor={colors.Gray[800]}
+          deepColor={colors.GrayBlack}
+          bgColor={colors.GrayBlack}
           borderRadius='0px'
           borderWidth='0px'
           color={colors.Gray[800]}
