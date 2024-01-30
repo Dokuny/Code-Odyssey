@@ -67,8 +67,8 @@ const GuildTemplate = (props: GuildTemplateProps) => {
         <GuildLeftSidebar MyMenuProps={{ activeIndex: activeMenuIndex, setActiveIndex: setActiveMenuIndex }} MyGuildListProps={GuildSelectProps} guild_id={props.guild_id} />
       </StyledLeftSidebar>
       <StyledMain>
-        {activeMenuIndex === 0 && <GuildFind guild_id={props.guild_id} />}
-        {activeMenuIndex === 1 && <GuildAdd guild_id={props.guild_id} />}
+        {activeMenuIndex === 0 && <GuildFind />}
+        {activeMenuIndex === 1 && <GuildAdd />}
         {activeMenuIndex === 2 && <GuildProfile guild_id={props.guild_id} />}
         {activeMenuIndex === 3 && <GuildSprint guild_id={props.guild_id} />}
         {activeMenuIndex === 4 && <GuildSetting guild_id={props.guild_id} />}

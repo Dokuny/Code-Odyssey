@@ -31,6 +31,7 @@ const GuildSetting = (props: GuildSettingProps) => {
             />
           </div>
         }
+        background={true}
       />
       <Body1 children={'GuildSetting'} color={colors.Gray[300]} />
       {activeIndex === 0 && <GuildModify guild_id={props.guild_id} />}

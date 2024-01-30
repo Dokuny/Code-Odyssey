@@ -18,9 +18,11 @@ const GuildProfile = (props: GuildProfileProps) => {
     <>
       <div style={{ minHeight: '35%', maxHeight: '35%' }}>
         {activeIndex === 0 && <GuildProfileDetailCard />}
-        {activeIndex === 1 && <MainTopCard src={'/images/code_odyssey/GuildProfileBg.svg'} title={'[길드명]에서 크루원 보기'} subTitle={'여정에 함께할 동료를 찾아보세요'} content={''} />}
+        {activeIndex === 1 && (
+          <MainTopCard src={'/images/code_odyssey/GuildProfileBg.svg'} title={'[길드명]에서 크루원 보기'} subTitle={'여정에 함께할 동료를 찾아보세요'} content={''} background={true} />
+        )}
       </div>
-      <Spacer space={'4vmin'} />
+      <Spacer space={'2vmin'} />
       <SelectBar
         data={[
           { content: '길드 정보', event: () => setActiveIndex(0), active: activeIndex === 0 },

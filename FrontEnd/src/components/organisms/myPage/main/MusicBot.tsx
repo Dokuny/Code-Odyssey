@@ -34,7 +34,7 @@ const MusicBot = () => {
         content={
           <div style={{ width: '80%' }}>
             <BasicInput
-              placeholder={'유튜브 링크를 입력해보세요'}
+              placeholder={'유튜브 링크를 입력 후 Enter 키를 눌러주세요'}
               setInput={setSearchInput}
               onKeyDown={() => {
                 setChat([...chat, ['user', { text: searchInput, date: 'Today, 2:02pm' }]]);

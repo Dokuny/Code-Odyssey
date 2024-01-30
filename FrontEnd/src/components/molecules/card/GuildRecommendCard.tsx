@@ -1,88 +1,57 @@
 import styled from 'styled-components';
 import { colors } from '../../../config/Color';
-import { useState } from 'react';
-import { Body1, Body2, Body3, Header3 } from '../../atoms/basic/Typography';
+import { Body1, Caption1 } from '../../atoms/basic/Typography';
 import { Spacer } from '../../atoms/basic/Spacer';
 import { difficulty } from '../../../utils/json/difficulty';
 
-const radius: number = 20;
-const testText: string = '여덟글자팀명짓기';
-
 const GuildBackDiv = styled.div`
-  aspect-ratio: 14/18;
   display: flex;
+  aspect-ratio: 14/18;
   flex-direction: column;
   justify-content: space-between;
-  background-color: #36343b;
-  width: 18%;
-  border-radius: 40px;
-  box-sizing: border-box;
-  box-shadow: 2px 2px 4px ${colors.Gray[800]};
-  margin-right: 2vw;
-
-  transition: box-shadow 0.3s ease-in-out;
+  background-color: ${colors.Gray[700]};
+  border-radius: 1em;
+  margin: 1vmin;
+  overflow: hidden;
 
   &:hover {
-    box-shadow: 0 0 0 1px ${colors.Gray[300]};
+    cursor: pointer;
+    box-shadow: 0 0 0 1px ${colors.Gray[400]};
   }
+  box-sizing: border-box;
 `;
 
 const HeaderDiv = styled.div`
-  padding: 20px;
-  width: 100%;
-  height: 30%;
-  border-radius: 20px 20px 0 0;
-  box-sizing: border-box;
   display: flex;
-  justify-content: space-between;
-  font-size: 1rem;
+  height: 25%;
+  padding: 1vmin;
+  width: 100%;
+  align-items: center;
+  box-sizing: border-box;
 `;
 
 const DiffImageDiv = styled.img`
-  width: 17%;
-`;
-
-const TextDiv = styled.div`
-  width: 77%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: left;
-  font-size: 1.3rem;
-`;
-
-const GuildName = styled.span`
-  width: 100%;
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: white;
+  width: 16%;
 `;
 
 const ImageStyle = styled.img`
   width: 100%;
-  height: 40%;
+  height: 45%;
   object-fit: cover;
 `;
 
-const TempDiv = styled.div`
-  width: 100%;
-  height: 40%;
-`;
-
 const FooterDiv = styled.div`
-  height: 30%;
-  box-sizing: border-box;
-  padding: 20px;
   display: flex;
-  border-radius: 0 0 20px 20px;
+  height: 30%;
+  padding: 1vmin;
+  box-sizing: border-box;
 `;
 
 const SeperateLeft = styled.div`
   box-sizing: border-box;
-  width: 50%;
+  width: 60%;
   display: flex;
   flex-direction: column;
-  padding-bottom: 10px;
   justify-content: center;
 `;
 
@@ -91,7 +60,6 @@ const LineDiv = styled.div`
   flex-direction: row;
   width: 100%;
   height: 20%;
-
   align-items: center;
 `;
 
@@ -99,7 +67,7 @@ const StatusCircleOnline = styled.div`
   height: 70%;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
-  background-color: Forestgreen;
+  background-color: ${colors.Naver[500]};
   margin: 0;
   margin-right: 5px;
   padding: 0;
@@ -109,69 +77,70 @@ const StatusCircleOffline = styled.div`
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   margin-right: 5px;
-  background-color: Silver;
+  background-color: ${colors.Indigo[500]};
 `;
 
 const SeperateRight = styled.div`
   box-sizing: border-box;
-  width: 50%;
+  width: 40%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   box-sizing: border-box;
 `;
 const IconDiv = styled.div`
-  padding-left: 15px;
-  box-sizing: border-box;
   display: flex;
-  flex-direction: row;
   width: 100%;
-  height: 40%;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  box-sizing: border-box;
 `;
 const LanguageIcon = styled.img`
-  height: 90%;
   aspect-ratio: 1 / 1;
   object-fit: contain;
 `;
 
 interface GuildRecommendCardProps {
-  guildName: string;
-  guildImg: string;
-  online: string | number;
-  offline: string | number;
-  langIcons: string[];
+  guildSearchData: {
+    guild_id: number;
+    difficulty: number;
+    guildName: string;
+    guildImg: string;
+    current_cnt: string | number;
+    possible_cnt: string | number;
+    langIcons: string[];
+  };
 }
 
 const GuildRecommendCard = (props: GuildRecommendCardProps) => {
+  const data = props.guildSearchData;
   return (
     <GuildBackDiv>
       <HeaderDiv>
-        <DiffImageDiv src={difficulty[14]}></DiffImageDiv>
-        <TextDiv>
-          <GuildName>{testText}</GuildName>
-        </TextDiv>
+        <DiffImageDiv src={difficulty[data.difficulty]}></DiffImageDiv>
+        <Spacer space={'0.5vmax'} horizontal />
+        <Body1 children={data.guildName} color={colors.Gray[100]} fontWeight={'bold'} />
       </HeaderDiv>
-      <ImageStyle src={props.guildImg}></ImageStyle>
+      <ImageStyle src={data.guildImg}></ImageStyle>
       <FooterDiv>
         <SeperateLeft>
           <LineDiv>
-            <StatusCircleOnline></StatusCircleOnline>
-            <Body1 children={props.online + `명 온라인`} color={'white'}></Body1>
+            <StatusCircleOnline />
+            <Caption1 children={data.current_cnt + `명 참여 중`} color={colors.Gray[300]} fontWeight={'bold'} />
           </LineDiv>
-          <Spacer space={'10px'}></Spacer>
+          <Spacer space={'1vmin'} />
           <LineDiv>
-            <StatusCircleOffline></StatusCircleOffline>
-            <Body1 children={props.offline + `명 오프라인`} color={'white'}></Body1>
+            <StatusCircleOffline />
+            <Caption1 children={data.possible_cnt + `명 참여 가능`} color={colors.Gray[300]} fontWeight={'bold'} />
           </LineDiv>
         </SeperateLeft>
         <SeperateRight>
           <IconDiv>
-            {props.langIcons.map((ele, index) => (
-              <LanguageIcon key={index} src={ele}></LanguageIcon>
+            {data.langIcons.map((ele, index) => (
+              <div style={{ margin: '0.2vmax' }}>
+                <LanguageIcon key={index} src={ele} />
+              </div>
             ))}
-            ;
           </IconDiv>
         </SeperateRight>
       </FooterDiv>
