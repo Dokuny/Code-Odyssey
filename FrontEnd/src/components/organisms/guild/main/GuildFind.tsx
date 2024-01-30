@@ -1,16 +1,13 @@
-import { Body1 } from '../../../atoms/basic/Typography';
-import { colors } from '../../../../config/Color';
 import MainTopCard from '../../../molecules/card/MainTopCard';
 import BasicInput from '../../../atoms/input/BasicInput';
 import { useState } from 'react';
 import { Spacer } from '../../../atoms/basic/Spacer';
+import GuildSearch from './GuildFind/GuildSearch';
+import GuildRecomment from './GuildFind/GuildRecomment';
 
-interface GuildFindProps {
-  guild_id: number;
-}
-
-const GuildFind = (props: GuildFindProps) => {
+const GuildFind = () => {
   const [searchInput, setSearchInput] = useState('');
+
   return (
     <>
       <MainTopCard
@@ -19,19 +16,12 @@ const GuildFind = (props: GuildFindProps) => {
         subTitle={'여정에 함께할 동료를 찾아보세요'}
         content={
           <div style={{ width: '80%' }}>
-            <BasicInput
-              placeholder={'문제 찾아보기'}
-              setInput={setSearchInput}
-              onKeyDown={() => {
-                console.log(searchInput);
-              }}
-            />
+            <BasicInput placeholder={'길드명으로 찾아보기'} setInput={setSearchInput} />
           </div>
         }
       />
-      <Spacer space={'4vmin'} />
-      <Body1 children={props.guild_id} color={colors.Gray[300]} />
-      <Body1 children={'GuildFind'} color={colors.Gray[300]} />
+      <Spacer space={'6vmin'} />
+      {searchInput !== '' ? <GuildSearch searchInput={searchInput} /> : <GuildRecomment />}
     </>
   );
 };

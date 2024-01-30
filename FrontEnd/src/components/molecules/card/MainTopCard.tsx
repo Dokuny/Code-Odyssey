@@ -35,11 +35,22 @@ const StyledContentContainer = styled.div`
   flex-direction: column;
 `;
 
+const StyledTitleContainer = styled.div<{ background: boolean | undefined }>`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: ${(props) => props.background && 'rgba(74, 68, 88, 0.4)'};
+  padding: ${(props) => props.background && '2vmin'};
+  width: ${(props) => props.background && '70%'};
+  border-radius: ${(props) => props.background && '1em'};
+`;
+
 interface MainTopCardProps {
   src: string;
   title: string;
   subTitle: string;
   content: React.ReactNode;
+  background?: boolean;
 }
 
 const MainTopCard = (props: MainTopCardProps) => {
@@ -47,11 +58,11 @@ const MainTopCard = (props: MainTopCardProps) => {
     <StyledBackgroundImage imagesrc={props.src}>
       <BackgroundImageBlur imagesrc={props.src} />
       <StyledContentContainer>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <StyledTitleContainer background={props.background}>
           <Body1 children={props.title} color={colors.Gray[100]} fontWeight={'bold'} />
           <Spacer space={'1vh'} />
           <Body3 children={props.subTitle} color={colors.Gray[100]} fontWeight={'bold'} />
-        </div>
+        </StyledTitleContainer>
         {props.content}
       </StyledContentContainer>
     </StyledBackgroundImage>

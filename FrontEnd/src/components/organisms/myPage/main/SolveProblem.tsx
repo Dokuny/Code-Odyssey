@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Spacer } from '../../../atoms/basic/Spacer';
 import BasicInput from '../../../atoms/input/BasicInput';
 import MainTopCard from '../../../molecules/card/MainTopCard';
@@ -9,9 +9,6 @@ const SolveProblem = () => {
   const [searchInput, setSearchInput] = useState('');
   const [selectProblem, setSelectProblem] = useState<any>(null);
   const [state, setState] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 });
-
-  console.log(selectProblem);
-  console.log(state);
 
   const percentData = ['person'];
   const [tableData, setTableData] = useState({
@@ -30,6 +27,18 @@ const SolveProblem = () => {
     ],
   });
 
+  useEffect(() => {
+    // TODO
+    // 문제 검색 시 api 붙이기
+    console.log(searchInput);
+  }, [searchInput]);
+
+  useEffect(() => {
+    // TODO
+    // 문제 선택 시 문제 풀기 창으로 넘어가기
+    console.log(selectProblem);
+  }, [selectProblem]);
+
   return (
     <>
       <MainTopCard
@@ -38,13 +47,7 @@ const SolveProblem = () => {
         subTitle={'개인별 문제를 풀어 별빛을 모으세요'}
         content={
           <div style={{ width: '80%' }}>
-            <BasicInput
-              placeholder={'문제 찾아보기'}
-              setInput={setSearchInput}
-              onKeyDown={() => {
-                console.log(searchInput);
-              }}
-            />
+            <BasicInput placeholder={'문제 찾아보기'} setInput={setSearchInput} />
           </div>
         }
       />
