@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import { colors } from '../../../config/Color';
-import { Body1, Body3 } from '../../atoms/basic/Typography';
 import { Spacer } from '../../atoms/basic/Spacer';
 
 const StyledBackgroundImage = styled.div<{ imagesrc: string }>`
@@ -47,8 +45,8 @@ const StyledTitleContainer = styled.div<{ background: boolean | undefined }>`
 
 interface MainTopCardProps {
   src: string;
-  title: string;
-  subTitle: string;
+  title: React.ReactNode;
+  subTitle: React.ReactNode;
   content: React.ReactNode;
   background?: boolean;
 }
@@ -59,9 +57,9 @@ const MainTopCard = (props: MainTopCardProps) => {
       <BackgroundImageBlur imagesrc={props.src} />
       <StyledContentContainer>
         <StyledTitleContainer background={props.background}>
-          <Body1 children={props.title} color={colors.Gray[100]} fontWeight={'bold'} />
+          {props.title}
           <Spacer space={'1vh'} />
-          <Body3 children={props.subTitle} color={colors.Gray[100]} fontWeight={'bold'} />
+          {props.subTitle}
         </StyledTitleContainer>
         {props.content}
       </StyledContentContainer>

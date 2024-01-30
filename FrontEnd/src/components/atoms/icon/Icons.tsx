@@ -72,6 +72,8 @@ export const Fa6Icon = (props: IconProps) => {
   const icons: { [key: string]: React.ElementType } = {
     left: FA6.FaChevronLeft,
     doubleleft: FA6.FaAngleLeft,
+    down: FA6.FaAngleDown,
+    up: FA6.FaAngleUp,
   };
 
   const { name, ...rest } = props;
