@@ -4,6 +4,8 @@ import BasicInput from '../../../atoms/input/BasicInput';
 import MainTopCard from '../../../molecules/card/MainTopCard';
 import BasicTable from '../../../atoms/table/BasicTable';
 import { PaginationState } from '@tanstack/react-table';
+import { Body1, Body3 } from '../../../atoms/basic/Typography';
+import { colors } from '../../../../config/Color';
 
 const SolveProblem = () => {
   const [searchInput, setSearchInput] = useState('');
@@ -43,8 +45,13 @@ const SolveProblem = () => {
     <>
       <MainTopCard
         src={'/images/code_odyssey/ProblemSolveBg.svg'}
-        title={'Code Odyssey에서 항해하기'}
-        subTitle={'개인별 문제를 풀어 별빛을 모으세요'}
+        title={
+          <div style={{ display: 'flex' }}>
+            <Body1 children={'Code Odyssey'} color={colors.Gray[100]} fontWeight={'bold'} fontStyle='Eagle Lake' />
+            <Body1 children={'에서 항해하기'} color={colors.Gray[100]} fontWeight={'bold'} />
+          </div>
+        }
+        subTitle={<Body3 children={'개인별 문제를 풀어 별빛을 모으세요'} color={colors.Gray[100]} fontWeight={'bold'} />}
         content={
           <div style={{ width: '80%' }}>
             <BasicInput placeholder={'문제 찾아보기'} setInput={setSearchInput} />

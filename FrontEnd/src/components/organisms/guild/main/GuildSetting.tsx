@@ -1,4 +1,4 @@
-import { Body1 } from '../../../atoms/basic/Typography';
+import { Body1, Body3 } from '../../../atoms/basic/Typography';
 import { colors } from '../../../../config/Color';
 import MainTopCard from '../../../molecules/card/MainTopCard';
 import SelectBar from '../../../molecules/buttonBar/SelectBar';
@@ -18,8 +18,8 @@ const GuildSetting = (props: GuildSettingProps) => {
     <>
       <MainTopCard
         src={'/images/code_odyssey/GuildProfileBg.svg'}
-        title={'[길드명] 관리'}
-        subTitle={'선박을 정비하세요'}
+        title={<Body1 children={'[길드명] 관리'} color={colors.Gray[100]} fontWeight={'bold'} />}
+        subTitle={<Body3 children={'선박을 정비하세요'} color={colors.Gray[100]} fontWeight={'bold'} />}
         content={
           <div style={{ width: '80%' }}>
             <SelectBar

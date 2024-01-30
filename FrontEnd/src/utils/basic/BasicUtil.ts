@@ -13,3 +13,10 @@ export const NowYear = (): number => {
   const currentYear = new Date().getFullYear();
   return currentYear;
 };
+
+export const isDateAfterToday = (dateString: string): boolean => {
+  const inputDate = new Date(dateString);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return inputDate > today;
+};

@@ -3,6 +3,8 @@ import MainTopCard from '../../../molecules/card/MainTopCard';
 import SelectBar from '../../../molecules/buttonBar/SelectBar';
 import MyRunningSprint from './mySprintView/MyRunningSprint';
 import LastMySprint from './mySprintView/LastMySprint';
+import { Body1, Body3 } from '../../../atoms/basic/Typography';
+import { colors } from '../../../../config/Color';
 
 const SettingSprint = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -11,8 +13,8 @@ const SettingSprint = () => {
     <>
       <MainTopCard
         src={'/images/code_odyssey/MySpringBg.svg'}
-        title={'스프린트로 실력 상승하기'}
-        subTitle={'스프린트를 생성하고 연습해보세요'}
+        title={<Body1 children={'스프린트로 실력 상승하기'} color={colors.Gray[100]} fontWeight={'bold'} />}
+        subTitle={<Body3 children={'스프린트를 생성하고 연습해보세요'} color={colors.Gray[100]} fontWeight={'bold'} />}
         content={
           <div style={{ width: '80%' }}>
             <SelectBar

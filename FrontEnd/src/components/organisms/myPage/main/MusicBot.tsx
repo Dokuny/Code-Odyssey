@@ -6,6 +6,8 @@ import SingChatRightCard from '../../../molecules/card/SingChatRightCard';
 import { Spacer } from '../../../atoms/basic/Spacer';
 import { useRecoilState } from 'recoil';
 import { MusicBotChatState } from '../../../../utils/recoil/Atoms';
+import { Body1, Body3 } from '../../../atoms/basic/Typography';
+import { colors } from '../../../../config/Color';
 
 const MusicBot = () => {
   const [searchInput, setSearchInput] = useState('');
@@ -29,8 +31,8 @@ const MusicBot = () => {
     <>
       <MainTopCard
         src={'/images/code_odyssey/MusicBotBg.svg'}
-        title={'세이렌에게 노래 부탁하기'}
-        subTitle={'링크를 입력하면 노래를 불러줘요'}
+        title={<Body1 children={'세이렌에게 노래 부탁하기'} color={colors.Gray[100]} fontWeight={'bold'} />}
+        subTitle={<Body3 children={'링크를 입력하면 노래를 불러줘요'} color={colors.Gray[100]} fontWeight={'bold'} />}
         content={
           <div style={{ width: '80%' }}>
             <BasicInput
