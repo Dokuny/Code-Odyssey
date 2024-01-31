@@ -3,7 +3,7 @@ import ProblemCard from '../card/ProblemCard';
 import styled from 'styled-components';
 import { colors } from '../../../config/Color';
 import { Spacer } from '../../atoms/basic/Spacer';
-import { Header2, Body1, Header1, Header4, Header3, Body2 } from '../../atoms/basic/Typography';
+import { Header2, Body1, Header1, Header4, Header3, Body2, Body3 } from '../../atoms/basic/Typography';
 
 const ProblemDiv = styled.div`
   display: flex;
@@ -28,12 +28,12 @@ const ProblemCardList = () => {
     <>
       <div style={{ display: 'flex', alignItems: 'center', padding: '1vmin' }}>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <Header3 children={'오늘의'} color={colors.Gray[300]} fontWeight={'bold'} />
-          <Header3 children={'추천 문제'} color={colors.Gray[300]} fontWeight={'bold'} />
+          <Header4 children={'오늘의'} color={colors.Gray[300]} fontWeight={'bold'} />
+          <Header4 children={'추천 문제'} color={colors.Gray[300]} fontWeight={'bold'} />
         </div>
         <Spacer space={'2vmax'} horizontal />
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', height: '100%' }}>
-          <Body1 children={': 신비한 점성술로 찾아낸 오늘의 맞춤 목적지입니다.'} color={colors.Gray[500]} />
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'end', height: '100%' }}>
+          <Body2 children={': 신비한 점성술로 찾아낸 오늘의 맞춤 목적지입니다.'} color={colors.Gray[500]} />
         </div>
       </div>
       <HorizenDiv>

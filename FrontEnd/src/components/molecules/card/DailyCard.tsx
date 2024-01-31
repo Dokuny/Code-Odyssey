@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { colors } from '../../../config/Color';
-import { Header1, Header2, Header3 } from './../../atoms/basic/Typography';
+import { Body2, Header1, Header2, Header3 } from './../../atoms/basic/Typography';
 import { SetStateAction, useEffect, useState } from 'react';
 import DropDown from '../../atoms/select/Dropdown';
 import { Spacer } from '../../atoms/basic/Spacer';
@@ -10,14 +10,14 @@ const DailyCardDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 15%;
+  width: 13%;
   aspect-ratio: 15 / 22;
-  border-radius: 20px;
+  border-radius: 15px;
   box-sizing: border-box;
   box-shadow: 2px 2px 4px ${colors.Gray[800]};
   margin: 0.2vw;
 
-  /* 내부 요소 스타일 수정 */
+  /* 내부 요소 스타w일 수정 */
   & > * {
     width: 100%;
     box-sizing: border-box;
@@ -31,7 +31,7 @@ const HeaderDiv = styled.div`
   text-align: center;
   box-sizing: border-box;
   border-radius: 20px;
-  height: 28%;
+  height: 22%;
 `;
 
 const ImageStyle = styled.img`
@@ -41,22 +41,25 @@ const ImageStyle = styled.img`
 `;
 
 const FooterDiv = styled.div`
-  height: 28%;
+  height: 44%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   box-sizing: border-box;
   border-radius: 20px;
+  align-items: center;
 `;
 const Wrapper = styled.form`
+  /* background-color: red; */
   display: flex;
+  margin: 0;
+  flex-direction: column;
   text-align: center;
   box-sizing: border-box;
   width: 100%;
-  margin: 0;
-  height: 50%;
+  height: 100%;
   justify-content: center;
-  align-content: space-around;
+  align-items: center;
 `;
 
 const DetailButton = styled.button`
@@ -105,7 +108,7 @@ const DailyCard = (props: DailyCardProps) => {
   ];
 
   const Levels = ['lv1', 'lv2', 'lv3'];
-  const algoCate = ['math', 'DP', 'Brute-Force'];
+  const algoCate = [, 'math', 'DP', 'Brute-Force', 'shortest path', 'math', 'DP', 'Brute-Force', 'shortest path', 'math', 'DP', 'Brute-Force', 'shortest path'];
 
   const [srcData, setSrcData] = useState('/images/code_odyssey/algo_pics/algoPic1.png');
   const [selectValueDifficulty, setSelectValueDifficulty] = useState(props.diff);
@@ -138,12 +141,13 @@ const DailyCard = (props: DailyCardProps) => {
         return item;
       });
     });
+    console.log(selectValueDifficulty, selectValueCategory);
   }, [selectValueDifficulty, selectValueCategory]);
 
   return (
     <DailyCardDiv>
       <HeaderDiv>
-        <Header2 children={props.day} color={''} />
+        <Body2 children={props.day} color={'white'} />
       </HeaderDiv>
       <ImageStyle src={srcData}></ImageStyle>
       <FooterDiv>
@@ -157,24 +161,26 @@ const DailyCard = (props: DailyCardProps) => {
             id={'difficulty'}
             setSelectValue={setSelectValueDifficulty}
             values={Levels}
-            bgColor={colors.Gray[500]}
-            height={'80%'}
-            fontSize={'1.2rem'}
+            bgColor={colors.Gray[700]}
+            height={'30%'}
+            fontSize={'0.7rem'}
             fontcolor={colors.White}
             selectedValue={selectValueDifficulty}
-            width={'50%'}
+            borderRadius={'5px'}
+            width={'80%'}
           ></DropDown>
-          <Spacer space={'5px'} horizontal></Spacer>
+          <Spacer space={'5px'}></Spacer>
           <DropDown
             id={'category'}
             setSelectValue={setSelectValueCategory}
             values={algoCate}
-            bgColor={colors.Gray[500]}
-            height={'80%'}
-            fontSize={'1.2rem'}
+            bgColor={colors.Gray[700]}
+            height={'30%'}
+            fontSize={'0.7rem'}
             fontcolor={colors.White}
             selectedValue={selectValueCategory}
-            width={'50%'}
+            borderRadius={'5px'}
+            width={'80%'}
           ></DropDown>
         </Wrapper>
       </FooterDiv>

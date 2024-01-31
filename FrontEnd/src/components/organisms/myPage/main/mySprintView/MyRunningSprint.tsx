@@ -10,8 +10,9 @@ const MyRunningSprint = () => {
       <div style={{ height: '40vh' }}>
         <RunningSprintGraph />
       </div>
-      <Spacer space={'4vmin'} />
+      <Spacer space={'7vmin'} />
       <DailyCardList />
+      <Spacer space={'2vmin'} />
       <ProblemCardList />
     </>
   );
