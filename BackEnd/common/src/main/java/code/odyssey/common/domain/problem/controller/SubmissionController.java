@@ -29,12 +29,12 @@ public class SubmissionController {
 
     // 개인 제출 코드 조회
     @GetMapping("/{problemId}")
-    public ResponseEntity<SubmissionInfo> getSubmissionResult(
+    public ResponseEntity<List<SubmissionInfo>> getSubmissionResult(
             @RequestHeader("X-Authorization-Id") Long memberId,
             @PathVariable Long problemId
 
     ) {
-        SubmissionInfo result = submissionService.getSubmissionResult(problemId, memberId);
+        List<SubmissionInfo> result = submissionService.getSubmissionResult(problemId, memberId);
         return ResponseEntity.ok(result);
     }
 

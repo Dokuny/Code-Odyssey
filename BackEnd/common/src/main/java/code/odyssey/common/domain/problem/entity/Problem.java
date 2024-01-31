@@ -42,5 +42,7 @@ public class Problem {
     @Enumerated(STRING)
     private ProblemPlatform platform;
 
+    @Column
+    private Integer no;
 
 }

@@ -7,7 +7,8 @@ import lombok.Getter;
 @Getter
 public class ProblemSubmitRequest {
 
-    private Long problemId;
+    private String platform;
+    private Integer no;
     private String code;
     private String time;
     private String memory;
