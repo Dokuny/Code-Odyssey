@@ -1,7 +1,5 @@
-import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../../config/Color';
-import { Body1, Body2, Header2, Header3 } from '../../atoms/basic/Typography';
 import { Spacer } from '../../atoms/basic/Spacer';
 import { difficulty } from '../../../utils/json/difficulty';
 
@@ -18,64 +16,77 @@ interface ProblemCardProps {
 }
 
 const ProblemCardDiv = styled.div`
-  background-color: ${colors.Gray[700]};
   display: flex;
+  aspect-ratio: 17 / 25;
   flex-direction: column;
   justify-content: space-between;
-  width: 22%;
-  min-width: 22%;
-  aspect-ratio: 15 / 22;
-  /* height: 300px; */
-  /* min-height: 200px; */
+  background-color: ${colors.Gray[700]};
   border-radius: 20px;
-  box-sizing: border-box;
   padding-top: 1vh;
   box-shadow: 2px 2px 4px ${colors.Gray[800]};
-  margin-bottom: 20px;
-  margin-right: 2vw;
+  margin: 1vmin;
+  box-sizing: border-box;
 
-  /* 내부 요소 스타일 수정 */
-  & > * {
-    width: 100%;
-    box-sizing: border-box;
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0 0 0 1px ${colors.Gray[400]};
   }
 `;
 
 const HeaderDiv = styled.div`
-  padding-top: 10px;
-  padding-left: 15px;
   display: flex;
-  justify-content: space-between;
+  padding-left: 1.5vmin;
+  padding-right: 1.5vmin;
   box-sizing: border-box;
+  justify-content: center;
 `;
 
 const TextDiv = styled.div`
   width: 80%;
   text-align: left;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-bottom: 0px;
-  color: ${colors.White};
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  padding-left: 1.5vmin;
+  padding-right: 1.5vmin;
+  color: ${colors.White};
+`;
+const Title = styled.div`
+  height: fit-content;
+  margin: 0;
+`;
+
+const SubTitle = styled.div`
+  font-size: 0.7rem;
+  margin: 0;
+`;
+const IsDone = styled.div<{ color: string }>`
+  font-size: 0.7rem;
+  margin: 0;
+  color: ${(props) => props.color};
+`;
+const ImageDiv = styled.div`
+  padding-top: 1vmin;
+  width: 17%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 const DiffImgageDiv = styled.img`
-  width: 17%;
+  width: 100%;
 `;
 
 const ImageStyle = styled.img`
   width: 100%;
   object-fit: contain;
   padding-top: 10px;
-  margin: 10px 0 0 10px 0;
-  margin-bottom: 10px;
 `;
 
 const FooterDiv = styled.div`
-  background-color: ${colors.Gray[700]};
-  padding-left: 15px;
-  padding-right: 15px;
+  /* background-color: ${colors.Gray[700]}; */
+  padding-left: 1.5vmin;
+  padding-right: 1.5vmin;
   box-sizing: border-box;
   color: ${colors.White};
   display: flex;
@@ -85,13 +96,13 @@ const FooterDiv = styled.div`
 const DetailButton = styled.button`
   margin-top: 10px;
   color: ${colors.GrayBlue[400]};
-  width: 100px;
-  height: 60px;
+  width: 40%;
+  height: 30px;
   border-radius: 50px;
   background-color: ${colors.Gray[700]};
   border: 1px solid ${colors.Gray[300]};
   transition: box-shadow 0.3s ease-in-out;
-  font-size: 1.2rem;
+  font-size: 0.6rem;
 
   &:hover {
     box-shadow: 0 0 0 1px ${colors.Gray[300]};
@@ -109,19 +120,20 @@ const ProblemCard = (props: ProblemCardProps) => {
   return (
     <ProblemCardDiv>
       <HeaderDiv>
-        <DiffImgageDiv src={difficulty[props.data.difficulty]} />
+        <ImageDiv>
+          <DiffImgageDiv src={difficulty[props.data.difficulty]} />
+        </ImageDiv>
         <TextDiv>
-          <Header2 children={props.data.source} color={''}></Header2>
-          <Spacer space={'5px'}></Spacer>
-          <Body1 children={props.data.proNum} color={''}></Body1>
+          <Title>{props.data.source}</Title>
+          <SubTitle>{props.data.proNum}</SubTitle>
         </TextDiv>
       </HeaderDiv>
       <ImageStyle src={props.data.imagesrc} />
       <FooterDiv>
         <div className='seperate-1'>
-          <Header3 children={props.data.title} color={''}></Header3>
+          <Title>{props.data.title}</Title>
           <Spacer space={'5px'}></Spacer>
-          <Body1 children={props.data.isDone ? '풀었습니다!' : '도전해보세요!'} color={props.data.isDone ? 'green' : 'Orangered'}></Body1>
+          <IsDone color={props.data.isDone ? 'green' : 'Orangered'}>{props.data.isDone ? '풀었습니다!' : '도전해보세요!'}</IsDone>
         </div>
         <SeperateDiv>
           <DetailButton type='submit' disabled={!props.data.isDone}>
@@ -129,10 +141,6 @@ const ProblemCard = (props: ProblemCardProps) => {
           </DetailButton>
         </SeperateDiv>
       </FooterDiv>
-
-      <div>
-        <img src='' alt='' />
-      </div>
     </ProblemCardDiv>
   );
 };
