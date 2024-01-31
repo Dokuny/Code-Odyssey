@@ -1,5 +1,6 @@
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable, getSortedRowModel, PaginationState } from '@tanstack/react-table';
 import React, { useState } from 'react';
+import { IoMdCheckmarkCircle, IoMdCloseCircle } from 'react-icons/io';
 import styled from 'styled-components';
 import { colors } from '../../../config/Color';
 import { FaIcon } from '../icon/Icons';
@@ -81,7 +82,8 @@ const StyledPageButton = styled.button<{ isActive?: boolean; pageBtnColor: strin
 interface BasicTableProps {
   tableData: { totalPages: number; data: Array<any> };
   setSelectData: React.Dispatch<any>;
-  percentData: String[];
+  percentData: string[];
+  booleanData: string[];
   state: PaginationState;
   setState: React.Dispatch<React.SetStateAction<PaginationState>>;
   color?: string;
@@ -163,11 +165,16 @@ const BasicTable = (props: BasicTableProps) => {
                 .slice(1)
                 .map((cell) => (
                   <StyledTd key={cell.id} onClick={() => handleTdClick(row.original)}>
-                    {!props.percentData.includes(cell.column.columnDef.header as string) && flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    {!props.percentData.includes(cell.column.columnDef.header as string) &&
+                      !props.booleanData.includes(cell.column.columnDef.header as string) &&
+                      flexRender(cell.column.columnDef.cell, cell.getContext())}
                     {props.percentData.includes(cell.column.columnDef.header as string) && (
                       <Container>
                         <ProgressBar progress={cell.getValue() as number} />
                       </Container>
+                    )}
+                    {props.booleanData.includes(cell.column.columnDef.header as string) && (
+                      <>{(cell.getValue() as boolean) ? <IoMdCheckmarkCircle color={colors.Naver[500]} /> : <IoMdCloseCircle color={colors.Red} />} </>
                     )}
                   </StyledTd>
                 ))}

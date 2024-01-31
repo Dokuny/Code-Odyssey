@@ -36,7 +36,7 @@ const GuildNowSprint = (props: GuildNowSprintProps) => {
             value={value.percent}
             title={value.title}
             state={'now'}
-            problem_id={value.problem_id}
+            guild_problem_id={value.problem_id}
             onClick={() => console.log(value.problem_id, props.guild_id)}
           />
         ))}

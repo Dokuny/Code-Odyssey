@@ -6,7 +6,6 @@ import { PaginationState } from '@tanstack/react-table';
 import SearchDiv from '../../../atoms/select/SearchDiv';
 import { Body1, Body3 } from '../../../atoms/basic/Typography';
 import { colors } from '../../../../config/Color';
-import BasicInput from '../../../atoms/input/BasicInput';
 
 const SolveProblem = () => {
   const [searchInput, setSearchInput] = useState('');
@@ -69,6 +68,7 @@ const SolveProblem = () => {
         }
         state={state}
         setState={setState}
+        booleanData={[]}
       />
     </>
   );
