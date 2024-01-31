@@ -35,6 +35,8 @@ const SelectDropDown = styled.select<{
   box-shadow: 2px 2px 4px ${colors.Gray[800]};
   border-radius: ${(props) => props.borderRadius};
   box-sizing: border-box;
+  appearance: none;
+  text-align-last: center;
 `;
 
 // event
