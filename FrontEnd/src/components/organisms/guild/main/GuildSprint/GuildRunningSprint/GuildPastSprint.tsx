@@ -54,7 +54,7 @@ const GuildPastSprint = (props: GuildPastSprintProps) => {
             value={value.percent}
             title={value.title}
             state={'past'}
-            problem_id={value.problem_id}
+            guild_problem_id={value.guild_problem_id}
             onClick={() => console.log(value.problem_id, props.guild_id)}
           />
         ))}

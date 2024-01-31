@@ -21,9 +21,10 @@ const GuildRunningSprint = (props: GuildRunningSprintProps) => {
       ended_at: '2024-01-29',
       time: 1,
       problem_list: [
-        { type: 'DP', problem_id: 1, difficulty: 17, title: '톱니바퀴1', percent: 50 },
-        { type: 'BRUTE FORCE', problem_id: 2, difficulty: 18, title: '톱니바퀴2', percent: 100 },
-        { type: 'GRAPH', problem_id: 3, difficulty: 15, title: '톱니바퀴3', percent: 50 },
+        { type: 'DP', guild_problem_id: 1, difficulty: 17, title: '톱니바퀴1', percent: 50 },
+        { type: 'BRUTE FORCE', guild_problem_id: 2, difficulty: 18, title: '톱니바퀴2', percent: 100 },
+        { type: 'GRAPH', guild_problem_id: 3, difficulty: 15, title: '톱니바퀴3', percent: 50 },
+        { type: 'STRING', guild_problem_id: 3, difficulty: 15, title: '톱니바퀴3', percent: 50 },
       ],
     });
 
@@ -34,9 +35,10 @@ const GuildRunningSprint = (props: GuildRunningSprintProps) => {
     //   ended_at: '2024-01-31',
     //   time: 1,
     //   problem_list: [
-    //     { type: 'DP', problem_id: 1, difficulty: 17, title: '톱니바퀴1', percent: 50 },
-    //     { type: 'DP', problem_id: 2, difficulty: 18, title: '톱니바퀴2', percent: 50 },
-    //     { type: 'DP', problem_id: 3, difficulty: 15, title: '톱니바퀴3', percent: 50 },
+    //     { type: 'DP', guild_problem_id: 1, difficulty: 17, title: '톱니바퀴1', percent: 50 },
+    //     { type: 'BRUTE FORCE', guild_problem_id: 2, difficulty: 18, title: '톱니바퀴2', percent: 100 },
+    //     { type: 'GRAPH', guild_problem_id: 3, difficulty: 15, title: '톱니바퀴3', percent: 50 },
+    //     { type: 'STRING', guild_problem_id: 3, difficulty: 15, title: '톱니바퀴3', percent: 50 },
     //   ],
     // });
   }, []);

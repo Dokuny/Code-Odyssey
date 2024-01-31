@@ -70,9 +70,11 @@ const SprintProblemCard = (props: SprintProblemCardProps) => {
           { member_id: 2, thumbnail: 'https://picsum.photos/300', is_solved: true, name: '이유빈', solved_at: '2024-01-31', memory: '14235KB', time: '145ms' },
           { member_id: 3, thumbnail: 'https://picsum.photos/300', is_solved: true, name: '이주현', solved_at: '2024-01-31', memory: '14235KB', time: '15ms' },
           { member_id: 5, thumbnail: 'https://picsum.photos/300', is_solved: false, name: '김범수', solved_at: '2024-01-31', memory: '14475KB', time: '185ms' },
-          { member_id: 5, thumbnail: 'https://picsum.photos/300', is_solved: false, name: '김범수', solved_at: '2024-01-31', memory: '14475KB', time: '185ms' },
-          { member_id: 5, thumbnail: 'https://picsum.photos/300', is_solved: false, name: '김범수', solved_at: '2024-01-31', memory: '14475KB', time: '185ms' },
-          { member_id: 5, thumbnail: 'https://picsum.photos/300', is_solved: false, name: '김범수', solved_at: '2024-01-31', memory: '14475KB', time: '185ms' },
+          { member_id: 6, thumbnail: 'https://picsum.photos/300', is_solved: false, name: '김범수', solved_at: '2024-01-31', memory: '14475KB', time: '185ms' },
+          { member_id: 8, thumbnail: 'https://picsum.photos/300', is_solved: false, name: '김범수', solved_at: '2024-01-31', memory: '14475KB', time: '185ms' },
+          { member_id: 9, thumbnail: 'https://picsum.photos/300', is_solved: false, name: '김범수', solved_at: '2024-01-31', memory: '14475KB', time: '185ms' },
+          { member_id: 7, thumbnail: 'https://picsum.photos/300', is_solved: false, name: '김범수', solved_at: '2024-01-31', memory: '14475KB', time: '185ms' },
+          { member_id: 10, thumbnail: 'https://picsum.photos/300', is_solved: false, name: '김범수', solved_at: '2024-01-31', memory: '14475KB', time: '185ms' },
         ],
         solve_state: 'success',
       });
@@ -84,6 +86,7 @@ const SprintProblemCard = (props: SprintProblemCardProps) => {
       const scoreWithNames = data.guild_member.map((value: any) => ({
         member_id: value.member_id,
         name: value.name,
+        is_solved: value.is_solved,
         solved_at: value.solved_at,
         memory: value.memory,
         time: value.time,
@@ -106,7 +109,7 @@ const SprintProblemCard = (props: SprintProblemCardProps) => {
               <Body2 children={props.title} color={colors.Gray[100]} />
             </div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', width: '50%', height: '100%' }}>
-              {data && data.guild_member.map((value: any) => <StyledProfileImg src={value.thumbnail} alt='' />)}
+              {data && data.guild_member.map((value: any) => <>{value.is_solved && <StyledProfileImg src={value.thumbnail} alt='' />}</>)}
               <div style={{ display: 'flex', width: '10%', backgroundColor: data && data.solve_state === 'fail' ? colors.Red : colors.Naver[300], zIndex: 1, height: '100%', marginLeft: '0.5vmax' }} />
             </div>
           </StyledButton>
@@ -138,6 +141,7 @@ const SprintProblemCard = (props: SprintProblemCardProps) => {
                   color={colors.DarkGray[200]}
                   pageBtnColor={colors.DarkGray[300]}
                   pageBtnDeepColor={colors.DarkGray[400]}
+                  booleanData={['is_solved']}
                 />
               </div>
             </>
