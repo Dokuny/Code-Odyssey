@@ -3,7 +3,17 @@ import styled from 'styled-components';
 import { colors } from '../../../config/Color';
 import { Body2 } from '../../atoms/basic/Typography';
 import { Spacer } from '../../atoms/basic/Spacer';
-import SelectBar from '../buttonBar/SelectBar';
+
+interface item {
+  Lv: number;
+  problem: string;
+  id: number;
+}
+interface Props {
+  item: item;
+  checkHandler: (e: React.ChangeEvent<HTMLInputElement>, value: item) => void;
+  checkedList: item[];
+}
 
 const StyledContainer = styled.div`
   background-color: ${colors.DarkGray[200]};
@@ -19,6 +29,7 @@ const Div1 = styled.div`
   display: flex;
   flex-shrink: 0;
 `;
+
 const Circle = styled.div`
   display: flex;
   justify-content: center;
@@ -44,22 +55,25 @@ const Div3 = styled.div`
   flex-shrink: 0;
 `;
 
-
-const ProblemSprintCard = () => {
+const ProblemSprintCard: React.FC<Props> = ({ item, checkHandler, checkedList }) => {
   return (
     <StyledContainer>
       <Div1>
         <Circle>
-          <Body2 children={'Lv'} color={colors.Black} />
+          <Body2 children={`Lv${item.Lv}`} color={colors.Black} />
         </Circle>
         <Spacer space={'1vw'}></Spacer>
       </Div1>
       <Div2>
-        <Body2 children={'문제명'} color={colors.White} />
+        <Body2 children={item.problem} color={colors.White} />
       </Div2>
       <Div3>
-        <input type="checkbox" id="check1" />
-        <label htmlFor="check1"></label>
+        <input
+          type="checkbox"
+          id={item.id.toString()}
+          checked={checkedList.includes(item)}
+          onChange={(e) => checkHandler(e, item)}
+        />
       </Div3>
     </StyledContainer>
   );
