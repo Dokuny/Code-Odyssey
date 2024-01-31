@@ -82,9 +82,7 @@ const MakeGuildForm = () => {
             setSelectValue={setSelectValue1}
             height={'30px'}
             values={[
-              { id: 1, key: 1 },
-              { id: 2, key: 2 },
-              { id: 3, key: 3 },
+              1,2,3
             ]}
             bgColor={colors.White}
             fontcolor={colors.White}
@@ -95,55 +93,51 @@ const MakeGuildForm = () => {
           <Body1 children={'수용인원'} color={colors.White} />
           <Spacer space={'1vh'}></Spacer>
           <DropDown
-            id={'2'}
+            id={'1'}
             borderRadius={'5px'}
-            setSelectValue={setSelectValue2}
+            setSelectValue={setSelectValue1}
             height={'30px'}
             values={[
-              { id: 1, key: 1 },
-              { id: 2, key: 2 },
-              { id: 3, key: 3 },
+              1,2,3
             ]}
             bgColor={colors.White}
             fontcolor={colors.White}
-            selectedValue={selectValue2}
+            selectedValue={selectValue1}
           ></DropDown>
           <Spacer space={'1vh'}></Spacer>
 
           <Body1 children={'예상 할당 문제수'} color={colors.White} />
           <Spacer space={'1vh'}></Spacer>
           <DropDown
-            id={'3'}
+            id={'1'}
             borderRadius={'5px'}
-            setSelectValue={setSelectValue3}
+            setSelectValue={setSelectValue1}
             height={'30px'}
             values={[
-              { id: 1, key: 1 },
-              { id: 2, key: 2 },
-              { id: 3, key: 3 },
+              1,2,3
             ]}
             bgColor={colors.White}
             fontcolor={colors.White}
-            selectedValue={selectValue3}
+            selectedValue={selectValue1}
           ></DropDown>
+
           <Spacer space={'1vh'}></Spacer>
 
           <Body1 children={'사용언어'} color={colors.White} />
           <Spacer space={'1vh'}></Spacer>
           <DropDown
-            id={'4'}
+            id={'1'}
             borderRadius={'5px'}
-            setSelectValue={setSelectValue4}
+            setSelectValue={setSelectValue1}
             height={'30px'}
             values={[
-              { id: 1, key: 1 },
-              { id: 2, key: 2 },
-              { id: 3, key: 3 },
+              1,2,3
             ]}
             bgColor={colors.White}
             fontcolor={colors.White}
-            selectedValue={selectValue4}
+            selectedValue={selectValue1}
           ></DropDown>
+     
           <Spacer space={'1vh'}></Spacer>
         </Div2>
       </StyledContainer>
