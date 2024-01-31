@@ -2,15 +2,9 @@ import styled from 'styled-components';
 import React from 'react';
 import { colors } from '../../../config/Color';
 
-interface ValueList {
-  id: number;
-  key: string | number;
-}
-
 interface SelectDropDownProps {
   id: string;
   setSelectValue: React.Dispatch<React.SetStateAction<string>>;
-  optionHint: string;
   values: any;
   bgColor: string;
   width?: string | number;
@@ -21,10 +15,17 @@ interface SelectDropDownProps {
   selectedValue: string;
 }
 
-const SelectDropDown = styled.select<{ theme: { [key: string]: string }; borderradius: number | string; width: number | string; height: number | string; fontSize: string; fontcolor: string }>`
+const SelectDropDown = styled.select<{
+  theme: { [key: string]: string };
+  borderRadius: number | string;
+  width: number | string;
+  height: number | string;
+  fontSize: string;
+  fontcolor: string;
+}>`
   display: inline-block;
   text-align: center;
-  margin: 0%;
+  margin: 0;
   padding: 0;
   width: ${(props) => props.width};
   height: ${(props) => props.height};
@@ -32,7 +33,8 @@ const SelectDropDown = styled.select<{ theme: { [key: string]: string }; borderr
   color: ${(props) => props.fontcolor};
   background-color: ${(props) => props.theme.bgColor};
   box-shadow: 2px 2px 4px ${colors.Gray[800]};
-  border-radius: ${(props) => props.borderradius};
+  border-radius: ${(props) => props.borderRadius};
+  box-sizing: border-box;
 `;
 
 // event
@@ -50,17 +52,14 @@ const DropDown = (props: SelectDropDownProps) => {
       theme={{ bgColor: props.bgColor }}
       height={props.height || '25px'}
       width={props.width || '100%'}
-      borderradius={props.borderRadius || '2px'}
+      borderRadius={props.borderRadius || '2px'}
       fontSize={props.fontSize || 'small'}
       fontcolor={props.fontcolor || `${colors.Gray[500]}`}
       value={props.selectedValue}
     >
-      <option value='' disabled hidden>
-        {props.optionHint}
-      </option>
-      {props.values.map((ele: ValueList) => (
-        <option value={ele.key} key={ele.id}>
-          {ele.key}
+      {props.values.map((ele: string | number, index: number) => (
+        <option value={ele} key={index}>
+          {ele}
         </option>
       ))}
     </SelectDropDown>

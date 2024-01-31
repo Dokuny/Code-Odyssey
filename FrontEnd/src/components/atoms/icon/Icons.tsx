@@ -49,6 +49,7 @@ export const FaIcon = (props: IconProps) => {
     sortup: FA.FaSortUp,
     sortdown: FA.FaSortDown,
     sort: FA.FaSort,
+
     // 다른 아이콘들도 필요에 따라 추가 가능
   };
 

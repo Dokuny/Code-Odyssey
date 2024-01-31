@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { colors } from '../../../config/Color';
 import { Header1, Header2, Header3 } from './../../atoms/basic/Typography';
-import { SetStateAction, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import DropDown from '../../atoms/select/Dropdown';
 import { Spacer } from '../../atoms/basic/Spacer';
 
@@ -84,31 +84,43 @@ const TextDiv = styled.div`
   height: 30%;
 `;
 
-interface ValueList {
-  id: number;
-  key: string | number;
-}
-
 interface DailyCardProps {
   day: string;
+  diff: string;
+  cate: string;
+  setData: React.Dispatch<React.SetStateAction<{ day: string; diff: string; cate: string }[]>>;
 }
 
-interface AlgoDataProps extends ValueList {
-  id: number;
+interface AlgoDataProps {
   key: string;
   value: string;
 }
 
 // const DailyCard = (props: DailyCardProps) => {
 const DailyCard = (props: DailyCardProps) => {
-  const [srcData, setSrcData] = useState('/images/code_odyssey/algo_pics/algoPic1.png');
+  const AlgoData: AlgoDataProps[] = [
+    { key: 'math', value: '/images/code_odyssey/algo_pics/algoPic1.png' },
+    { key: 'DP', value: '/images/code_odyssey/algo_pics/algoPic2.png' },
+    { key: 'Brute-Force', value: '/images/code_odyssey/algo_pics/algoPic3.png' },
+  ];
 
-  const [selectCategory, setSelectCategory] = useState('');
+  const Levels = ['lv1', 'lv2', 'lv3'];
+  const algoCate = ['math', 'DP', 'Brute-Force'];
+
+  const [srcData, setSrcData] = useState('/images/code_odyssey/algo_pics/algoPic1.png');
+  const [selectValueDifficulty, setSelectValueDifficulty] = useState(props.diff);
+  const [selectValueCategory, setSelectValueCategory] = useState(props.cate);
 
   const categoryChanged = (event: any) => {
+    if (event.target.id === 'difficulty') {
+      let selectedDiff = event.target.value;
+      setSelectValueDifficulty(selectedDiff);
+    }
     if (event.target.id === 'category') {
-      const selectedCategory = event.target.value;
-      setSelectCategory(selectedCategory);
+      let selectedCategory = event.target.value;
+      setSelectValueCategory(selectedCategory);
+
+      console.log(selectedCategory);
       AlgoData.find((element) => {
         if (element.key === selectedCategory) {
           setSrcData(element.value);
@@ -117,19 +129,16 @@ const DailyCard = (props: DailyCardProps) => {
     }
   };
 
-  const AlgoData: AlgoDataProps[] = [
-    { id: 1, key: 'math', value: '/images/code_odyssey/algo_pics/algoPic1.png' },
-    { id: 2, key: 'DP', value: '/images/code_odyssey/algo_pics/algoPic2.png' },
-    { id: 3, key: 'Brute-Force', value: '/images/code_odyssey/algo_pics/algoPic3.png' },
-  ];
-
-  const Levels = [
-    { id: 1, key: 'level1' },
-    { id: 2, key: 'level2' },
-  ];
-
-  const [selectValueLevel, setSelectValueLevel] = useState('난이도');
-  const [selectValueCategory, setSelectValueCategory] = useState('유형');
+  useEffect(() => {
+    props.setData((prevData) => {
+      return prevData.map((item) => {
+        if (item.day === props.day) {
+          return { ...item, diff: selectValueDifficulty, cate: selectValueCategory };
+        }
+        return item;
+      });
+    });
+  }, [selectValueDifficulty, selectValueCategory]);
 
   return (
     <DailyCardDiv>
@@ -138,25 +147,28 @@ const DailyCard = (props: DailyCardProps) => {
       </HeaderDiv>
       <ImageStyle src={srcData}></ImageStyle>
       <FooterDiv>
-        <Wrapper id='problem' onChange={categoryChanged}>
+        <Wrapper
+          id='problem'
+          onChange={(event) => {
+            categoryChanged(event);
+          }}
+        >
           <DropDown
-            id='levels'
-            setSelectValue={setSelectValueLevel}
-            optionHint={'난이도'}
+            id={'difficulty'}
+            setSelectValue={setSelectValueDifficulty}
             values={Levels}
             bgColor={colors.Gray[500]}
             height={'80%'}
             fontSize={'1.2rem'}
             fontcolor={colors.White}
-            selectedValue={selectValueLevel}
+            selectedValue={selectValueDifficulty}
             width={'50%'}
           ></DropDown>
           <Spacer space={'5px'} horizontal></Spacer>
           <DropDown
             id={'category'}
             setSelectValue={setSelectValueCategory}
-            optionHint={'유형'}
-            values={AlgoData}
+            values={algoCate}
             bgColor={colors.Gray[500]}
             height={'80%'}
             fontSize={'1.2rem'}
