@@ -23,7 +23,7 @@ const GuildFind = () => {
         subTitle={<Body3 children={'여정에 함께할 동료를 찾아보세요'} color={colors.Gray[100]} fontWeight={'bold'} />}
         content={
           <div style={{ width: '80%' }}>
-            <BasicInput placeholder={'길드명으로 찾아보기'} setInput={setSearchInput} />
+            <BasicInput placeholder={'길드명으로 찾아보기'} setInput={setSearchInput} input={searchInput} />
           </div>
         }
       />

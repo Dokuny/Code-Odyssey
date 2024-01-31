@@ -36,6 +36,7 @@ const MusicBot = () => {
         content={
           <div style={{ width: '80%' }}>
             <BasicInput
+              input={searchInput}
               placeholder={'유튜브 링크를 입력 후 Enter 키를 눌러주세요'}
               setInput={setSearchInput}
               onKeyDown={() => {

@@ -3,7 +3,7 @@ export const colors = {
   Gray: { 25: '#FCFCFD', 50: '#F9FAFB', 100: '#F2F4F7', 200: '#E4E7EC', 300: '#D0D5DD', 400: '#98A2B3', 500: '#667085', 600: '#475467', 700: '#344054', 800: '#1D2939', 900: '#101828' },
   Indigo: { 25: '#F5F8FF', 50: '#EEF4FF', 100: '#E0EAFF', 200: '#C7D7FE', 300: '#A4BCFD', 400: '#8098F9', 500: '#6172F3', 600: '#444CE7', 700: '#3538CD', 800: '#2D31A6', 900: '#2D3282' },
   Kakao: { 300: '#E9E095', 500: '#FAE100', 800: '#FAC300' },
-  Naver: { 500: '#03C75A', 800: '#00873C' },
+  Naver: { 300: '#81BD7D', 500: '#03C75A', 800: '#00873C' },
   White: '#FFF',
   Black: '#000',
   LightPuple: { 25: '#f8f2fe', 100: '#f1e6fe', 200: '#eadafe', 300: '#e3cefd', 400: '#ddc2fd', 500: '#d6b6fd', 600: '#cfaafc', 700: '#c89efc', 800: '#c192fc', 900: '#bb86fc' },
@@ -13,5 +13,5 @@ export const colors = {
   Skin: '#fff1c9',
   Red: '#da6e6a',
   Green: '#81BD7D',
-  GrayBlack : '#272727'
+  GrayBlack: '#272727',
 };

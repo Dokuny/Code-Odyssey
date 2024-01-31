@@ -1,10 +1,8 @@
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable, getSortedRowModel, PaginationState } from '@tanstack/react-table';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../../config/Color';
 import { FaIcon } from '../icon/Icons';
-import { Body1 } from '../basic/Typography';
-import { Spacer } from '../basic/Spacer';
 
 const StyledContainer = styled.div<{ color: string }>`
   display: flex;
@@ -17,7 +15,6 @@ const StyledContainer = styled.div<{ color: string }>`
 
 const StyledTitleContainer = styled.div`
   display: flex;
-  padding-bottom: 1vmin;
 `;
 
 const StyledTable = styled.table`
@@ -82,11 +79,10 @@ const StyledPageButton = styled.button<{ isActive?: boolean; pageBtnColor: strin
 `;
 
 interface BasicTableProps {
-  tableData: any;
+  tableData: { totalPages: number; data: Array<any> };
   setSelectData: React.Dispatch<any>;
   percentData: String[];
   state: PaginationState;
-  totalPages: number;
   setState: React.Dispatch<React.SetStateAction<PaginationState>>;
   color?: string;
   pageBtnColor?: string;
@@ -123,8 +119,8 @@ const BasicTable = (props: BasicTableProps) => {
   };
 
   const renderPageButtons = () => {
-    const totalPages = Math.min(props.totalPages, 5); // 전체 페이지 수와 5 중 작은 값을 사용
-    const startIndex = Math.min(Math.max(0, props.totalPages - 5), Math.max(0, props.state.pageIndex - 2)); // 현재 페이지를 중심으로 좌우로 2개씩 표시
+    const totalPages = Math.min(props.tableData.totalPages, 5); // 전체 페이지 수와 5 중 작은 값을 사용
+    const startIndex = Math.min(Math.max(0, props.tableData.totalPages - 5), Math.max(0, props.state.pageIndex - 2)); // 현재 페이지를 중심으로 좌우로 2개씩 표시
 
     return [...Array(totalPages)].map((_, index) => (
       <StyledPageButton
@@ -179,41 +175,43 @@ const BasicTable = (props: BasicTableProps) => {
           ))}
         </StyledTbody>
       </StyledTable>
-      <StyledPagination>
-        <StyledPageButton
-          onClick={() => props.setState({ ...props.state, pageIndex: 0 })}
-          disabled={props.state.pageIndex === 0}
-          pageBtnColor={props.pageBtnColor || colors.GrayBlue[700]}
-          pageBtnDeepColor={props.pageBtnDeepColor || colors.Indigo[700]}
-        >
-          {`<<`}
-        </StyledPageButton>
-        <StyledPageButton
-          onClick={() => props.setState({ ...props.state, pageIndex: Math.max(0, props.state.pageIndex - 1) })}
-          disabled={props.state.pageIndex === 0}
-          pageBtnColor={props.pageBtnColor || colors.GrayBlue[700]}
-          pageBtnDeepColor={props.pageBtnDeepColor || colors.Indigo[700]}
-        >
-          {`<`}
-        </StyledPageButton>
-        {renderPageButtons()}
-        <StyledPageButton
-          onClick={() => props.setState({ ...props.state, pageIndex: Math.min(props.state.pageIndex + 1, props.totalPages - 1) })}
-          disabled={props.state.pageIndex === props.totalPages - 1}
-          pageBtnColor={props.pageBtnColor || colors.GrayBlue[700]}
-          pageBtnDeepColor={props.pageBtnDeepColor || colors.Indigo[700]}
-        >
-          {`>`}
-        </StyledPageButton>
-        <StyledPageButton
-          onClick={() => props.setState({ ...props.state, pageIndex: props.totalPages - 1 })}
-          disabled={props.state.pageIndex === props.totalPages - 1 || props.totalPages <= 5}
-          pageBtnColor={props.pageBtnColor || colors.GrayBlue[700]}
-          pageBtnDeepColor={props.pageBtnDeepColor || colors.Indigo[700]}
-        >
-          {`>>`}
-        </StyledPageButton>
-      </StyledPagination>
+      {props.tableData.totalPages !== 0 && (
+        <StyledPagination>
+          <StyledPageButton
+            onClick={() => props.setState({ ...props.state, pageIndex: 0 })}
+            disabled={props.state.pageIndex === 0}
+            pageBtnColor={props.pageBtnColor || colors.GrayBlue[700]}
+            pageBtnDeepColor={props.pageBtnDeepColor || colors.Indigo[700]}
+          >
+            {`<<`}
+          </StyledPageButton>
+          <StyledPageButton
+            onClick={() => props.setState({ ...props.state, pageIndex: Math.max(0, props.state.pageIndex - 1) })}
+            disabled={props.state.pageIndex === 0}
+            pageBtnColor={props.pageBtnColor || colors.GrayBlue[700]}
+            pageBtnDeepColor={props.pageBtnDeepColor || colors.Indigo[700]}
+          >
+            {`<`}
+          </StyledPageButton>
+          {renderPageButtons()}
+          <StyledPageButton
+            onClick={() => props.setState({ ...props.state, pageIndex: Math.min(props.state.pageIndex + 1, props.tableData.totalPages - 1) })}
+            disabled={props.state.pageIndex === props.tableData.totalPages - 1}
+            pageBtnColor={props.pageBtnColor || colors.GrayBlue[700]}
+            pageBtnDeepColor={props.pageBtnDeepColor || colors.Indigo[700]}
+          >
+            {`>`}
+          </StyledPageButton>
+          <StyledPageButton
+            onClick={() => props.setState({ ...props.state, pageIndex: props.tableData.totalPages - 1 })}
+            disabled={props.state.pageIndex === props.tableData.totalPages - 1 || props.tableData.totalPages <= 5}
+            pageBtnColor={props.pageBtnColor || colors.GrayBlue[700]}
+            pageBtnDeepColor={props.pageBtnDeepColor || colors.Indigo[700]}
+          >
+            {`>>`}
+          </StyledPageButton>
+        </StyledPagination>
+      )}
     </StyledContainer>
   );
 };

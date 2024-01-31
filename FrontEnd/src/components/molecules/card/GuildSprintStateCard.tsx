@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Body3, Header3 } from '../../atoms/basic/Typography';
+import { Caption1, Header3 } from '../../atoms/basic/Typography';
 import { Spacer } from '../../atoms/basic/Spacer';
 import { colors } from '../../../config/Color';
 
@@ -59,8 +59,8 @@ const GuildSprintStateCard = (props: GuildSprintStateCardProps) => {
           <Header3 children={props.state} color={colors.Gray[100]} fontWeight={'bold'} fontStyle='Eagle Lake' />
           <Spacer space={'1vmin'} />
           <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-            <Body3 children={props.stateMessage1} color={colors.Gray[300]} />
-            <Body3 children={props.stateMessage2} color={colors.Gray[300]} />
+            <Caption1 children={props.stateMessage1} color={colors.Gray[300]} fontWeight={'bold'} />
+            <Caption1 children={props.stateMessage2} color={colors.Gray[300]} fontWeight={'bold'} />
           </div>
         </StyledStateContainer>
         {props.content && <Spacer space={'1vmin'} />}

@@ -41,23 +41,23 @@ const SolveProblem = () => {
 
   return (
     <>
-      <MainTopCard src={'/images/code_odyssey/ProblemSolveBg.svg'} title={'Code Odyssey에서 항해하기'} subTitle={'개인별 문제를 풀어 별빛을 모으세요'} content={undefined} />
-      <Spacer space={'3vmin'} />
-      <BasicTable
-        tableData={tableData}
-        setSelectData={setSelectProblem}
-        percentData={percentData}
+      <MainTopCard
+        src={'/images/code_odyssey/ProblemSolveBg.svg'}
         title={
-          <SearchDiv
-            setInput={function (value: SetStateAction<string>): void {
-              throw new Error('Function not implemented.');
-            }}
-          ></SearchDiv>
+          <div style={{ display: 'flex' }}>
+            <Body1 children={'Code Odyssey'} color={colors.Gray[100]} fontWeight={'bold'} fontStyle='Eagle Lake' />
+            <Body1 children={'에서 항해하기'} color={colors.Gray[100]} fontWeight={'bold'} />
+          </div>
         }
-        state={state}
-        setState={setState}
-        totalPages={tableData.totalPages}
-      ></BasicTable>
+        subTitle={<Body3 children={'개인별 문제를 풀어 별빛을 모으세요'} color={colors.Gray[100]} fontWeight={'bold'} />}
+        content={
+          <div style={{ width: '80%' }}>
+            <BasicInput placeholder={'문제 찾아보기'} setInput={setSearchInput} input={searchInput} />
+          </div>
+        }
+      />
+      <Spacer space={'3vmin'} />
+      <BasicTable tableData={tableData} setSelectData={setSelectProblem} percentData={percentData} title={'“검색어" [난이도]의 [유형]을 [플랫폼]에서 검색한 결과'} state={state} setState={setState} />
     </>
   );
 };

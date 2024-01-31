@@ -2,14 +2,15 @@ import styled from 'styled-components';
 import { colors } from '../../../config/Color';
 import { ChangeEvent } from 'react';
 
-const StyleInput = styled.input<{ fontSize: string }>`
+const StyleInput = styled.input<{ fontSize: string; color: string; fontcolor: string }>`
   display: flex;
   font-size: ${(props) => props.fontSize};
   width: 100%;
   border: none;
   outline: none;
-  background-color: ${colors.GrayBlue[200]};
-  padding: 2vmin;
+  color: ${(props) => props.fontcolor};
+  background-color: ${(props) => props.color};
+  padding: 1.5vmin;
   padding-left: 4vmin;
   padding-right: 4vmin;
   box-sizing: border-box;
@@ -21,6 +22,9 @@ interface BasicInputProps {
   fontSize?: string;
   setInput: React.Dispatch<React.SetStateAction<string>>;
   onKeyDown?: () => void;
+  color?: string;
+  fontcolor?: string;
+  input: string;
 }
 
 const BasicInput = (props: BasicInputProps) => {
@@ -34,7 +38,17 @@ const BasicInput = (props: BasicInputProps) => {
     }
   };
 
-  return <StyleInput fontSize={props.fontSize || '1em'} placeholder={props.placeholder} onChange={onChangeInput} onKeyDown={handleKeyDown} />;
+  return (
+    <StyleInput
+      fontSize={props.fontSize || '1em'}
+      placeholder={props.placeholder}
+      onChange={onChangeInput}
+      onKeyDown={handleKeyDown}
+      value={props.input}
+      color={props.color || colors.GrayBlue[200]}
+      fontcolor={props.fontcolor || colors.Black}
+    />
+  );
 };
 
 export default BasicInput;
