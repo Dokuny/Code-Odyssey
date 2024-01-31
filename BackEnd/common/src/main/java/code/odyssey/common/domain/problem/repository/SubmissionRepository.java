@@ -20,9 +20,16 @@ public interface SubmissionRepository extends JpaRepository<Submission, Long> {
     List<Object[]> countSubmissionsByDate(@Param("memberId") Long memberId);
 
     // 개인 제출 코드 조회
-    Optional<Submission> findByProblemIdAndMemberId(Long problemId, Long memberId);
-
+    Optional<List<Submission>> findByProblemIdAndMemberId(Long problemId, Long memberId);
 
     // 회원 아이디로 제출 코드 개수 조회
     int countByMemberId(Long memberId);
+
+    // 오늘 날짜로 제출 여부 조회
+    @Query("SELECT COUNT(sub.id) " +
+            "FROM Submission sub " +
+            "WHERE sub.member.id = :memberId " +
+            "AND DATE(sub.createdAt) = CURRENT_DATE")
+    int countSubmissionByTodayDate(@Param("memberId") Long memberId);
+
 }

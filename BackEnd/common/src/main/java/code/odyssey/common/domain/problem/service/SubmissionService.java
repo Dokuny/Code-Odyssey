@@ -7,20 +7,19 @@ import code.odyssey.common.domain.problem.dto.SubmissionInfo;
 import code.odyssey.common.domain.problem.dto.SubmissionNumInfo;
 import code.odyssey.common.domain.problem.entity.Problem;
 import code.odyssey.common.domain.problem.entity.Submission;
-import code.odyssey.common.domain.problem.exception.SubmissionErrorCode;
-import code.odyssey.common.domain.problem.exception.SubmissionException;
+import code.odyssey.common.domain.problem.entity.enums.ProblemPlatform;
 import code.odyssey.common.domain.problem.repository.ProblemRepository;
 import code.odyssey.common.domain.problem.repository.SubmissionRepository;
 import code.odyssey.common.domain.score.entity.Score;
 import code.odyssey.common.domain.score.repository.ScoreRepository;
 import code.odyssey.common.domain.score.service.ScoreTypeService;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -47,37 +46,37 @@ public class SubmissionService {
     }
 
     // 개인 제출 코드 조회
-    public SubmissionInfo getSubmissionResult(Long problemId, Long memberId){
-        Submission submission = submissionRepository.findByProblemIdAndMemberId(problemId, memberId)
+    @Transactional(readOnly = true)
+    public List<SubmissionInfo> getSubmissionResult(Long problemId, Long memberId){
+        List<Submission> submissions = submissionRepository.findByProblemIdAndMemberId(problemId, memberId)
                 .orElseThrow(() -> new NoSuchElementException("Submission not found"));
 
-        return SubmissionInfo.builder()
-                .code(submission.getCode())
-                .time(submission.getTime())
-                .memory(submission.getMemory())
-                .build();
+        return submissions.stream()
+                .map(submission -> SubmissionInfo.builder()
+                        .code(submission.getCode())
+                        .time(submission.getTime())
+                        .memory(submission.getMemory())
+                        .build())
+                .collect(Collectors.toList());
     }
 
     // 개인 코드 제출
+    @Transactional
     public Long postSubmissionResult(Long memberId, ProblemSubmitRequest request){
         // 회원 확인
         Member member = memberRepository.findById(memberId)
+//                .filter(m -> m.getResignedAt() != null) // 탈퇴한 회원인지 체크
                 .orElseThrow(() -> new NoSuchElementException("Member not found"));
 
         // 문제 확인
-        Problem problem = problemRepository.findById(request.getProblemId())
+        Problem problem = problemRepository.findByPlatformAndNo(
+                        ProblemPlatform.valueOf(request.getPlatform()),
+                        request.getNo())
                 .orElseThrow(() -> new NoSuchElementException("Problem not found"));
 
         // 점수
         Score score = scoreRepository.findStatsByMemberId(memberId)
                 .orElseThrow(() -> new NoSuchElementException("Score not found"));
-
-        // DB에 같은 회원이 제출한 문제가 있는지 확인 (중복 체크)
-        Optional<Submission> submissionCheck = submissionRepository.findByProblemIdAndMemberId(problem.getId(), memberId);
-
-        if (submissionCheck.isPresent()) {
-            throw new SubmissionException(SubmissionErrorCode.ALREADY_SUBMITTED);
-        }
 
         // db에 저장
         Submission submission = Submission.builder()
@@ -90,9 +89,6 @@ public class SubmissionService {
 
         submissionRepository.save(submission);
 
-        // 푼 문제 수 + 1
-        scoreRepository.addNumSolvedProblems(memberId);
-
         // score_type 테이블 업데이트
         String type = String.valueOf(problem.getType());
         Integer difficulty = problem.getDifficulty(); // 점수환산표대로 DB에 저장되었을 것.
@@ -104,6 +100,11 @@ public class SubmissionService {
         int tierScore = scoreTypeTotal / submissionTotal;
         scoreRepository.updateTier(tierScore, memberId);
 
+        // 오늘 날짜에 문제가 제출된 적이 있는지 확인하고, 없으면 스트릭 업데이트.
+        if (submissionRepository.countSubmissionByTodayDate(memberId) == 0) {
+            scoreRepository.addStreak(memberId);
+        }
+
         // 랭킹을 위한 점수 업데이트
         int rankingScore = (int) (50 * (1 - Math.pow(0.9, score.getStreak()))
                 + 50 * (1 - Math.pow(0.9, score.getTier()))
@@ -113,7 +114,5 @@ public class SubmissionService {
         return submission.getId();
 
     }
-
-
 
 }
