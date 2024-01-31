@@ -4,6 +4,9 @@ import MainTopCard from '../../../molecules/card/MainTopCard';
 import BasicTable from '../../../atoms/table/BasicTable';
 import { PaginationState } from '@tanstack/react-table';
 import SearchDiv from '../../../atoms/select/SearchDiv';
+import { Body1, Body3 } from '../../../atoms/basic/Typography';
+import { colors } from '../../../../config/Color';
+import BasicInput from '../../../atoms/input/BasicInput';
 
 const SolveProblem = () => {
   const [searchInput, setSearchInput] = useState('');
@@ -50,14 +53,23 @@ const SolveProblem = () => {
           </div>
         }
         subTitle={<Body3 children={'개인별 문제를 풀어 별빛을 모으세요'} color={colors.Gray[100]} fontWeight={'bold'} />}
-        content={
-          <div style={{ width: '80%' }}>
-            <BasicInput placeholder={'문제 찾아보기'} setInput={setSearchInput} input={searchInput} />
-          </div>
-        }
+        content={''}
       />
       <Spacer space={'3vmin'} />
-      <BasicTable tableData={tableData} setSelectData={setSelectProblem} percentData={percentData} title={'“검색어" [난이도]의 [유형]을 [플랫폼]에서 검색한 결과'} state={state} setState={setState} />
+      <BasicTable
+        tableData={tableData}
+        setSelectData={setSelectProblem}
+        percentData={percentData}
+        title={
+          <SearchDiv
+            setInput={function (value: SetStateAction<string>): void {
+              throw new Error('Function not implemented.');
+            }}
+          ></SearchDiv>
+        }
+        state={state}
+        setState={setState}
+      />
     </>
   );
 };
