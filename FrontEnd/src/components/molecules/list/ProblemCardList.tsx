@@ -3,11 +3,11 @@ import ProblemCard from '../card/ProblemCard';
 import styled from 'styled-components';
 import { colors } from '../../../config/Color';
 import { Spacer } from '../../atoms/basic/Spacer';
-import { Header2, Body1 } from '../../atoms/basic/Typography';
+import { Header2, Body1, Header1, Header4, Header3, Body2 } from '../../atoms/basic/Typography';
 
 const ProblemDiv = styled.div`
   display: flex;
-  justify-content: row;
+  flex-wrap: wrap;
 `;
 
 const HorizenDiv = styled.div`
@@ -28,8 +28,8 @@ const ProblemCardList = () => {
     <>
       <div style={{ display: 'flex', alignItems: 'center', padding: '1vmin' }}>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <Header2 children={'오늘의'} color={colors.Gray[300]} fontWeight={'bold'} />
-          <Header2 children={'추천 문제'} color={colors.Gray[300]} fontWeight={'bold'} />
+          <Header3 children={'오늘의'} color={colors.Gray[300]} fontWeight={'bold'} />
+          <Header3 children={'추천 문제'} color={colors.Gray[300]} fontWeight={'bold'} />
         </div>
         <Spacer space={'2vmax'} horizontal />
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', height: '100%' }}>
@@ -42,7 +42,9 @@ const ProblemCardList = () => {
       <Spacer space={'2vmin'} />
       <ProblemDiv>
         {data.map((value) => (
-          <ProblemCard data={value} key={value.proNum} />
+          <div style={{ width: '25%' }}>
+            <ProblemCard data={value} key={value.proNum} />
+          </div>
         ))}
       </ProblemDiv>
     </>
