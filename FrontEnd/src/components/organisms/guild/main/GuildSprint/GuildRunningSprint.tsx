@@ -43,8 +43,8 @@ const GuildRunningSprint = (props: GuildRunningSprintProps) => {
 
   return (
     <>
-      {data === null && <GuildNoSprint />}
-      {data !== null && !isDateAfterToday(data.ended_at) && <GuildPastSprint guild_id={props.guild_id} setActiveIndex={props.setActiveIndex} data={data} />}
+      {data === null && <GuildNoSprint setActiveIndex={props.setActiveIndex} />}
+      {data !== null && !isDateAfterToday(data.ended_at) && <GuildPastSprint guild_id={props.guild_id} data={data} />}
       {data !== null && isDateAfterToday(data.ended_at) && <GuildNowSprint guild_id={props.guild_id} data={data} />}
     </>
   );

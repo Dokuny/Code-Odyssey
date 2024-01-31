@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { colors } from '../../../../../../config/Color';
 import { Spacer } from '../../../../../atoms/basic/Spacer';
 import { Body3, Header4 } from '../../../../../atoms/basic/Typography';
@@ -9,7 +8,6 @@ import Divider from '../../../../../atoms/basic/Divider';
 
 interface GuildPastSprintProps {
   guild_id: number;
-  setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
   data: {
     sprint_id: number;
     sprint_name: string;
@@ -32,23 +30,15 @@ const GuildPastSprint = (props: GuildPastSprintProps) => {
           src={'/images/code_odyssey/GuildSprintStateCompleteBg.svg'}
           state={'Sprint Complete'}
           stateMessage1={'항해가 완료되었습니다!'}
-          stateMessage2={'스프린트를 회고해보는 것은 어떨까요?'}
+          stateMessage2={'스프린트를 완료해 주세요.'}
           content={
             <div style={{ width: '50%' }}>
               <BasicButton
                 event={() => {}}
-                borderColor={colors.GrayBlue[800]}
-                deepColor={colors.GrayBlue[900]}
-                bgColor={colors.GrayBlue[800]}
-                children={<Body3 children={'스프린트 회고 보러가기'} color={colors.Gray[100]} />}
-              />
-              <Spacer space={'1vmin'} />
-              <BasicButton
-                event={() => props.setActiveIndex(2)}
-                borderColor={colors.GrayBlue[800]}
-                deepColor={colors.GrayBlue[900]}
-                bgColor={colors.GrayBlue[800]}
-                children={<Body3 children={'다음 스프린트 시작하기'} color={colors.Gray[100]} />}
+                borderColor={'rgba(0, 0, 0, 0.0)'}
+                deepColor={'rgba(30, 30, 50, 0.8)'}
+                bgColor={'rgba(60, 60, 80, 0.8)'}
+                children={<Body3 children={'스프린트 완료하기'} color={colors.Gray[100]} />}
               />
             </div>
           }
@@ -59,12 +49,13 @@ const GuildPastSprint = (props: GuildPastSprintProps) => {
         {props.data.problem_list.map((value) => (
           <GuildSprintImageCard
             key={value.problem_id}
+            guild_id={props.guild_id}
             type={value.type}
             value={value.percent}
             title={value.title}
             state={'past'}
             problem_id={value.problem_id}
-            onClick={() => console.log(value.problem_id)}
+            onClick={() => console.log(value.problem_id, props.guild_id)}
           />
         ))}
       </div>

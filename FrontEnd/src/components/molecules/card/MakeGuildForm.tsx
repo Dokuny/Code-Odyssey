@@ -70,7 +70,7 @@ const MakeGuildForm = () => {
           <Spacer space={'2vh'}></Spacer>
           <Body1 children={'이름'} color={colors.White} />
           <Spacer space={'2vh'}></Spacer>
-          <BasicInput placeholder={'Ingrese el nomvre de la idea'} setInput={() => {}} />
+          <BasicInput placeholder={'Ingrese el nomvre de la idea'} setInput={() => {}} input={''} />
         </Name>
         <hr />
         <Div2>

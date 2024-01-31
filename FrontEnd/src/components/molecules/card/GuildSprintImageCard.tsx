@@ -40,6 +40,7 @@ interface GuildSprintImageCardProps {
   title: string;
   state: 'past' | 'now';
   problem_id: number;
+  guild_id: number;
   onClick: () => void;
 }
 

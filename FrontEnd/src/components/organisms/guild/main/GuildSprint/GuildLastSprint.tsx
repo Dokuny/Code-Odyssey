@@ -37,7 +37,15 @@ const GuildLastSprint = (props: GuildLastSprintProps) => {
   return (
     <>
       {data.map((value) => (
-        <SprintList key={value.sprint_id} sprint_id={value.sprint_id} sprint_name={value.sprint_name} start_at={value.start_at} ended_at={value.ended_at} problem_list={value.problem_list} />
+        <SprintList
+          key={value.sprint_id}
+          sprint_id={value.sprint_id}
+          sprint_name={value.sprint_name}
+          start_at={value.start_at}
+          ended_at={value.ended_at}
+          problem_list={value.problem_list}
+          state={'past'}
+        />
       ))}
     </>
   );

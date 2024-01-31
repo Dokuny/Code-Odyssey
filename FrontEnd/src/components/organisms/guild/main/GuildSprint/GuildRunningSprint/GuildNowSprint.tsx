@@ -31,12 +31,13 @@ const GuildNowSprint = (props: GuildNowSprintProps) => {
         {props.data.problem_list.map((value) => (
           <GuildSprintImageCard
             key={value.problem_id}
+            guild_id={props.guild_id}
             type={value.type}
             value={value.percent}
             title={value.title}
             state={'now'}
             problem_id={value.problem_id}
-            onClick={() => console.log(value.problem_id)}
+            onClick={() => console.log(value.problem_id, props.guild_id)}
           />
         ))}
       </div>
