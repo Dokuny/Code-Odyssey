@@ -80,7 +80,6 @@ const MakeGuildForm = () => {
             id={'1'}
             borderRadius={'5px'}
             setSelectValue={setSelectValue1}
-            optionHint={'안녕하세요'}
             height={'30px'}
             values={[
               { id: 1, key: 1 },
@@ -99,7 +98,6 @@ const MakeGuildForm = () => {
             id={'2'}
             borderRadius={'5px'}
             setSelectValue={setSelectValue2}
-            optionHint={'안녕하세요'}
             height={'30px'}
             values={[
               { id: 1, key: 1 },
@@ -118,7 +116,6 @@ const MakeGuildForm = () => {
             id={'3'}
             borderRadius={'5px'}
             setSelectValue={setSelectValue3}
-            optionHint={'안녕하세요'}
             height={'30px'}
             values={[
               { id: 1, key: 1 },
@@ -137,7 +134,6 @@ const MakeGuildForm = () => {
             id={'4'}
             borderRadius={'5px'}
             setSelectValue={setSelectValue4}
-            optionHint={'안녕하세요'}
             height={'30px'}
             values={[
               { id: 1, key: 1 },

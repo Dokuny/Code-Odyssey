@@ -91,7 +91,7 @@ interface BasicTableProps {
   color?: string;
   pageBtnColor?: string;
   pageBtnDeepColor?: string;
-  title?: string;
+  title?: React.ReactNode;
 }
 
 const BasicTable = (props: BasicTableProps) => {
@@ -141,10 +141,7 @@ const BasicTable = (props: BasicTableProps) => {
 
   return (
     <StyledContainer color={props.color || colors.GrayBlue[800]}>
-      <StyledTitleContainer>
-        <Spacer space={'1vw'} horizontal />
-        <Body1 children={props.title} color={colors.Gray[300]} fontWeight={'bold'} />
-      </StyledTitleContainer>
+      <StyledTitleContainer>{props.title}</StyledTitleContainer>
       <StyledTable>
         <StyledThead>
           {table.getHeaderGroups().map((headerGroup) => (
