@@ -1,4 +1,10 @@
 pipeline {
+    environment {
+        repository = "1w2k/code-odyssesy"
+        DOCKERHUB_CREDENTIALS = credentials('docker_credentials')
+        dockerImage = ''
+    }
+
     agent any
 
     stages {
@@ -11,19 +17,92 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Build Gateway-Server .JAR') {
             steps {
                 script {
                     // 변경된 브랜치와 머지 대상 브랜치 출력
                     // 현재 빌드 중인 브랜치명 확인
                     def currentBranch = env.BRANCH_NAME
-                    echo "Merge Target Branch : \${CHANGE_TARGET}"
+                    echo "Merge Target Branch: \${CHANGE_TARGET}"
                     echo "Current Branch: \${currentBranch}"
 
-                    echo "chatting server 입니다."
-                    
-                    // 여기에 빌드 스텝 추가
+                    echo "common server 입니다."
+                    // gradlew 빌드
+                    sh 'chmod +x ./BackEnd/chatting/gradlew'
+                    sh '''
+                        cd ./BackEnd/chatting
+                        ./gradlew clean build
+                    '''
                 }
+            }
+        }
+
+        stage('Build Gateway Image') {
+            steps {
+                script {
+                    sh "docker-compose -f ${composeFile} build ${repository}:chatting_${BUILD_NUMBER} ")
+                    sh "docker images "
+                }
+            }
+        }
+
+        stage('DockerHub Login') {
+            steps {
+                script {
+                    sh "echo \${DOCKERHUB_CREDENTIALS_PSW} | docker login -u \${DOCKERHUB_CREDENTIALS_USR} --password-stdin"
+                }
+            }
+        }
+
+        stage('Push Gateway Image to DockerHub') {
+            steps {
+                script {
+                    sh "docker push \${repository}:chatting_\${BUILD_NUMBER}"
+                }
+            }
+        }
+
+        stage('Clean Gateway Image') {
+            steps {
+                script {
+                    sh "docker rmi \${repository}:chatting_\${BUILD_NUMBER}"
+                }
+            }
+        }
+
+        stage("Garbage Collect TESTS ERV") {
+            steps {
+                sshPublisher(
+                    continueOnError: true, failOnError: false,
+                    publishers: [
+                        sshPublisherDesc(
+                            configName: "EC2_1",
+                            verbose: true,
+                            transfers: [
+                                sshTransfer(execCommand: "sudo docker kill \$(docker ps | grep chatting | tr ' ' '\t' | cut -f1)"),
+                                sshTransfer(execCommand: "sudo docker system prune -af")
+                            ]
+                        )
+                    ]
+                )
+            }
+        }
+
+        stage("Deploy") {
+            steps {
+                sshPublisher(
+                    continueOnError: false, failOnError: true,
+                    publishers: [
+                        sshPublisherDesc(
+                            configName: "EC2_1",
+                            verbose: true,
+                            transfers: [
+                                sshTransfer(execCommand: "sudo docker pull " + repository + ":chatting_$BUILD_NUMBER"),
+                                sshTransfer(execCommand: "sudo docker run -d -p 8888:8888 --name chatting  " + repository + ":chatting_${BUILD_NUMBER}")
+                            ]
+                        )
+                    ]
+                )
             }
         }
     }
