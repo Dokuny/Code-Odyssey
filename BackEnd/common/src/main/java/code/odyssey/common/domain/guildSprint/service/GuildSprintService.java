@@ -12,9 +12,11 @@ import static code.odyssey.common.domain.guildSprint.exception.GuildSprintErrorC
 import code.odyssey.common.domain.guild.entity.GuildMember;
 import code.odyssey.common.domain.guild.repository.GuildMemberRepository;
 import code.odyssey.common.domain.guildSprint.dto.GuildSprintCreateRequest;
+import code.odyssey.common.domain.guildSprint.dto.WaitingGuildSprintInfo;
 import code.odyssey.common.domain.guildSprint.entity.GuildSprint;
 import code.odyssey.common.domain.guildSprint.exception.GuildSprintException;
 import code.odyssey.common.domain.guildSprint.repository.GuildSprintRepository;
+import code.odyssey.common.domain.member.entity.Member;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -90,6 +92,11 @@ public class GuildSprintService {
 
 		// 스프린트 종료
 		sprint.end();
+	}
+
+	public List<WaitingGuildSprintInfo> getWaitingGuildSprintInfo(Long guildId) {
+
+		return guildSprintRepository.findWaitingGuildSprints(guildId);
 	}
 
 }

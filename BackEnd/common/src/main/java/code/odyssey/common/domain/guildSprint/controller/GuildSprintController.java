@@ -1,8 +1,10 @@
 package code.odyssey.common.domain.guildSprint.controller;
 
 import code.odyssey.common.domain.guildSprint.dto.GuildSprintCreateRequest;
+import code.odyssey.common.domain.guildSprint.dto.WaitingGuildSprintInfo;
 import code.odyssey.common.domain.guildSprint.service.GuildSprintService;
 import jakarta.validation.Valid;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,5 +51,12 @@ public class GuildSprintController {
 	) {
 		guildSprintService.endGuildSprint(memberId, sprintId);
 		return ResponseEntity.ok().build();
+	}
+
+	@GetMapping("/waiting")
+	public ResponseEntity<List<WaitingGuildSprintInfo>> getWaitingGuildSprintInfo(
+		@PathVariable("guildId") Long guildId
+	) {
+		return ResponseEntity.ok(guildSprintService.getWaitingGuildSprintInfo(guildId));
 	}
 }

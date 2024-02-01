@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-public interface GuildSprintRepository extends JpaRepository<GuildSprint, Long> {
+public interface GuildSprintRepository extends JpaRepository<GuildSprint, Long>, GuildSprintRepositoryCustom {
 
 	List<GuildSprint> findAllByGuildIdAndStatus(Long guildId, GuildSprintStatus status);
 
