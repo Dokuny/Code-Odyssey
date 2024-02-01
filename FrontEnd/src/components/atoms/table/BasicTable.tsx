@@ -121,8 +121,8 @@ const BasicTable = (props: BasicTableProps) => {
   };
 
   const renderPageButtons = () => {
-    const totalPages = Math.min(props.tableData.totalPages, 5); // 전체 페이지 수와 5 중 작은 값을 사용
-    const startIndex = Math.min(Math.max(0, props.tableData.totalPages - 5), Math.max(0, props.state.pageIndex - 2)); // 현재 페이지를 중심으로 좌우로 2개씩 표시
+    const totalPages = Math.min(props.tableData.totalPages, 5);
+    const startIndex = Math.min(Math.max(0, props.tableData.totalPages - 5), Math.max(0, props.state.pageIndex - 2));
 
     return [...Array(totalPages)].map((_, index) => (
       <StyledPageButton
