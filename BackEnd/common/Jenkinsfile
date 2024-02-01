@@ -42,7 +42,7 @@ pipeline {
                 script {
                     sh '''
                         cd ./BackEnd/common
-                        docker-compose -f docker-compose-prod.yml build ${repository}:common_${BUILD_NUMBER}
+                        docker-compose -f docker-compose-prod.yml build ${repository}:common_server
                         ./gradlew clean build
                     '''
                     
@@ -62,7 +62,7 @@ pipeline {
         stage('Push Common-Server Image to DockerHub') {
             steps {
                 script {
-                    sh "docker push \${repository}:common_\${BUILD_NUMBER}"
+                    sh "docker push \${repository}:common_server"
                 }
             }
         }
@@ -70,7 +70,7 @@ pipeline {
         stage('Clean Common-Servery Image') {
             steps {
                 script {
-                    sh "docker rmi \${repository}:common_\${BUILD_NUMBER}"
+                    sh "docker rmi \${repository}:common_server"
                 }
             }
         }
@@ -102,7 +102,7 @@ pipeline {
                             configName: "COMMON_SERVER",
                             verbose: true,
                             transfers: [
-                                sshTransfer(execCommand: "sudo docker pull " + repository + ":common_$BUILD_NUMBER"),
+                                sshTransfer(execCommand: "sudo docker pull " + repository + ":common_server"),
                                 sshTransfer(execCommand: "sudo docker run -d -p 8888:8888 --name common  " + repository + ":common_${BUILD_NUMBER}")
                             ]
                         )
