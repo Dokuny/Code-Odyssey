@@ -9,6 +9,8 @@ import BasicTable from '../../atoms/table/BasicTable';
 import { PaginationState } from '@tanstack/react-table';
 import Divider from '../../atoms/basic/Divider';
 import { Fa6Icon } from '../../atoms/icon/Icons';
+import { select } from 'react-cookies';
+import { useNavigate } from 'react-router-dom';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -51,16 +53,17 @@ interface SprintProblemCardProps {
 }
 
 const SprintProblemCard = (props: SprintProblemCardProps) => {
-  const [data, SetData] = useState<any>(null);
-  const [tableData, SetTableData] = useState<any>(null);
+  const [data, setData] = useState<any>(null);
+  const [tableData, setTableData] = useState<any>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [state, setState] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 });
+  const [selectData, setSelectData] = useState<any>(null);
 
   useEffect(() => {
     if (props.state === 'past') {
       // solve_state : 'fail' | 'success'
-      SetData({
-        problem_id: 1,
+      setData({
+        guild_problem_id: 1,
         title: '톱니바퀴 돌리기',
         type: 'STRING',
         percent: 100,
@@ -91,9 +94,17 @@ const SprintProblemCard = (props: SprintProblemCardProps) => {
         memory: value.memory,
         time: value.time,
       }));
-      SetTableData({ totalPages: 0, data: scoreWithNames });
+      setTableData({ totalPages: 0, data: scoreWithNames });
     }
   }, [data]);
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (selectData != null) {
+      const reviewData = { guild_problem_id: data.guild_problem_id, member_id: selectData.member_id };
+      navigate('/review', { state: { reviewData } });
+    }
+  }, [data, navigate, selectData]);
 
   return (
     <StyledContainer>
@@ -109,7 +120,7 @@ const SprintProblemCard = (props: SprintProblemCardProps) => {
               <Body2 children={props.title} color={colors.Gray[100]} />
             </div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', width: '50%', height: '100%' }}>
-              {data && data.guild_member.map((value: any) => <>{value.is_solved && <StyledProfileImg src={value.thumbnail} alt='' />}</>)}
+              {data && data.guild_member.map((value: any) => <>{value.is_solved && <StyledProfileImg key={value.member_id} src={value.thumbnail} alt='' />}</>)}
               <div style={{ display: 'flex', width: '10%', backgroundColor: data && data.solve_state === 'fail' ? colors.Red : colors.Naver[300], zIndex: 1, height: '100%', marginLeft: '0.5vmax' }} />
             </div>
           </StyledButton>
@@ -134,7 +145,7 @@ const SprintProblemCard = (props: SprintProblemCardProps) => {
                     </>
                   }
                   tableData={tableData}
-                  setSelectData={() => {}}
+                  setSelectData={setSelectData}
                   percentData={[]}
                   state={state}
                   setState={setState}
