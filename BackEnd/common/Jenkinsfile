@@ -31,7 +31,7 @@ pipeline {
             }
         }
 
-        stage('Build Gateway-Server .JAR') {
+        stage('Build Common-Server .JAR') {
             steps {
                 script {
                     // 변경된 브랜치와 머지 대상 브랜치 출력
@@ -51,7 +51,7 @@ pipeline {
             }
         }
 
-        stage('Build Gateway Image') {
+        stage('Build Common Image') {
             steps {
                 script {
                     dockerImage = docker.build("${repository}:Common_${BUILD_NUMBER}", "-f BackEnd/gateway/Dockerfile ./BackEnd/common")
@@ -67,7 +67,7 @@ pipeline {
             }
         }
 
-        stage('Push Gateway Image to DockerHub') {
+        stage('Push Common Image to DockerHub') {
             steps {
                 script {
                     sh "docker push \${repository}:Common_\${BUILD_NUMBER}"
@@ -75,7 +75,7 @@ pipeline {
             }
         }
 
-        stage('Clean Gateway Image') {
+        stage('Clean Common Image') {
             steps {
                 script {
                     sh "docker rmi \${repository}:Common_\${BUILD_NUMBER}"
@@ -111,20 +111,7 @@ pipeline {
                             verbose: true,
                             transfers: [
                                 sshTransfer(execCommand: "sudo docker pull " + repository + ":Common_$BUILD_NUMBER"),
-                                sshTransfer(execCommand: "sudo docker run -d -p 8888:8888 --name Common --network front \
-                                -e DB_URL=${DB_URL}\
-                                -e DB_USER=${DB_USER}\
-                                -e DB_PASSWORD=${DB_PASSWORD}\
-                                -e DISCOVERY_SERVER=${DISCOVERY_SERVER}\
-                                -e FRONT_SERVER=${FRONT_SERVER}\
-                                -e KAKAO_OAUTH_SECRET=${KAKAO_OAUTH_SECRET}\
-                                -e KAKAO_OAUTH_ID=${KAKAO_OAUTH_ID}\
-                                -e NAVER_OAUTH_SECRET=${NAVER_OAUTH_SECRET}\
-                                -e NAVER_OAUTH_ID=${NAVER_OAUTH_ID}\
-                                -e GOOGLE_OAUTH_SECRET=${GOOGLE_OAUTH_SECRET}\
-                                -e GOOGLE_OAUTH_ID=${GOOGLE_OAUTH_ID}\
-                                -e JWT_ACCESS=${JWT_ACCESS}\
-                                -e JWT_REFRESH=${JWT_REFRESH} " + repository + ":Common_${BUILD_NUMBER}")
+                               sshTransfer(execCommand: "sudo docker run -d -p 8888:8888 --name Common -e DB_URL=${DB_URL} DB_USER=${DB_USER} DB_PASSWORD=${DB_PASSWORD} DISCOVERY_SERVER=${DISCOVERY_SERVER} FRONT_SERVER=${FRONT_SERVER} KAKAO_OAUTH_SECRET=${KAKAO_OAUTH_SECRET} KAKAO_OAUTH_ID=${KAKAO_OAUTH_ID} NAVER_OAUTH_SECRET=${NAVER_OAUTH_SECRET} NAVER_OAUTH_ID=${NAVER_OAUTH_ID} GOOGLE_OAUTH_SECRET=${GOOGLE_OAUTH_SECRET} GOOGLE_OAUTH_ID=${GOOGLE_OAUTH_ID} JWT_ACCESS=${JWT_ACCESS} JWT_REFRESH=${JWT_REFRESH}  " + repository + ":Common_${BUILD_NUMBER}")
                             ]
                         )
                     ]
