@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import DailyCard from '../card/DailyCard';
+import DailyCard from '../card/basic/DailyCard';
 import styled from 'styled-components';
 import { colors } from '../../../config/Color';
 import { Spacer } from '../../atoms/basic/Spacer';

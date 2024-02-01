@@ -3,7 +3,7 @@ import Divider from '../../../../../atoms/basic/Divider';
 import { Spacer } from '../../../../../atoms/basic/Spacer';
 import { Body3, Header4 } from '../../../../../atoms/basic/Typography';
 import BasicButton from '../../../../../atoms/button/BasicButton';
-import GuildSprintStateCard from '../../../../../molecules/card/GuildSprintStateCard';
+import GuildSprintStateCard from '../../../../../molecules/card/guild/GuildSprintStateCard';
 
 interface GuildNoSprintProps {
   setActiveIndex: React.Dispatch<React.SetStateAction<number>>;

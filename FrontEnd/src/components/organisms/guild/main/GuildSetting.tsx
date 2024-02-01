@@ -1,6 +1,6 @@
 import { Body1, Body3 } from '../../../atoms/basic/Typography';
 import { colors } from '../../../../config/Color';
-import MainTopCard from '../../../molecules/card/MainTopCard';
+import MainTopCard from '../../../molecules/card/basic/MainTopCard';
 import SelectBar from '../../../molecules/buttonBar/SelectBar';
 import { useState } from 'react';
 import GuildModify from './GuildSetting/GuildModify';

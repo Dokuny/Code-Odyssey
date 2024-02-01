@@ -1,5 +1,5 @@
-import MainTopCard from '../../../molecules/card/MainTopCard';
-import MakeGuildForm from '../../../molecules/card/MakeGuildForm';
+import MainTopCard from '../../../molecules/card/basic/MainTopCard';
+import MakeGuildForm from '../../../molecules/form/MakeGuildForm';
 import { Spacer } from '../../../atoms/basic/Spacer';
 import { Body1, Body3 } from '../../../atoms/basic/Typography';
 import { colors } from '../../../../config/Color';

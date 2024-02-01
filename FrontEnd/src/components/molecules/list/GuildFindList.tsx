@@ -1,4 +1,4 @@
-import GuildRecommendCard from '../card/GuildRecommendCard';
+import GuildRecommendCard from '../card/guild/GuildRecommendCard';
 
 interface GuildFindListProps {
   data: {

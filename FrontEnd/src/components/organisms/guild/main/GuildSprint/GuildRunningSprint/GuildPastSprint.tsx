@@ -2,8 +2,8 @@ import { colors } from '../../../../../../config/Color';
 import { Spacer } from '../../../../../atoms/basic/Spacer';
 import { Body3, Header4 } from '../../../../../atoms/basic/Typography';
 import BasicButton from '../../../../../atoms/button/BasicButton';
-import GuildSprintImageCard from '../../../../../molecules/card/GuildSprintImageCard';
-import GuildSprintStateCard from '../../../../../molecules/card/GuildSprintStateCard';
+import GuildSprintImageCard from '../../../../../molecules/card/guild/GuildSprintImageCard';
+import GuildSprintStateCard from '../../../../../molecules/card/guild/GuildSprintStateCard';
 import Divider from '../../../../../atoms/basic/Divider';
 
 interface GuildPastSprintProps {

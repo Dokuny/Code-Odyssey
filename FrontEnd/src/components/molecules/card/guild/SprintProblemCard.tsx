@@ -1,16 +1,15 @@
 import styled from 'styled-components';
-import { colors } from '../../../config/Color';
-import { difficulty } from '../../../utils/json/difficulty';
-import { Spacer } from '../../atoms/basic/Spacer';
-import { Body1, Body2 } from '../../atoms/basic/Typography';
+import { colors } from '../../../../config/Color';
+import { difficulty } from '../../../../utils/json/difficulty';
+import { Spacer } from '../../../atoms/basic/Spacer';
+import { Body1, Body2 } from '../../../atoms/basic/Typography';
 import { useEffect, useState } from 'react';
-import GuildSprintResultImageCard from './GuildSprintResultImageCard';
-import BasicTable from '../../atoms/table/BasicTable';
+import BasicTable from '../../../atoms/table/BasicTable';
 import { PaginationState } from '@tanstack/react-table';
-import Divider from '../../atoms/basic/Divider';
-import { Fa6Icon } from '../../atoms/icon/Icons';
-import { select } from 'react-cookies';
+import Divider from '../../../atoms/basic/Divider';
+import { Fa6Icon } from '../../../atoms/icon/Icons';
 import { useNavigate } from 'react-router-dom';
+import GuildSprintResultImageCard from './GuildSprintResultImageCard';
 
 const StyledContainer = styled.div`
   display: flex;

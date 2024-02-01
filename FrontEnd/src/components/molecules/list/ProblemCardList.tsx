@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import ProblemCard from '../card/ProblemCard';
+import ProblemCard from '../card/basic/ProblemCard';
 import styled from 'styled-components';
 import { colors } from '../../../config/Color';
 import { Spacer } from '../../atoms/basic/Spacer';

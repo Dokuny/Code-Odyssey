@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { colors } from '../../../config/Color';
-import { Body1, Caption1 } from '../../atoms/basic/Typography';
-import { Spacer } from '../../atoms/basic/Spacer';
-import { difficulty } from '../../../utils/json/difficulty';
+import { colors } from '../../../../config/Color';
+import { Body1, Caption1 } from '../../../atoms/basic/Typography';
+import { Spacer } from '../../../atoms/basic/Spacer';
+import { difficulty } from '../../../../utils/json/difficulty';
 
 const GuildBackDiv = styled.div`
   display: flex;
