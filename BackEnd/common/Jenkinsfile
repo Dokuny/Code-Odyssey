@@ -5,7 +5,7 @@ pipeline {
         dockerImage = ''
         
         DISCOVERY_SERVER="${env.DISCOVERY_SERVER}"
-        FRONT_SERVER="${env.FRONT_SERVER}
+        FRONT_SERVER="${env.FRONT_SERVER}"
         GOOGLE_OAUTH_ID="${env.GOOGLE_OAUTH_ID}"
         GOOGLE_OAUTH_SECRET="${env.GOOGLE_OAUTH_SECRET}"
         JWT_ACCESS="${env.JWT_ACCESS}"
