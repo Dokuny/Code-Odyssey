@@ -42,7 +42,7 @@ pipeline {
                 script {
                     sh '''
                         cd ./BackEnd/common
-                        docker-compose -f docker-compose-prod build ${repository}:common_${BUILD_NUMBER}
+                        docker-compose -f docker-compose-prod.yml build ${repository}:common_${BUILD_NUMBER}
                         ./gradlew clean build
                     '''
                     
