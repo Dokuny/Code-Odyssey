@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { colors } from '../../../config/Color';
 import { ChangeEvent } from 'react';
 
-const StyleInput = styled.input<{ fontSize: string; color: string; fontcolor: string }>`
+const StyleInput = styled.input<{ fontSize: string; color: string; fontcolor: string; textAlign: string }>`
   display: flex;
   font-size: ${(props) => props.fontSize};
   width: 100%;
@@ -15,6 +15,7 @@ const StyleInput = styled.input<{ fontSize: string; color: string; fontcolor: st
   padding-right: 4vmin;
   box-sizing: border-box;
   border-radius: 2em;
+  text-align: ${(props) => props.textAlign};;
 `;
 
 interface BasicInputProps {
@@ -25,6 +26,7 @@ interface BasicInputProps {
   color?: string;
   fontcolor?: string;
   input: string;
+  textAlign?:string;
 }
 
 const BasicInput = (props: BasicInputProps) => {
@@ -40,6 +42,7 @@ const BasicInput = (props: BasicInputProps) => {
 
   return (
     <StyleInput
+      textAlign={props.textAlign || ''}
       fontSize={props.fontSize || '1em'}
       placeholder={props.placeholder}
       onChange={onChangeInput}
