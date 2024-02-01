@@ -1,6 +1,6 @@
 pipeline {
     environment {
-        repository = "1w2k/code-odyssesy"
+        repository = "1w2k/code-odyssey"
         DOCKERHUB_CREDENTIALS = credentials('docker_credentials')
         dockerImage = ''
         
