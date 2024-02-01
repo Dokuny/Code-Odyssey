@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../../config/Color';
-import { Body1, Header1, Header2, Header3 } from '../../atoms/basic/Typography';
+import { Body1, Body2} from '../../atoms/basic/Typography';
 import BasicInput from '../../atoms/input/BasicInput';
 import { Spacer } from '../../atoms/basic/Spacer';
 import MDEditor from '@uiw/react-md-editor';
@@ -30,47 +30,157 @@ const Name = styled.div`
   justify-content: center;
   flex: 1 1 40%;
   margin: 10px;
-`;
+`
 
 const StyledMyImgContainer = styled.div`
-  display: flex;
-  width: 13vmax;
-  height: 13vmax;
-  flex-shrink: 0;
+  width: 15vmax;
+  height: 15vmax;
+  position: relative;
+  perspective: 300px;
+  /* background-color: red; */
+  transform-style: preserve-3d; /* 추가 */
+  transition: 1s;
+  &:hover {
+    transform: rotateY(-180deg); /* 추가 */
+  }
+  
 `;
 
-const StyledMyImage = styled.img`
+const StyledImage = styled.img`
   width: 100%;
-  display: block;
+  aspect-ratio: 1;
   object-fit: cover;
   border-radius: 50%;
 `;
 
+const Button = styled.button`
+  bottom: 10px;
+  width: 100%;
+  left: 10%;
+  height: 5vh;
+  background-color: #6848a1;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  padding: 10px;
+  display: flex;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #4f378b;
+  }
+`;
+
+
+const ChangeImg = styled.div`
+  position: absolute;
+  width: 80px;
+  height: 20px;
+  left: calc(50% - 40px);
+  top: calc(50% - 10px);
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+
+  &:hover {
+    color: black;
+    font-weight: bold;
+  }
+`;
+
 const StyledMarkarea = styled.div``;
 
-const Div3 = styled.div``;
+const Front = styled.div`
+  width: 100%;
+  aspect-ratio: 1;
+  position: absolute;
+  backface-visibility: hidden;
+  transform: rotateY(0deg);
+`;
+const Back = styled.div`
+  width: 100%;
+  aspect-ratio: 1;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+  position: relative;
+  /* background-color: red; */
+`;
+
 
 const Rule = styled.div``;
-const Form = styled.div``;
+
 
 const MakeGuildForm = () => {
-  const [value, setValue] = React.useState('**Hello world!!!**');
-
+  const [value, setValue] = useState('');
+  const [GuildName, setGuildName] = useState('');
+  // const [name, setName] =
+  const [selectDifficulty, setSelecDifficulty] = useState('');
+  const [selectCapacity, setSelectCapacity] = useState('');
   const [selectValue1, setSelectValue1] = useState('');
-  const [selectValue2, setSelectValue2] = useState('');
-  const [selectValue3, setSelectValue3] = useState('');
-  const [selectValue4, setSelectValue4] = useState('');
+  const [selectLanguage, setSelectLanguage] = useState('');
+  const Difficulty = [];
+  const [imgFile, setImgFile] = useState("");
+  const imgRef = useRef<HTMLInputElement>(null);
+
+  // 이미지 업로드 input의 onChange
+  const saveImgFile = () => {
+    // imgRef.current가 null 또는 undefined인지 확인 후 사용
+    const fileInput = imgRef.current;
+  
+    if (fileInput?.files?.length) {
+      const file: File = fileInput.files[0];
+  
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+  
+      reader.onloadend = (event: ProgressEvent<FileReader>) => {
+        // 이벤트 객체에서 result 속성에 접근하여 타입 추론 가능
+        const result = event.target?.result as string;
+        
+        // 이미지 파일 데이터 URL을 상태로 설정
+        setImgFile(result);
+        console.log(result)
+      };
+    }
+  };
+
+
+  for (let i = 1; i <= 30; i++) {
+    Difficulty.push(i);
+  }
+  const Capacity = [];
+  for (let i = 1; i <= 10; i++) {
+    Capacity.push(i);
+  }
+
   return (
     <Div1>
       <StyledContainer>
         <Name>
           <StyledMyImgContainer>
-            <StyledMyImage src='/images/code_odyssey/LoginProfile.jpg' alt='로그인 창 이미지' />
+              <Front>
+                <StyledImage src={imgFile ? imgFile : '/images/code_odyssey/ProblemSolveBg.svg'} alt='/'/>
+              </Front>
+              <Back>
+                <label htmlFor="file">
+                  <ChangeImg>CHANGE</ChangeImg>
+                </label>
+                <input style={{ display : 'none'}} type="file" name="file" id="file" accept="image/*" onChange={saveImgFile} ref={imgRef}></input>
+                <StyledImage src='/images/code_odyssey/WaitingBg.svg' alt='/'/>
+              </Back>
           </StyledMyImgContainer>
-          <Spacer space={'2vh'}></Spacer>
-          <Body1 children={'이름'} color={colors.White} />
-          <Spacer space={'2vh'}></Spacer>
-          <BasicInput placeholder={'Ingrese el nomvre de la idea'} setInput={() => {}} input={''} />
+          <Spacer space={'4vh'}></Spacer>
+          <div style={ { textAlign: 'center'} }>
+            <BasicInput placeholder={'길드 이름'} setInput={setGuildName} input={GuildName} textAlign={'center'} />
+          </div>
         </Name>
         <hr />
         <Div2>
@@ -79,26 +189,26 @@ const MakeGuildForm = () => {
           <DropDown
             id={'1'}
             borderRadius={'5px'}
-            setSelectValue={setSelectValue1}
+            setSelectValue={setSelecDifficulty}
             height={'30px'}
-            values={[1, 2, 3]}
+            values={Difficulty}
             bgColor={colors.White}
-            fontcolor={colors.White}
-            selectedValue={selectValue1}
+            fontcolor={colors.Black}
+            selectedValue={selectDifficulty}
           ></DropDown>
           <Spacer space={'1vh'}></Spacer>
 
           <Body1 children={'수용인원'} color={colors.White} />
           <Spacer space={'1vh'}></Spacer>
           <DropDown
-            id={'1'}
+            id={'2'}
             borderRadius={'5px'}
-            setSelectValue={setSelectValue1}
+            setSelectValue={setSelectCapacity}
             height={'30px'}
-            values={[1, 2, 3]}
+            values={Capacity}
             bgColor={colors.White}
-            fontcolor={colors.White}
-            selectedValue={selectValue1}
+            fontcolor={colors.Black}
+            selectedValue={selectCapacity}
           ></DropDown>
           <Spacer space={'1vh'}></Spacer>
 
@@ -111,7 +221,7 @@ const MakeGuildForm = () => {
             height={'30px'}
             values={[1, 2, 3]}
             bgColor={colors.White}
-            fontcolor={colors.White}
+            fontcolor={colors.Black}
             selectedValue={selectValue1}
           ></DropDown>
 
@@ -122,12 +232,12 @@ const MakeGuildForm = () => {
           <DropDown
             id={'1'}
             borderRadius={'5px'}
-            setSelectValue={setSelectValue1}
+            setSelectValue={setSelectLanguage}
             height={'30px'}
-            values={[1, 2, 3]}
+            values={['python', 'Java', 'C++']}
             bgColor={colors.White}
-            fontcolor={colors.White}
-            selectedValue={selectValue1}
+            fontcolor={colors.Black}
+            selectedValue={selectLanguage}
           ></DropDown>
 
           <Spacer space={'1vh'}></Spacer>
@@ -143,6 +253,10 @@ const MakeGuildForm = () => {
           </div>
         </StyledMarkarea>
       </Rule>
+      <Spacer space={'2vw'} ></Spacer>
+      <Button>
+        <Body2 children={'길드 생성하기'} color={colors.White}></Body2>
+      </Button>
     </Div1>
   );
 };
