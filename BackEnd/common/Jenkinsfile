@@ -103,6 +103,7 @@ pipeline {
                             verbose: true,
                             transfers: [
                                 sshTransfer(execCommand: "sudo docker pull " +"1w2k/common-server:latest"),
+                                sshTransfer(execCommand: "sudo docker rm -f common"),
                                 sshTransfer(execCommand: "sudo docker run -d -p 8777:8777 --name common  " +"1w2k/common-server:latest")
                             ]
                         )
