@@ -16,6 +16,9 @@ public interface MemberSprintRepository extends JpaRepository<MemberSprint, Long
     // 멤버 아이디와 요일로 조회
     MemberSprint findByMemberIdAndDay(Long memberId, DayType day);
 
+    // 멤버 아이디로 조회
+    List<MemberSprint> findByMemberId(Long memberId);
+
     @Query("SELECT p FROM Problem p " +
             "WHERE p.type = :ptype AND p.difficulty = :difficulty " +
             "AND NOT EXISTS (" +
