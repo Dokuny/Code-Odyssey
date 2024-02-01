@@ -5,8 +5,8 @@ import BasicButton from './BasicButton';
 import { difficulty } from '../../../utils/json/difficulty';
 import { Spacer } from '../basic/Spacer';
 
-const DiffImgageDiv = styled.img`
-  width: 8%;
+const DiffImgageDiv = styled.img<{ imgWidth: string }>`
+  width: ${(props) => props.imgWidth};
 `;
 
 interface SelectProblemButtonProps {
@@ -15,6 +15,7 @@ interface SelectProblemButtonProps {
   platform: string;
   title: string;
   is_active: boolean;
+  imgWidth: string;
   onClick: () => void;
 }
 
@@ -27,11 +28,11 @@ const SelectProblemButton = (props: SelectProblemButtonProps) => {
         }}
         borderRadius={'2em'}
         borderColor={colors.DarkGray[100]}
-        deepColor={colors.DarkGray[800]}
+        deepColor={colors.DarkGray[700]}
         bgColor={colors.GrayBlack}
         children={
           <div style={{ display: 'flex', paddingLeft: '1vmin', paddingRight: '1vmin', alignItems: 'center' }}>
-            <DiffImgageDiv src={difficulty[props.difficulty]} />
+            <DiffImgageDiv src={difficulty[props.difficulty]} imgWidth={props.imgWidth} />
             <Spacer space={'1vmin'} horizontal />
             <Body3 children={`[${props.platform}] ${props.title}`} color={colors.Gray[100]} fontWeight={'bold'} />
           </div>

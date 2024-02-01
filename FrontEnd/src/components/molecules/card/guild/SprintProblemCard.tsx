@@ -49,6 +49,7 @@ interface SprintProblemCardProps {
   difficulty: number;
   title: string;
   state: 'past' | 'future';
+  platform: string;
 }
 
 const SprintProblemCard = (props: SprintProblemCardProps) => {
@@ -116,7 +117,7 @@ const SprintProblemCard = (props: SprintProblemCardProps) => {
               <Spacer space={'0.8vmax'} horizontal />
               <StyledDiffImageDiv src={difficulty[props.difficulty]} />
               <Spacer space={'0.8vmax'} horizontal />
-              <Body2 children={props.title} color={colors.Gray[100]} />
+              <Body2 children={`[${props.platform}] ${props.title}`} color={colors.Gray[100]} />
             </div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', width: '50%', height: '100%' }}>
               {data && data.guild_member.map((value: any) => <>{value.is_solved && <StyledProfileImg key={value.member_id} src={value.thumbnail} alt='' />}</>)}
@@ -162,7 +163,7 @@ const SprintProblemCard = (props: SprintProblemCardProps) => {
           <Spacer space={'0.8vmax'} horizontal />
           <StyledDiffImageDiv src={difficulty[props.difficulty]} />
           <Spacer space={'0.8vmax'} horizontal />
-          <Body2 children={props.title} color={colors.Gray[100]} />
+          <Body2 children={`[${props.platform}] ${props.title}`} color={colors.Gray[100]} />
         </div>
       )}
     </StyledContainer>
