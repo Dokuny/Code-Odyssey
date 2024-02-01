@@ -20,7 +20,7 @@ public interface SubmissionRepository extends JpaRepository<Submission, Long> {
     List<Object[]> countSubmissionsByDate(@Param("memberId") Long memberId);
 
     // 개인 제출 코드 조회
-    Optional<List<Submission>> findByProblemIdAndMemberId(Long problemId, Long memberId);
+    Optional<List<Submission>> findAllByProblemIdAndMemberId(Long problemId, Long memberId);
 
     // 회원 아이디로 제출 코드 개수 조회
     int countByMemberId(Long memberId);

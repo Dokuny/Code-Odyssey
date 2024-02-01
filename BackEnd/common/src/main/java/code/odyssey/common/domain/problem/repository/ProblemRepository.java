@@ -6,8 +6,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface ProblemRepository extends JpaRepository<Problem, Long> {
+public interface ProblemRepository extends JpaRepository<Problem, Long>{
 
     Optional<Problem> findByPlatformAndNo(ProblemPlatform platform, int no);
 
+//    @Query("SELECT p FROM Problem p " +
+//            "WHERE p.type = :ptype " +
+//            "AND p.difficulty = :difficulty")
+//    List<Problem> findByPlatformAndDifficulty(ProblemType ptype, Integer difficulty);
 }

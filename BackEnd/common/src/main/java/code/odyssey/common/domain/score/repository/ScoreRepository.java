@@ -21,10 +21,6 @@ public interface ScoreRepository extends JpaRepository<Score, Long> {
             "WHERE s.rankingScore > (SELECT s2.rankingScore FROM Score s2 WHERE s2.member.id = :memberId)")
     Long getMyRank(@Param("memberId") Long memberId);
 
-    // 푼 문제 수 + 1
-    @Modifying
-    @Query("UPDATE Score s SET s.numSolvedProblems = s.numSolvedProblems + 1 WHERE s.member.id = :memberId")
-    void addNumSolvedProblems(@Param("memberId") Long memberId);
 
     // 스트릭 + 1
     @Modifying

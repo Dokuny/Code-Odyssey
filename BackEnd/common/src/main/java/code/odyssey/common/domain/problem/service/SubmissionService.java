@@ -1,6 +1,7 @@
 package code.odyssey.common.domain.problem.service;
 
 import code.odyssey.common.domain.member.entity.Member;
+import code.odyssey.common.domain.member.exception.MemberException;
 import code.odyssey.common.domain.member.repository.MemberRepository;
 import code.odyssey.common.domain.problem.dto.ProblemSubmitRequest;
 import code.odyssey.common.domain.problem.dto.SubmissionInfo;
@@ -21,6 +22,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
+
+import static code.odyssey.common.domain.member.exception.MemberErrorCode.NOT_EXISTS_MEMBER;
 
 @RequiredArgsConstructor
 @Service
@@ -48,7 +51,7 @@ public class SubmissionService {
     // 개인 제출 코드 조회
     @Transactional(readOnly = true)
     public List<SubmissionInfo> getSubmissionResult(Long problemId, Long memberId){
-        List<Submission> submissions = submissionRepository.findByProblemIdAndMemberId(problemId, memberId)
+        List<Submission> submissions = submissionRepository.findAllByProblemIdAndMemberId(problemId, memberId)
                 .orElseThrow(() -> new NoSuchElementException("Submission not found"));
 
         return submissions.stream()
@@ -65,8 +68,8 @@ public class SubmissionService {
     public Long postSubmissionResult(Long memberId, ProblemSubmitRequest request){
         // 회원 확인
         Member member = memberRepository.findById(memberId)
-//                .filter(m -> m.getResignedAt() != null) // 탈퇴한 회원인지 체크
-                .orElseThrow(() -> new NoSuchElementException("Member not found"));
+                .filter(m -> m.getResignedAt() == null)  // 탈퇴한 회원인지 체크
+                .orElseThrow(() -> new MemberException(NOT_EXISTS_MEMBER));
 
         // 문제 확인
         Problem problem = problemRepository.findByPlatformAndNo(
