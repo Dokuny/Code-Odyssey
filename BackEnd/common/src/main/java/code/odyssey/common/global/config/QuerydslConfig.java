@@ -1,5 +1,6 @@
 package code.odyssey.common.global.config;
 
+import code.odyssey.common.global.common.CustomHibernate5Templates;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -14,7 +15,7 @@ public class QuerydslConfig {
 
     @Bean
     public JPAQueryFactory jpaQueryFactory() {
-        return new JPAQueryFactory(entityManager);
+        return new JPAQueryFactory(new CustomHibernate5Templates(),entityManager);
     }
 
 }

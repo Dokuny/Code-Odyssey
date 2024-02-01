@@ -20,7 +20,7 @@ public record GuildCreateRequest(
         String language,
 
         @NotNull
-        String difficulty,
+        Integer difficulty,
 
         Integer problemCapacity
 ) {

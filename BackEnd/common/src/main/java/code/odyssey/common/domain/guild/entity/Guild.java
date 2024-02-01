@@ -40,7 +40,7 @@ public class Guild {
     private String language;
 
     @Column
-    private String difficulty;
+    private Integer difficulty;
 
     @Column
     private Integer problemCapacity;
