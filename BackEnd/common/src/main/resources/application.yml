@@ -1,31 +1,69 @@
-# gateway
+# test 용
 server:
   port: 8888
 
 spring:
   application:
-    name: api-gateway
+    name: common-service
 
-  cloud:
-    gateway:
-      routes:
-        - id: auth-service
-          uri: lb://COMMON-SERVICE
-          predicates:
-            - Path=/auth/**
-        - id: common-service
-          uri: lb://COMMON-SERVICE
-          predicates:
-            - Path=/test
-          filters:
-            - AuthorizationHeaderFilter
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
 
-jwt:
-  access-key: TestSecretKey123asdasdadadwadwawdawdadwddwawdadwadawadwdwaawdawdwaddwadwawad
+  jpa:
+    defer-datasource-initialization: true
+    generate-ddl: true
+
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+        dialect: org.hibernate.dialect.MariaDBDialect
+
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
 
 eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
   client:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: ${DISCOVERY_SERVER}
+
+
+oauth:
+  kakao:
+    redirect-uri: ${FRONT_SERVER}/oauth/redirected/kakao
+    client-secret: ${KAKAO_OAUTH_SECRET}
+    client-id: ${KAKAO_OAUTH_ID}
+    scope: profile_image, profile_nickname, account_email
+
+  naver:
+    redirect-uri: ${FRONT_SERVER}/oauth/redirected/naver
+    client-secret: ${NAVER_OAUTH_SECRET}
+    client-id: ${NAVER_OAUTH_ID}
+    state: test
+
+  google:
+    redirect-uri: ${FRONT_SERVER}/oauth/redirected/google
+    client-secret: ${GOOGLE_OAUTH_SECRET}
+    client-id: ${GOOGLE_OAUTH_ID}
+    scope: profile, email
+
+jwt:
+  access-key: ${JWT_ACCESS}
+  refresh-key: ${JWT_REFRESH}
+  refresh-expiration: 14d
+  access-expiration: 14d
