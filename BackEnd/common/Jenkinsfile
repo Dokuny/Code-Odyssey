@@ -40,7 +40,7 @@ pipeline {
         stage('Build Gateway Image') {
             steps {
                 script {
-                    sh "docker-compose -f ${composeFile} build ${repository}:common_${BUILD_NUMBER} ")
+                    sh "docker-compose -f ${composeFile} build ${repository}:common_${BUILD_NUMBER} "
                     sh "docker images "
                 }
             }
