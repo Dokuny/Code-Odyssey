@@ -15,18 +15,18 @@ services:                                               # 이 항목 밑에 실�
       - common-redis
     image: 1w2k/common-server
     environment:
-      - DB_URL=${env.RDB_COMMON_URL}
-      - DB_USER=${env.RDB_USER}
-      - DB_PASSWORD=${env.RDB_PASSWORD}
-      - KAKAO_OAUTH_SECRET=${env.KAKAO_OAUTH_SECRET}
-      - KAKAO_OAUTH_ID=${env.KAKAO_OAUTH_ID}
-      - NAVER_OAUTH_SECRET=${env.NAVER_OAUTH_SECRET}
-      - NAVER_OAUTH_ID=${env.NAVER_OAUTH_ID}
-      - GOOGLE_OAUTH_SECRET=${env.GOOGLE_OAUTH_SECRET}
-      - GOOGLE_OAUTH_ID=${env.GOOGLE_OAUTH_ID}
-      - JWT_ACCESS=${env.JWT_ACCESS}
-      - JWT_REFRESH=${env.JWT_REFRESH}
-      - FRONT_SERVER=${env.FRONT_SERVER}
-      - DISCOVERY_SERVER=${env.DISCOVERY_SERVER}
+      - DB_URL=${RDB_COMMON_URL}
+      - DB_USER=${RDB_USER}
+      - DB_PASSWORD=${RDB_PASSWORD}
+      - KAKAO_OAUTH_SECRET=${KAKAO_OAUTH_SECRET}
+      - KAKAO_OAUTH_ID=${KAKAO_OAUTH_ID}
+      - NAVER_OAUTH_SECRET=${NAVER_OAUTH_SECRET}
+      - NAVER_OAUTH_ID=${NAVER_OAUTH_ID}
+      - GOOGLE_OAUTH_SECRET=${GOOGLE_OAUTH_SECRET}
+      - GOOGLE_OAUTH_ID=${GOOGLE_OAUTH_ID}
+      - JWT_ACCESS=${JWT_ACCESS}
+      - JWT_REFRESH=${JWT_REFRESH}
+      - FRONT_SERVER=${FRONT_SERVER}
+      - DISCOVERY_SERVER=${DISCOVERY_SERVER}
     ports:
       - "8777:8777"
