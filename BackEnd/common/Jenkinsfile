@@ -62,7 +62,7 @@ pipeline {
         stage('Push Common-Server Image to DockerHub') {
             steps {
                 script {
-                    sh "docker push \${repository}:common-server"
+                    sh "docker push 1w2k/common-server:latest"
                 }
             }
         }
@@ -70,7 +70,7 @@ pipeline {
         stage('Clean Common-Servery Image') {
             steps {
                 script {
-                    sh "docker rmi \${repository}:common-server"
+                    sh "docker rmi 1w2k/common-server:latest"
                 }
             }
         }
@@ -102,8 +102,8 @@ pipeline {
                             configName: "COMMON_SERVER",
                             verbose: true,
                             transfers: [
-                                sshTransfer(execCommand: "sudo docker pull " + repository + ":common-server"),
-                                sshTransfer(execCommand: "sudo docker run -d -p 8888:8888 --name common  " + repository + ":common-server")
+                                sshTransfer(execCommand: "sudo docker pull " +"1w2k/common-server:latest"),
+                                sshTransfer(execCommand: "sudo docker run -d -p 8777:8777 --name common  " +"1w2k/common-server:latest")
                             ]
                         )
                     ]
