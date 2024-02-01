@@ -40,9 +40,9 @@ const StyledTh = styled.th`
 `;
 
 const StyledTd = styled.td`
-  box-sizing: border-box;
   padding: 1.5vh;
   cursor: pointer;
+  box-sizing: border-box;
 `;
 
 const StyledHeaderContainer = styled.div`
@@ -82,17 +82,16 @@ const StyledPageButton = styled.button<{ isActive?: boolean; pageBtnColor: strin
 `;
 
 interface BasicTableProps {
-  tableData: any;
+  tableData: { totalPages: number; data: Array<any> };
   selectData: any;
   setSelectData: React.Dispatch<any>;
   percentData: String[];
   state: PaginationState;
-  totalPages: number;
   setState: React.Dispatch<React.SetStateAction<PaginationState>>;
   color?: string;
   pageBtnColor?: string;
   pageBtnDeepColor?: string;
-  title?: string;
+  title?: React.ReactNode;
 }
 
 const CheckBoxTable = (props: BasicTableProps) => {
@@ -120,10 +119,10 @@ const CheckBoxTable = (props: BasicTableProps) => {
   });
 
   const handleTdClick = (row: any) => {
-    const isRowSelected = (props.selectData || []).some((selectedRow: any) => selectedRow.id === row.id);
+    const isRowSelected = (props.selectData || []).some((selectedRow: any) => selectedRow.member_id === row.member_id);
 
     if (isRowSelected) {
-      const updatedData = (props.selectData || []).filter((selectedRow: any) => selectedRow.id !== row.id);
+      const updatedData = (props.selectData || []).filter((selectedRow: any) => selectedRow.member_id !== row.member_id);
       props.setSelectData(updatedData);
     } else {
       props.setSelectData([...(props.selectData || []), row]);
@@ -131,8 +130,8 @@ const CheckBoxTable = (props: BasicTableProps) => {
   };
 
   const renderPageButtons = () => {
-    const totalPages = Math.min(props.totalPages, 5);
-    const startIndex = Math.min(Math.max(0, props.totalPages - 5), Math.max(0, props.state.pageIndex - 2));
+    const totalPages = Math.min(props.tableData.totalPages, 5);
+    const startIndex = Math.min(Math.max(0, props.tableData.totalPages - 5), Math.max(0, props.state.pageIndex - 2));
 
     return [...Array(totalPages)].map((_, index) => (
       <StyledPageButton
@@ -149,16 +148,13 @@ const CheckBoxTable = (props: BasicTableProps) => {
 
   return (
     <StyledContainer color={props.color || colors.GrayBlue[800]}>
-      <StyledTitleContainer>
-        <Spacer space={'1vw'} horizontal />
-        <Body1 children={props.title} color={colors.Gray[300]} fontWeight={'bold'} />
-      </StyledTitleContainer>
+      <StyledTitleContainer>{props.title}</StyledTitleContainer>
       <StyledTable>
         <StyledThead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
-              <StyledTh>
-                <StyledHeaderContainer></StyledHeaderContainer>
+              <StyledTh style={{ width: 'auto' }}>
+                <StyledHeaderContainer />
               </StyledTh>
               {headerGroup.headers.slice(1).map((header) => (
                 <StyledTh key={header.id} style={{ width: header.getSize(), cursor: header.column.getCanSort() ? 'pointer' : 'default' }} onClick={header.column.getToggleSortingHandler()}>
@@ -176,8 +172,8 @@ const CheckBoxTable = (props: BasicTableProps) => {
         <StyledTbody>
           {table.getRowModel().rows.map((row) => (
             <tr key={row.id}>
-              <StyledTd onClick={() => handleTdClick(row.original)}>
-                <input type='checkbox' checked={props.selectData && props.selectData.some((selectedRow: any) => selectedRow.id === row.original.id)} />
+              <StyledTd onClick={() => handleTdClick(row.original)} style={{ width: '10%' }}>
+                <input type='checkbox' checked={props.selectData && props.selectData.some((selectedRow: any) => selectedRow.member_id === row.original.member_id)} />
               </StyledTd>
               {row
                 .getVisibleCells()
@@ -196,41 +192,43 @@ const CheckBoxTable = (props: BasicTableProps) => {
           ))}
         </StyledTbody>
       </StyledTable>
-      <StyledPagination>
-        <StyledPageButton
-          onClick={() => props.setState({ ...props.state, pageIndex: 0 })}
-          disabled={props.state.pageIndex === 0}
-          pageBtnColor={props.pageBtnColor || colors.GrayBlue[700]}
-          pageBtnDeepColor={props.pageBtnDeepColor || colors.Indigo[700]}
-        >
-          {`<<`}
-        </StyledPageButton>
-        <StyledPageButton
-          onClick={() => props.setState({ ...props.state, pageIndex: Math.max(0, props.state.pageIndex - 1) })}
-          disabled={props.state.pageIndex === 0}
-          pageBtnColor={props.pageBtnColor || colors.GrayBlue[700]}
-          pageBtnDeepColor={props.pageBtnDeepColor || colors.Indigo[700]}
-        >
-          {`<`}
-        </StyledPageButton>
-        {renderPageButtons()}
-        <StyledPageButton
-          onClick={() => props.setState({ ...props.state, pageIndex: Math.min(props.state.pageIndex + 1, props.totalPages - 1) })}
-          disabled={props.state.pageIndex === props.totalPages - 1}
-          pageBtnColor={props.pageBtnColor || colors.GrayBlue[700]}
-          pageBtnDeepColor={props.pageBtnDeepColor || colors.Indigo[700]}
-        >
-          {`>`}
-        </StyledPageButton>
-        <StyledPageButton
-          onClick={() => props.setState({ ...props.state, pageIndex: props.totalPages - 1 })}
-          disabled={props.state.pageIndex === props.totalPages - 1 || props.totalPages <= 5}
-          pageBtnColor={props.pageBtnColor || colors.GrayBlue[700]}
-          pageBtnDeepColor={props.pageBtnDeepColor || colors.Indigo[700]}
-        >
-          {`>>`}
-        </StyledPageButton>
-      </StyledPagination>
+      {props.tableData.totalPages !== 0 && (
+        <StyledPagination>
+          <StyledPageButton
+            onClick={() => props.setState({ ...props.state, pageIndex: 0 })}
+            disabled={props.state.pageIndex === 0}
+            pageBtnColor={props.pageBtnColor || colors.GrayBlue[700]}
+            pageBtnDeepColor={props.pageBtnDeepColor || colors.Indigo[700]}
+          >
+            {`<<`}
+          </StyledPageButton>
+          <StyledPageButton
+            onClick={() => props.setState({ ...props.state, pageIndex: Math.max(0, props.state.pageIndex - 1) })}
+            disabled={props.state.pageIndex === 0}
+            pageBtnColor={props.pageBtnColor || colors.GrayBlue[700]}
+            pageBtnDeepColor={props.pageBtnDeepColor || colors.Indigo[700]}
+          >
+            {`<`}
+          </StyledPageButton>
+          {renderPageButtons()}
+          <StyledPageButton
+            onClick={() => props.setState({ ...props.state, pageIndex: Math.min(props.state.pageIndex + 1, props.tableData.totalPages - 1) })}
+            disabled={props.state.pageIndex === props.tableData.totalPages - 1}
+            pageBtnColor={props.pageBtnColor || colors.GrayBlue[700]}
+            pageBtnDeepColor={props.pageBtnDeepColor || colors.Indigo[700]}
+          >
+            {`>`}
+          </StyledPageButton>
+          <StyledPageButton
+            onClick={() => props.setState({ ...props.state, pageIndex: props.tableData.totalPages - 1 })}
+            disabled={props.state.pageIndex === props.tableData.totalPages - 1 || props.tableData.totalPages <= 5}
+            pageBtnColor={props.pageBtnColor || colors.GrayBlue[700]}
+            pageBtnDeepColor={props.pageBtnDeepColor || colors.Indigo[700]}
+          >
+            {`>>`}
+          </StyledPageButton>
+        </StyledPagination>
+      )}
     </StyledContainer>
   );
 };

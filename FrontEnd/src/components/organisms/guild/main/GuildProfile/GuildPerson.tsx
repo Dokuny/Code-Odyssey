@@ -2,8 +2,8 @@ import { PaginationState } from '@tanstack/react-table';
 import { useState } from 'react';
 import { colors } from '../../../../../config/Color';
 import { Body1 } from '../../../../atoms/basic/Typography';
-import CheckBoxTable from '../../../../atoms/table/CheckBoxTable';
 import { Spacer } from '../../../../atoms/basic/Spacer';
+import BasicTable from '../../../../atoms/table/BasicTable';
 
 interface GuildPersonProps {
   guild_id: number;
@@ -13,38 +13,36 @@ const GuildPerson = (props: GuildPersonProps) => {
   const [selectData, setSelectData] = useState<any>(null);
   const [state, setState] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 });
   const [tableData, setTableData] = useState({
-    totalPages: 11,
+    totalPages: 0,
     data: [
-      { id: 1, title: 'testTitle1', platform: 'beakjoon', difficulty: 2, type: 'dp', person: 12.5 },
-      { id: 4, title: 'testTitle2', platform: 'beakjoon', difficulty: 1, type: 'dp', person: 75.5 },
-      { id: 3, title: 'testTitle3', platform: 'beakjoon', difficulty: 4, type: 'dp', person: 1.5 },
-      { id: 2, title: 'testTitle2', platform: 'beakjoon', difficulty: 3, type: 'dp', person: 51.5 },
-      { id: 5, title: 'testTitle5', platform: 'beakjoon', difficulty: 5, type: 'dp', person: 20.5 },
-      { id: 7, title: 'testTitle5', platform: 'beakjoon', difficulty: 5, type: 'dp', person: 26.5 },
-      { id: 6, title: 'testTitle5', platform: 'beakjoon', difficulty: 10, type: 'dp', person: 89.5 },
-      { id: 9, title: 'testTitle5', platform: 'beakjoon', difficulty: 25, type: 'dp', person: 77.5 },
-      { id: 10, title: 'testTitle5', platform: 'beakjoon', difficulty: 15, type: 'dp', person: 24.5 },
-      { id: 8, title: 'testTitle5', platform: 'beakjoon', difficulty: 2, type: 'dp', person: 1.5 },
+      { member_id: 1, name: 'name1', solve_percent: 12.5, difficulty: 2, join_at: '2024-01-31' },
+      { member_id: 4, name: 'name4', solve_percent: 12.5, difficulty: 1, join_at: '2024-01-31' },
+      { member_id: 3, name: 'name3', solve_percent: 12.5, difficulty: 4, join_at: '2024-01-31' },
+      { member_id: 2, name: 'name2', solve_percent: 12.5, difficulty: 3, join_at: '2024-01-31' },
+      { member_id: 5, name: 'name5', solve_percent: 12.5, difficulty: 5, join_at: '2024-01-31' },
+      { member_id: 7, name: 'name7', solve_percent: 12.5, difficulty: 5, join_at: '2024-01-31' },
+      { member_id: 6, name: 'name6', solve_percent: 12.5, difficulty: 10, join_at: '2024-01-31' },
+      { member_id: 9, name: 'name9', solve_percent: 12.5, difficulty: 25, join_at: '2024-01-31' },
+      { member_id: 10, name: 'name10', solve_percent: 12.5, difficulty: 15, join_at: '2024-01-31' },
+      { member_id: 8, name: 'name8', solve_percent: 12.5, difficulty: 2, join_at: '2024-01-31' },
     ],
   });
   console.log(selectData);
 
   return (
     <>
-      <Body1 children={'GuildPerson'} color={colors.Gray[300]} />
-      <Body1 children={props.guild_id} color={colors.Gray[300]} />
       <Spacer space={'2vmin'} />
-      <CheckBoxTable
+      <BasicTable
         tableData={tableData}
         setSelectData={setSelectData}
-        selectData={selectData}
-        percentData={[]}
+        percentData={['solve_percent']}
         state={state}
-        totalPages={10}
         setState={setState}
         color={colors.Gray[700]}
         pageBtnColor={colors.Gray[600]}
         pageBtnDeepColor={colors.Gray[800]}
+        title={<Body1 children={'길드원 목록'} color={colors.Gray[300]} fontWeight={'bold'} />}
+        booleanData={[]}
       />
     </>
   );
