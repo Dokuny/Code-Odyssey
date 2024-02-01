@@ -97,6 +97,7 @@ pipeline {
                             configName: "EC2_1",
                             verbose: true,
                             transfers: [
+                                sshTransfer(execCommand: "sudo docker rm -f Gateway"),
                                 sshTransfer(execCommand: "sudo docker pull " + repository + ":Gateway_$BUILD_NUMBER"),
                                 sshTransfer(execCommand: "sudo docker run -d -p 8888:8888 --name Gateway --network front -e jwt-access-key=${JWT_SECRET_KEY} " + repository + ":Gateway_${BUILD_NUMBER}")
                             ]
