@@ -3,6 +3,20 @@ pipeline {
         repository = "1w2k/code-odyssesy"
         DOCKERHUB_CREDENTIALS = credentials('docker_credentials')
         dockerImage = ''
+        
+        DISCOVERY_SERVER="${env.DISCOVERY_SERVER}"
+        FRONT_SERVER="${env.FRONT_SERVER}
+        GOOGLE_OAUTH_ID="${env.GOOGLE_OAUTH_ID}"
+        GOOGLE_OAUTH_SECRET="${env.GOOGLE_OAUTH_SECRET}"
+        JWT_ACCESS="${env.JWT_ACCESS}"
+        JWT_REFRESH="${env.JWT_REFRESH}"
+        KAKAO_OAUTH_ID="${env.KAKAO_OAUTH_ID}"
+        KAKAO_OAUTH_SECRET="${env.KAKAO_OAUTH_SECRET}"
+        NAVER_OAUTH_ID="${env.NAVER_OAUTH_ID}"
+        NAVER_OAUTH_SECRET="${env.NAVER_OAUTH_SECRET}"
+        DB_URL="${env.RDB_COMMON_URL}"
+        DB_USER="${env.RDB_USER}"
+        DB_PASSWORD=${env.RDB_PASSWORD}"
     }
 
     agent any
@@ -17,7 +31,7 @@ pipeline {
             }
         }
 
-        stage('Build Common-Server .JAR') {
+        stage('Build Gateway-Server .JAR') {
             steps {
                 script {
                     // 변경된 브랜치와 머지 대상 브랜치 출력
@@ -26,7 +40,7 @@ pipeline {
                     echo "Merge Target Branch: \${CHANGE_TARGET}"
                     echo "Current Branch: \${currentBranch}"
 
-                    echo "common server 입니다."
+                    echo "gateway server 입니다."
                     // gradlew 빌드
                     sh 'chmod +x ./BackEnd/common/gradlew'
                     sh '''
@@ -40,13 +54,7 @@ pipeline {
         stage('Build Gateway Image') {
             steps {
                 script {
-                    sh '''
-                        cd ./BackEnd/common
-                        docker-compose -f docker-compose-prod.yml build common-server 
-                        ./gradlew clean build
-                    '''
-                    
-                    sh "docker images "
+                    dockerImage = docker.build("${repository}:Common_${BUILD_NUMBER}", "-f BackEnd/gateway/Dockerfile ./BackEnd/common")
                 }
             }
         }
@@ -59,18 +67,18 @@ pipeline {
             }
         }
 
-        stage('Push Common-Server Image to DockerHub') {
+        stage('Push Gateway Image to DockerHub') {
             steps {
                 script {
-                    sh "docker push 1w2k/common-server:latest"
+                    sh "docker push \${repository}:Common_\${BUILD_NUMBER}"
                 }
             }
         }
 
-        stage('Clean Common-Servery Image') {
+        stage('Clean Gateway Image') {
             steps {
                 script {
-                    sh "docker rmi 1w2k/common-server:latest"
+                    sh "docker rmi \${repository}:Common_\${BUILD_NUMBER}"
                 }
             }
         }
@@ -84,7 +92,7 @@ pipeline {
                             configName: "COMMON_SERVER",
                             verbose: true,
                             transfers: [
-                                sshTransfer(execCommand: "sudo docker kill \$(docker ps | grep common | tr ' ' '\t' | cut -f1)"),
+                                sshTransfer(execCommand: "sudo docker kill \$(docker ps | grep Gateway | tr ' ' '\t' | cut -f1)"),
                                 sshTransfer(execCommand: "sudo docker system prune -af")
                             ]
                         )
@@ -102,9 +110,8 @@ pipeline {
                             configName: "COMMON_SERVER",
                             verbose: true,
                             transfers: [
-                                sshTransfer(execCommand: "sudo docker pull " +"1w2k/common-server:latest"),
-                                sshTransfer(execCommand: "sudo docker rm -f common"),
-                                sshTransfer(execCommand: "sudo docker run -d -p 8777:8777 --name common  " +"1w2k/common-server:latest")
+                                sshTransfer(execCommand: "sudo docker pull " + repository + ":Common_$BUILD_NUMBER"),
+                                sshTransfer(execCommand: "sudo docker run -d -p 8888:8888 --name Gateway --network front -e DB_URL=${DB_URL} DB_USER=${DB_USER} DB_PASSWORD=${DB_PASSWORD} DISCOVERY_SERVER=${DISCOVERY_SERVER} FRONT_SERVER=${FRONT_SERVER} KAKAO_OAUTH_SECRET=${KAKAO_OAUTH_SECRET} KAKAO_OAUTH_ID=${KAKAO_OAUTH_ID} NAVER_OAUTH_SECRET=${NAVER_OAUTH_SECRET} NAVER_OAUTH_ID=${NAVER_OAUTH_ID} GOOGLE_OAUTH_SECRET=${GOOGLE_OAUTH_SECRET} GOOGLE_OAUTH_ID=${GOOGLE_OAUTH_ID} JWT_ACCESS=${JWT_ACCESS} JWT_REFRESH=${JWT_REFRESH}  " + repository + ":Common_${BUILD_NUMBER}")
                             ]
                         )
                     ]
