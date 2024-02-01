@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import MainTopCard from '../../../molecules/card/MainTopCard';
+import MainTopCard from '../../../molecules/card/basic/MainTopCard';
 import SelectBar from '../../../molecules/buttonBar/SelectBar';
 import MyRunningSprint from './mySprintView/MyRunningSprint';
 import LastMySprint from './mySprintView/LastMySprint';

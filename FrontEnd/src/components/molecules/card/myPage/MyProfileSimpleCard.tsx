@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { colors } from '../../../config/Color';
-import { AddComma } from '../../../utils/basic/BasicUtil';
-import { Spacer } from '../../atoms/basic/Spacer';
-import { Body1, Body2 } from '../../atoms/basic/Typography';
+import { colors } from '../../../../config/Color';
+import { AddComma } from '../../../../utils/basic/BasicUtil';
+import { Spacer } from '../../../atoms/basic/Spacer';
+import { Body1, Body2 } from '../../../atoms/basic/Typography';
 
 const StyledContainer = styled.div`
   display: flex;

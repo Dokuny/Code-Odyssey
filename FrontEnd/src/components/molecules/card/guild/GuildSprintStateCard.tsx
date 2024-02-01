@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { Caption1, Header3 } from '../../atoms/basic/Typography';
-import { Spacer } from '../../atoms/basic/Spacer';
-import { colors } from '../../../config/Color';
+import { Caption1, Header3 } from '../../../atoms/basic/Typography';
+import { Spacer } from '../../../atoms/basic/Spacer';
+import { colors } from '../../../../config/Color';
 
 const StyledBackgroundImage = styled.div`
   position: relative;

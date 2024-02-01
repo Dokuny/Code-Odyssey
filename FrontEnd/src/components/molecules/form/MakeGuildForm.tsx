@@ -81,9 +81,7 @@ const MakeGuildForm = () => {
             borderRadius={'5px'}
             setSelectValue={setSelectValue1}
             height={'30px'}
-            values={[
-              1,2,3
-            ]}
+            values={[1, 2, 3]}
             bgColor={colors.White}
             fontcolor={colors.White}
             selectedValue={selectValue1}
@@ -97,9 +95,7 @@ const MakeGuildForm = () => {
             borderRadius={'5px'}
             setSelectValue={setSelectValue1}
             height={'30px'}
-            values={[
-              1,2,3
-            ]}
+            values={[1, 2, 3]}
             bgColor={colors.White}
             fontcolor={colors.White}
             selectedValue={selectValue1}
@@ -113,9 +109,7 @@ const MakeGuildForm = () => {
             borderRadius={'5px'}
             setSelectValue={setSelectValue1}
             height={'30px'}
-            values={[
-              1,2,3
-            ]}
+            values={[1, 2, 3]}
             bgColor={colors.White}
             fontcolor={colors.White}
             selectedValue={selectValue1}
@@ -130,14 +124,12 @@ const MakeGuildForm = () => {
             borderRadius={'5px'}
             setSelectValue={setSelectValue1}
             height={'30px'}
-            values={[
-              1,2,3
-            ]}
+            values={[1, 2, 3]}
             bgColor={colors.White}
             fontcolor={colors.White}
             selectedValue={selectValue1}
           ></DropDown>
-     
+
           <Spacer space={'1vh'}></Spacer>
         </Div2>
       </StyledContainer>

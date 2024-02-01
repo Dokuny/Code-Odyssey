@@ -14,9 +14,9 @@ const GuildLastSprint = (props: GuildLastSprintProps) => {
       ended_at: '2024-01-31',
       time: 1,
       problem_list: [
-        { problem_id: 1, difficulty: 17, title: '톱니바퀴1' },
-        { problem_id: 2, difficulty: 18, title: '톱니바퀴2' },
-        { problem_id: 3, difficulty: 15, title: '톱니바퀴3' },
+        { guild_problem_id: 1, problem_id: 1, difficulty: 17, title: '톱니바퀴1' },
+        { guild_problem_id: 2, problem_id: 2, difficulty: 18, title: '톱니바퀴2' },
+        { guild_problem_id: 3, problem_id: 3, difficulty: 15, title: '톱니바퀴3' },
       ],
     },
     {
@@ -25,9 +25,9 @@ const GuildLastSprint = (props: GuildLastSprintProps) => {
       start_at: '2024-01-29',
       ended_at: '2024-01-31',
       problem_list: [
-        { problem_id: 1, difficulty: 17, title: '톱니바퀴1' },
-        { problem_id: 2, difficulty: 18, title: '톱니바퀴2' },
-        { problem_id: 3, difficulty: 15, title: '톱니바퀴3' },
+        { guild_problem_id: 1, problem_id: 1, difficulty: 17, title: '톱니바퀴1' },
+        { guild_problem_id: 2, problem_id: 2, difficulty: 18, title: '톱니바퀴2' },
+        { guild_problem_id: 3, problem_id: 3, difficulty: 15, title: '톱니바퀴3' },
       ],
     },
   ]);

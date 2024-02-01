@@ -1,9 +1,9 @@
 import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
 import styled from 'styled-components';
-import { colors } from '../../../config/Color';
-import { sprintContent, sprintImage, sprintName } from '../../../utils/json/sprint';
-import { Body2, Caption1, Caption2, Header3 } from '../../atoms/basic/Typography';
-import { Spacer } from '../../atoms/basic/Spacer';
+import { colors } from '../../../../config/Color';
+import { sprintContent, sprintImage, sprintName } from '../../../../utils/json/sprint';
+import { Body2, Caption1, Caption2, Header3 } from '../../../atoms/basic/Typography';
+import { Spacer } from '../../../atoms/basic/Spacer';
 
 const StyledSprintContainer = styled.div<{ isFin: boolean }>`
   width: 8vmax;

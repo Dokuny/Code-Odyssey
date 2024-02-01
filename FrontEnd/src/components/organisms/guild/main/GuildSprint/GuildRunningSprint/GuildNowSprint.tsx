@@ -1,7 +1,7 @@
 import { colors } from '../../../../../../config/Color';
 import { Spacer } from '../../../../../atoms/basic/Spacer';
 import { Body3, Header4 } from '../../../../../atoms/basic/Typography';
-import GuildSprintImageCard from '../../../../../molecules/card/GuildSprintImageCard';
+import GuildSprintImageCard from '../../../../../molecules/card/guild/GuildSprintImageCard';
 import Divider from '../../../../../atoms/basic/Divider';
 
 interface GuildNowSprintProps {

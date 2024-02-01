@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { colors } from '../../../config/Color';
-import { Body2 } from '../../atoms/basic/Typography';
-import { Spacer } from '../../atoms/basic/Spacer';
+import { colors } from '../../../../config/Color';
+import { Body2 } from '../../../atoms/basic/Typography';
+import { Spacer } from '../../../atoms/basic/Spacer';
 
 interface item {
   Lv: number;
@@ -35,7 +35,7 @@ const Circle = styled.div`
   justify-content: center;
   align-items: center;
   height: 75%;
-  background-color: #4F378B;
+  background-color: #4f378b;
   margin: auto;
   aspect-ratio: 1;
   border-radius: 50%;
@@ -68,12 +68,7 @@ const ProblemSprintCard: React.FC<Props> = ({ item, checkHandler, checkedList })
         <Body2 children={item.problem} color={colors.White} />
       </Div2>
       <Div3>
-        <input
-          type="checkbox"
-          id={item.id.toString()}
-          checked={checkedList.includes(item)}
-          onChange={(e) => checkHandler(e, item)}
-        />
+        <input type='checkbox' id={item.id.toString()} checked={checkedList.includes(item)} onChange={(e) => checkHandler(e, item)} />
       </Div3>
     </StyledContainer>
   );

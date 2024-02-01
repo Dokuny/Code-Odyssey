@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { Spacer } from '../../../atoms/basic/Spacer';
 import { MyResponsiveRadar } from '../../../atoms/graph/RadarGraph';
-import MyProfileDetailCard from '../../../molecules/card/MyProfileDetailCard';
+import MyProfileDetailCard from '../../../molecules/card/myPage/MyProfileDetailCard';
 import MyResponsiveLine from '../../../atoms/graph/LineGraph';
 import { Header3 } from '../../../atoms/basic/Typography';
 import { colors } from '../../../../config/Color';

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { colors } from '../../../config/Color';
-import { Spacer } from '../../atoms/basic/Spacer';
-import { difficulty } from '../../../utils/json/difficulty';
+import { colors } from '../../../../config/Color';
+import { Spacer } from '../../../atoms/basic/Spacer';
+import { difficulty } from '../../../../utils/json/difficulty';
 
 interface ProblemCardProps {
   data: {

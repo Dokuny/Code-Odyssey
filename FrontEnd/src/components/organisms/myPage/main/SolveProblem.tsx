@@ -1,6 +1,6 @@
 import { SetStateAction, useEffect, useState } from 'react';
 import { Spacer } from '../../../atoms/basic/Spacer';
-import MainTopCard from '../../../molecules/card/MainTopCard';
+import MainTopCard from '../../../molecules/card/basic/MainTopCard';
 import BasicTable from '../../../atoms/table/BasicTable';
 import { PaginationState } from '@tanstack/react-table';
 import SearchDiv from '../../../atoms/select/SearchDiv';

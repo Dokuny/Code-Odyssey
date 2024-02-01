@@ -1,4 +1,4 @@
-import MainTopCard from '../../../molecules/card/MainTopCard';
+import MainTopCard from '../../../molecules/card/basic/MainTopCard';
 import BasicInput from '../../../atoms/input/BasicInput';
 import { useState } from 'react';
 import { Spacer } from '../../../atoms/basic/Spacer';

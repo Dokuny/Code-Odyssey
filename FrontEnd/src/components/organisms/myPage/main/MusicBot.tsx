@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import BasicInput from '../../../atoms/input/BasicInput';
-import MainTopCard from '../../../molecules/card/MainTopCard';
-import SingChatLeftCard from '../../../molecules/card/SingChatLeftCard';
-import SingChatRightCard from '../../../molecules/card/SingChatRightCard';
+import MainTopCard from '../../../molecules/card/basic/MainTopCard';
+import SingChatLeftCard from '../../../molecules/card/myPage/SingChatLeftCard';
+import SingChatRightCard from '../../../molecules/card/myPage/SingChatRightCard';
 import { Spacer } from '../../../atoms/basic/Spacer';
 import { useRecoilState } from 'recoil';
 import { MusicBotChatState } from '../../../../utils/recoil/Atoms';

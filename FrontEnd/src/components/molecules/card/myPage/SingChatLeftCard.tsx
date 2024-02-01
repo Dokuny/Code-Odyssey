@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { Body1, Body2, Caption1 } from '../../atoms/basic/Typography';
-import { colors } from '../../../config/Color';
-import { Spacer } from '../../atoms/basic/Spacer';
+import { Body1, Body2, Caption1 } from '../../../atoms/basic/Typography';
+import { colors } from '../../../../config/Color';
+import { Spacer } from '../../../atoms/basic/Spacer';
 
 const StyledPolygon = styled.div`
   width: 70%;

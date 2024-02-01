@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { colors } from '../../../config/Color';
-import { Spacer } from '../../atoms/basic/Spacer';
-import { Body1, Body2 } from '../../atoms/basic/Typography';
-import IconButton from '../../atoms/button/IconButton';
-import { IoIcon } from '../../atoms/icon/Icons';
-import { difficulty } from '../../../utils/json/difficulty';
+import { colors } from '../../../../config/Color';
+import { Spacer } from '../../../atoms/basic/Spacer';
+import { Body1, Body2 } from '../../../atoms/basic/Typography';
+import IconButton from '../../../atoms/button/IconButton';
+import { IoIcon } from '../../../atoms/icon/Icons';
+import { difficulty } from '../../../../utils/json/difficulty';
 
 const StyledContainer = styled.div`
   background-color: ${colors.Gray[700]};

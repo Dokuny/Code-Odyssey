@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Spacer } from '../../atoms/basic/Spacer';
+import { Spacer } from '../../../atoms/basic/Spacer';
 
 const StyledBackgroundImage = styled.div<{ imagesrc: string }>`
   position: relative;

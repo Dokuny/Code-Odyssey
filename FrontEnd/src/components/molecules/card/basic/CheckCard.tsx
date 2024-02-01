@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { colors } from '../../../config/Color';
-import { Body2 } from '../../atoms/basic/Typography';
-import { Spacer } from '../../atoms/basic/Spacer';
+import { colors } from '../../../../config/Color';
+import { Body2 } from '../../../atoms/basic/Typography';
+import { Spacer } from '../../../atoms/basic/Spacer';
 
 const StyledContainer = styled.div`
   background-color: ${colors.DarkGray[200]};
