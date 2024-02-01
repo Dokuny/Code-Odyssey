@@ -17,7 +17,7 @@ pipeline {
             }
         }
 
-        stage('Build Gateway-Server .JAR') {
+        stage('Build Common-Server .JAR') {
             steps {
                 script {
                     // 변경된 브랜치와 머지 대상 브랜치 출력
@@ -54,7 +54,7 @@ pipeline {
             }
         }
 
-        stage('Push Gateway Image to DockerHub') {
+        stage('Push Common-Server Image to DockerHub') {
             steps {
                 script {
                     sh "docker push \${repository}:common_\${BUILD_NUMBER}"
@@ -62,7 +62,7 @@ pipeline {
             }
         }
 
-        stage('Clean Gateway Image') {
+        stage('Clean Common-Servery Image') {
             steps {
                 script {
                     sh "docker rmi \${repository}:common_\${BUILD_NUMBER}"
@@ -76,7 +76,7 @@ pipeline {
                     continueOnError: true, failOnError: false,
                     publishers: [
                         sshPublisherDesc(
-                            configName: "EC2_1",
+                            configName: "COMMON_SERVER",
                             verbose: true,
                             transfers: [
                                 sshTransfer(execCommand: "sudo docker kill \$(docker ps | grep common | tr ' ' '\t' | cut -f1)"),
@@ -94,7 +94,7 @@ pipeline {
                     continueOnError: false, failOnError: true,
                     publishers: [
                         sshPublisherDesc(
-                            configName: "EC2_1",
+                            configName: "COMMON_SERVER",
                             verbose: true,
                             transfers: [
                                 sshTransfer(execCommand: "sudo docker pull " + repository + ":common_$BUILD_NUMBER"),
