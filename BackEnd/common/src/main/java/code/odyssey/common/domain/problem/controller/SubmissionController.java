@@ -1,8 +1,7 @@
 package code.odyssey.common.domain.problem.controller;
 
-import code.odyssey.common.domain.problem.dto.ProblemSubmitRequest;
-import code.odyssey.common.domain.problem.dto.SubmissionInfo;
-import code.odyssey.common.domain.problem.dto.SubmissionNumInfo;
+import code.odyssey.common.domain.problem.dto.*;
+import code.odyssey.common.domain.problem.entity.enums.ProblemType;
 import code.odyssey.common.domain.problem.service.SubmissionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -48,5 +47,49 @@ public class SubmissionController {
         return ResponseEntity.ok(result);
     }
 
+    // 유형별 스트릭 조회
+    @GetMapping("/type/{type}")
+    public ResponseEntity<List<SolvedStreakInfo>> getSubmissionByType(
+            @RequestHeader("X-Authorization-Id") Long memberId,
+            @PathVariable ProblemType type) {
+
+        List<SolvedStreakInfo> submissions = submissionService.getSubmissionsByType(memberId, type);
+
+        return ResponseEntity.ok(submissions);
+    }
+
+
+    // 난이도별 스트릭 조회
+    @GetMapping("/difficulty/{difficulty}")
+    public ResponseEntity<List<SolvedStreakInfo>> getSubmissionByDifficulty(
+            @RequestHeader("X-Authorization-Id") Long memberId,
+            @PathVariable Integer difficulty) {
+
+        List<SolvedStreakInfo> submissions = submissionService.getSubmissionByDifficulty(memberId, difficulty);
+
+        return ResponseEntity.ok(submissions);
+    }
+
+    // 캘린더별 스트릭 조회
+    @GetMapping("/date/{date}")
+    public ResponseEntity<List<SolvedStreakInfo>> getSubmissionByDifficulty(
+            @RequestHeader("X-Authorization-Id") Long memberId,
+            @PathVariable String date) {
+
+        List<SolvedStreakInfo> submissions = submissionService.getSubmissionByDate(memberId, date);
+
+        return ResponseEntity.ok(submissions);
+    }
+
+    // 개인 스트릭 표시
+    @GetMapping("/streak")
+    public ResponseEntity<List<StreakInfo>> getSubmissionByDifficulty(
+            @RequestHeader("X-Authorization-Id") Long memberId
+
+    ) {
+        List<StreakInfo> streakInfoList = submissionService.getStreakInfo(memberId);
+        return ResponseEntity.ok(streakInfoList);
+
+    }
 
 }

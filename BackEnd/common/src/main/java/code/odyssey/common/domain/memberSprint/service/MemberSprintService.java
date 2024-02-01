@@ -15,7 +15,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -52,7 +51,6 @@ public class MemberSprintService {
 
     public List<Problem> getRecommendedProblems(Long memberId) {
         DayType day = DayType.valueOf(LocalDate.now().getDayOfWeek().name()); // date를 요일 enum으로 변환
-        log.info("오늘의 요일:::::::::::::::::", String.valueOf(day));
         MemberSprint memberSprint = memberSprintRepository.findByMemberIdAndDay(memberId, day);
         ProblemType ptype = memberSprint.getRecommendType();
         Integer difficulty = memberSprint.getRecommendDifficulty();

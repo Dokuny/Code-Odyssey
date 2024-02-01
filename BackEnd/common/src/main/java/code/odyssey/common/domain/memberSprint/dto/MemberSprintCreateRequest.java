@@ -1,6 +1,7 @@
 package code.odyssey.common.domain.memberSprint.dto;
 
 import code.odyssey.common.domain.memberSprint.entity.enums.DayType;
+import code.odyssey.common.domain.memberSprint.entity.enums.SolvedStatus;
 import code.odyssey.common.domain.problem.entity.enums.ProblemType;
 import lombok.Getter;
 
@@ -17,5 +18,7 @@ public class MemberSprintCreateRequest {
         private DayType day;
         private ProblemType recommendType;
         private Integer recommendDifficulty;
+        private SolvedStatus solvedStatus;
+
     }
 }

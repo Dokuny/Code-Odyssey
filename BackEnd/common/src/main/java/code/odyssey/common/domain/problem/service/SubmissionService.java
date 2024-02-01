@@ -3,12 +3,12 @@ package code.odyssey.common.domain.problem.service;
 import code.odyssey.common.domain.member.entity.Member;
 import code.odyssey.common.domain.member.exception.MemberException;
 import code.odyssey.common.domain.member.repository.MemberRepository;
-import code.odyssey.common.domain.problem.dto.ProblemSubmitRequest;
-import code.odyssey.common.domain.problem.dto.SubmissionInfo;
-import code.odyssey.common.domain.problem.dto.SubmissionNumInfo;
+import code.odyssey.common.domain.memberSprint.entity.enums.SolvedStatus;
+import code.odyssey.common.domain.problem.dto.*;
 import code.odyssey.common.domain.problem.entity.Problem;
 import code.odyssey.common.domain.problem.entity.Submission;
 import code.odyssey.common.domain.problem.entity.enums.ProblemPlatform;
+import code.odyssey.common.domain.problem.entity.enums.ProblemType;
 import code.odyssey.common.domain.problem.repository.ProblemRepository;
 import code.odyssey.common.domain.problem.repository.SubmissionRepository;
 import code.odyssey.common.domain.score.entity.Score;
@@ -18,7 +18,12 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import code.odyssey.common.global.utils.DateUtils; // DateUtil 패키지
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -35,6 +40,7 @@ public class SubmissionService {
     private final MemberRepository memberRepository;
     private final ScoreRepository scoreRepository;
     private final ScoreTypeService scoreTypeService;
+    private final DateUtils dateUtils;
 
     // 제출일자별로 개수 세기
     public List<SubmissionNumInfo> countSubmissionsByDate(Long memberId) {
@@ -116,6 +122,45 @@ public class SubmissionService {
 
         return submission.getId();
 
+    }
+
+    public List<SolvedStreakInfo> getSubmissionsByType(Long memberId, ProblemType type) {
+        return submissionRepository.findByMemberIdAndProblemType(memberId, type);
+    }
+
+    public List<SolvedStreakInfo> getSubmissionByDifficulty(Long memberId, Integer difficulty) {
+        return submissionRepository.findByMemberIdAndDifficulty(memberId, difficulty);
+    }
+
+    public List<SolvedStreakInfo> getSubmissionByDate(Long memberId, String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        LocalDate targetDate = LocalDate.parse(date + "-01", formatter);
+
+        LocalDateTime startDate = targetDate.atStartOfDay();
+        LocalDateTime endDate = targetDate.atTime(23, 59, 59);
+
+        return submissionRepository.findByMemberIdAndDate(memberId, startDate, endDate);
+
+    }
+
+
+    public List<StreakInfo> getStreakInfo(Long memberId) {
+
+        List<LocalDate> dateList = DateUtils.getWeeklyDates();
+        List<StreakInfo> streakInfoList = new ArrayList<>();
+
+        for (LocalDate date : dateList) {
+            int count = submissionRepository.countSubmissionByMemberIdAndDate(memberId, date);
+            StreakInfo streakInfo = StreakInfo.builder()
+                    .day(String.valueOf(date.getDayOfWeek()))
+                    .solvedStatus(count > 0 ? SolvedStatus.TRUE : SolvedStatus.FALSE)
+                    .build();
+
+            streakInfoList.add(streakInfo);
+        }
+
+        return streakInfoList;
     }
 
 }
