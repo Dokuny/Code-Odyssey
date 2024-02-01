@@ -1,15 +1,18 @@
 package code.odyssey.common.domain.memberSprint.entity;
 
-import code.odyssey.common.domain.guild.entity.Guild;
 import code.odyssey.common.domain.member.entity.Member;
+import code.odyssey.common.domain.memberSprint.entity.enums.DayType;
+import code.odyssey.common.domain.problem.entity.enums.ProblemType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
@@ -17,7 +20,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor
 @Builder @Getter
 @Entity
-public class Sprint {
+public class MemberSprint {
 
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "sprint_id")
@@ -29,8 +32,14 @@ public class Sprint {
     private Member member;
 
     @Column
-    private LocalDateTime startedAt;
+    @Enumerated(STRING)
+    private DayType day;
 
     @Column
-    private LocalDateTime endedAt;
+    @Enumerated(STRING)
+    private ProblemType recommendType;
+
+    @Column
+    private Integer recommendDifficulty;
+
 }

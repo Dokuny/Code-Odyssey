@@ -6,16 +6,16 @@ import lombok.Builder;
 
 @Builder
 public record ScoreInfo(
-        Integer numSolvedProblems,
         Integer streak,
+        Integer sevenStreak,
         Integer tier,
         Integer penalty,
         Integer rankingScore
 ) {
     public static ScoreInfo fromEntity(Score score) {
         return new ScoreInfo(
-                score.getNumSolvedProblems(),
                 score.getStreak(),
+                score.getSevenStreak(),
                 score.getTier(),
                 score.getPenalty(),
                 score.getRankingScore()

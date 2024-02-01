@@ -20,7 +20,7 @@ public class ScoreController {
     private final ScoreService scoreService;
     private final ScoreTypeService scoreTypeService;
 
-    // 개인 문제 풀이 내역 통계: 푼 문제 수, 스트릭 달성 수, 유저 티어, 페널티, 랭킹 점수
+    // 개인 문제 풀이 내역 통계: 데일리 스트릭 달성 수, 주간 스트릭 달성 수, 유저 티어, 페널티, 랭킹 점수
     @GetMapping
     public ResponseEntity<ScoreInfo> getStatistics(
             @RequestHeader("X-Authorization-Id") Long memberId
