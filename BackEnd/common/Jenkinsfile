@@ -16,7 +16,7 @@ pipeline {
         NAVER_OAUTH_SECRET="${env.NAVER_OAUTH_SECRET}"
         DB_URL="${env.RDB_COMMON_URL}"
         DB_USER="${env.RDB_USER}"
-        DB_PASSWORD=${env.RDB_PASSWORD}"
+        DB_PASSWORD="${env.RDB_PASSWORD}"
     }
 
     agent any
