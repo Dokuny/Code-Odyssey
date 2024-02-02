@@ -11,6 +11,7 @@ import static code.odyssey.common.domain.guildSprint.exception.GuildSprintErrorC
 
 import code.odyssey.common.domain.guild.entity.GuildMember;
 import code.odyssey.common.domain.guild.repository.GuildMemberRepository;
+import code.odyssey.common.domain.guildSprint.dto.EndGuildSprintInfo;
 import code.odyssey.common.domain.guildSprint.dto.GuildSprintCreateRequest;
 import code.odyssey.common.domain.guildSprint.dto.WaitingGuildSprintInfo;
 import code.odyssey.common.domain.guildSprint.entity.GuildSprint;
@@ -97,6 +98,10 @@ public class GuildSprintService {
 	public List<WaitingGuildSprintInfo> getWaitingGuildSprintInfo(Long guildId) {
 
 		return guildSprintRepository.findWaitingGuildSprints(guildId);
+	}
+
+	public List<EndGuildSprintInfo> getEndedGuildSprintInfo(Long guildId) {
+		return guildSprintRepository.findEndedGuildSprintInfo(guildId);
 	}
 
 }
