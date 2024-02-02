@@ -12,7 +12,6 @@ const GuildLastSprint = (props: GuildLastSprintProps) => {
       sprint_name: 'test1',
       start_at: '2024-01-29',
       ended_at: '2024-01-31',
-      time: 1,
       problem_list: [
         { guild_problem_id: 1, problem_id: 1, difficulty: 17, title: '톱니바퀴1', platform: 'BOJ' },
         { guild_problem_id: 2, problem_id: 2, difficulty: 18, title: '톱니바퀴2', platform: 'BOJ' },
