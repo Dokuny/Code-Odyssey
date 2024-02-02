@@ -15,5 +15,9 @@ export const getDifficultySprint = async (difficulty: string) => {
   return data && data.data;
 };
 
+export const getCalenderSprint = async (date: string) => {
+  const data = await tokenInstance.get(`${userUrl}/date/${date}`);
+  return data && data.data;
+};
 
 

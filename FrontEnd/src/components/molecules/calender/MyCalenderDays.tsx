@@ -21,8 +21,8 @@ const MyCalenderDays = () => {
     for (let i = 0; i < 7; i++) {
         days.push(
             <Col key={i}>
-                <Body1 children={date[i]} color={colors.White} />
-            </Col>,
+                <Body1 children={date[i]} color={colors.White} fontStyle='Eagle Lake'/>
+            </Col>
         );
     }
     return (

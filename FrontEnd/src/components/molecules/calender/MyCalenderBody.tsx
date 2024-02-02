@@ -7,7 +7,7 @@ import { colors } from '../../../config/Color';
 interface MyCalenderBodyProps {
   currentMonth: Date;
   selectedDate: Date;
-//   onDateClick: (day: Date) => void;
+  onDateClick: (day: string) => void;
 }
 
 const BodyContainer = styled.div`
@@ -59,23 +59,20 @@ const Cell = styled.div`
     }
 `;
 
-const MyCalenderBody: React.FC<MyCalenderBodyProps> = ({ currentMonth, selectedDate }) => {
-    const monthStart = startOfMonth(currentMonth);
-    const monthEnd = endOfMonth(monthStart);
-    const startDate = startOfWeek(monthStart);
-    const endDate = endOfWeek(monthEnd);
+const MyCalenderBody: React.FC<MyCalenderBodyProps> = ({ currentMonth, selectedDate, onDateClick }) => {
+    const monthStart = startOfMonth(currentMonth); //달의 시작일
+    const monthEnd = endOfMonth(monthStart); // 달의 끝
+    const CalenderStart = startOfWeek(monthStart); // 달력의 시작
+    const CalenderEnd = endOfWeek(monthEnd); // 달력의 끝
 
     const rows = [];
     let days = [];
-    let day = startDate;
+    let day = CalenderStart;
     let formattedDate = '';
-    let kk = 0;
 
-    while (day <= endDate) {
+    while (day <= CalenderEnd) { //달력 시작부터 끝까지
         for (let i = 0; i < 7; i++) {
-            formattedDate = format(day, 'd');
-            console.log(day, kk++);
-            const cloneDay = day;
+            formattedDate = format(day, 'd'); // 현재 날짜..
             days.push(
                 <Cell
                     className={`col cell ${
@@ -87,15 +84,20 @@ const MyCalenderBody: React.FC<MyCalenderBodyProps> = ({ currentMonth, selectedD
                             ? 'not-valid'
                             : 'valid'
                     }`}
-                    key={day.getTime().toString()}
-                    // onClick={() => onDateClick(cloneDay)}
+                    data-date={format(day, 'yyyy.MM.d')}
+                    onClick={(e) => {  
+                        const date = e.currentTarget.dataset.date;
+                        if (date && isSameMonth(date, monthStart) ) {
+                            
+                            onDateClick(date);
+                        } }}
                 >
                     {   format(currentMonth, 'M') !== format(day, 'M')
                                 ? ''
                                 : <Body1 children={formattedDate} color={colors.White}/>}
-                </Cell>,
+                </Cell>
             );
-            day = addDays(day, 1);
+            day = addDays(day, 1); // 하루 더하기
         }
         rows.push(
             <Row key={day.getTime().toString()}>

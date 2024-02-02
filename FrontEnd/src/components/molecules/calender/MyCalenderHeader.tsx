@@ -31,7 +31,7 @@ const MyCalenderHeader: React.FC<MyCalenderHeaderProps> = ({ currentMonth, prevM
     return (
         <Header_row>
             <Col_start>
-                <Body1 children={format(currentMonth,'yyyy.MM')} color={colors.White}></Body1>
+                <Body1 children={format(currentMonth,'yyyy.MM')} color={colors.White} fontWeight={'bold'} fontStyle='Eagle Lake' ></Body1>
             </Col_start>
             <Col_end>
             <IconWrapper icon="bi:arrow-left-circle-fill" onClick={prevMonth} />

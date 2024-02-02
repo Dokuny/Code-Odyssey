@@ -97,10 +97,10 @@ const SprintDropDown: React.FC<SprintDropDownProps> = ({ option, data, type, sel
         </StyledSelect>
       </Div1>
       { type === 'difficulty' ?
-          data.map(data => 
+          data.map(data =>  // difficulty 일때,
             data.difficulty.toString() === selectedValue && <CheckCard {...data}/> )
-          :
-          data.map(data => 
+        :
+          data.map(data =>  // TypeBy 일때,
             data.type === selectedValue && <CheckCard {...data}/> )
           }
 
