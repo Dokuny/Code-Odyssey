@@ -54,7 +54,7 @@ pipeline {
         stage('Build Common Image') {
             steps {
                 script {
-                    dockerImage = docker.build("${repository}:Common_${BUILD_NUMBER}", "-f BackEnd/gateway/Dockerfile ./BackEnd/common")
+                    dockerImage = docker.build("${repository}:Common_${BUILD_NUMBER}", "-f BackEnd/common/Dockerfile ./BackEnd/common")
                 }
             }
         }
