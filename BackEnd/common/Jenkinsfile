@@ -40,7 +40,7 @@ pipeline {
                     echo "Merge Target Branch: \${CHANGE_TARGET}"
                     echo "Current Branch: \${currentBranch}"
 
-                    echo "gateway server 입니다."
+                    echo "common server 입니다."
                     // gradlew 빌드
                     sh 'chmod +x ./BackEnd/common/gradlew'
                     sh '''
