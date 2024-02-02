@@ -70,3 +70,9 @@ jwt:
 
 front:
   url: ${FRONT_SERVER}
+
+openai:
+  model: gpt-3.5-turbo
+  api:
+    key: ${OPEN_AI_KEY}
+    url: ${OPEN_AI_URL}
