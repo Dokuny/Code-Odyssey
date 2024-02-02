@@ -34,13 +34,13 @@ spring:
 
 eureka:
   instance:
-    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-    hostname: localhost
+    prefer-ip-address: true
   client:
     register-with-eureka: true
     fetch-registry: true
     service-url:
       defaultZone: ${DISCOVERY_SERVER}
+
 
 
 oauth:
@@ -76,3 +76,4 @@ openai:
   api:
     key: ${OPEN_AI_KEY}
     url: ${OPEN_AI_URL}
+
