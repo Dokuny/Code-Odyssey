@@ -4,9 +4,8 @@ import { Spacer } from '../../../../atoms/basic/Spacer';
 import { Body1 } from '../../../../atoms/basic/Typography';
 import SprintSelectBar from '../../../../molecules/buttonBar/SprintSelectBar';
 import MyCalender from '../../../../molecules/calender/MyCalender';
-import TypeByProblem from '../../../../molecules/dropdown/SprintDropDown';
-import DropDown from '../../../../molecules/dropdown/SprintDropDown';
-import MoveProblem from '../../../../molecules/moveproblem/MoveProblem';
+import DifficultySprint from './LastMysprint/DifficultySprint';
+import TypeBySprint from './LastMysprint/TypeBySprint';
 
 const LastMySprint = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -23,11 +22,12 @@ const LastMySprint = () => {
           ]}
         />
       {activeIndex === 0 && <MyCalender />}
-      {activeIndex === 1 && <DropDown />}
-      {activeIndex === 2 && <MoveProblem />}
+      {activeIndex === 1 && <TypeBySprint />}
+      {activeIndex === 2 && <DifficultySprint />}
       </div>
     </>
   );
 };
 
 export default LastMySprint;
+
