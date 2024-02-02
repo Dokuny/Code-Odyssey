@@ -40,7 +40,6 @@ public class SubmissionService {
     private final MemberRepository memberRepository;
     private final ScoreRepository scoreRepository;
     private final ScoreTypeService scoreTypeService;
-    private final DateUtils dateUtils;
 
     // 제출일자별로 개수 세기
     public List<SubmissionNumInfo> countSubmissionsByDate(Long memberId) {
@@ -153,8 +152,8 @@ public class SubmissionService {
         for (LocalDate date : dateList) {
             int count = submissionRepository.countSubmissionByMemberIdAndDate(memberId, date);
             StreakInfo streakInfo = StreakInfo.builder()
-                    .day(String.valueOf(date.getDayOfWeek()))
-                    .solvedStatus(count > 0 ? SolvedStatus.TRUE : SolvedStatus.FALSE)
+                    .x(String.valueOf(date.getDayOfWeek()))
+                    .y(count > 0 ? SolvedStatus.TRUE : SolvedStatus.FALSE)
                     .build();
 
             streakInfoList.add(streakInfo);

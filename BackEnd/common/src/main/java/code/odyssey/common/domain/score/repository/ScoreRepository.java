@@ -36,4 +36,6 @@ public interface ScoreRepository extends JpaRepository<Score, Long> {
     @Modifying
     @Query("UPDATE Score s SET s.rankingScore = :rankingScore WHERE s.member.id = :memberId")
     void updateRankingScore(@Param("rankingScore") int rankingScore, Long memberId);
+
+
 }

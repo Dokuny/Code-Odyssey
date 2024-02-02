@@ -9,6 +9,8 @@ import code.odyssey.common.domain.score.repository.ScoreTypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class ScoreTypeService {
@@ -21,35 +23,30 @@ public class ScoreTypeService {
                 .orElseThrow(() -> new ScoreException(ScoreErrorCode.NO_TYPE_SCORES));
     }
 
-    public RankTypeInfo findRankByMemberId(Long memberId) {
-        Integer simulationRank = scoreTypeRepository.findMySimulationRank(memberId);
-        Integer dataStructrureRank = scoreTypeRepository.findMyDataStructureRank(memberId);
-        Integer graphRank = scoreTypeRepository.findMyGraphRank(memberId);
-        Integer stringRank = scoreTypeRepository.findMyStringRank(memberId);
-        Integer bruteForceRank = scoreTypeRepository.findMyBruteForceRank(memberId);
-        Integer treeRank = scoreTypeRepository.findMyTreeRank(memberId);
-        Integer adhocRank = scoreTypeRepository.findMyAdHocRank(memberId);
-        Integer dpRank = scoreTypeRepository.findMyDpRank(memberId);
-        Integer shortestPathRank = scoreTypeRepository.findMyShortestPathRank(memberId);
-        Integer twoPointerRank = scoreTypeRepository.findMyTwoPointerRank(memberId);
-        Integer greedyRank = scoreTypeRepository.findMyGreedyRank(memberId);
-        Integer mathRank = scoreTypeRepository.findMyMathRank(memberId);
+    public List<RankTypeInfo> findRankByMemberId(Long memberId) {
+        List<RankTypeInfo> rankTypeInfos = List.of(
+                createRankTypeInfo("Simulation", scoreTypeRepository.findMySimulationRank(memberId)),
+                createRankTypeInfo("DataStructure", scoreTypeRepository.findMyDataStructureRank(memberId)),
+                createRankTypeInfo("Graph", scoreTypeRepository.findMyGraphRank(memberId)),
+                createRankTypeInfo("String", scoreTypeRepository.findMyStringRank(memberId)),
+                createRankTypeInfo("BruteForce", scoreTypeRepository.findMyBruteForceRank(memberId)),
+                createRankTypeInfo("Tree", scoreTypeRepository.findMyTreeRank(memberId)),
+                createRankTypeInfo("AdHoc", scoreTypeRepository.findMyAdHocRank(memberId)),
+                createRankTypeInfo("Dp", scoreTypeRepository.findMyDpRank(memberId)),
+                createRankTypeInfo("ShortestPath", scoreTypeRepository.findMyShortestPathRank(memberId)),
+                createRankTypeInfo("TwoPointer", scoreTypeRepository.findMyTwoPointerRank(memberId)),
+                createRankTypeInfo("Greedy", scoreTypeRepository.findMyGreedyRank(memberId)),
+                createRankTypeInfo("Math", scoreTypeRepository.findMyMathRank(memberId))
+        );
 
+        return rankTypeInfos;
+    }
+
+    private RankTypeInfo createRankTypeInfo(String type, Integer rank) {
         return RankTypeInfo.builder()
-                .simulation(simulationRank)
-                .dataStructure(dataStructrureRank)
-                .graph(graphRank)
-                .string(stringRank)
-                .bruteForce(bruteForceRank)
-                .tree(treeRank)
-                .adhoc(adhocRank)
-                .dp(dpRank)
-                .shortestPath(shortestPathRank)
-                .twoPointer(twoPointerRank)
-                .greedy(greedyRank)
-                .math(mathRank)
+                .type(type)
+                .score(rank)
                 .build();
-
     }
 
     // 제출 후 점수 업데이트

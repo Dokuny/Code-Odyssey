@@ -5,7 +5,7 @@ import lombok.Builder;
 
 @Builder
 public record StreakInfo(
-        String day,
-        SolvedStatus solvedStatus
+        String x, // day
+        SolvedStatus y // solvedStatus
 ) {
 }
