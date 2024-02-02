@@ -12,7 +12,6 @@ const LastMySprint = () => {
   return (
     <>
       <Spacer space={'4vmin'} />
-      <Body1 children={'LastMySprint'} color={colors.White} />
       <div style={{ paddingLeft: '2vmax', paddingRight: '2vmax' }}>
         <SprintSelectBar
           data={[

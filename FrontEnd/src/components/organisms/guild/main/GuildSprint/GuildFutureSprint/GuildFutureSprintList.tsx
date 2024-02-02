@@ -98,7 +98,7 @@ const GuildFutureSprintList = (props: GuildFutureSprintListProps) => {
             </div>
           </div>
         )}
-      </StyledAddContainer>
+        </StyledAddContainer>
     </>
   );
 };
