@@ -5,6 +5,7 @@ import { colors } from '../../../config/Color';
 import { FaIcon } from '../icon/Icons';
 import { Body1 } from '../basic/Typography';
 import { Spacer } from '../basic/Spacer';
+import { difficulty } from '../../../utils/json/difficulty';
 
 const StyledContainer = styled.div<{ color: string }>`
   display: flex;
@@ -81,11 +82,16 @@ const StyledPageButton = styled.button<{ isActive?: boolean; pageBtnColor: strin
   margin: 0 0.5em;
 `;
 
+const DiffImageDiv = styled.img`
+  width: 8%;
+`;
+
 interface BasicTableProps {
   tableData: { totalPages: number; data: Array<any> };
   selectData: any;
   setSelectData: React.Dispatch<any>;
   percentData: String[];
+  imageData: string[];
   state: PaginationState;
   setState: React.Dispatch<React.SetStateAction<PaginationState>>;
   color?: string;
@@ -180,12 +186,15 @@ const CheckBoxTable = (props: BasicTableProps) => {
                 .slice(1)
                 .map((cell) => (
                   <StyledTd key={cell.id} onClick={() => handleTdClick(row.original)}>
-                    {!props.percentData.includes(cell.column.columnDef.header as string) && flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    {!props.percentData.includes(cell.column.columnDef.header as string) &&
+                      !props.imageData.includes(cell.column.columnDef.header as string) &&
+                      flexRender(cell.column.columnDef.cell, cell.getContext())}
                     {props.percentData.includes(cell.column.columnDef.header as string) && (
                       <Container>
                         <ProgressBar progress={cell.getValue() as number} />
                       </Container>
                     )}
+                    {props.imageData.includes(cell.column.columnDef.header as string) && <DiffImageDiv src={difficulty[cell.getValue() as number]} />}
                   </StyledTd>
                 ))}
             </tr>

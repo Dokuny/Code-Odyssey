@@ -153,6 +153,7 @@ const SprintProblemCard = (props: SprintProblemCardProps) => {
                   pageBtnColor={colors.DarkGray[300]}
                   pageBtnDeepColor={colors.DarkGray[400]}
                   booleanData={['is_solved']}
+                  imageData={[]}
                 />
               </div>
             </>

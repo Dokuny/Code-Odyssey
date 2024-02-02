@@ -1,4 +1,4 @@
-import { SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Spacer } from '../../../atoms/basic/Spacer';
 import MainTopCard from '../../../molecules/card/basic/MainTopCard';
 import BasicTable from '../../../atoms/table/BasicTable';
@@ -12,20 +12,19 @@ const SolveProblem = () => {
   const [selectProblem, setSelectProblem] = useState<any>(null);
   const [state, setState] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 });
 
-  const percentData = ['person'];
   const [tableData, setTableData] = useState({
     totalPages: 11,
     data: [
-      { id: 1, title: 'testTitle1', platform: 'beakjoon', difficulty: 2, type: 'dp', person: 12.5 },
-      { id: 4, title: 'testTitle2', platform: 'beakjoon', difficulty: 1, type: 'dp', person: 75.5 },
-      { id: 3, title: 'testTitle3', platform: 'beakjoon', difficulty: 4, type: 'dp', person: 1.5 },
-      { id: 2, title: 'testTitle2', platform: 'beakjoon', difficulty: 3, type: 'dp', person: 51.5 },
-      { id: 5, title: 'testTitle5', platform: 'beakjoon', difficulty: 5, type: 'dp', person: 20.5 },
-      { id: 7, title: 'testTitle5', platform: 'beakjoon', difficulty: 5, type: 'dp', person: 26.5 },
-      { id: 6, title: 'testTitle5', platform: 'beakjoon', difficulty: 10, type: 'dp', person: 89.5 },
-      { id: 9, title: 'testTitle5', platform: 'beakjoon', difficulty: 25, type: 'dp', person: 77.5 },
-      { id: 10, title: 'testTitle5', platform: 'beakjoon', difficulty: 15, type: 'dp', person: 24.5 },
-      { id: 8, title: 'testTitle5', platform: 'beakjoon', difficulty: 2, type: 'dp', person: 1.5 },
+      { problem_id: 1, title: 'testTitle1', platform: 'beakjoon', difficulty: 2, type: 'dp' },
+      { problem_id: 4, title: 'testTitle2', platform: 'beakjoon', difficulty: 1, type: 'dp' },
+      { problem_id: 3, title: 'testTitle3', platform: 'beakjoon', difficulty: 4, type: 'dp' },
+      { problem_id: 2, title: 'testTitle2', platform: 'beakjoon', difficulty: 3, type: 'dp' },
+      { problem_id: 5, title: 'testTitle5', platform: 'beakjoon', difficulty: 5, type: 'dp' },
+      { problem_id: 7, title: 'testTitle5', platform: 'beakjoon', difficulty: 5, type: 'dp' },
+      { problem_id: 6, title: 'testTitle5', platform: 'beakjoon', difficulty: 10, type: 'dp' },
+      { problem_id: 9, title: 'testTitle5', platform: 'beakjoon', difficulty: 25, type: 'dp' },
+      { problem_id: 10, title: 'testTitle5', platform: 'beakjoon', difficulty: 15, type: 'dp' },
+      { problem_id: 8, title: 'testTitle5', platform: 'beakjoon', difficulty: 2, type: 'dp' },
     ],
   });
 
@@ -58,17 +57,12 @@ const SolveProblem = () => {
       <BasicTable
         tableData={tableData}
         setSelectData={setSelectProblem}
-        percentData={percentData}
-        title={
-          <SearchDiv
-            setInput={function (value: SetStateAction<string>): void {
-              throw new Error('Function not implemented.');
-            }}
-          ></SearchDiv>
-        }
+        percentData={[]}
+        title={<SearchDiv setInput={() => {}} />}
         state={state}
         setState={setState}
         booleanData={[]}
+        imageData={['difficulty']}
       />
     </>
   );

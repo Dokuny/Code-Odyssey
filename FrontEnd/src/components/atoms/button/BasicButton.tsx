@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 interface BasicButtonProps {
-  event: () => void;
+  event: (event?: any) => void;
   borderColor: string;
   deepColor: string;
   bgColor: string;
