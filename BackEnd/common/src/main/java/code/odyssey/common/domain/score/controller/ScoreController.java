@@ -1,5 +1,6 @@
 package code.odyssey.common.domain.score.controller;
 
+import code.odyssey.common.domain.score.dto.ProfileInfo;
 import code.odyssey.common.domain.score.dto.RankTypeInfo;
 import code.odyssey.common.domain.score.dto.ScoreInfo;
 import code.odyssey.common.domain.score.dto.ScoreTypeInfo;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/scores")
@@ -49,11 +52,20 @@ public class ScoreController {
 
     // 개인 유형별 랭킹 조회
     @GetMapping("/rank/type")
-    public ResponseEntity<RankTypeInfo> getMyRankByType(
+    public ResponseEntity<List<RankTypeInfo>> getMyRankByType(
             @RequestHeader("X-Authorization-Id") Long memberId
     ) {
-        RankTypeInfo rtype = scoreTypeService.findRankByMemberId(memberId);
-        return ResponseEntity.ok(rtype);
+        List<RankTypeInfo> rankTypeInfos = scoreTypeService.findRankByMemberId(memberId);
+        return ResponseEntity.ok(rankTypeInfos);
+    }
+
+    // 개인 정보 + 문제 풀이 내역 통계
+    @GetMapping("/profile")
+    public ResponseEntity<ProfileInfo> getProfile(
+            @RequestHeader("X-Authorization-Id") Long memberId
+    ) {
+        ProfileInfo profileInfo = scoreService.getProfile(memberId);
+        return ResponseEntity.ok(profileInfo);
     }
 
 
