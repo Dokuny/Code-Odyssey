@@ -4,6 +4,17 @@ import { colors } from '../../../../config/Color';
 import { Body2 } from '../../../atoms/basic/Typography';
 import { Spacer } from '../../../atoms/basic/Spacer';
 
+interface item {
+  title: string;
+  content: string;
+  hrefr: string;
+  difficulty: number;
+  platform: string;
+  type: string;
+  no: number;
+  createdAt: Date;
+}
+
 const StyledContainer = styled.div`
   background-color: ${colors.DarkGray[200]};
   height: 4vh;
@@ -42,20 +53,19 @@ const Div3 = styled.div`
   border-bottom-right-radius: 10px;
 `;
 
-const CheckCard = () => {
+const CheckCard: React.FC<item> = ({ title, difficulty, createdAt }) => {
   return (
     <StyledContainer>
       <Div1>
         <Circle>
-          <Body2 children={'Lv'} color={colors.Black} />
+          <Body2 children={'Lv' + difficulty.toString()} color={colors.Black} />
         </Circle>
         <Spacer space={'1vw'}></Spacer>
       </Div1>
       <Div2>
-        <Body2 children={'문제명'} color={colors.White} />
-        <Body2 children={'23.01.17'} color={colors.White} />
+        <Body2 children={title} color={colors.White} />
+        <Body2 children={createdAt.toLocaleDateString()} color={colors.White} />
       </Div2>
-      <Div3></Div3>
     </StyledContainer>
   );
 };
