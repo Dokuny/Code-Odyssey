@@ -67,3 +67,6 @@ jwt:
   refresh-key: ${JWT_REFRESH}
   refresh-expiration: 14d
   access-expiration: 14d
+
+front:
+  url: ${FRONT_SERVER}
