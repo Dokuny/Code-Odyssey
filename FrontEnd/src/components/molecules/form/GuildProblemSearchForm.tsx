@@ -5,6 +5,10 @@ import { Spacer } from '../../atoms/basic/Spacer';
 import BasicInput from '../../atoms/input/BasicInput';
 import SelectProblemButton from '../../atoms/button/SelectProblemButton';
 import { categoryList, difficultyList, platformList } from '../../../utils/json/selectList';
+import { PaginationState } from '@tanstack/react-table';
+import BasicButton from '../../atoms/button/BasicButton';
+import { Body3 } from '../../atoms/basic/Typography';
+import { FaPlus } from 'react-icons/fa';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -57,6 +61,7 @@ const GuildProblemSearchForm = (props: GuildProblemSearchFormProps) => {
   const [selectedPlatform, setSelectedPlatform] = useState('select');
   const [selectedCategory, setSelectedCategory] = useState('select');
   const [searchInput, setSearchInput] = useState('');
+  const [state, setState] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 });
 
   useEffect(() => {
     setData({
@@ -72,12 +77,13 @@ const GuildProblemSearchForm = (props: GuildProblemSearchFormProps) => {
         { problem_id: 11, title: 'test11', difficulty: 11, platform: 'BOJ', type: 'dp' },
         { problem_id: 12, title: 'test12', difficulty: 12, platform: 'BOJ', type: 'dp' },
         { problem_id: 13, title: 'test13', difficulty: 13, platform: 'BOJ', type: 'dp' },
-        { problem_id: 14, title: 'test14', difficulty: 14, platform: 'BOJ', type: 'dp' },
-        { problem_id: 15, title: 'test15', difficulty: 15, platform: 'BOJ', type: 'dp' },
-        { problem_id: 16, title: 'test16', difficulty: 16, platform: 'BOJ', type: 'dp' },
       ],
     });
   }, []);
+
+  useEffect(() => {
+    console.log(state);
+  }, [state]);
 
   return (
     <StyledContainer>
@@ -115,12 +121,25 @@ const GuildProblemSearchForm = (props: GuildProblemSearchFormProps) => {
               difficulty={value.difficulty}
               problem_id={value.problem_id}
               title={value.title}
-              onClick={() => props.setSelectedProblem(data.find((item: { problem_id: number }) => item.problem_id === value.problem_id))}
+              onClick={() => props.setSelectedProblem(data.data.find((item: { problem_id: number }) => item.problem_id === value.problem_id))}
               is_active={props.selectedProblem.problem_id === value.problem_id}
               platform={value.platform}
               imgWidth={'8%'}
             />
           ))}
+        {data && data.totalPage > state.pageIndex && (
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '1vmin' }}>
+            <BasicButton
+              event={() => setState({ pageIndex: state.pageIndex + 1, pageSize: state.pageSize })}
+              width={'auto'}
+              borderRadius={'50%'}
+              borderColor={'rgba(0, 0, 0, 0)'}
+              deepColor={'rgba(100, 255, 108, 0.1)'}
+              bgColor={'rgba(0, 200, 66, 0.1)'}
+              children={<FaPlus color={colors.Naver[800]} />}
+            />
+          </div>
+        )}
       </StyledScrollDiv>
     </StyledContainer>
   );
