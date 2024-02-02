@@ -3,7 +3,7 @@ import DailyCard from '../card/basic/DailyCard';
 import styled from 'styled-components';
 import { colors } from '../../../config/Color';
 import { Spacer } from '../../atoms/basic/Spacer';
-import { Header2, Body2, Body1, Header4 } from '../../atoms/basic/Typography';
+import { Body2, Header4 } from '../../atoms/basic/Typography';
 
 const DailyCardDiv = styled.div`
   display: flex;
@@ -34,23 +34,25 @@ const DetailButton = styled.button`
   }
 `;
 
-const DailyCardList = () => {
-  const [data, setData] = useState([
-    { day: 'MON', diff: 'lv1', cate: 'DP' },
-    { day: 'TUE', diff: 'lv1', cate: 'math' },
-    { day: 'WED', diff: 'lv1', cate: 'brute-force' },
-    { day: 'THU', diff: 'lv1', cate: 'brute-force' },
-    { day: 'FRI', diff: 'lv1', cate: 'DP' },
-    { day: 'SAT', diff: 'lv1', cate: 'math' },
-    { day: 'SUN', diff: 'lv1', cate: 'math' },
-  ]);
+interface DailyCardlistProps {
+  data: {
+    day: string;
+    difficulty: string;
+    type: string;
+  }[];
+  setDailyData: React.Dispatch<React.SetStateAction<{ day: string; difficulty: string; type: string }[]>>;
+}
 
-  const submitted = () => {
-    // 확정하기 누를 시 데이터 가져옴.
-    // console.log('submitted');
-    console.log(data);
+const DailyCardList = (props: DailyCardlistProps) => {
+  const [data, setData] = useState(props.data);
+
+  const submit = () => {
+    console.log('submitted !! : ');
+    props.setDailyData(data);
   };
-
+  const DailyDataChange = (updatedData: React.SetStateAction<{ day: string; difficulty: string; type: string }[]>) => {
+    setData(updatedData);
+  };
   return (
     <>
       <div style={{ display: 'flex', alignItems: 'end', padding: '1vmin' }}>
@@ -62,15 +64,15 @@ const DailyCardList = () => {
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'end', height: '100%' }}>
           <Body2 children={': 요일별로 풀고 싶은 유형을 등록해놓으세요'} color={colors.Gray[500]} />
         </div>
-        <DetailButton onClick={submitted}>확정하기</DetailButton>
+        <DetailButton onClick={submit}>확정하기</DetailButton>
       </div>
       <HorizenDiv>
         <Spacer space={'1vmin'} />
       </HorizenDiv>
       <Spacer space={'2vmin'} />
       <DailyCardDiv>
-        {data.map((value, index) => (
-          <DailyCard key={index} day={value.day} diff={value.diff} cate={value.cate} setData={setData}></DailyCard>
+        {props.data.map((value, index) => (
+          <DailyCard key={index} day={value.day} difficulty={value.difficulty} type={value.type} setData={DailyDataChange}></DailyCard>
         ))}
       </DailyCardDiv>
     </>

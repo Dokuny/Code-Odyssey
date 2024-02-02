@@ -1,9 +1,8 @@
-import { useState } from 'react';
 import ProblemCard from '../card/basic/ProblemCard';
 import styled from 'styled-components';
 import { colors } from '../../../config/Color';
 import { Spacer } from '../../atoms/basic/Spacer';
-import { Header2, Body1, Header1, Header4, Header3, Body2, Body3 } from '../../atoms/basic/Typography';
+import { Header4, Body2 } from '../../atoms/basic/Typography';
 
 const ProblemDiv = styled.div`
   display: flex;
@@ -16,14 +15,18 @@ const HorizenDiv = styled.div`
   background-color: ${colors.Gray[500]};
 `;
 
-const ProblemCardList = () => {
-  const [data, setData] = useState([
-    { imagesrc: '/images/code_odyssey/algo_pics/algoPic1.png', difficulty: '30', source: 'source', proNum: 1123, proCate: 'dp', title: 'testTitle', isDone: true },
-    { imagesrc: '/images/code_odyssey/algo_pics/algoPic1.png', difficulty: '30', source: 'source', proNum: 1365, proCate: 'dp', title: 'testTitle', isDone: true },
-    { imagesrc: '/images/code_odyssey/algo_pics/algoPic1.png', difficulty: '30', source: 'source', proNum: 53321, proCate: 'dp', title: 'testTitle', isDone: false },
-    { imagesrc: '/images/code_odyssey/algo_pics/algoPic1.png', difficulty: '30', source: 'source', proNum: 154523, proCate: 'dp', title: 'testTitle', isDone: false },
-  ]);
+interface ProblemCardListProps {
+  data: {
+    problem_id: string;
+    title: string;
+    platform: string;
+    difficulty: string;
+    type: string;
+    no: string;
+  }[];
+}
 
+const ProblemCardList = (props: ProblemCardListProps) => {
   return (
     <>
       <div style={{ display: 'flex', alignItems: 'center', padding: '1vmin' }}>
@@ -41,9 +44,9 @@ const ProblemCardList = () => {
       </HorizenDiv>
       <Spacer space={'2vmin'} />
       <ProblemDiv>
-        {data.map((value) => (
+        {props.data.map((value) => (
           <div style={{ width: '25%' }}>
-            <ProblemCard data={value} key={value.proNum} />
+            <ProblemCard data={value} key={value.problem_id} />
           </div>
         ))}
       </ProblemDiv>

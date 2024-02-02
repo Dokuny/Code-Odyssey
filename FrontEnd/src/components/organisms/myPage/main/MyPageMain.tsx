@@ -44,7 +44,7 @@ const MyPageMain = () => {
     {
       id: 'rank',
       data: [
-        { x: 'Jan', y: 2 },
+        { x: 'DP', y: 2 },
         { x: 'Feb', y: 4 },
         { x: 'Mar', y: 5 },
         { x: 'Apr', y: 7 },

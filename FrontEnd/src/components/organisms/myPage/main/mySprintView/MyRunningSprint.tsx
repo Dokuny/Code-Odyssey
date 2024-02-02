@@ -1,8 +1,6 @@
 import { Spacer } from '../../../../atoms/basic/Spacer';
 import RunningSprintGraph from '../../../../molecules/graph/RunningSprintGraph';
-import ProblemCardList from '../../../../molecules/list/ProblemCardList';
-import DailyCardList from '../../../../molecules/list/DailyCardList';
-
+import ProblemRecommend from './ProblemRecommend';
 const MyRunningSprint = () => {
   return (
     <>
@@ -11,9 +9,7 @@ const MyRunningSprint = () => {
         <RunningSprintGraph />
       </div>
       <Spacer space={'7vmin'} />
-      <DailyCardList />
-      <Spacer space={'2vmin'} />
-      <ProblemCardList />
+      <ProblemRecommend />
     </>
   );
 };
