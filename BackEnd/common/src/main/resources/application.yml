@@ -1,6 +1,6 @@
 # test 용
 server:
-  port: 8888
+  port: 8080
 
 spring:
   application:
@@ -35,7 +35,7 @@ spring:
 eureka:
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-
+    hostname: localhost
   client:
     register-with-eureka: true
     fetch-registry: true
