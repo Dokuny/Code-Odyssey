@@ -62,36 +62,11 @@ const Wrapper = styled.form`
   align-items: center;
 `;
 
-const DetailButton = styled.button`
-  color: ${colors.GrayBlue[400]};
-  width: 100px;
-  height: 60px;
-  border-radius: 50px;
-  background-color: ${colors.Gray[700]};
-  border: 1px solid ${colors.Gray[300]};
-  transition: box-shadow 0.3s ease-in-out;
-  font-size: 1.2rem;
-
-  &:hover {
-    box-shadow: 0 0 0 1px ${colors.Gray[300]};
-  }
-`;
-
-const SeperateDiv = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-`;
-
-const TextDiv = styled.div`
-  height: 30%;
-`;
-
 interface DailyCardProps {
   day: string;
-  diff: string;
-  cate: string;
-  setData: React.Dispatch<React.SetStateAction<{ day: string; diff: string; cate: string }[]>>;
+  difficulty: string;
+  type: string;
+  setData: React.Dispatch<React.SetStateAction<{ day: string; difficulty: string; type: string }[]>>;
 }
 
 interface AlgoDataProps {
@@ -108,11 +83,11 @@ const DailyCard = (props: DailyCardProps) => {
   ];
 
   const Levels = ['lv1', 'lv2', 'lv3'];
-  const algoCate = [, 'math', 'DP', 'Brute-Force', 'shortest path', 'math', 'DP', 'Brute-Force', 'shortest path', 'math', 'DP', 'Brute-Force', 'shortest path'];
+  const algoCate = ['math', 'DP', 'Brute-Force', 'shortest path', 'math', 'DP', 'Brute-Force', 'shortest path', 'math', 'DP', 'Brute-Force', 'shortest path'];
 
   const [srcData, setSrcData] = useState('/images/code_odyssey/algo_pics/algoPic1.png');
-  const [selectValueDifficulty, setSelectValueDifficulty] = useState(props.diff);
-  const [selectValueCategory, setSelectValueCategory] = useState(props.cate);
+  const [selectValueDifficulty, setSelectValueDifficulty] = useState(props.difficulty);
+  const [selectValueCategory, setSelectValueCategory] = useState(props.type);
 
   const categoryChanged = (event: any) => {
     if (event.target.id === 'difficulty') {
@@ -123,7 +98,7 @@ const DailyCard = (props: DailyCardProps) => {
       let selectedCategory = event.target.value;
       setSelectValueCategory(selectedCategory);
 
-      console.log(selectedCategory);
+      // console.log(selectedCategory);
       AlgoData.find((element) => {
         if (element.key === selectedCategory) {
           setSrcData(element.value);
@@ -136,12 +111,12 @@ const DailyCard = (props: DailyCardProps) => {
     props.setData((prevData) => {
       return prevData.map((item) => {
         if (item.day === props.day) {
-          return { ...item, diff: selectValueDifficulty, cate: selectValueCategory };
+          return { ...item, difficulty: selectValueDifficulty, type: selectValueCategory };
         }
         return item;
       });
     });
-    console.log(selectValueDifficulty, selectValueCategory);
+    // console.log(selectValueDifficulty, selectValueCategory);
   }, [selectValueDifficulty, selectValueCategory]);
 
   return (

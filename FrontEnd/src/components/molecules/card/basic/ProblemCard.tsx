@@ -3,18 +3,6 @@ import { colors } from '../../../../config/Color';
 import { Spacer } from '../../../atoms/basic/Spacer';
 import { difficulty } from '../../../../utils/json/difficulty';
 
-interface ProblemCardProps {
-  data: {
-    imagesrc: string;
-    difficulty: string;
-    source: string;
-    proNum: number | string;
-    proCate: string;
-    title: string;
-    isDone: boolean;
-  };
-}
-
 const ProblemCardDiv = styled.div`
   display: flex;
   aspect-ratio: 17 / 25;
@@ -60,11 +48,7 @@ const SubTitle = styled.div`
   font-size: 0.7rem;
   margin: 0;
 `;
-const IsDone = styled.div<{ color: string }>`
-  font-size: 0.7rem;
-  margin: 0;
-  color: ${(props) => props.color};
-`;
+
 const ImageDiv = styled.div`
   padding-top: 1vmin;
   width: 17%;
@@ -116,7 +100,16 @@ const SeperateDiv = styled.div`
   padding-bottom: 10px;
 `;
 
+interface ProblemCardProps {
+  data: { problem_id: string; title: string; platform: string; difficulty: string; type: string; no: string };
+}
+
+const imageSrc = '/images/code_odyssey/algo_pics/algoPic1.png';
+
 const ProblemCard = (props: ProblemCardProps) => {
+  const problemPage = () => {
+    console.log('problem page move ', props.data.problem_id);
+  };
   return (
     <ProblemCardDiv>
       <HeaderDiv>
@@ -124,21 +117,19 @@ const ProblemCard = (props: ProblemCardProps) => {
           <DiffImgageDiv src={difficulty[props.data.difficulty]} />
         </ImageDiv>
         <TextDiv>
-          <Title>{props.data.source}</Title>
-          <SubTitle>{props.data.proNum}</SubTitle>
+          <Title>{props.data.platform}</Title>
+          <SubTitle>{props.data.no}</SubTitle>
         </TextDiv>
       </HeaderDiv>
-      <ImageStyle src={props.data.imagesrc} />
+      <ImageStyle src={imageSrc} />
       <FooterDiv>
         <div className='seperate-1'>
           <Title>{props.data.title}</Title>
           <Spacer space={'5px'}></Spacer>
-          <IsDone color={props.data.isDone ? 'green' : 'Orangered'}>{props.data.isDone ? '풀었습니다!' : '도전해보세요!'}</IsDone>
+          <SubTitle>{props.data.type}</SubTitle>
         </div>
         <SeperateDiv>
-          <DetailButton type='submit' disabled={!props.data.isDone}>
-            {props.data.isDone ? '해결됨' : '풀러가기'}
-          </DetailButton>
+          <DetailButton onClick={problemPage}>풀러가기</DetailButton>
         </SeperateDiv>
       </FooterDiv>
     </ProblemCardDiv>

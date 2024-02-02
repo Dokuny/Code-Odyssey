@@ -31,7 +31,7 @@ const SolveProblem = () => {
   useEffect(() => {
     // TODO
     // 문제 검색 시 api 붙이기
-    console.log(searchInput);
+    // console.log(searchInput);
   }, [searchInput]);
 
   useEffect(() => {
@@ -57,8 +57,8 @@ const SolveProblem = () => {
       <BasicTable
         tableData={tableData}
         setSelectData={setSelectProblem}
-        percentData={[]}
-        title={<SearchDiv setInput={() => {}} />}
+        percentData={percentData}
+        title={<SearchDiv setInput={setSearchInput}></SearchDiv>}
         state={state}
         setState={setState}
         booleanData={[]}
