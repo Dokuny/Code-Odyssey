@@ -11,4 +11,4 @@ eureka:
     register-with-eureka: false
     fetch-registry: false
   instance:
-    ${spring.cloud.client.hostname}:${spring.application.name}:${spring.application.instance_id:${server.port}}}
+    instance-id: ${server.address}:${spring.application.name}:${server.port}
