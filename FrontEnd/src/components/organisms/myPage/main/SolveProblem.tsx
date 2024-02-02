@@ -11,6 +11,14 @@ const SolveProblem = () => {
   const [searchInput, setSearchInput] = useState('');
   const [selectProblem, setSelectProblem] = useState<any>(null);
   const [state, setState] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 });
+  const [platform, setPlatform] = useState('baekjoon');
+  const [difficulty, setDifficulty] = useState('bronze');
+  const [category, setCategory] = useState('DP');
+  const [inputText, setInputText] = useState('');
+
+  useEffect(() => {
+    console.log(platform, difficulty, category, inputText, state);
+  }, [platform, difficulty, category, inputText, state]);
 
   const [tableData, setTableData] = useState({
     totalPages: 11,
@@ -57,8 +65,19 @@ const SolveProblem = () => {
       <BasicTable
         tableData={tableData}
         setSelectData={setSelectProblem}
-        percentData={percentData}
-        title={<SearchDiv setInput={setSearchInput}></SearchDiv>}
+        percentData={[]}
+        title={
+          <SearchDiv
+            setPlatform={setPlatform}
+            setDifficulty={setDifficulty}
+            setCategory={setCategory}
+            setInputText={setInputText}
+            platform={platform}
+            difficulty={difficulty}
+            category={category}
+            inputText={inputText}
+          />
+        }
         state={state}
         setState={setState}
         booleanData={[]}

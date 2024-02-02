@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import DropDown from './Dropdown';
 import styled from 'styled-components';
 import { colors } from '../../../config/Color';
@@ -14,7 +13,14 @@ const SearchDivBody = styled.div`
 `;
 
 interface SearchDivProps {
-  setInput: React.Dispatch<React.SetStateAction<string>>;
+  platform: string;
+  difficulty: string;
+  category: string;
+  inputText: string;
+  setInputText: React.Dispatch<React.SetStateAction<string>>;
+  setCategory: React.Dispatch<React.SetStateAction<string>>;
+  setDifficulty: React.Dispatch<React.SetStateAction<string>>;
+  setPlatform: React.Dispatch<React.SetStateAction<string>>;
 }
 
 // StyledInput을 SearchDiv 외부에 정의
@@ -36,67 +42,58 @@ const StyledInput = styled.input`
   box-shadow: 2px 2px 4px ${colors.Gray[800]};
 `;
 
-const SearchDiv = ({ setInput }: SearchDivProps) => {
-  const [platform, setPlatform] = useState('baekjoon');
-  const [difficulty, setDifficulty] = useState('bronze');
-  const [category, setCategory] = useState('DP');
-  const [inputText, setInputText] = useState('');
-
+const SearchDiv = (props: SearchDivProps) => {
   const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     const text = e.target.value;
-    setInputText(text);
+    props.setInputText(text);
     console.log('texting... ', text); // 변경된 값을 출력
   };
 
   const changed = (event: any) => {
     if (event.target.id === 'platform') {
-      setPlatform(event.target.value);
+      props.setPlatform(event.target.value);
     } else if (event.target.id === 'difficulty') {
-      setDifficulty(event.target.value);
+      props.setDifficulty(event.target.value);
     } else if (event.target.id === 'category') {
-      setCategory(event.target.value);
+      props.setCategory(event.target.value);
     }
   };
-
-  useEffect(() => {
-    console.log(platform, difficulty, category, inputText);
-  }, [platform, difficulty, category, inputText]);
 
   return (
     <SearchDivBody onChange={changed}>
       <DropDown
         id={'platform'}
-        setSelectValue={setPlatform}
+        setSelectValue={props.setPlatform}
         values={['BOJ', 'SWEA']}
         bgColor={colors.GrayBlue[600]}
         height={'100%'}
         width={'9%'}
         fontcolor={colors.GrayBlue[200]}
-        selectedValue={platform}
+        selectedValue={props.platform}
         borderRadius={'5px'}
       ></DropDown>
       <Spacer space={'0.5vw'} horizontal></Spacer>
       <DropDown
         id={'difficulty'}
-        setSelectValue={setDifficulty}
+        setSelectValue={props.setDifficulty}
         values={['bronze', 'silver', 'gold', 'platinum', 'ruby']}
         bgColor={colors.GrayBlue[600]}
         height={'100%'}
         width={'11%'}
         fontcolor={colors.GrayBlue[200]}
-        selectedValue={difficulty}
+        selectedValue={props.difficulty}
         borderRadius={'5px'}
       ></DropDown>
       <Spacer space={'0.5vw'} horizontal></Spacer>
       <DropDown
         id={'category'}
-        setSelectValue={setCategory}
+        setSelectValue={props.setCategory}
         values={['DP', 'Brute-Force', 'Greedy']}
         bgColor={colors.GrayBlue[600]}
         height={'100%'}
         width={'12%'}
         fontcolor={colors.GrayBlue[200]}
-        selectedValue={category}
+        selectedValue={props.category}
         borderRadius={'5px'}
       ></DropDown>
       <Spacer space={'0.5vw'} horizontal></Spacer>

@@ -18,7 +18,6 @@ const GuildRunningSprint = (props: GuildRunningSprintProps) => {
     //   sprint_name: 'test1',
     //   started_at: '2024-01-29',
     //   ended_at: '2024-01-29',
-    //   time: 1,
     //   problem_list: [
     //     { type: 'DP', guild_problem_id: 1, difficulty: 17, title: '톱니바퀴1', percent: 50 },
     //     { type: 'BRUTE FORCE', guild_problem_id: 2, difficulty: 18, title: '톱니바퀴2', percent: 100 },
@@ -31,7 +30,6 @@ const GuildRunningSprint = (props: GuildRunningSprintProps) => {
       sprint_name: 'test1',
       started_at: '2024-01-29',
       ended_at: '2024-02-02',
-      time: 1,
       problem_list: [
         { type: 'DP', guild_problem_id: 1, difficulty: 17, title: '톱니바퀴1', percent: 50 },
         { type: 'BRUTE FORCE', guild_problem_id: 2, difficulty: 18, title: '톱니바퀴2', percent: 100 },
