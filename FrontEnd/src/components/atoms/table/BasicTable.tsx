@@ -4,6 +4,7 @@ import { IoMdCheckmarkCircle, IoMdCloseCircle } from 'react-icons/io';
 import styled from 'styled-components';
 import { colors } from '../../../config/Color';
 import { FaIcon } from '../icon/Icons';
+import { difficulty } from '../../../utils/json/difficulty';
 
 const StyledContainer = styled.div<{ color: string }>`
   display: flex;
@@ -79,10 +80,15 @@ const StyledPageButton = styled.button<{ isActive?: boolean; pageBtnColor: strin
   margin: 0 0.5em;
 `;
 
+const DiffImageDiv = styled.img`
+  width: 8%;
+`;
+
 interface BasicTableProps {
   tableData: { totalPages: number; data: Array<any> };
   setSelectData: React.Dispatch<any>;
   percentData: string[];
+  imageData: string[];
   booleanData: string[];
   state: PaginationState;
   setState: React.Dispatch<React.SetStateAction<PaginationState>>;
@@ -167,6 +173,7 @@ const BasicTable = (props: BasicTableProps) => {
                   <StyledTd key={cell.id} onClick={() => handleTdClick(row.original)}>
                     {!props.percentData.includes(cell.column.columnDef.header as string) &&
                       !props.booleanData.includes(cell.column.columnDef.header as string) &&
+                      !props.imageData.includes(cell.column.columnDef.header as string) &&
                       flexRender(cell.column.columnDef.cell, cell.getContext())}
                     {props.percentData.includes(cell.column.columnDef.header as string) && (
                       <Container>
@@ -176,6 +183,7 @@ const BasicTable = (props: BasicTableProps) => {
                     {props.booleanData.includes(cell.column.columnDef.header as string) && (
                       <>{(cell.getValue() as boolean) ? <IoMdCheckmarkCircle color={colors.Naver[500]} /> : <IoMdCloseCircle color={colors.Red} />} </>
                     )}
+                    {props.imageData.includes(cell.column.columnDef.header as string) && <DiffImageDiv src={difficulty[cell.getValue() as number]} />}
                   </StyledTd>
                 ))}
             </tr>

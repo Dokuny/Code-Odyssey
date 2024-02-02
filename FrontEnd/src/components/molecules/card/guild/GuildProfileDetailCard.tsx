@@ -5,7 +5,7 @@ import { Spacer } from '../../../atoms/basic/Spacer';
 import { Body1, Body2, Body3 } from '../../../atoms/basic/Typography';
 import { difficulty } from '../../../../utils/json/difficulty';
 import BasicButton from '../../../atoms/button/BasicButton';
-import { IoMdCheckmarkCircle, IoMdCloseCircle, IoMdExit } from 'react-icons/io';
+import { IoMdCheckmarkCircle, IoMdExit } from 'react-icons/io';
 
 const StyledContainer = styled.div`
   background-color: ${colors.Gray[700]};

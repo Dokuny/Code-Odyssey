@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import { colors } from '../../../../../config/Color';
 import { Spacer } from '../../../../atoms/basic/Spacer';
-import { Body1 } from '../../../../atoms/basic/Typography';
 import { PaginationState } from '@tanstack/react-table';
-import CheckBoxTable from '../../../../atoms/table/CheckBoxTable';
+import GuildRequestMemberCard from '../../../../molecules/card/guild/GuildRequestMemberCard';
 
 interface GuildPersonRequestProps {
   guild_id: number;
@@ -27,22 +25,59 @@ const GuildPersonRequest = (props: GuildPersonRequestProps) => {
       { member_id: 8, name: 'name8', bad_cnt: 12.5, difficulty: 2, request_at: '2024-01-31' },
     ],
   });
+
+  const [data, setData] = useState([
+    {
+      member_id: 1,
+      name: 'name1',
+      difficulty: 2,
+      thumbnail: 'https://picsum.photos/300',
+      bad_cnt: 2,
+      request_at: '2024-01-31',
+      collect_star_cnt: 120,
+      collect_week_star_cnt: 9,
+    },
+    {
+      member_id: 2,
+      name: 'name2',
+      difficulty: 2,
+      thumbnail: 'https://picsum.photos/300',
+      bad_cnt: 2,
+      request_at: '2024-01-31',
+      collect_star_cnt: 120,
+      collect_week_star_cnt: 9,
+    },
+    {
+      member_id: 3,
+      name: 'name3',
+      difficulty: 2,
+      thumbnail: 'https://picsum.photos/300',
+      bad_cnt: 2,
+      request_at: '2024-01-31',
+      collect_star_cnt: 120,
+      collect_week_star_cnt: 9,
+    },
+  ]);
   console.log(selectData);
   return (
     <>
       <Spacer space={'2vmin'} />
-      <CheckBoxTable
-        tableData={tableData}
-        setSelectData={setSelectData}
-        percentData={['bad_cnt']}
-        state={state}
-        setState={setState}
-        color={colors.Gray[700]}
-        pageBtnColor={colors.Gray[600]}
-        pageBtnDeepColor={colors.Gray[800]}
-        title={<Body1 children={'가입 신청 목록'} color={colors.Gray[300]} fontWeight={'bold'} />}
-        selectData={selectData}
-      />
+      {data.map((value) => (
+        <>
+          <GuildRequestMemberCard
+            key={value.member_id}
+            member_id={value.member_id}
+            name={value.name}
+            bad_cnt={value.bad_cnt}
+            difficulty={value.difficulty}
+            request_at={value.request_at}
+            thumbnail={value.thumbnail}
+            collect_star_cnt={value.collect_star_cnt}
+            collect_week_star_cnt={value.collect_week_star_cnt}
+          />
+          <Spacer space={'1vmin'} />
+        </>
+      ))}
     </>
   );
 };
