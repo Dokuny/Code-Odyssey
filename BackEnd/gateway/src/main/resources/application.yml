@@ -23,11 +23,11 @@ spring:
     gateway:
       routes:
         - id: auth-service
-          uri: http://158.180.80.211:8080
+          uri: lb://COMMON-SERVER
           predicates:
             - Path=/auth/**
         - id: common-service
-          uri: http://158.180.80.211:8080
+          uri: lb://COMMON-SERVER
           predicates:
             - Path=/test
           filters:
