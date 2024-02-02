@@ -23,11 +23,11 @@ spring:
     gateway:
       routes:
         - id: auth-service
-          uri: lb://COMMON-SERVICE
+          uri: http://158.180.80.211:8080
           predicates:
             - Path=/auth/**
         - id: common-service
-          uri: lb://COMMON-SERVICE
+          uri: http://158.180.80.211:8080
           predicates:
             - Path=/test
           filters:
@@ -76,7 +76,8 @@ spring:
       globalcors:
         cors-configurations:
           '[/**]':
-            allowedOrigins: 'http://3.35.176.227'
+            allowedOrigins: 'http://3.35.176.2
+            27'
             allow-credentials: true
             allowedHeaders: '*'
             allowedMethods:
