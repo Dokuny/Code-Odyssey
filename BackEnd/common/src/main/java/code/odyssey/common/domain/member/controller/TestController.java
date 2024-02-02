@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
 	@GetMapping("/test")
-	public ResponseEntity test(@RequestHeader("X-Authorization-Id") Long id) {
-		return ResponseEntity.ok(id);
+	public ResponseEntity test() {
+		return ResponseEntity.ok("test");
 	}
 }
