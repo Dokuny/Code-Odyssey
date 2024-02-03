@@ -7,6 +7,7 @@ import static code.odyssey.common.domain.guildSprint.exception.GuildSprintErrorC
 
 import code.odyssey.common.domain.guild.repository.GuildMemberRepository;
 import code.odyssey.common.domain.guildSprint.dto.GuildProblemEditRequest;
+import code.odyssey.common.domain.guildSprint.dto.RetrospectGuildProblemInfo;
 import code.odyssey.common.domain.guildSprint.entity.GuildProblem;
 import code.odyssey.common.domain.guildSprint.entity.GuildSprint;
 import code.odyssey.common.domain.guildSprint.exception.GuildSprintException;
@@ -50,6 +51,10 @@ public class GuildProblemService {
 				.problem(problem)
 				.build())
 			.toList());
+	}
+
+	public RetrospectGuildProblemInfo retrospectGuildProblem(Long guildProblemId) {
+		return guildSprintRepository.findRetrospectiveGuildProblemInfo(guildProblemId);
 	}
 
 }
