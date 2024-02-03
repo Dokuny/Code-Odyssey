@@ -13,11 +13,11 @@ import code.odyssey.common.domain.guild.entity.GuildMember;
 import code.odyssey.common.domain.guild.repository.GuildMemberRepository;
 import code.odyssey.common.domain.guildSprint.dto.EndGuildSprintInfo;
 import code.odyssey.common.domain.guildSprint.dto.GuildSprintCreateRequest;
+import code.odyssey.common.domain.guildSprint.dto.RetrospectGuildProblemInfo;
 import code.odyssey.common.domain.guildSprint.dto.WaitingGuildSprintInfo;
 import code.odyssey.common.domain.guildSprint.entity.GuildSprint;
 import code.odyssey.common.domain.guildSprint.exception.GuildSprintException;
 import code.odyssey.common.domain.guildSprint.repository.GuildSprintRepository;
-import code.odyssey.common.domain.member.entity.Member;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -102,6 +102,10 @@ public class GuildSprintService {
 
 	public List<EndGuildSprintInfo> getEndedGuildSprintInfo(Long guildId) {
 		return guildSprintRepository.findEndedGuildSprintInfo(guildId);
+	}
+
+	public RetrospectGuildProblemInfo getRetrospectiveGuildProblemInfo(Long guildProblemId) {
+		return guildSprintRepository.findRetrospectiveGuildProblemInfo(guildProblemId);
 	}
 
 }
