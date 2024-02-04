@@ -12,6 +12,6 @@ class ProblemData(models.Model):
     description = models.TextField()
     inputSample = models.TextField(blank=True,null=True)
     outputSample = models.TextField(blank=True,null=True)
-    types = models.TextField(blank=True,null=True)
+    category = models.TextField(blank=True,null=True)
     
     
