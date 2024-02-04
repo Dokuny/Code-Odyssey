@@ -15,7 +15,6 @@ public enum GuildErrorCode {
 	ALREADY_APPLY_GUILD("이미 가입 신청된 길드입니다.", BAD_REQUEST),
 	NOT_EXISTS_APPLICATION("존재하지 않는 신청입니다.", BAD_REQUEST),
 	NO_AUTHENTICATION("권한이 없습니다.", FORBIDDEN);
-
 	private final String message;
 	private final HttpStatus httpStatus;
 

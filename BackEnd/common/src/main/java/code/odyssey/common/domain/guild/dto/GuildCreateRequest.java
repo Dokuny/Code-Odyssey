@@ -1,6 +1,7 @@
 package code.odyssey.common.domain.guild.dto;
 
 import code.odyssey.common.domain.guild.entity.Guild;
+import code.odyssey.common.domain.guild.entity.enums.LanguageType;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -29,7 +30,7 @@ public record GuildCreateRequest(
         return Guild.builder()
                 .name(name)
                 .image(image)
-                .language(language)
+                .language(LanguageType.valueOf(language.toUpperCase()))
                 .problemCapacity(problemCapacity)
                 .difficulty(difficulty)
                 .introduction(introduction)

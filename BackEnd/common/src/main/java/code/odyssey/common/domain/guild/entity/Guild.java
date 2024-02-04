@@ -1,5 +1,6 @@
 package code.odyssey.common.domain.guild.entity;
 
+import code.odyssey.common.domain.guild.entity.enums.LanguageType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @NoArgsConstructor
@@ -36,8 +38,8 @@ public class Guild {
     @Column
     private LocalDateTime disbandedAt;
 
-    @Column
-    private String language;
+    @Enumerated(STRING)
+    private LanguageType language;
 
     @Column
     private Integer difficulty;
