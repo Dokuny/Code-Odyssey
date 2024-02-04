@@ -35,7 +35,7 @@ public interface ScoreRepository extends JpaRepository<Score, Long> {
     // 랭킹을 위한 점수 업데이트
     @Modifying
     @Query("UPDATE Score s SET s.rankingScore = :rankingScore WHERE s.member.id = :memberId")
-    void updateRankingScore(@Param("rankingScore") int rankingScore, Long memberId);
+    void updateRankingScore(@Param("rankingScore") int rankingScore, @Param("memberId") Long memberId);
 
 
 }

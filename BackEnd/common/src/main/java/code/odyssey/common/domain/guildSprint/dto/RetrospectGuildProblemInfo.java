@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Builder.Default;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,6 +24,7 @@ public class RetrospectGuildProblemInfo {
 	private String title;
 	private String type;
 	private int percent;
+	@Default
 	private List<RetrospectiveGuildMemberInfo> guildMember = new ArrayList<>();
 
 	@NoArgsConstructor
