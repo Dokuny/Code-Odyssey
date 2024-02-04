@@ -6,6 +6,8 @@ import BasicInput from '../../atoms/input/BasicInput';
 import { Spacer } from '../../atoms/basic/Spacer';
 import MDEditor from '@uiw/react-md-editor';
 import DropDown from '../../atoms/select/Dropdown';
+import { ref, uploadString, getDownloadURL, deleteObject, uploadBytes } from 'firebase/storage'
+import { fstorage } from '../../../firebase';
 
 const StyledContainer = styled.form`
   display: flex;
@@ -129,29 +131,35 @@ const MakeGuildForm = () => {
   const Difficulty = [];
   const [imgFile, setImgFile] = useState("");
   const imgRef = useRef<HTMLInputElement>(null);
+  const [downloadUrl, setDownloadUrl] = useState("");
+
 
   // 이미지 업로드 input의 onChange
-  const saveImgFile = () => {
+  const saveImgFile = async () =>  {
     // imgRef.current가 null 또는 undefined인지 확인 후 사용
     const fileInput = imgRef.current;
+
   
     if (fileInput?.files?.length) {
       const file: File = fileInput.files[0];
-  
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-  
-      reader.onloadend = (event: ProgressEvent<FileReader>) => {
-        // 이벤트 객체에서 result 속성에 접근하여 타입 추론 가능
-        const result = event.target?.result as string;
-        
-        // 이미지 파일 데이터 URL을 상태로 설정
-        setImgFile(result);
-        console.log(result)
-      };
-    }
-  };
 
+      try {        
+        //이미지 업로드
+        const storageRef = ref(fstorage, `images/${file.name}`);
+        await uploadBytes( storageRef, file );
+
+        //이미지 가져오기
+        const url = await getDownloadURL(storageRef);       
+        setImgFile(url);
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
+
+      }
+    };
+
+
+  
 
   for (let i = 1; i <= 30; i++) {
     Difficulty.push(i);
