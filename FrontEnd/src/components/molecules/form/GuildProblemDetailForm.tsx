@@ -32,22 +32,54 @@ const GuildProblemDetailForm = (props: GuildProblemDetailFormProps) => {
 
   useEffect(() => {
     setDetailProblemData({
-      detail: `<div id="problem_description" class="problem-text">
-    <p>초라기는 한국의 비밀국방기지a(원타곤)를 습격하라는 임무를 받은 특급요원이다. 원타곤의 건물은 도넛 형태이며, 초라기는 효율적인 타격 포인트를 정하기 위해 구역을 아래와 같이 두 개의 원 모양으로 나누었다. (그림의 숫자는 각 구역의 번호이다.)</p>
-
-<p style="text-align: center;"><img alt="" src="https://www.acmicpc.net/upload/201003/dfck3232_34g7t9f4gp_b.jpg" /></p>
-
-<p>초라기는 각각 W명으로 구성된 특수소대를 다수 출동시켜 모든 구역에 침투시킬 예정이며, 각 구역 별로 적이 몇 명씩 배치되어 있는지는 초라기가 모두 알고 있다. 특수소대를 아래 조건에 따라 침투 시킬 수 있다.</p>
-
-<ol>
-<li>한 특수소대는 침투한 구역 외에, 인접한&nbsp;한 구역 더 침투할 수 있다. (같은 경계를 공유하고 있으면 인접 하다고 한다. 위 그림에서 1구역은 2, 8, 9 구역과 서로 인접한 상태다.) 즉,&nbsp;한 특수소대는 한 개 혹은 두 개의 구역을 커버할 수 있다.</li>
-<li>특수소대끼리는 아군인지 적인지 구분을 못 하기 때문에, 각 구역은 하나의 소대로만 커버해야 한다.</li>
-<li>한 특수소대가 커버하는 구역의 적들의 합은 특수소대원 수 W 보다 작거나 같아야 한다.</li>
-</ol>
-
-<p>이때 초라기는 원타곤의 모든 구역을 커버하기 위해 침투 시켜야&nbsp;할 특수 소대의 최소 개수를 알고 싶어 한다.</p>
-
-</div>`,
+      detail: `"
+						<p class="txt">
+						
+						<span style="color:#000000">※ SW Expert 아카데미의 문제를 무단 복제하는 것을 금지합니다.<br>
+<br>
+그림과 같이 도식화한 지도에서 A도시에서 출발하여 B도시로 가는 길이 존재하는지 조사하려고 한다.<br>
+<br>
+길 중간 중간에는 최대 2개의 갈림길이 존재하고, 모든 길은 일방 통행으로 되돌아오는 것이 불가능하다.<br>
+<br>
+다음과 같이 길이 주어질 때, A도시에서 B도시로 가는 길이 존재하는지 알아내는 프로그램을 작성하여라.<br>
+<br>
+&nbsp;- A와 B는 숫자 0과 99으로 고정된다.<br>
+<br>
+&nbsp;- 모든 길은 순서쌍으로 나타내어진다. 위 예시에서 2번에서 출발 할 수 있는 길의 표현은 (2, 5), (2, 9)로 나타낼 수 있다.<br>
+<br>
+&nbsp;- 가는 길의 개수와 상관없이 한가지 길이라도 존재한다면 길이 존재하는 것이다.<br>
+<br>
+&nbsp;- 단 화살표 방향을 거슬러 돌아갈 수는 없다.</span>
+</p><div style="text-align:center"><span style="color:#000000"><img alt="" src="https://swexpertacademy.com/main/common/fileDownload.do?downloadType=CKEditorImages&amp;fileId=AV2XXB9KDaYBBASl" style="height: 200px; width: 350.833px;"></span></div>
+<br>
+<span style="color:#000000"><strong>[제약 사항]</strong><br>
+<br>
+출발점은 0, 도착점은 99으로 표현된다.<br>
+<br>
+정점(분기점)의 개수는 98개(출발점과 도착점 제외)를 넘어가지 않으며, 한 개의 정점에서 선택할 수 있는 길의 개수도 2개를 넘어가지 않는다.<br>
+<br>
+아래 제시된 가이드 라인은 제안사항일 뿐 강제사항은 아니다.<br>
+<br>
+<strong>[데이터 저장 가이드]</strong><br>
+<br>
+정점(분기점)의 개수가 최대 100개 이기 때문에, size [100]의 정적 배열 2개을 선언하여, 각 정점의 번호를 주소로 사용하고, 저장되는 데이터는 각 정점에서 도착하는 정점의 번호를 저장한다.<br>
+<br>
+위 그림을 저장하였을 때 결과는 다음과 같다.</span><br>
+&nbsp;
+<div style="text-align:center"><span style="color:#000000"><img alt="" src="https://swexpertacademy.com/main/common/fileDownload.do?downloadType=CKEditorImages&amp;fileId=AV2XXJpaDacBBASl" style="height: 157.5px; width: 382.5px;"></span></div>
+<br>
+<span style="color:#000000"><strong>[입력]</strong><br>
+<br>
+각 테스트 케이스의 첫 줄에는 테스트 케이스의 번호와 길의 총 개수가 주어지고 그 다음 줄에는 순서쌍이 주어진다.<br>
+<br>
+순서쌍의 경우, 별도로 나누어 표현되는 것이 아니라 숫자의 나열이며, 나열된 순서대로 순서쌍을 이룬다.<br>
+<br>
+<strong>[출력]</strong><br>
+<br>
+#부호와 함께 테스트 케이스의 번호를 출력하고, 공백 문자 후 테스트 케이스에 대한 답을 출력한다. </span>
+							
+						<p></p>
+					"`,
       title: 'test1',
       problem_id: 4,
       platform: 'BOJ',

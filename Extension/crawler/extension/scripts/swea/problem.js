@@ -4,10 +4,21 @@ const problemHead = document
   )
   .textContent.replaceAll(/\n|\t/g, "")
   .split(".");
+
 // 문제 번호, 제목, 난이도(D~)
 const num = problemHead[0];
 const title = problemHead[1].slice(0, problemHead[1].length - 2).trim();
-const difficulty = "D" + problemHead[1].slice(-1);
+const tier = {
+  1: 2,
+  2: 6,
+  3: 8,
+  4: 11,
+  5: 15,
+  6: 28,
+  7: 22,
+  8: 25,
+};
+const difficulty = tier[problemHead[1].slice(-1)];
 
 // 시간 제한, 메모리 제한
 const time = document
@@ -55,37 +66,30 @@ if (sampleInputs) {
     .trim();
 }
 
-// div 채로 가져올 경우
-// const description = document.querySelector("body > div.container > div.container.sub > div > div.tabcon_wrap > div > div.box4").innerHTML;
-let description = document.querySelector(
+// 이미지 리사이징
+let descriptionContent = document.querySelector(
   "body > div.container > div.container.sub > div > div.tabcon_wrap > div > div.box4"
-).innerHTML;
-console.log(description);
-// img 태그 수정
-description = description.replaceAll(
-  'src="',
-  'src="https://swexpertacademy.com'
 );
-description +=
-  "<div> <br><strong>[입력예시]</strong><br>" +
-  sampleInputs +
-  "</div> <div> <br><strong>[출력예시]</strong><br>" +
-  sampleOutputs +
-  "</div>";
+let imgTags = descriptionContent.querySelectorAll("img");
+for (let i = 0; i < imgTags.length; i++) {
+  while (imgTags[i].width >= 400) {
+    imgTags[i].style.width = imgTags[i].width / 1.2 + "px";
+    imgTags[i].style.height = imgTags[i].height / 1.2 + "px";
+  }
+}
 
-// 그냥 통째로 다 긁어오는 거
-const problemContentParent = document.querySelector(
-  "body > div.container > div.container.sub > div > div.tabcon_wrap > div"
-).children;
-const problemContent =
-  problemContentParent[0].innerHTML +
-  problemContentParent[1].innerHTML +
-  problemContentParent[2].innerHTML;
+// img 태그 수정
+let description = descriptionContent.innerHTML;
+description = description
+  .replaceAll('src="', 'src="https://swexpertacademy.com')
+  .replace(`※ SW Expert 아카데미의 문제를 무단 복제하는 것을 금지합니다.`, "")
+  .trim();
+
 // 문제 링크(페이지)
 const url = window.location.href;
 
-const problemData = {
-  platform: "swea",
+const data = {
+  platform: "SWEA",
   url, // 문제링크
   num, // 문제번호
   title, // 제목
@@ -93,19 +97,10 @@ const problemData = {
   memory, // 메모리제한
   difficulty, // 난이도
   description, // 문제설명(문제 본문 + 입출력예시) 다운로드 링크 제외
-  sampleInputs, // 입력예시 (html 전체)
-  sampleOutputs, // 출력예시 (html 전체)
-  // categories,
-  // problemContent
+  // sampleInputs, // 입력예시 (html 전체)
+  // sampleOutputs, // 출력예시 (html 전체)
 };
-// console.log(problemContent)
-// console.log(problemData)
-// window.localStorage.setItem("problemData", JSON.stringify(problemData));
-
-const data = problemData;
-
-const geturl = "http://127.0.0.1:8081/save-data/view";
-const posturl = "http://127.0.0.1:8081/save-data/save";
+console.log(data);
 
 fetch("http://127.0.0.1:8081/save-data/save/", {
   method: "POST",

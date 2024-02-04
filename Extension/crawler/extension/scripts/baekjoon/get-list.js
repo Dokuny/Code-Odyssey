@@ -1,20 +1,18 @@
 const table = document.querySelectorAll(
-  "#problemset > tbody > tr > td:nth-child(2) > a"
+  "#__next > div.css-1948bce > div:nth-child(4) > div.css-qijqp5 > table > tbody > tr > td:nth-child(1) > div > div > div > span > span > a"
 );
 
-for (let i = 0; i < table.length; i++) {
-  window.open("https://www.acmicpc.net" + table[i].getAttribute("href"));
-}
-
 // for (let i = 0; i < table.length; i++) {
-//   async function openWindows() {
-//     console.log("openwindows");
-//     try {
-//       let url = "https://www.acmicpc.net" + table[i].getAttribute("href");
-//       console.log(url);
-//       window.open(url);
-//     } catch (err) {
-//       console.log(err.message);
-//     }
-//   }
+//   console.log(table[i].getAttribute("href"));
 // }
+
+for (let i = 0; i < table.length; i++) {
+  async function openWindows() {
+    try {
+      window.open(table[i].getAttribute("href"));
+    } catch (err) {
+      console.log(err.message);
+    }
+  }
+  openWindows();
+}

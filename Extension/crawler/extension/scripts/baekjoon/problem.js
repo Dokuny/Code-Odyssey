@@ -3,6 +3,8 @@
 // https://www.acmicpc.net/problem/1015 // 입출력 여러개
 
 // https://www.acmicpc.net/problem/14890 // 힌트- 이미지
+// https://www.acmicpc.net/problem/1010 이미지 내부 링크
+// https://www.acmicpc.net/problem/2250 이미지 사이즈 큰 경우
 
 // https://www.acmicpc.net/problem/1042 // 출력 예시 있을 경우
 // 데이터 수집
@@ -98,106 +100,103 @@ while (true) {
 }
 
 // 문제 분류
-const categories = [];
-let arr = document.querySelectorAll(
-  "#problem_tags > div.spoiler > ul > li > a "
-);
-if (arr.length == 0) {
-  arr = document.querySelectorAll("#problem_tags > ul > li > a");
-}
-arr.forEach((ele) => {
-  categories.push(ele.innerHTML);
-});
+// const categories = [];
+// let arr = document.querySelectorAll(
+//   "#problem_tags > div.spoiler > ul > li > a "
+// );
+// if (arr.length == 0) {
+//   arr = document.querySelectorAll("#problem_tags > ul > li > a");
+// }
+// arr.forEach((ele) => {
+//   categories.push(ele.innerHTML);
+// });
 
 // 문제 링크(페이지)
 const url = window.location.href;
 
 // 문제 내용
-const problemBody = document.querySelector("#problem-body").children;
+// 이미지 리사이징
+let descriptionContent = document.querySelector("#problem_description");
 
-const descriptionContent = problemBody[0].innerHTML;
-const input = problemBody[1].innerHTML;
-const output = problemBody[2].innerHTML;
-
-let description = descriptionContent + input + output;
-
-const sampleInput = document
-  .querySelector("#sample-input-1")
-  .innerHTML.replaceAll(/\n/g, "<br>");
-const sampleOutput = document
-  .querySelector("#sample-output-1")
-  .innerHTML.replaceAll(/\n/g, "<br>");
-
-description +=
-  "<div> <br><strong>[입력예시]</strong><br>" +
-  sampleInputs +
-  "</div> <div> <br><strong>[출력예시]</strong><br>" +
-  sampleOutputs +
-  "</div>";
-
-// 출력 예시 있을 경우
-const outputSample = document.querySelector("#problem_sample_explain_1");
-if (outputSample) {
-  description += outputSample.innerHTML;
+for (let i = 0; i < descriptionContent.children.length; i++) {
+  let childNodes = descriptionContent.children[i].childNodes;
+  for (let j = 0; j < childNodes.length; j++) {
+    if (childNodes[j].tagName === "IMG") {
+      while (childNodes[j].width >= 400) {
+        childNodes[j].style.width = childNodes[j].width / 1.2 + "px";
+        childNodes[j].style.height = childNodes[j].height / 1.2 + "px";
+      }
+    }
+  }
 }
+
+let description = descriptionContent.innerHTML;
+const input = document.querySelector("#problem_input").innerHTML;
+const output = document.querySelector("#problem_output").innerHTML;
+
+description += document.querySelector("#input").innerHTML;
+description += document.querySelector("#output").innerHTML;
+
 // 힌트 있을 경우
-const hint = document.querySelector("#problem_hint");
-if (hint) {
-  description =
-    description +
-    "<div> <br><strong>[힌트]</strong><br>" +
-    hint.innerHTML +
-    "</div>";
+const hint = document.querySelector("#hint");
+if (hint.innerHTML.trim() !== "") {
+  for (let i = 0; i < hint.children.length; i++) {
+    let childNodes = hint.children[i].childNodes;
+    for (let j = 0; j < childNodes.length; j++) {
+      if (childNodes[j].tagName === "IMG") {
+        while (childNodes[j].width >= 400) {
+          childNodes[j].style.width = childNodes[j].width / 1.2 + "px";
+          childNodes[j].style.height = childNodes[j].height / 1.2 + "px";
+        }
+      }
+    }
+  }
+
+  description += hint.innerHTML + "</div>";
 }
-// description : 현재 저장될 때 자동으로 JSON.stringfy 되어서 객체에 저장됨.
-// 파싱 데이터 확인하니 그대로 나옴.
 
-const tempBody = document.querySelector("#problem-body").innerHTML;
-let parser = new DOMParser();
-let doc = parser.parseFromString(tempBody, "text/html");
+// 이미지 링크 수정
+description = description.replaceAll(
+  `src="/upload/`,
+  `src=https://www.acmicpc.net/upload/`
+);
 
-let buttons = doc.querySelectorAll("button");
-buttons.forEach(function (button) {
-  button.remove();
-});
-
-let problemBody1 = doc.documentElement.innerHTML.replaceAll(/\n/g, "<br>");
-
-const problemContent = document.querySelector("#problem-body").innerHTML;
-const problemData = {
-  platform: "baekjoon",
+// 입력 예시 없는 경우도 있음..
+if (document.querySelector("#sample-input-1")) {
+  var sampleInput = document
+    .querySelector("#sample-input-1")
+    .innerHTML.replaceAll(/\n/g, "<br>")
+    .replaceAll(`src="/upload/`, `src=https://www.acmicpc.net/upload/`);
+} else {
+  sampleInput = "";
+}
+if (document.querySelector("#sample-output-1")) {
+  var sampleOutput = document
+    .querySelector("#sample-output-1")
+    .innerHTML.replaceAll(/\n/g, "<br>")
+    .replaceAll(`src="/upload/`, `src=https://www.acmicpc.net/upload/`);
+} else {
+  sampleOutput = "";
+}
+const data = {
+  platform: "BAEKJOON",
   url, // 문제 링크
   num, // 번호
   title, // 제목
   time, // 시간제한
   memory, // 메모리제한
   difficulty, // 난이도
-  description: problemBody1, // 문제설명
+  description, // 문제설명 + 입력 + 출력 + (힌트)
   //
   sampleInput, // 입력예시 : 첫번째만 가져오게 설정
   sampleOutput, // 출력예시 : 첫번째만 가져오게 설정
-  categories, // 유형
+  // categories, // 유형
   // problemContent
 };
 
-console.log(problemData);
-
-const data = problemData;
-// window.localStorage.setItem("problemData", JSON.stringify(problemData));
-
-// 1. Send a message to the service worker requesting the user's data
-// chrome.runtime.sendMessage('get-user-data', (response) => {
-//   // 3. Got an asynchronous response with the data from the service worker
-//   console.log('received user data', response);
-//   initializeUI(response);
-// });
-// window.close();
+console.log(data);
 
 // 문제 데이터 수집 코드
-
-// 데이터 저장 axios
-const geturl = "http://127.0.0.1:8081/save-data/view";
-const posturl = "http://127.0.0.1:8081/save-data/save";
 
 fetch("http://127.0.0.1:8081/save-data/save/", {
   method: "POST",
