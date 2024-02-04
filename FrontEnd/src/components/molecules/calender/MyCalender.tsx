@@ -7,7 +7,10 @@ import styled from 'styled-components';
 import { colors } from '../../../config/Color';
 import { getCalenderSprint } from '../../../utils/api/mypage/sprint/mysprint';
 import CheckCard from '../card/basic/CheckCard';
-import { Body1 } from '../../atoms/basic/Typography';
+import { Body1, Caption1 } from '../../atoms/basic/Typography';
+import Calenderdata from './Calenderdata.json';
+import BasicButton from '../../atoms/button/BasicButton';
+import { Spacer } from '../../atoms/basic/Spacer';
 
 interface Data {
     title: string;
@@ -33,30 +36,11 @@ const StyledContainer = styled.div`
 `
 const MyCalender = () => {
     const [ currentMonth, setCurrentMonth ] = useState(new Date());
-    const [ selectedDate, setSelectedDate ] = useState(new Date());
+    const [ selectedDate, setSelectedDate ] = useState('');
     const [ isTodaySprintOpen, setIsTodaySprintOpen ] = useState(false);
-    const [ data, setData ] = useState<Data[]>([
-        {
-            title: "Random Title 1",
-            content: "Random Content 1",
-            hrefr: "https://example.com/1",
-            difficulty: 4,
-            platform: "BAEKJOON",
-            type: "SIMULATION",
-            no: 789,
-            createdAt: new Date("2024-02-01T22:38:48")
-          },
-          {
-            title: "Random Title 2",
-            content: "Random Content 2",
-            hrefr: "https://example.com/2",
-            difficulty: 4,
-            platform: "BAEKJOON",
-            type: "SIMULATION",
-            no: 809,
-            createdAt: new Date("2024-02-02T22:38:48")
-          }
-        ]);
+    const [ data, setData ] = useState<Data[]>([]);
+
+
         
     const prevMonth = () => {
         setCurrentMonth(subMonths(currentMonth, 1));
@@ -65,7 +49,8 @@ const MyCalender = () => {
         setCurrentMonth(addMonths(currentMonth, 1));
     };
     const onDateClick = (day: string) => {
-        console.log(day)
+        setSelectedDate(day)
+        setIsTodaySprintOpen(!isTodaySprintOpen)
     };
 
     const fetchData = async () => {
@@ -77,8 +62,18 @@ const MyCalender = () => {
     //     fetchData();
     //   }, [currentMonth]);
 
+    useEffect(() => {
+      setData(Calenderdata.map(item => ({
+          ...item,
+          createdAt: new Date(item.createdAt), // 문자열에서 Date로 변환
+      })));
+      console.log(data)
+  }, []);
+
+
     return (
         <div>
+            <Spacer space={'1vw'}></Spacer>
             { !isTodaySprintOpen && 
               <div>
                 <MyCalenderHeader  // 달력 month 설정
@@ -91,19 +86,28 @@ const MyCalender = () => {
                   <MyCalenderBody // 달력 cell -> 
                     currentMonth={currentMonth}
                     selectedDate={selectedDate}
+                    data = {data}
                     onDateClick={onDateClick}
                   />        
                 </StyledContainer> 
               </div>
             }
 
-            { !isTodaySprintOpen && 
+            { isTodaySprintOpen && 
             <div>
               <div style={ {display : 'flex', flexDirection : 'column', alignItems : 'center' }}>
-                <Body1 children={format(currentMonth,'yyyy.MM.dd')} color={colors.White} fontWeight={'bold'} fontStyle='Eagle Lake' ></Body1>
+                <Body1 children={selectedDate} color={colors.White} fontWeight={'bold'} fontStyle='Eagle Lake' ></Body1>
               </div>
               {data.map(data => 
-                data.type && <CheckCard {...data}/>) }
+                format(data.createdAt,'yyyy.MM.d') === selectedDate && <CheckCard {...data}/>) }
+                <Spacer space={'1vw'}></Spacer>
+                <BasicButton
+                  event={() => setIsTodaySprintOpen(!isTodaySprintOpen)}
+                  borderColor={'rgba(0, 0, 0, 0)'}
+                  deepColor={'rgba(255, 160, 160, 0.1)'}
+                  bgColor={'rgba(255, 220, 220, 0.1)'}
+                  children={<Caption1 children={'캘린더로 돌아가기'} color={colors.Gray[100]} />}
+                />
             </div> 
             }
         </div>
@@ -111,3 +115,4 @@ const MyCalender = () => {
 };
 
 export default MyCalender;
+// format(currentMonth,'yyyy.MM.dd')
