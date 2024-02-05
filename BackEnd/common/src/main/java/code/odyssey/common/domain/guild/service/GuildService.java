@@ -2,6 +2,8 @@ package code.odyssey.common.domain.guild.service;
 
 import code.odyssey.common.domain.guild.dto.GuildCreateRequest;
 import code.odyssey.common.domain.guild.dto.GuildInfo;
+import code.odyssey.common.domain.guild.dto.GuildSearchCond;
+import code.odyssey.common.domain.guild.dto.GuildSearchInfo;
 import code.odyssey.common.domain.guild.entity.Guild;
 import code.odyssey.common.domain.guild.entity.GuildMember;
 import code.odyssey.common.domain.guild.enums.GuildRole;
@@ -9,6 +11,7 @@ import code.odyssey.common.domain.guild.exception.GuildErrorCode;
 import code.odyssey.common.domain.guild.exception.GuildException;
 import code.odyssey.common.domain.guild.repository.GuildMemberRepository;
 import code.odyssey.common.domain.guild.repository.GuildRepository;
+import code.odyssey.common.domain.guild.repository.GuildSearchRepository;
 import code.odyssey.common.domain.member.entity.Member;
 import code.odyssey.common.domain.member.exception.MemberErrorCode;
 import code.odyssey.common.domain.member.exception.MemberException;
@@ -28,6 +31,7 @@ import static code.odyssey.common.domain.member.exception.MemberErrorCode.NOT_EX
 public class GuildService {
 
     private final GuildRepository guildRepository;
+    private final GuildSearchRepository guildSearchRepository;
     private final GuildMemberRepository guildMemberRepository;
     private final MemberRepository memberRepository;
 
@@ -69,6 +73,10 @@ public class GuildService {
                 .orElseThrow(() -> new MemberException(NOT_EXISTS_MEMBER));
 
         return guildMemberRepository.getGuildListOfMember(memberId);
+    }
+
+    public List<GuildSearchInfo> searchGuilds(GuildSearchCond cond, Long memberId) {
+        return guildSearchRepository.searchGuild(cond, memberId);
     }
 
 }
