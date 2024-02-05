@@ -1,22 +1,38 @@
+// 익스텐션 실행 상태
+var stat = false;
+chrome.runtime.sendMessage({ request: "getStatus" }, function (response) {
+  stat = response.stat;
+});
+// user id
+var userId = "";
+chrome.runtime.sendMessage({ request: "getUserId" }, function (response) {
+  userId = response.userId;
+});
+
 let loader;
 const currentUrl = window.location.href;
 // 로컬스토리지 만들어주기
-getObjectFromLocalStorage('swea').then((data) => {
+getObjectFromLocalStorage("swea").then((data) => {
   if (isNull(data)) {
     saveObjectInLocalStorage({ swea: {} });
   }
 });
 //문제 페이지 정답시 -> 업로드? 버튼 클릭 후-> 정답 페이지로 이동 플로우
-if (currentUrl.includes('/main/solvingProblem/solvingProblem.do') && document.querySelector('header > h1 > span').textContent === '모의 테스트') startLoader();
-else if (currentUrl.includes('/main/code/problem/problemSolver.do') && currentUrl.includes('extension=BaekjoonHub')) parseAndUpload();
-
+if (
+  currentUrl.includes("/main/solvingProblem/solvingProblem.do") &&
+  document.querySelector("header > h1 > span").textContent === "모의 테스트"
+)
+  startLoader();
+else if (
+  currentUrl.includes("/main/code/problem/problemSolver.do") &&
+  currentUrl.includes("extension=BaekjoonHub")
+)
+  parseAndUpload();
 
 function parseAndUpload() {
-  console.log('hi');
   (async () => {
-    console.log('check')
     const bojData = await parseData();
-    console.log(bojData)
+    console.log(bojData);
   })();
 }
 
@@ -25,9 +41,9 @@ function startLoader() {
   loader = setInterval(async () => {
     // 제출 후 채점하기 결과가 성공적으로 나왔다면 코드를 파싱하고,
     // 결과 페이지로 안내한다.
-    
-    if (getSolvedResult().includes('pass입니다')) {
-      console.log('정답이 나왔습니다. 코드를 파싱합니다');
+
+    if (getSolvedResult().includes("pass입니다")) {
+      console.log("정답이 나왔습니다. 코드를 파싱합니다");
       stopLoader();
       try {
         const { contestProbId } = await parseCode();
@@ -46,11 +62,20 @@ function startLoader() {
 }
 
 function getNickname() {
-  return document.querySelector('#Beginner')?.innerText || document.querySelector('header > div > span.name')?.innerText || '';
+  return (
+    document.querySelector("#Beginner")?.innerText ||
+    document.querySelector("header > div > span.name")?.innerText ||
+    ""
+  );
 }
 
 function getSolvedResult() {
-  return document.querySelector('div.popup_layer.show > div > p.txt')?.innerText.trim().toLowerCase() || '';
+  return (
+    document
+      .querySelector("div.popup_layer.show > div > p.txt")
+      ?.innerText.trim()
+      .toLowerCase() || ""
+  );
 }
 
 function stopLoader() {
@@ -58,12 +83,38 @@ function stopLoader() {
 }
 
 async function parseCode() {
-  const problemId = document.querySelector('div.problem_box > h3').innerText.replace(/\..*$/, '').trim();
-  const contestProbId = [...document.querySelectorAll('#contestProbId')].slice(-1)[0].value;
+  var problemId = document
+    .querySelector("div.problem_box > h3")
+    .innerText.replace(/\..*$/, "")
+    .trim();
+  const contestProbId = [...document.querySelectorAll("#contestProbId")].slice(
+    -1
+  )[0].value;
   updateTextSourceEvent();
-  const code = document.querySelector('#textSource').value;
-  // 크롬 로컬 스토리지에 '코드' 저장하기 
-  await updateProblemData(problemId, { code, contestProbId });
+
+  var childs = document.querySelector(
+    "#collapseTwo > div > div.code_wrap2 > div > div > div.CodeMirror-scroll > div.CodeMirror-sizer > div > div > div > div.CodeMirror-code"
+  ).children;
+  var codes = [];
+  for (let i = 0; i < childs.length; i++) {
+    let temp = {};
+    if (i < 9) {
+      temp[i + 1] = childs[i].textContent.substring(1);
+      codes.push(temp);
+    } else if (9 <= i && i < 99) {
+      temp[i + 1] = childs[i].textContent.substring(2);
+      codes.push(temp);
+    } else if (99 <= i && i < 999) {
+      temp[i + 1] = childs[i].textContent.substring(3);
+      codes.push(temp);
+    } else if (999 <= i) {
+      temp[i + 1] = childs[i].textContent.substring(4);
+      codes.push(temp);
+    }
+  }
+  console.log(codes);
+  await updateProblemData(problemId, { codes, contestProbId });
+  codes = [];
   return { problemId, contestProbId };
 }
 
@@ -73,8 +124,8 @@ async function parseCode() {
  * @param {object} obj 저장할 추가 내용
  */
 async function updateProblemData(problemId, obj) {
-  return getObjectFromLocalStorage('swea').then((data) => {
-    console.log(data)
+  return getObjectFromLocalStorage("swea").then((data) => {
+    console.log(data);
     if (isNull(data[problemId])) data[problemId] = {};
     data[problemId] = { ...data[problemId], ...obj, save_date: Date.now() };
 
@@ -96,144 +147,166 @@ async function updateProblemData(problemId, obj) {
   });
 }
 
-
 function updateTextSourceEvent() {
-  document.documentElement.setAttribute('onreset', 'cEditor.save();');
-  document.documentElement.dispatchEvent(new CustomEvent('reset'));
-  document.documentElement.removeAttribute('onreset');
+  document.documentElement.setAttribute("onreset", "cEditor.save();");
+  document.documentElement.dispatchEvent(new CustomEvent("reset"));
+  document.documentElement.removeAttribute("onreset");
 }
 
 // 업로드 버튼 만들기 .. 누르면 정답페이지로 이동 ( 데이터 받아오기 위해서)
 function makeSubmitButton(link) {
-  let elem = document.getElementById('BaekjoonHub_submit_button_element');
+  let elem = document.getElementById("BaekjoonHub_submit_button_element");
   if (elem === null) {
-    elem = document.createElement('a');
-    elem.id = 'BaekjoonHub_submit_button_element';
-    elem.className = 'btn_grey3 md btn';
-    elem.style.cursor = 'pointer'; // 수정된 부분
+    elem = document.createElement("a");
+    elem.id = "BaekjoonHub_submit_button_element";
+    elem.className = "btn_grey3 md btn";
+    elem.style.cursor = "pointer"; // 수정된 부분
     elem.href = link;
-    elem.innerHTML = '업로드?';
+    elem.innerHTML = "업로드";
 
-    const target = document.querySelector('body > div.popup_layer.show > div > div');
+    const target = document.querySelector(
+      "body > div.popup_layer.show > div > div"
+    );
     if (target !== null) {
       target.appendChild(elem);
     }
   }
 }
 
-
-
-
-
 function isNull(value) {
   return value === null || value === undefined;
 }
 
-
 async function parseData() {
-  const nickname = document.querySelector('#searchinput').value;
+  const nickname = document.querySelector("#searchinput").value;
 
   if (getNickname() !== nickname) return;
-  if (isNull(document.querySelector('#problemForm div.info'))) return;
+  if (isNull(document.querySelector("#problemForm div.info"))) return;
 
-  console.log('결과 데이터 파싱 시작');
+  console.log("결과 데이터 파싱 시작");
 
-  const title = document
-    .querySelector('div.problem_box > p.problem_title')
-    .innerText.replace(/ D[0-9]$/, '')
-    .replace(/^[^.]*/, '')
-    .substr(1)
-    .trim();
-  // 레벨
-  const level = document.querySelector('div.problem_box > p.problem_title > span.badge')?.textContent || 'Unrated';
   // 문제번호
-  const problemId = document.querySelector('body > div.container > div.container.sub > div > div.problem_box > p').innerText.split('.')[0].trim();
-  // 문제 콘테스트 인덱스
-  const contestProbId = [...document.querySelectorAll('#contestProbId')].slice(-1)[0].value;
-  // 문제 링크
-  const link = `${window.location.origin}/main/code/problem/problemDetail.do?contestProbId=${contestProbId}`;
+  const problemId = document
+    .querySelector(
+      "body > div.container > div.container.sub > div > div.problem_box > p"
+    )
+    .innerText.split(".")[0]
+    .trim();
 
   // 문제 언어, 메모리, 시간소요
-  const language = document.querySelector('#problemForm div.info > ul > li:nth-child(1) > span:nth-child(1)').textContent.trim();
-  const memory = document.querySelector('#problemForm div.info > ul > li:nth-child(2) > span:nth-child(1)').textContent.trim().toUpperCase();
-  const runtime = document.querySelector('#problemForm div.info > ul > li:nth-child(3) > span:nth-child(1)').textContent.trim();
-  const length = document.querySelector('#problemForm div.info > ul > li:nth-child(4) > span:nth-child(1)').textContent.trim();
+  var language = document
+    .querySelector(
+      "#problemForm div.info > ul > li:nth-child(1) > span:nth-child(1)"
+    )
+    .textContent.trim();
+  var memory = document
+    .querySelector(
+      "#problemForm div.info > ul > li:nth-child(2) > span:nth-child(1)"
+    )
+    .textContent.trim()
+    .toUpperCase()
+    .split(" ")[0]
+    .replaceAll(",", "");
+  var runtime = document
+    .querySelector(
+      "#problemForm div.info > ul > li:nth-child(3) > span:nth-child(1)"
+    )
+    .textContent.trim()
+    .split(" ")[0]
+    .replaceAll(",", "");
   const languages = {
-    'c': 'c',
-    'c++': 'cpp',
-    'python': 'py',
-    'java': 'java'
+    "C++": "Cpp",
+    Python: "Python",
+    JAVA: "Java",
   };
-  // 확장자명
-  const extension = languages[language.toLowerCase()];
-  // 제출날짜
-  const submissionTime = document.querySelector('.smt_txt > dd').textContent.match(/\d{4}-\d{2}-\d{2} \d{2}:\d{2}/g)[0];
-  // eslint-disable-next-line consistent-return
   const data = await getProblemData(problemId);
-  if (isNull(data?.code)) {
-    console.error('소스코드 데이터가 없습니다.');
+  if (isNull(data?.codes)) {
+    console.error("소스코드 데이터가 없습니다.");
     return;
   }
-  const code = data.code;
-  return makeData({ link, problemId, level, title, extension, code, runtime, memory, length,submissionTime });
+  const code = data.codes;
+  return makeData({
+    language,
+    languages,
+    problemId,
+    code,
+    runtime,
+    memory,
+  });
 }
 
 async function makeData(origin) {
-  const { link, problemId, level, extension, title, runtime, memory, code, length,submissionTime } = origin;
-  const directory = `SWEA/${level}/${problemId}. ${convertSingleCharToDoubleChar(title)}`;
-  const message = `[${level}] Title: ${title}, Time: ${runtime}, Memory: ${memory} -BaekjoonHub`;
-  const fileName = `${convertSingleCharToDoubleChar(title)}.${extension}`;
-  const dateInfo = submissionTime ?? getDateString(new Date(Date.now()));
-  // prettier-ignore
-  const readme =
-    `# [${level}] ${title} - ${problemId} \n\n`
-    + `[문제 링크](${link}) \n\n`
-    + `### 성능 요약\n\n`
-    + `메모리: ${memory}, `
-    + `시간: ${runtime}, `
-    + `코드길이: ${length} Bytes\n\n`
-    + `### 제출 일자\n\n`
-    + `${dateInfo}\n\n`
-    + `\n\n`
-    + `> 출처: SW Expert Academy, https://swexpertacademy.com/main/code/problem/problemList.do`;
-  return { problemId, directory, message, fileName, readme, code };
+  const { problemId, language, languages, runtime, memory, code } = origin;
+
+  const data = {
+    userId: "username",
+    platform: "SWEA",
+    no: problemId,
+    code: code,
+    memory: memory,
+    time: runtime,
+    language: languages[language],
+  };
+
+  if (stat) {
+    // 제출 API
+
+    fetch("http://127.0.0.1:8081/save-data/test/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        if (response.ok) {
+          console.log("데이터를 성공적으로 서버로 보냈습니다.");
+        } else {
+          console.error("서버로 데이터를 보내는 중 오류가 발생했습니다.");
+        }
+      })
+      .catch((error) => {
+        console.error("서버로 데이터를 보내는 중 오류가 발생했습니다.", error);
+      });
+  } else if (!stat) {
+    console.log("extension off");
+  }
+
+  return { data };
 }
-
-
-
 
 function convertSingleCharToDoubleChar(text) {
   // singleChar to doubleChar mapping
   const map = {
-    '!': '！',
-    '%': '％',
-    '&': '＆',
-    '(': '（',
-    ')': '）',
-    '*': '＊',
-    '+': '＋',
-    ',': '，',
-    '-': '－',
-    '.': '．',
-    '/': '／',
-    ':': '：',
-    ';': '；',
-    '<': '＜',
-    '=': '＝',
-    '>': '＞',
-    '?': '？',
-    '@': '＠',
-    '[': '［',
-    '\\': '＼',
-    ']': '］',
-    '^': '＾',
-    _: '＿',
-    '`': '｀',
-    '{': '｛',
-    '|': '｜',
-    '}': '｝',
-    '~': '～',
-    ' ': ' ', // 공백만 전각문자가 아닌 FOUR-PER-EM SPACE로 변환
+    "!": "！",
+    "%": "％",
+    "&": "＆",
+    "(": "（",
+    ")": "）",
+    "*": "＊",
+    "+": "＋",
+    ",": "，",
+    "-": "－",
+    ".": "．",
+    "/": "／",
+    ":": "：",
+    ";": "；",
+    "<": "＜",
+    "=": "＝",
+    ">": "＞",
+    "?": "？",
+    "@": "＠",
+    "[": "［",
+    "\\": "＼",
+    "]": "］",
+    "^": "＾",
+    _: "＿",
+    "`": "｀",
+    "{": "｛",
+    "|": "｜",
+    "}": "｝",
+    "~": "～",
+    " ": " ", // 공백만 전각문자가 아닌 FOUR-PER-EM SPACE로 변환
   };
   return text.replace(/[!%&()*+,\-./:;<=>?@\[\\\]^_`{|}~ ]/g, function (m) {
     return map[m];
@@ -241,7 +314,6 @@ function convertSingleCharToDoubleChar(text) {
 }
 
 //////////////////////////////
-
 
 async function saveObjectInLocalStorage(obj) {
   return new Promise((resolve, reject) => {
@@ -255,15 +327,13 @@ async function saveObjectInLocalStorage(obj) {
   });
 }
 
-
-
 /**
  * 문제 내 데이터를 가져옵니다.
  * @param {string} problemId 문제 번호
  * @returns {object} 문제 내 데이터
  */
 async function getProblemData(problemId) {
-  return getObjectFromLocalStorage('swea').then((data) => data[problemId]);
+  return getObjectFromLocalStorage("swea").then((data) => data[problemId]);
 }
 
 async function getObjectFromLocalStorage(key) {

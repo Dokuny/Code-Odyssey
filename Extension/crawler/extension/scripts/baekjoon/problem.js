@@ -131,6 +131,7 @@ for (let i = 0; i < descriptionContent.children.length; i++) {
 }
 
 let description = descriptionContent.innerHTML;
+console.log(description);
 const input = document.querySelector("#problem_input").innerHTML;
 const output = document.querySelector("#problem_output").innerHTML;
 

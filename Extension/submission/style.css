@@ -1,44 +1,80 @@
-.extesion_main {
-  width: 300px;
-  heigh: 300px;
-}
-
-#onffbox {
-  appearance: none;
-}
-
-#onffmain {
-  position: relative;
-  display: inline-block;
+label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   cursor: pointer;
-  width: 55px;
-  height: 25px;
-  border: 0px solid #ff8585;
-  border-radius: 20px;
-  transition: 0.2s;
-  background: #ff8585;
+}
+[type="checkbox"] {
+  appearance: none;
+  position: relative;
+  border: max(2px, 0.1em) solid gray;
+  border-radius: 1.25em;
+  width: 2.25em;
+  height: 1.25em;
 }
 
-#onffball {
+[type="checkbox"]::before {
+  content: "";
   position: absolute;
-  display: inline-block;
-  width: 21px;
-  height: 21px;
-  top: 2px;
-  left: 4px;
-  border: 0px solid #ff3737;
-  border-radius: 20px;
-  transition: 0.2s;
-  background: #ff3737;
+  left: 0;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  transform: scale(0.8);
+  background-color: gray;
+  transition: left 250ms linear;
 }
 
-#onffbox:checked + #onffmain {
-  border: 0px solid #8faadc;
-  background: #8faadc;
+[type="checkbox"]:checked {
+  background-color: green;
+  border-color: green;
 }
 
-#onffbox:checked + #onffmain #onffball {
-  left: 30px;
-  border: 0px solid #2f5496;
-  background: #2f5496;
+[type="checkbox"]:checked::before {
+  background-color: white;
+  left: 1em;
+}
+
+[type="checkbox"]:disabled {
+  border-color: lightgray;
+  opacity: 0.7;
+}
+
+[type="checkbox"]:disabled:before {
+  background-color: lightgray;
+}
+
+[type="checkbox"]:disabled + span {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+[type="checkbox"]:focus-visible {
+  outline-offset: max(2px, 0.1em);
+  outline: max(2px, 0.1em) solid tomato;
+}
+
+[type="checkbox"]:enabled:hover {
+  box-shadow: 0 0 0 max(4px, 0.2em) lightgray;
+}
+
+/* Global CSS */
+body {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+fieldset {
+  border: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
