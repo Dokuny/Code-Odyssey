@@ -14,4 +14,14 @@ class ProblemData(models.Model):
     outputSample = models.TextField(blank=True,null=True)
     category = models.TextField(blank=True,null=True)
     
-    
+
+class User(models.Model):
+    username = models.TextField()
+
+
+class UserCode(models.Model):
+    platform  = models.TextField();
+    no = models.IntegerField()
+    code = models.TextField()
+    time = models.TextField()
+    memory = models.TextField()

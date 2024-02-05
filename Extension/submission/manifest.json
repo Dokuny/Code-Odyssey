@@ -4,24 +4,27 @@
   "version": "1.0",
   "description": "Code Odessey 문제 제출용 익스텐션",
   "icons": {
-    "16": "thumbnail.png"
+    "16": "submission.png"
   },
   "action": {
     "default_popup": "popup.html",
-    "default_icon": "thumbnail.png"
+    "default_icon": "submission.png"
   },
-  "permissions": ["unlimitedStorage", "storage"],
+  "permissions": ["unlimitedStorage", "storage", "tabs"],
   "host_permissions": [
     "https://school.programmers.co.kr/",
     "https://swexpertacademy.com/",
     "https://www.acmicpc.net/",
     "https://solved.ac/api/v3/*"
   ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
   "content_scripts": [
     {
-      "matches": ["https://school.programmers.co.kr/*"],
-      "js": ["scripts/programmers.js"],
-      "run_at": "document_idle"
+      "matches": ["https://www.acmicpc.net/status?*from_mine*"],
+      "js": ["scripts/baekjoon/solved.js"]
     },
     {
       "matches": ["https://swexpertacademy.com/*"],
@@ -29,16 +32,12 @@
       "run_at": "document_idle"
     },
     {
-      "matches": ["https://www.acmicpc.net/status?*from_mine*"],
-      "js": ["scripts/baekjoon/solved.js"]
-    },
-    {
-      "matches": ["https://www.acmicpc.net/problem/*"],
-      "js": ["scripts/baekjoon/problem.js"]
-    },
-    {
       "matches": ["https://www.acmicpc.net/submit/*"],
       "js": ["scripts/baekjoon/submit.js"]
+    },
+    {
+      "matches": ["http://localhost:3000/main"],
+      "js": ["scripts/user.js"]
     }
   ]
 }
