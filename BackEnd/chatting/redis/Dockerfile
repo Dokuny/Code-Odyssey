@@ -1,3 +1,7 @@
-FROM redis:6
+FROM redis:latest
 
-ENV TZ=Asia/Seoul
+# Set a password for Redis
+ENV REDIS_PASSWORD example
+
+# Expose the default Redis port
+EXPOSE 6379
