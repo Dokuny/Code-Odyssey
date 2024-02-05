@@ -1,12 +1,11 @@
-package code.odyssey.service;
+package code.odyssey.chat.service;
 
-import code.odyssey.dto.ChatMessage;
-import code.odyssey.entity.Chat;
-import code.odyssey.repository.ChatRepository;
+import code.odyssey.chat.dto.ChatMessage;
+import code.odyssey.chat.entity.Chat;
+import code.odyssey.chat.repository.ChatRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.TopicExchange;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +37,7 @@ public class ChatService {
         rabbitTemplate.convertAndSend(topicExchange.getName(),
                 "room."+ guildId,
                 chat);  // exchange 이름, routing-key, 전송하고자 하는 것
+        // amq.topic/room.{guildId} 를 구독한 클라이언트에게 메세지 전송
 
         // DB에 저장
         chatRepository.save(chat);
@@ -45,16 +45,11 @@ public class ChatService {
     }
 
     public List<Chat> getMessages(Long guildId) {
-        List<Chat> chat = chatRepository.findByChatRoomId(guildId);
-        return chat;
+        return chatRepository.findByChatRoomId(guildId);
     }
 
     public void deleteMessages(Long guildId) {
         chatRepository.deleteAllByChatRoomId(guildId);
     }
 
-//    @RabbitListener(queues = "${rabbitmq.queue.name}")
-//    public void receiveMessage(Chat chat) {
-//        log.info("Received Message : {}", chat.toString());
-//    }
 }

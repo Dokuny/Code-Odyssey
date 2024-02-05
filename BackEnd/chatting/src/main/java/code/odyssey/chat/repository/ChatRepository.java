@@ -1,6 +1,6 @@
-package code.odyssey.repository;
+package code.odyssey.chat.repository;
 
-import code.odyssey.entity.Chat;
+import code.odyssey.chat.entity.Chat;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
