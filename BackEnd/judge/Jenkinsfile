@@ -99,7 +99,7 @@ pipeline {
                             configName: "JUDGE_SERVER",
                             verbose: true,
                             transfers: [
-                                sshTransfer(execCommand: "sudo docker pull " + repository +":Judge_Server_{BUILD_NUMBER}"),
+                                sshTransfer(execCommand: "sudo docker pull " + repository +":Judge_Server_${BUILD_NUMBER}"),
                                 sshTransfer(execCommand: "sudo docker run -d -p 8761:8761 --name judge " + repository + ":Judge_Server_${BUILD_NUMBER}")
                             ]
                         )
