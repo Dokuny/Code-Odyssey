@@ -29,7 +29,7 @@ spring:
         - id: common-service
           uri: http://158.180.80.211:8080
           predicates:
-            - Path=/test
+            - Path=/**
           filters:
             - AuthorizationHeaderFilter
       default-filters:
