@@ -11,10 +11,7 @@ import static code.odyssey.common.domain.guildSprint.exception.GuildSprintErrorC
 
 import code.odyssey.common.domain.guild.entity.GuildMember;
 import code.odyssey.common.domain.guild.repository.GuildMemberRepository;
-import code.odyssey.common.domain.guildSprint.dto.EndGuildSprintInfo;
-import code.odyssey.common.domain.guildSprint.dto.GuildSprintCreateRequest;
-import code.odyssey.common.domain.guildSprint.dto.RetrospectGuildProblemInfo;
-import code.odyssey.common.domain.guildSprint.dto.WaitingGuildSprintInfo;
+import code.odyssey.common.domain.guildSprint.dto.*;
 import code.odyssey.common.domain.guildSprint.entity.GuildSprint;
 import code.odyssey.common.domain.guildSprint.exception.GuildSprintException;
 import code.odyssey.common.domain.guildSprint.repository.GuildSprintRepository;
@@ -104,8 +101,9 @@ public class GuildSprintService {
 		return guildSprintRepository.findEndedGuildSprintInfo(guildId);
 	}
 
-	public RetrospectGuildProblemInfo getRetrospectiveGuildProblemInfo(Long guildProblemId) {
-		return guildSprintRepository.findRetrospectiveGuildProblemInfo(guildProblemId);
+	@Transactional(readOnly = true)
+	public InProgressGuildSprintInfo getInProgressGuildSprintInfo(Long guildId) {
+		return guildSprintRepository.findInProgressGuildSprint(guildId);
 	}
 
 }
