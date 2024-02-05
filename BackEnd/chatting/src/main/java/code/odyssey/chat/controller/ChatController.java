@@ -1,8 +1,8 @@
-package code.odyssey.controller;
+package code.odyssey.chat.controller;
 
-import code.odyssey.dto.ChatMessage;
-import code.odyssey.entity.Chat;
-import code.odyssey.service.ChatService;
+import code.odyssey.chat.dto.ChatMessage;
+import code.odyssey.chat.entity.Chat;
+import code.odyssey.chat.service.ChatService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

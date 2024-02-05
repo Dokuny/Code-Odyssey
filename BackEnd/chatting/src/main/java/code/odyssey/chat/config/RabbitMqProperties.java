@@ -1,4 +1,4 @@
-package code.odyssey.config;
+package code.odyssey.chat.config;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

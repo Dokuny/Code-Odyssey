@@ -1,4 +1,4 @@
-package code.odyssey.dto;
+package code.odyssey.chat.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
