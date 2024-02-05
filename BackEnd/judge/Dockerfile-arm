@@ -1,0 +1,25 @@
+FROM arm32v7/ubuntu:20.04
+
+# 패키지 업데이트 및 필요한 패키지 설치
+RUN apt-get update && \
+    apt-get install -y wget gcc g++ python3 python
+
+# OpenJDK 17 다운로드 및 설치
+RUN wget https://download.java.net/java/GA/jdk17/0d483333a00540d886896bac774ff48b/35/GPL/openjdk-17_linux-arm32_bin.tar.gz -O /tmp/openjdk-17_linux-arm32_bin.tar.gz && \
+    mkdir -p /usr/lib/jvm && \
+    tar -xzvf /tmp/openjdk-17_linux-arm32_bin.tar.gz -C /usr/lib/jvm && \
+    update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk-17/bin/java 1 && \
+    update-alternatives --set java /usr/lib/jvm/jdk-17/bin/java && \
+    rm /tmp/openjdk-17_linux-arm32_bin.tar.gz
+
+# 환경 변수 설정
+ENV PATH=$PATH:/usr/lib/jvm/jdk-17/bin
+
+# JAR 파일 복사
+ARG JAR_FILE=./build/libs/*.jar
+COPY ${JAR_FILE} /app/app.jar
+# 포트 노출 (도큐먼트 목적)
+EXPOSE 8080
+
+# 애플리케이션 실행
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]

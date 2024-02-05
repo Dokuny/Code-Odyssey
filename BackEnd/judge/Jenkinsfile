@@ -17,17 +17,20 @@ pipeline {
             }
         }
 
-        stage('Build Gateway-Server .JAR') {
+        stage('Build Judge-Server .JAR') {
             steps {
                 script {
                     // 변경된 브랜치와 머지 대상 브랜치 출력
                     // 현재 빌드 중인 브랜치명 확인
                     def currentBranch = env.BRANCH_NAME
-                    echo "Merge Target Branch: \${CHANGE_TARGET}"
+                    echo "Merge Target Branch : \${CHANGE_TARGET}"
                     echo "Current Branch: \${currentBranch}"
 
-                    echo "common server 입니다."
-                    // gradlew 빌드
+                    echo "Judge server 입니다."
+                    sh 'pwd'
+                    sh 'ls -al'
+                    //gradlew 빌드
+                    sh 'java --version'
                     sh 'chmod +x ./BackEnd/judge/gradlew'
                     sh '''
                         cd ./BackEnd/judge
@@ -37,49 +40,48 @@ pipeline {
             }
         }
 
-        stage('Build Gateway Image') {
-            steps {
-                script {
-                    sh "docker-compose -f ${composeFile} build ${repository}:judge_${BUILD_NUMBER} ")
-                    sh "docker images "
+        stage('Build Judge-Server Image'){
+            steps{
+                script{
+                    dockerImage = docker.build("${repository}:Judge_Server_${BUILD_NUMBER}", "-f BackEnd/judge/Dockerfile ./BackEnd/judge")
                 }
             }
         }
 
-        stage('DockerHub Login') {
-            steps {
-                script {
+        stage('DockerHub Login'){
+            steps{
+                script{
                     sh "echo \${DOCKERHUB_CREDENTIALS_PSW} | docker login -u \${DOCKERHUB_CREDENTIALS_USR} --password-stdin"
                 }
             }
         }
 
-        stage('Push Gateway Image to DockerHub') {
+        stage('Push Judge-Server Image to DockerHub'){
             steps {
                 script {
-                    sh "docker push \${repository}:judge_\${BUILD_NUMBER}"
+                    sh "docker push \${repository}:Judge_Server_\${BUILD_NUMBER}"
                 }
             }
         }
 
-        stage('Clean Gateway Image') {
-            steps {
-                script {
-                    sh "docker rmi \${repository}:judge_\${BUILD_NUMBER}"
+        stage('Clean Judge-Server Image'){
+            steps{
+                script{
+                    sh "docker rmi \${repository}:Judge_Server_\${BUILD_NUMBER}"
                 }
             }
         }
 
-        stage("Garbage Collect TESTS ERV") {
+        stage("Garbage Collect TESTSERV") {
             steps {
                 sshPublisher(
                     continueOnError: true, failOnError: false,
                     publishers: [
                         sshPublisherDesc(
-                            configName: "EC2_1",
+                            configName: "JUDGE_SERVER",
                             verbose: true,
                             transfers: [
-                                sshTransfer(execCommand: "sudo docker kill \$(docker ps | grep chatting | tr ' ' '\t' | cut -f1)"),
+                                sshTransfer(execCommand: "sudo docker kill \$(docker ps | grep Judge | tr ' ' '\t' | cut -f1)"),
                                 sshTransfer(execCommand: "sudo docker system prune -af")
                             ]
                         )
@@ -88,22 +90,24 @@ pipeline {
             }
         }
 
-        stage("Deploy") {
-            steps {
+        stage("Deploy"){
+            steps{
                 sshPublisher(
                     continueOnError: false, failOnError: true,
                     publishers: [
                         sshPublisherDesc(
-                            configName: "EC2_1",
+                            configName: "JUDGE_SERVER",
                             verbose: true,
                             transfers: [
-                                sshTransfer(execCommand: "sudo docker pull " + repository + ":judge_$BUILD_NUMBER"),
-                                sshTransfer(execCommand: "sudo docker run -d -p 8888:8888 --name judge  " + repository + ":judge_${BUILD_NUMBER}")
+                                sshTransfer(execCommand: "sudo docker pull " + repository +":Judge_Server_{BUILD_NUMBER}"),
+                                sshTransfer(execCommand: "sudo docker run -d -p 8761:8761 --name judge " + repository + ":Judge_Server_${BUILD_NUMBER}")
                             ]
                         )
                     ]
                 )
             }
         }
+
+
     }
 }
