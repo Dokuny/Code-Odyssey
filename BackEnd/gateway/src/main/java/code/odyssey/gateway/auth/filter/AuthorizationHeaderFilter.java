@@ -31,6 +31,7 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
 
     @Override
     public GatewayFilter apply(Config config) {
+        log.info("key, {}", jwtKey);
         return (exchange, chain) -> {
 
             try {
