@@ -10,6 +10,10 @@ import code.odyssey.common.domain.member.dto.dto.Tokens;
 import code.odyssey.common.domain.member.entity.Member;
 import code.odyssey.common.domain.member.exception.MemberException;
 import code.odyssey.common.domain.member.repository.MemberRepository;
+import code.odyssey.common.domain.score.entity.Score;
+import code.odyssey.common.domain.score.entity.ScoreType;
+import code.odyssey.common.domain.score.repository.ScoreRepository;
+import code.odyssey.common.domain.score.repository.ScoreTypeRepository;
 import code.odyssey.common.global.jwt.JwtTokenProvider;
 import code.odyssey.common.global.jwt.RefreshTokenRepository;
 import code.odyssey.common.global.jwt.exception.JwtErrorCode;
@@ -33,6 +37,8 @@ public class OAuthService {
 	private final MemberRepository memberRepository;
 	private final JwtTokenProvider jwtTokenProvider;
 	private final RefreshTokenRepository refreshTokenRepository;
+	private final ScoreTypeRepository scoreTypeRepository;
+	private final ScoreRepository scoreRepository;
 
 	@Transactional(readOnly = true)
 	public String provideAuthCodeRequestUrl(OAuthProvider oAuthProvider) {
@@ -56,7 +62,12 @@ public class OAuthService {
 		Member oauthMember = oAuthMemberClient.fetch(oAuthProvider, authCode);
 
 		Member member = memberRepository.findByoAuth(oauthMember.getOAuth())
-			.orElseGet(() -> memberRepository.save(oauthMember));
+			.orElseGet(() -> {
+				Member newMember = memberRepository.save(oauthMember);
+				scoreRepository.save(Score.createScore(newMember));
+				scoreTypeRepository.save(ScoreType.createScoreType(newMember));
+				return newMember;
+			});
 
 		String accessToken = jwtTokenProvider.issueAccessToken(member.getId());
 		String refreshToken = jwtTokenProvider.issueRefreshToken();

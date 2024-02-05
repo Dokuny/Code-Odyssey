@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@fontsource/material-icons": "^5.0.11",
+    "@monaco-editor/react": "^4.6.0",
     "@nivo/calendar": "^0.84.0",
     "@nivo/core": "^0.84.0",
     "@nivo/line": "^0.84.0",
@@ -22,6 +23,9 @@
     "date-fns": "^3.3.1",
     "firebase": "^10.8.0",
     "luxon": "^3.4.4",
+    "monaco-editor": "^0.45.0",
+    "monaco-themes": "^0.4.4",
+    "openvidu-browser": "^2.29.1",
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",
     "react-bootstrap": "^2.10.0",

@@ -7,6 +7,7 @@ import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.security.SignatureException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -18,6 +19,9 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 @Component
 public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<AuthorizationHeaderFilter.Config> {
 
+    @Value("${jwt.access-key}")
+    private String jwtKey;
+
     @Autowired
     private JwtUtils jwtUtils;
 
@@ -27,6 +31,7 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
 
     @Override
     public GatewayFilter apply(Config config) {
+        log.info("key, {}", jwtKey);
         return (exchange, chain) -> {
 
             try {
@@ -47,6 +52,7 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
     }
 
     private void addAuthorizationHeaders(ServerHttpRequest request, String userId) {
+        log.info("key, {}", jwtKey);
         request.mutate()
                 .header("X-Authorization-Id", userId)
                 .build();

@@ -12,28 +12,24 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @RequiredArgsConstructor
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
-	@Value("${front.url}")
-	private String frontUrl;
-	@Override
-	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**")
-				.allowedOrigins(frontUrl)
-				.allowedMethods(
-						HttpMethod.GET.name(),
-						HttpMethod.POST.name(),
-						HttpMethod.PATCH.name(),
-						HttpMethod.PUT.name(),
-						HttpMethod.DELETE.name()
-				)
-				.allowedHeaders("*")
-				.allowCredentials(true)
-				.exposedHeaders("*");
-	}
+    @Value("${front.url}")
+    private String frontUrl;
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOriginPatterns("*")
+                .allowedMethods("*")
+                .allowedHeaders("*")
+                .allowCredentials(true)
+                .maxAge(3600);
 
-	@Override
-	public void addFormatters(FormatterRegistry registry) {
-		registry.addConverter(new OAuthDomainConverter());
-	}
+    }
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(new OAuthDomainConverter());
+    }
 
 
 }
+

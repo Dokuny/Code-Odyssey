@@ -7,6 +7,7 @@ import static code.odyssey.common.domain.guildSprint.exception.GuildSprintErrorC
 
 import code.odyssey.common.domain.guild.repository.GuildMemberRepository;
 import code.odyssey.common.domain.guildSprint.dto.GuildProblemEditRequest;
+import code.odyssey.common.domain.guildSprint.dto.InProgressGuildProblemMemberInfo;
 import code.odyssey.common.domain.guildSprint.dto.RetrospectGuildProblemInfo;
 import code.odyssey.common.domain.guildSprint.entity.GuildProblem;
 import code.odyssey.common.domain.guildSprint.entity.GuildSprint;
@@ -17,6 +18,8 @@ import code.odyssey.common.domain.problem.repository.ProblemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Transactional
@@ -57,4 +60,9 @@ public class GuildProblemService {
 		return guildSprintRepository.findRetrospectiveGuildProblemInfo(guildProblemId);
 	}
 
+
+	public List<InProgressGuildProblemMemberInfo> getSolvedGuildMembers(Long guildProblemId) {
+		// 문제 풀었는지 확인
+		return guildSprintRepository.findInProgressGuildProblemInfo(guildProblemId);
+	}
 }

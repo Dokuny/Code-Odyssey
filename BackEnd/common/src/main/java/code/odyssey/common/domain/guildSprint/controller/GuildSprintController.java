@@ -2,6 +2,7 @@ package code.odyssey.common.domain.guildSprint.controller;
 
 import code.odyssey.common.domain.guildSprint.dto.EndGuildSprintInfo;
 import code.odyssey.common.domain.guildSprint.dto.GuildSprintCreateRequest;
+import code.odyssey.common.domain.guildSprint.dto.InProgressGuildSprintInfo;
 import code.odyssey.common.domain.guildSprint.dto.WaitingGuildSprintInfo;
 import code.odyssey.common.domain.guildSprint.service.GuildSprintService;
 import jakarta.validation.Valid;
@@ -66,5 +67,13 @@ public class GuildSprintController {
 		@PathVariable("guildId") Long guildId
 	) {
 		return ResponseEntity.ok(guildSprintService.getEndedGuildSprintInfo(guildId));
+	}
+
+
+	@GetMapping("/in-progress")
+	public ResponseEntity<InProgressGuildSprintInfo> getInProgressGuildSprintInfo(
+			@PathVariable("guildId") Long guildId
+	) {
+		return ResponseEntity.ok(guildSprintService.getInProgressGuildSprintInfo(guildId));
 	}
 }

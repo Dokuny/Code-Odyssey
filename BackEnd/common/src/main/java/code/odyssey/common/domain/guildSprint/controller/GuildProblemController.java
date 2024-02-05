@@ -1,6 +1,7 @@
 package code.odyssey.common.domain.guildSprint.controller;
 
 import code.odyssey.common.domain.guildSprint.dto.GuildProblemEditRequest;
+import code.odyssey.common.domain.guildSprint.dto.InProgressGuildProblemMemberInfo;
 import code.odyssey.common.domain.guildSprint.dto.RetrospectGuildProblemInfo;
 import code.odyssey.common.domain.guildSprint.service.GuildProblemService;
 import jakarta.validation.Valid;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/guilds/{guildId}/sprints/{sprintId}/problems")
@@ -36,5 +39,12 @@ public class GuildProblemController {
 		@PathVariable("problemId") Long problemId
 	) {
 		return ResponseEntity.ok(guildProblemService.retrospectGuildProblem(problemId));
+	}
+
+	@GetMapping("/{problemId}/solved")
+	public ResponseEntity<List<InProgressGuildProblemMemberInfo>> getInProgressGuildProblemMemberInfo(
+			@PathVariable("problemId") Long problemId
+	) {
+		return ResponseEntity.ok(guildProblemService.getSolvedGuildMembers(problemId));
 	}
 }

@@ -1,0 +1,12 @@
+
+server:
+    port: 8080
+
+
+spring:
+    application:
+        name:judge-service
+
+eureka:
+    instance:
+        instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}

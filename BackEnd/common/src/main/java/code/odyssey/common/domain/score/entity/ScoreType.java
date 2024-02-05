@@ -58,4 +58,8 @@ public class ScoreType {
 
     @Column
     private Integer math;
+
+    public static ScoreType createScoreType(Member member) {
+        return new ScoreType(null, member, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+    }
 }

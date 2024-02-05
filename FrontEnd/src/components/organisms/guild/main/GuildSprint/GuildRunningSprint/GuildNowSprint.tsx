@@ -16,6 +16,10 @@ interface GuildNowSprintProps {
 }
 
 const GuildNowSprint = (props: GuildNowSprintProps) => {
+  const onClick = (guild_problem_id: number) => {
+    window.open(`/ide?guild_problem_id=${guild_problem_id}`, '_blank');
+  };
+
   return (
     <>
       <Header4 children={'[길드명]의'} color={colors.Gray[100]} fontWeight={'bold'} />
@@ -37,7 +41,7 @@ const GuildNowSprint = (props: GuildNowSprintProps) => {
             title={value.title}
             state={'now'}
             guild_problem_id={value.problem_id}
-            onClick={() => console.log(value.problem_id, props.guild_id)}
+            onClick={() => onClick(value.guild_problem_id)}
           />
         ))}
       </div>

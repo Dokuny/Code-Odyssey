@@ -23,9 +23,16 @@ public class GuildRecommendController {
 	}
 
 	@GetMapping("/similar")
-	public ResponseEntity recommendGuildBy(
+	public ResponseEntity recommendGuildBySimilarity(
 		@RequestHeader("X-Authorization-Id") Long memberId
 	) {
-		return ResponseEntity.ok(guildRecommendService.recommendWeaknessType(memberId));
+		return ResponseEntity.ok(guildRecommendService.recommendSimilarType(memberId));
+	}
+
+	@GetMapping("/difficult")
+	public ResponseEntity recommendGuildByDifficult(
+			@RequestHeader("X-Authorization-Id") Long memberId
+	) {
+		return ResponseEntity.ok(guildRecommendService.recommendSimilarDifficulty(memberId));
 	}
 }

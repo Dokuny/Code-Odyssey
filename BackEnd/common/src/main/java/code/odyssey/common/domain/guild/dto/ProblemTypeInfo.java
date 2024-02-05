@@ -14,9 +14,13 @@ import static code.odyssey.common.domain.problem.entity.enums.ProblemType.TREE;
 
 import java.util.HashMap;
 import java.util.Map;
-import lombok.Getter;
 
-@Getter
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@Getter @AllArgsConstructor
 public class ProblemTypeInfo {
 
 	private Long id;
@@ -50,5 +54,9 @@ public class ProblemTypeInfo {
 		map.put(MATH.name(), this.math);
 
 		return map;
+	}
+
+	public static ProblemTypeInfo empty() {
+		return new ProblemTypeInfo(0L, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 	}
 }

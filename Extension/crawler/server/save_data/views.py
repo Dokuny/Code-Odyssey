@@ -1,12 +1,13 @@
 import json
+from django.http import JsonResponse
 from django.shortcuts import get_list_or_404, get_object_or_404
-from .models import ProblemData
+from .models import ProblemData, User, UserCode
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 
-from .serializers import ProblemDataSerializer
+from .serializers import ProblemDataSerializer, UserSerializer, CodeSerializer
 
 
 @api_view(["POST"])
@@ -109,3 +110,20 @@ def view_data(request):
     problems =  get_list_or_404(ProblemData)
     serializer =  ProblemDataSerializer(problems, many=True)
     return Response(serializer.data)
+
+
+@api_view(['GET', 'POST'])
+def code_save(request):
+    if request.method == "GET":
+        print("----------------------user get function----------------------")
+        user = User.objects.get(id=1)
+        print(user.username, user.id)
+        serializer =  UserSerializer(user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    elif request.method == "POST":
+        print("----------------------code save function----------------------")
+        print(request.data)
+        
+        return Response("successed", status=status.HTTP_200_OK)
+    
+    
