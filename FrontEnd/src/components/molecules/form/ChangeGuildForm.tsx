@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../../config/Color';
 import { Body1, Body2} from '../../atoms/basic/Typography';
@@ -9,7 +9,181 @@ import DropDown from '../../atoms/select/Dropdown';
 import { ref, getDownloadURL, deleteObject, uploadBytes } from 'firebase/storage'
 import { fstorage } from '../../../firebase';
 import { createGuild } from '../../../utils/api/guild/guild';
- 
+
+const ChangeGuildForm = () => {
+  const [value, setValue] = useState('');
+  const [GuildName, setGuildName] = useState('');
+  const [selectDifficulty, setSelecDifficulty] = useState('1');
+  const [selectCapacity, setSelectCapacity] = useState('1');
+  const [selectProblemCapacity, setSelectProblemCapacity] = useState('1');
+  const [selectLanguage, setSelectLanguage] = useState('python');
+  const [imgFile, setImgFile] = useState("");
+  const imgRef = useRef<HTMLInputElement>(null);
+
+  const Difficulty = Array.from({ length: 30 }, (_, index) => index + 1);
+  const Capacity = Array.from({ length: 10 }, (_, index) => index + 1);
+  
+  useEffect( () => {
+    // 길드 정보 가져오기 
+  },[])
+
+
+  const onClickEvent = async () => {
+    // 만약 길드 이미지가 있었다면 삭제후 업로드
+    if (imgFile) {
+    }
+    // 만약 길드 이미지가 없었다면 바로 업로드
+    const fileInput = imgRef.current;
+    if (fileInput?.files?.length) {
+      const file: File = fileInput.files[0]
+        try {        
+          //이미지 업로드
+          const storageRef = ref(fstorage, `images/${file.name}`);
+          await uploadBytes( storageRef, file );
+
+          //이미지 가져오기
+          const url = await getDownloadURL(storageRef);       
+          setImgFile(url);
+        } catch (error) {
+          console.error("Error uploading image:", error);
+        }
+        
+    }
+
+    const data = {
+      name: GuildName,
+      image: imgFile, // '' 으로 저장되면..? -> 기본값 출력하기로
+      introduction: value,
+      capacity: parseInt(selectCapacity, 10),
+      language: selectLanguage,
+      difficulty: parseInt(selectDifficulty, 10),
+      problemCapacity: parseInt(selectProblemCapacity, 10),
+    };
+
+    console.log(data)
+  }
+
+
+  // 이미지 업로드 input의 onChange
+  const saveImgFile = () => {
+    const fileInput = imgRef.current;
+    
+    if (fileInput?.files?.length) {
+      const file: File = fileInput.files[0];
+  
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+  
+      reader.onloadend = (event: ProgressEvent<FileReader>) => {
+        const result = event.target?.result as string;
+        setImgFile(result);
+      };
+    }
+  };
+
+  return (
+    <Div1>
+      <StyledContainer>
+        <Name>
+          <StyledMyImgContainer>
+              <Front>
+                <StyledImage src={imgFile ? imgFile : '/images/code_odyssey/ProblemSolveBg.svg'} alt='/'/>
+              </Front>
+              <Back>
+                <label htmlFor="file">
+                  <ChangeImg>CHANGE</ChangeImg>
+                </label>
+                <input style={{ display : 'none'}} type="file" name="file" id="file" accept="image/*" onChange={saveImgFile} ref={imgRef}></input>
+                <StyledImage src='/images/code_odyssey/WaitingBg.svg' alt='/'/>
+              </Back>
+          </StyledMyImgContainer>
+          <Spacer space={'4vh'}></Spacer>
+          <div style={ { textAlign: 'center'} }>
+            <BasicInput placeholder={'길드 이름'} setInput={setGuildName} input={GuildName} textAlign={'center'} />
+          </div>
+        </Name>
+        <hr />
+        <Div2>
+          <Body1 children={'평균 난이도'} color={colors.White} />
+          <Spacer space={'1vh'}></Spacer>
+          <DropDown
+            id={'1'}
+            borderRadius={'5px'}
+            setSelectValue={setSelecDifficulty}
+            height={'30px'}
+            values={Difficulty}
+            bgColor={colors.White}
+            fontcolor={colors.Black}
+            selectedValue={selectDifficulty}
+          ></DropDown>
+          <Spacer space={'1vh'}></Spacer>
+
+          <Body1 children={'수용인원'} color={colors.White} />
+          <Spacer space={'1vh'}></Spacer>
+          <DropDown
+            id={'2'}
+            borderRadius={'5px'}
+            setSelectValue={setSelectCapacity}
+            height={'30px'}
+            values={Capacity}
+            bgColor={colors.White}
+            fontcolor={colors.Black}
+            selectedValue={selectCapacity}
+          ></DropDown>
+          <Spacer space={'1vh'}></Spacer>
+
+          <Body1 children={'예상 할당 문제수'} color={colors.White} />
+          <Spacer space={'1vh'}></Spacer>
+          <DropDown
+            id={'1'}
+            borderRadius={'5px'}
+            setSelectValue={setSelectProblemCapacity}
+            height={'30px'}
+            values={[1, 2, 3]}
+            bgColor={colors.White}
+            fontcolor={colors.Black}
+            selectedValue={selectProblemCapacity}
+          ></DropDown>
+
+          <Spacer space={'1vh'}></Spacer>
+
+          <Body1 children={'사용언어'} color={colors.White} />
+          <Spacer space={'1vh'}></Spacer>
+          <DropDown
+            id={'1'}
+            borderRadius={'5px'}
+            setSelectValue={setSelectLanguage}
+            height={'30px'}
+            values={['python', 'Java', 'C++']}
+            bgColor={colors.White}
+            fontcolor={colors.Black}
+            selectedValue={selectLanguage}
+          ></DropDown>
+
+          <Spacer space={'1vh'}></Spacer>
+        </Div2>
+      </StyledContainer>
+      <Spacer space={''}></Spacer>
+      <Rule>
+        <Body1 children={'소개/룰'} color={colors.White} />
+        <Spacer space={'2vh'}></Spacer>
+        <StyledMarkarea>
+          <div data-color-mode='light'>
+            <MDEditor minHeight={200} height='100%' value={value} onChange={(newValue) => setValue(newValue || '')} />
+          </div>
+        </StyledMarkarea>
+      </Rule>
+      <Spacer space={'2vw'} ></Spacer>
+      <Button onClick={onClickEvent}>
+        <Body2 children={'길드 수정하기'} color={colors.White}></Body2>
+      </Button>
+    </Div1>
+  );
+};
+
+export default ChangeGuildForm;
+
+
 
 const StyledContainer = styled.form`
   display: flex;
@@ -120,199 +294,3 @@ const Back = styled.div`
 
 
 const Rule = styled.div``;
-
-
-
-interface CreateGuild {
-  name: string;
-  image: string;
-  introduction: string;
-  capacity: number;
-  language: string;
-  difficulty: number;
-  problemCapacity : number;
-}
-
-
-const MakeGuildForm = () => {
-  const [value, setValue] = useState('');
-  const [GuildName, setGuildName] = useState('');
-  // const [name, setName] =
-  const [selectDifficulty, setSelecDifficulty] = useState('1');
-  const [selectCapacity, setSelectCapacity] = useState('1');
-  const [selectProblemCapacity, setSelectProblemCapacity] = useState('1');
-  const [selectLanguage, setSelectLanguage] = useState('python');
-  const [imgFile, setImgFile] = useState("");
-  const imgRef = useRef<HTMLInputElement>(null);
-
-  const Difficulty = Array.from({ length: 30 }, (_, index) => index + 1);
-  const Capacity = Array.from({ length: 10 }, (_, index) => index + 1);
-  
-
-
-  const onClickEvent = async () => {    
-    const fileInput = imgRef.current;
-
-    if (fileInput?.files?.length) {
-      const file: File = fileInput.files[0]
-        try {        
-          //이미지 업로드
-          const storageRef = ref(fstorage, `images/${file.name}`);
-          await uploadBytes( storageRef, file );
-
-          //이미지 가져오기
-          const url = await getDownloadURL(storageRef);       
-          setImgFile(url);
-        } catch (error) {
-          console.error("Error uploading image:", error);
-        }
-        
-    }
-
-    const data = {
-      name: GuildName,
-      image: imgFile, // '' 으로 저장되면..? -> 기본값 출력하기로
-      introduction: value,
-      capacity: parseInt(selectCapacity, 10),
-      language: selectLanguage,
-      difficulty: parseInt(selectDifficulty, 10),
-      problemCapacity: parseInt(selectProblemCapacity, 10),
-    };
-
-    console.log(data)
-    // await console.log(createGuild(data))
-    // 다시 메인 으로 보내기
-    
-  }
-
-
-  // 이미지 업로드 input의 onChange
-  const saveImgFile = () => {
-    const fileInput = imgRef.current;
-    
-    if (fileInput?.files?.length) {
-      const file: File = fileInput.files[0];
-  
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-  
-      reader.onloadend = (event: ProgressEvent<FileReader>) => {
-        const result = event.target?.result as string;
-        setImgFile(result);
-      };
-    }
-  };
-
-    // try {        
-    //   //이미지 업로드
-    //   const storageRef = ref(fstorage, `images/${file.name}`);
-    //   await uploadBytes( storageRef, file );
-
-    //   //이미지 가져오기
-    //   const url = await getDownloadURL(storageRef);       
-    //   setImgFile(url);
-    // } catch (error) {
-    //   console.error("Error uploading image:", error);
-    // }
-
-  return (
-    <Div1>
-      <StyledContainer>
-        <Name>
-          <StyledMyImgContainer>
-              <Front>
-                <StyledImage src={imgFile ? imgFile : '/images/code_odyssey/ProblemSolveBg.svg'} alt='/'/>
-              </Front>
-              <Back>
-                <label htmlFor="file">
-                  <ChangeImg>CHANGE</ChangeImg>
-                </label>
-                <input style={{ display : 'none'}} type="file" name="file" id="file" accept="image/*" onChange={saveImgFile} ref={imgRef}></input>
-                <StyledImage src='/images/code_odyssey/WaitingBg.svg' alt='/'/>
-              </Back>
-          </StyledMyImgContainer>
-          <Spacer space={'4vh'}></Spacer>
-          <div style={ { textAlign: 'center'} }>
-            <BasicInput placeholder={'길드 이름'} setInput={setGuildName} input={GuildName} textAlign={'center'} />
-          </div>
-        </Name>
-        <hr />
-        <Div2>
-          <Body1 children={'평균 난이도'} color={colors.White} />
-          <Spacer space={'1vh'}></Spacer>
-          <DropDown
-            id={'1'}
-            borderRadius={'5px'}
-            setSelectValue={setSelecDifficulty}
-            height={'30px'}
-            values={Difficulty}
-            bgColor={colors.White}
-            fontcolor={colors.Black}
-            selectedValue={selectDifficulty}
-          ></DropDown>
-          <Spacer space={'1vh'}></Spacer>
-
-          <Body1 children={'수용인원'} color={colors.White} />
-          <Spacer space={'1vh'}></Spacer>
-          <DropDown
-            id={'2'}
-            borderRadius={'5px'}
-            setSelectValue={setSelectCapacity}
-            height={'30px'}
-            values={Capacity}
-            bgColor={colors.White}
-            fontcolor={colors.Black}
-            selectedValue={selectCapacity}
-          ></DropDown>
-          <Spacer space={'1vh'}></Spacer>
-
-          <Body1 children={'예상 할당 문제수'} color={colors.White} />
-          <Spacer space={'1vh'}></Spacer>
-          <DropDown
-            id={'1'}
-            borderRadius={'5px'}
-            setSelectValue={setSelectProblemCapacity}
-            height={'30px'}
-            values={[1, 2, 3]}
-            bgColor={colors.White}
-            fontcolor={colors.Black}
-            selectedValue={selectProblemCapacity}
-          ></DropDown>
-
-          <Spacer space={'1vh'}></Spacer>
-
-          <Body1 children={'사용언어'} color={colors.White} />
-          <Spacer space={'1vh'}></Spacer>
-          <DropDown
-            id={'1'}
-            borderRadius={'5px'}
-            setSelectValue={setSelectLanguage}
-            height={'30px'}
-            values={['python', 'Java', 'C++']}
-            bgColor={colors.White}
-            fontcolor={colors.Black}
-            selectedValue={selectLanguage}
-          ></DropDown>
-
-          <Spacer space={'1vh'}></Spacer>
-        </Div2>
-      </StyledContainer>
-      <Spacer space={''}></Spacer>
-      <Rule>
-        <Body1 children={'소개/룰'} color={colors.White} />
-        <Spacer space={'2vh'}></Spacer>
-        <StyledMarkarea>
-          <div data-color-mode='light'>
-            <MDEditor minHeight={200} height='100%' value={value} onChange={(newValue) => setValue(newValue || '')} />
-          </div>
-        </StyledMarkarea>
-      </Rule>
-      <Spacer space={'2vw'} ></Spacer>
-      <Button onClick={onClickEvent}>
-        <Body2 children={'길드 생성하기'} color={colors.White}></Body2>
-      </Button>
-    </Div1>
-  );
-};
-
-export default MakeGuildForm;

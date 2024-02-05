@@ -34,14 +34,15 @@ const DifficultySprint = () => {
     OPTIONS.push({ value: i.toString(), name: '난이도 ' + i.toString() });
   }
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (selectedValue !== 'select') {
-          const result = await getDifficultySprint(selectedValue);
-          setData(result || []); // result가 falsy일 경우 빈 배열로 설정
+  const fetchData = async () => {
+    if (selectedValue !== 'select') {
+        const result = await getDifficultySprint(selectedValue);
+        setData(result || [{}]); // result가 falsy일 경우 빈 배열로 설정
       }
-    };
-    
+      return
+  };
+
+  useEffect(() => {
     fetchData();
   }, [selectedValue]);
 
