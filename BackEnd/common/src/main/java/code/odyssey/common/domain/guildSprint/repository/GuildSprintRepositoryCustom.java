@@ -1,8 +1,7 @@
 package code.odyssey.common.domain.guildSprint.repository;
 
-import code.odyssey.common.domain.guildSprint.dto.EndGuildSprintInfo;
-import code.odyssey.common.domain.guildSprint.dto.RetrospectGuildProblemInfo;
-import code.odyssey.common.domain.guildSprint.dto.WaitingGuildSprintInfo;
+import code.odyssey.common.domain.guildSprint.dto.*;
+
 import java.util.List;
 
 public interface GuildSprintRepositoryCustom {
@@ -13,4 +12,7 @@ public interface GuildSprintRepositoryCustom {
 
 	RetrospectGuildProblemInfo findRetrospectiveGuildProblemInfo(Long guildProblemId);
 
+	InProgressGuildSprintInfo findInProgressGuildSprint(Long guildId);
+
+	List<InProgressGuildProblemMemberInfo> findInProgressGuildProblemInfo(Long guildProblemId);
 }
