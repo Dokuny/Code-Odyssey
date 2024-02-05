@@ -29,7 +29,7 @@ spring:
 
   data:
     redis:
-      host: localhost
+      host: 158.180.80.211
       port: 6379
 
 eureka:
