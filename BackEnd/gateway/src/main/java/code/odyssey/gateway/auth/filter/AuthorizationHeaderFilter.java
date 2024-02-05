@@ -19,7 +19,7 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 @Component
 public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<AuthorizationHeaderFilter.Config> {
 
-    @Value("jwt.access-key")
+    @Value("${jwt.access-key}")
     private String jwtKey;
 
     @Autowired
