@@ -28,11 +28,11 @@ public class GuildRecommendService {
 
 	private final CosineSimilarity cosineSimilarity;
 
-
 	public List<GuildSearchInfo> recommendWeaknessType(Long memberId) {
+
 		// 회원 문제 풀이 유형 데이터
 		ProblemTypeInfo memberProblemTypes = guildRecommendRepository.getMemberProblemTypes(
-			memberId).orElseThrow(() -> new GuildException(NO_AUTHENTICATION));
+			memberId).orElse(ProblemTypeInfo.empty());
 
 		// 가입되어 있지 않고 진행중이지 않은 길드 100개를 랜덤으로 조회
 		List<GuildSearchInfo> notInProgressGuildsAtRandom = guildRecommendRepository.getNotInProgressGuildsAtRandom(
@@ -79,7 +79,7 @@ public class GuildRecommendService {
 		// 회원 정보 가져오기
 		// 스코어 타입 그냥 쿼리해서 땡겨오자
 		ProblemTypeInfo memberProblemTypes = guildRecommendRepository.getMemberProblemTypes(
-			memberId).orElseThrow(() -> new GuildException(NO_AUTHENTICATION));
+			memberId).orElse(ProblemTypeInfo.empty());
 
 		// 진행중이지 않은 길드 100개 리스트업 - 진행중이지 않은 길드 100개를 랜덤으로, 내가 가입되어잇는 길드 제외
 		List<GuildSearchInfo> notInProgressGuildsAtRandom = guildRecommendRepository.getNotInProgressGuildsAtRandom(
@@ -116,6 +116,10 @@ public class GuildRecommendService {
 		}
 
 		return result;
+	}
+
+	public List<GuildSearchInfo> recommendSimilarDifficulty(Long memberId) {
+		return guildRecommendRepository.getGuildsByDifficulty(memberId);
 	}
 
 	static class Similarity {
