@@ -9,11 +9,13 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder @Getter
+@Builder
+@Getter
 @Entity
 public class Score {
 
-    @Id @GeneratedValue(strategy = IDENTITY)
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
     @OneToOne(fetch = LAZY)
@@ -34,5 +36,9 @@ public class Score {
 
     @Column(name = "ranking_score")
     private Integer rankingScore;
+
+    public static Score createScore(Member member) {
+        return new Score(null, member, 0, 0, 1, 0, 0);
+    }
 
 }

@@ -3,7 +3,6 @@ package code.odyssey.common.domain.guild.dto;
 import code.odyssey.common.domain.guild.entity.enums.LanguageType;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies.SnakeCaseStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,5 +1,19 @@
 package code.odyssey.common.domain.guild.repository.impl;
 
+import code.odyssey.common.domain.guild.dto.GuildSearchInfo;
+import code.odyssey.common.domain.guild.dto.ProblemTypeInfo;
+import code.odyssey.common.domain.guild.repository.GuildRecommendRepository;
+import code.odyssey.common.domain.score.entity.Score;
+import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.jpa.JPAExpressions;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Optional;
+
 import static code.odyssey.common.domain.guild.entity.QGuild.guild;
 import static code.odyssey.common.domain.guild.entity.QGuildMember.guildMember;
 import static code.odyssey.common.domain.guildSprint.entity.QGuildProblem.guildProblem;
@@ -7,30 +21,8 @@ import static code.odyssey.common.domain.guildSprint.entity.QGuildSprint.guildSp
 import static code.odyssey.common.domain.guildSprint.entity.enums.GuildSprintStatus.IN_PROGRESS;
 import static code.odyssey.common.domain.problem.entity.QProblem.problem;
 import static code.odyssey.common.domain.problem.entity.QSubmission.submission;
-import static code.odyssey.common.domain.problem.entity.enums.ProblemType.AD_HOC;
-import static code.odyssey.common.domain.problem.entity.enums.ProblemType.BINARY_SEARCH;
-import static code.odyssey.common.domain.problem.entity.enums.ProblemType.BRUTE_FORCE;
-import static code.odyssey.common.domain.problem.entity.enums.ProblemType.DATA_STRUCTURE;
-import static code.odyssey.common.domain.problem.entity.enums.ProblemType.DP;
-import static code.odyssey.common.domain.problem.entity.enums.ProblemType.GRAPH;
-import static code.odyssey.common.domain.problem.entity.enums.ProblemType.GREEDY;
-import static code.odyssey.common.domain.problem.entity.enums.ProblemType.MATH;
-import static code.odyssey.common.domain.problem.entity.enums.ProblemType.SHORTEST_PATH;
-import static code.odyssey.common.domain.problem.entity.enums.ProblemType.SIMULATION;
-import static code.odyssey.common.domain.problem.entity.enums.ProblemType.STRING;
-import static code.odyssey.common.domain.problem.entity.enums.ProblemType.TREE;
-
-import code.odyssey.common.domain.guild.dto.GuildSearchInfo;
-import code.odyssey.common.domain.guild.dto.ProblemTypeInfo;
-import code.odyssey.common.domain.guild.repository.GuildRecommendRepository;
-import com.querydsl.core.types.Projections;
-import com.querydsl.core.types.dsl.Expressions;
-import com.querydsl.jpa.JPAExpressions;
-import com.querydsl.jpa.impl.JPAQueryFactory;
-import java.util.List;
-import java.util.Optional;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
+import static code.odyssey.common.domain.problem.entity.enums.ProblemType.*;
+import static code.odyssey.common.domain.score.entity.QScore.score;
 
 @RequiredArgsConstructor
 @Repository
@@ -86,6 +78,36 @@ public class GuildRecommendRepositoryImpl implements GuildRecommendRepository {
             .orderBy(Expressions.numberTemplate(Double.class, "RAND()").asc())
             .limit(100)
             .fetch();
+    }
+
+    @Override
+    public List<GuildSearchInfo> getGuildsByDifficulty(Long memberId) {
+        Score memberScore = queryFactory.selectFrom(score)
+                .where(score.member.id.eq(memberId))
+                .fetchOne();
+
+        return queryFactory.select(
+                        Projections.fields(
+                                GuildSearchInfo.class,
+                                guild.id.as("guildId"),
+                                guild.difficulty.as("difficulty"),
+                                guild.name.as("guildName"),
+                                guild.image.as("guildImg"),
+                                guild.language.as("language"),
+                                guildMember.id.count().intValue().as("currentCnt"),
+                                guild.capacity.subtract(guildMember.id.count().intValue()).as("possibleCnt")
+                        ))
+                .from(guild)
+                .join(guildMember).on(guild.id.eq(guildMember.guild.id))
+                .where(JPAExpressions.selectFrom(guildSprint).where(guild.id.eq(guildSprint.guild.id),
+                                guildSprint.status.eq(IN_PROGRESS)).notExists(),
+                        JPAExpressions.selectFrom(guildMember).where(guild.id.eq(guildMember.guild.id),
+                                guildMember.member.id.eq(memberId)).notExists()
+                )
+                .groupBy(guild.id)
+                .orderBy(guild.difficulty.subtract(memberScore.getTier()).abs().asc())
+                .limit(8)
+                .fetch();
     }
 
     @Override
