@@ -29,6 +29,14 @@ spring:
           uri: ${COMMON_SERVER}
           predicates:
             - Path=/**
+        - id: judge-service
+          uri: ${JUDGE_SERVER}
+          predicates:
+            - Path=/judge
+        - id: judge-service
+          uri: ${CHATTING_SERVER}
+          predicates:
+            - Path=/judge
           filters:
             - AuthorizationHeaderFilter
       default-filters:
