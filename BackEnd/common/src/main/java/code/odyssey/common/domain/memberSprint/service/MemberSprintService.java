@@ -36,6 +36,14 @@ public class MemberSprintService {
                 .filter(m -> m.getResignedAt() == null)
                 .orElseThrow(() -> new MemberException(NOT_EXISTS_MEMBER));
 
+        // 멤버 이미 등록되어 있는지 체크.
+        // 만약 이미 등록이 되어 있으면 삭제 후 저장
+        List<MemberSprint> existingSprints = memberSprintRepository.findByMemberId(memberId);
+        if (!existingSprints.isEmpty()) {
+            memberSprintRepository.deleteAll(existingSprints);
+        }
+
+
         List<MemberSprint> sprintSchedules = request.getScheduleInfoList().stream()
                 .map(scheduleInfo -> {
                     return MemberSprint.builder()
