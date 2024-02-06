@@ -9,6 +9,7 @@ import { Spacer } from '../../atoms/basic/Spacer';
 import GitHubDark from '../../../config/code_themes/GitHub Dark.json';
 import GitHubLight from '../../../config/code_themes/GitHub Light.json';
 import DropDown from '../../atoms/select/Dropdown';
+import ToggleSwitch from '../../atoms/select/ToggleSwitch';
 // 토글 일단 드롭다운으로 만들어둠!!
 
 /* 필요데이터
@@ -27,10 +28,15 @@ const StyledContainer = styled.div`
 `;
 
 const ReviewTemplate = () => {
+  const [selectedTheme, setSelectedTheme] = useState(true);
+  useEffect(() => {
+    console.log(selectedTheme);
+  }, [selectedTheme]);
+
   return (
     <StyledContainer>
-      <Body1 children={'ReviewPage'} color={colors.Gray[500]} />
-      <CodeBox />
+      <ToggleSwitch setSelectedTheme={setSelectedTheme} />
+      <CodeBox selectedTheme={selectedTheme} />
     </StyledContainer>
   );
 };
