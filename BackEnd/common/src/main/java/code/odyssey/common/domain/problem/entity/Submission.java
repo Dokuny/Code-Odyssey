@@ -1,16 +1,18 @@
 package code.odyssey.common.domain.problem.entity;
 
-import code.odyssey.common.domain.guild.entity.Guild;
 import code.odyssey.common.domain.member.entity.Member;
+import code.odyssey.common.domain.problem.entity.enums.LanguageType;
 import code.odyssey.common.global.common.BaseEntity;
+import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 
-import java.time.LocalDateTime;
 
+import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
@@ -34,13 +36,16 @@ public class Submission extends BaseEntity {
     @JoinColumn(name = "problem_id")
     private Problem problem;
 
-    @Column
     private String code;
 
     @Column
-    private String time;
+    private Integer time;
 
     @Column
-    private String memory;
+    private Integer memory;
+
+    @Column
+    @Enumerated(STRING)
+    private LanguageType language;
 
 }

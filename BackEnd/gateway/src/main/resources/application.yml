@@ -5,29 +5,28 @@ server:
 spring:
   profiles:
     active: prod
-    group: 
+    group:
       local:
-        - common 
+        - common
       prod:
-        - common 
-
+        - common
 
 ---
 spring:
   config:
     activate:
-      on-profile: common 
+      on-profile: common
   application:
     name: api-gateway
   cloud:
     gateway:
       routes:
         - id: auth-service
-          uri: http://158.180.80.211:8080
+          uri: ${COMMON_SERVER}
           predicates:
             - Path=/auth/**
         - id: common-service
-          uri: http://158.180.80.211:8080
+          uri: ${COMMON_SERVER}
           predicates:
             - Path=/**
           filters:
@@ -46,10 +45,10 @@ spring:
     gateway:
       globalcors:
         cors-configurations:
-          '[/**]':
-            allowedOrigins: 'http://localhost'
+          "[/**]":
+            allowedOrigins: "http://localhost"
             allow-credentials: true
-            allowedHeaders: '*'
+            allowedHeaders: "*"
             allowedMethods:
               - PUT
               - GET
@@ -75,10 +74,10 @@ spring:
     gateway:
       globalcors:
         cors-configurations:
-          '[/**]':
-            allowedOriginPatterns: '*'
+          "[/**]":
+            allowedOriginPatterns: "*"
             allow-credentials: true
-            allowedHeaders: '*'
+            allowedHeaders: "*"
             allowedMethods:
               - PUT
               - GET
@@ -92,6 +91,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://3.35.176.227:8761/eureka
+      defaultZone: ${DISCOVERY_SERVER}
 
 ---
+

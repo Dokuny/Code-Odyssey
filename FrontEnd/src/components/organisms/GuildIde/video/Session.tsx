@@ -11,6 +11,7 @@ const StyledContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+  flex: 1;
   box-sizing: border-box;
 `;
 
@@ -67,6 +68,7 @@ function Session(props: SessionProps) {
         <div
           style={{
             display: 'flex',
+            width: '100%',
             alignItems: 'center',
             justifyContent: 'space-around',
             padding: '0.5vmin',

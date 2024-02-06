@@ -1,8 +1,8 @@
-package code.odyssey.chat.service;
+package code.odyssey.service;
 
-import code.odyssey.chat.dto.ChatMessage;
-import code.odyssey.chat.entity.Chat;
-import code.odyssey.chat.repository.ChatRepository;
+import code.odyssey.repository.ChatRepository;
+import code.odyssey.dto.ChatMessage;
+import code.odyssey.entity.Chat;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.TopicExchange;
@@ -21,7 +21,7 @@ public class ChatService {
     private final TopicExchange topicExchange;
     private final ChatRepository chatRepository;
 
-    public void sendMessage(ChatMessage message, Long guildId) {
+    public void sendChat(ChatMessage message, Long guildId) {
 
         log.info("{}", message.getMemberId());
 
@@ -33,6 +33,8 @@ public class ChatService {
                 .message(message.getMessage())
                 .sendTime(LocalDateTime.now())
                 .build();
+
+//        System.out.println(guildId);
 
         rabbitTemplate.convertAndSend(topicExchange.getName(),
                 "room."+ guildId,

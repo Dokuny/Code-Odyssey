@@ -1,4 +1,4 @@
-package code.odyssey.chat.entity;
+package code.odyssey.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;

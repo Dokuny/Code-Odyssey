@@ -33,7 +33,7 @@ const StyledLoginContent = styled.div`
 
 const LoginForm = () => {
   const clickLoginBtn = async (oauthprovider: string) => {
-    window.location.replace(`http://3.35.176.227:8888/auth/${oauthprovider}`);
+    window.location.replace(`http://3.39.190.22:8888/auth/${oauthprovider}`);
   };
 
   return (
