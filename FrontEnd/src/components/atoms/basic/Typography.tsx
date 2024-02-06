@@ -12,6 +12,7 @@ const StyledTypography = styled.span<{ color: string; fontSize: number; fontWeig
   font-weight: ${(props) => props.fontWeight};
   font-size: ${(props) => props.fontSize}px;
   font-family: ${(props) => props.fontStyle}, cursive;
+  white-space: pre-line;
   ${(props) => css`
     @media (max-width: 1368px) {
       font-size: ${(props.fontSize - 4) / 12}rem;

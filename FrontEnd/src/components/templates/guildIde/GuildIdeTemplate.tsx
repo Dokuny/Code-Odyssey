@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { colors } from '../../../config/Color';
 import { Body2 } from '../../atoms/basic/Typography';
 import GuildIdeInit from '../../organisms/GuildIde/video/GuildIdeInit';
-import { Spacer } from '../../atoms/basic/Spacer';
+import GuildIde from '../../organisms/GuildIde/ide/GuildIde';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -14,8 +14,9 @@ const StyledContainer = styled.div`
   box-sizing: border-box;
 `;
 
-const StyleProblemHeader = styled.div`
+const StyledProblemHeader = styled.div`
   display: flex;
+  flex: 1;
   width: 100%;
   height: fit-content;
   background-color: ${colors.GrayBlue[200]};
@@ -25,25 +26,39 @@ const StyleProblemHeader = styled.div`
   box-sizing: border-box;
 `;
 
-const StyleMainContainer = styled.div`
+const StyledMainContainer = styled.div`
   display: flex;
-  width: 100%;
-  background-color: transparent;
-  box-sizing: border-box;
   flex: 1;
+  width: 100%;
+  padding-top: 1vmin;
+  padding-bottom: 1vmin;
+  background-color: transparent;
+  height: 100%;
+  box-sizing: border-box;
 `;
 
-const StyleProblemContainer = styled.div`
+const StyledProblemContainer = styled.div`
   display: flex;
+  flex: 1;
+  justify-content: space-around;
   width: 85%;
   height: 100%;
   background-color: transparent;
   box-sizing: border-box;
 `;
 
-const StyleVideoContainer = styled.div`
+const StyledVideoContainer = styled.div`
   display: flex;
   width: 15%;
+  height: 100%;
+  background-color: transparent;
+  box-sizing: border-box;
+`;
+
+const StyledDetailContainer = styled.div`
+  display: flex;
+  min-width: 48%;
+  max-width: 48%;
   height: 100%;
   background-color: transparent;
   box-sizing: border-box;
@@ -52,16 +67,22 @@ const StyleVideoContainer = styled.div`
 const GuildIdeTemplate = () => {
   return (
     <StyledContainer>
-      <StyleProblemHeader>
+      <StyledProblemHeader>
         <Body2 children={'프로그래머스 > 가장 많이 받은 선물'} color={colors.White} fontWeight={'bold'} />
-      </StyleProblemHeader>
-      <Spacer space={'2vmin'} />
-      <StyleMainContainer>
-        <StyleProblemContainer></StyleProblemContainer>
-        <StyleVideoContainer>
+      </StyledProblemHeader>
+      <StyledMainContainer>
+        <StyledProblemContainer>
+          <StyledDetailContainer>
+            <GuildIde />
+          </StyledDetailContainer>
+          <StyledDetailContainer>
+            <GuildIde />
+          </StyledDetailContainer>
+        </StyledProblemContainer>
+        <StyledVideoContainer>
           <GuildIdeInit />
-        </StyleVideoContainer>
-      </StyleMainContainer>
+        </StyledVideoContainer>
+      </StyledMainContainer>
     </StyledContainer>
   );
 };
