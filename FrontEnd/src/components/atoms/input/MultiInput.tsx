@@ -32,6 +32,7 @@ interface BasicInputProps {
   fontcolor?: string;
   input: string;
   textAlign?: string;
+  readOnly?: boolean;
 }
 
 const MultiTextarea = (props: BasicInputProps) => {
@@ -52,6 +53,7 @@ const MultiTextarea = (props: BasicInputProps) => {
       placeholder={props.placeholder}
       onChange={onChangeInput}
       onKeyDown={handleKeyDown}
+      readOnly={props.readOnly}
       value={props.input}
       color={props.color || colors.GrayBlue[200]}
       fontcolor={props.fontcolor || colors.Black}

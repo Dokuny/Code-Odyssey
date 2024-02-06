@@ -4,6 +4,7 @@ import MultiTextarea from '../../../atoms/input/MultiInput';
 import { useState } from 'react';
 import { Body3 } from '../../../atoms/basic/Typography';
 import { Spacer } from '../../../atoms/basic/Spacer';
+import { IoMdSwap } from 'react-icons/io';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -23,24 +24,39 @@ const StyledContentContainer = styled.div`
   box-sizing: border-box;
 `;
 
-const ProblemCaseInputCard = () => {
+const VarNameChangeCard = () => {
   const [inputData, setInputData] = useState('');
-  const [outputData, setOutputData] = useState('');
+  const [data, setData] = useState({
+    camel: 'camel',
+    snake: 'snake',
+    pascal: 'pascal',
+  });
 
   return (
     <StyledContainer>
       <StyledContentContainer>
-        <Body3 children={'My Test Case'} color={colors.Gray[300]} fontWeight={'bold'} />
+        <Body3 children={'Input'} color={colors.Gray[300]} fontWeight={'bold'} />
         <Spacer space={'0.5vmin'} />
         <MultiTextarea placeholder={''} setInput={setInputData} input={inputData} />
       </StyledContentContainer>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2vmin', boxSizing: 'border-box' }}>
+        <IoMdSwap color={colors.White} size={'2em'} />
+      </div>
       <StyledContentContainer>
+        <Body3 children={'Predicted Output'} color={colors.Gray[300]} fontWeight={'bolwd'} />
+        <Spacer space={'0.5vmin'} />
+        <MultiTextarea readOnly={true} placeholder={''} setInput={() => {}} input={data.camel} />
+        <Spacer space={'1vmin'} />
         <Body3 children={'Predicted Output'} color={colors.Gray[300]} fontWeight={'bold'} />
         <Spacer space={'0.5vmin'} />
-        <MultiTextarea placeholder={''} setInput={setOutputData} input={outputData} />
+        <MultiTextarea readOnly={true} placeholder={''} setInput={() => {}} input={data.snake} />
+        <Spacer space={'1vmin'} />
+        <Body3 children={'Predicted Output'} color={colors.Gray[300]} fontWeight={'bold'} />
+        <Spacer space={'0.5vmin'} />
+        <MultiTextarea readOnly={true} placeholder={''} setInput={() => {}} input={data.pascal} />
       </StyledContentContainer>
     </StyledContainer>
   );
 };
 
-export default ProblemCaseInputCard;
+export default VarNameChangeCard;
