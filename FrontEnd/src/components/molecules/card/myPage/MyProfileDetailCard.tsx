@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../../../config/Color';
 import { Spacer } from '../../../atoms/basic/Spacer';
@@ -6,6 +6,8 @@ import { Body1, Body2 } from '../../../atoms/basic/Typography';
 import IconButton from '../../../atoms/button/IconButton';
 import { IoIcon } from '../../../atoms/icon/Icons';
 import { difficulty } from '../../../../utils/json/difficulty';
+import { getProfile } from '../../../../utils/api/mypage/myprofile/profile';
+import ModalProfile from '../../../organisms/myPage/main/ModalProfile';
 
 const StyledContainer = styled.div`
   background-color: ${colors.GrayBlue[200]};
@@ -74,6 +76,21 @@ const MyProfileDetailCard = () => {
     bad_cnt: 1,
   });
 
+
+  const fetchData = async () => {
+    // const data= await getProfile()
+    // setData( data );
+  };  
+
+  useEffect(() => {
+      fetchData();
+  }, []);
+
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => setModalOpen(true)
+  const closeModal = () => setModalOpen(false)
+
   return (
     <StyledContainer>
       <StyledBackgroundImage>
@@ -109,9 +126,10 @@ const MyProfileDetailCard = () => {
           <Body2 children={'범죄 지수'} color={colors.Gray[500]} />
         </StyledMyInfoContentContainer>
         <Spacer space={'2vw'} horizontal />
-        <IconButton event={() => {}}>
+        <IconButton event={openModal}>
           <IoIcon name={'brush'} size={'2vmax'} color={colors.Gray[25]} />
         </IconButton>
+        <ModalProfile isOpen={isModalOpen} closeModal={closeModal} />
       </StyledMyInfoContainer>
     </StyledContainer>
   );

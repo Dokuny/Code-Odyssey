@@ -181,8 +181,6 @@ const MakeGuildForm = () => {
 
     console.log(data)
     // await console.log(createGuild(data))
-    // 다시 메인 으로 보내기
-    
   }
 
 

@@ -55,20 +55,21 @@ const MyCalender = () => {
 
     const fetchData = async () => {
         const result = await getCalenderSprint(format(currentMonth,'yyyy-MM'));
+        console.log(result)
         setData(result || []); // result가 falsy일 경우 빈 배열로 설정
     };
 
-    // useEffect(() => {
-    //     fetchData();
-    //   }, [currentMonth]);
-
     useEffect(() => {
-      setData(Calenderdata.map(item => ({
-          ...item,
-          createdAt: new Date(item.createdAt), // 문자열에서 Date로 변환
-      })));
-      console.log(data)
-  }, []);
+        fetchData();
+      }, [currentMonth]);
+
+  //   useEffect(() => {
+  //     setData(Calenderdata.map(item => ({
+  //         ...item,
+  //         createdAt: new Date(item.createdAt), // 문자열에서 Date로 변환
+  //     })));
+  //     console.log(data)
+  // }, []);
 
 
     return (

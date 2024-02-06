@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Spacer } from '../../../atoms/basic/Spacer';
 import { MyResponsiveRadar } from '../../../atoms/graph/RadarGraph';
@@ -7,6 +7,7 @@ import MyResponsiveLine from '../../../atoms/graph/LineGraph';
 import { Header3 } from '../../../atoms/basic/Typography';
 import { colors } from '../../../../config/Color';
 import HeatMap from '../../../atoms/graph/HeatMap';
+import { getMyRank, getMyStatistic, getMyStrict } from '../../../../utils/api/mypage/myprofile/profile';
 
 const StyledGraphContainer = styled.div`
   display: flex;
@@ -57,7 +58,7 @@ const MyPageMain = () => {
         { x: 'Nov', y: 24 },
         { x: 'Dec', y: 27 },
       ],
-    },
+    }
   ]);
 
   const [strictData, setStrictData] = useState([
@@ -72,6 +73,51 @@ const MyPageMain = () => {
     { day: '2024-02-01', value: 2 },
     { day: '2024-02-02', value: 2 },
   ]);
+
+  const fetchData = async () => {
+    // const MyStatistic= await getMyStatistic()
+    const MyRank= await getMyRank()
+    const Strict= await getMyStrict()
+    
+    // setStatisticData( MyStatistic || [    
+    //   { type: 'dp', score: 0 },
+    //   { type: 'string', score: 0 },
+    //   { type: 'bruteforce', score: 0 },
+    //   { type: 'graphs', score: 0 },
+    //   { type: 'math', score: 0 },
+    //   { type: 'greedy', score: 0 },
+    //   { type: 'geometry', score: 0 },
+    //   { type: 'implementation', score: 0 },
+    //   { type: 'implementation2', score: 0 },
+    //   { type: 'implementation3', score: 0 },
+    // ]); 
+
+  //   setRankData( MyRank || [
+  //     {
+  //       id: 'rank',
+  //       data: [
+  //         { x: 'DP', y: 1 },
+  //         { x: 'Feb', y: 0 },
+  //         { x: 'Mar', y: 0 },
+  //         { x: 'Apr', y: 0 },
+  //         { x: 'May', y: 0 },
+  //         { x: 'Jun', y: 0 },
+  //         { x: 'July', y: 0 },
+  //         { x: 'Aug', y: 0 },
+  //         { x: 'Sep', y: 0 },
+  //         { x: 'Oct', y: 0 },
+  //         { x: 'Nov', y: 0 },
+  //         { x: 'Dec', y: 0 },
+  //       ],
+  //     },
+  //   ]); 
+  // setStrictData( MyStatistic || []); // result가 falsy일 경우 빈 배열로 설정
+  };  
+
+  useEffect(() => {
+      fetchData();
+  }, []);
+
 
   return (
     <>
