@@ -78,44 +78,23 @@ const MyPageMain = () => {
     const MyStatistic= await getMyStatistic()
     const MyRank= await getMyRank()
     const Strict= await getMyStrict()
-    
 
-    console.table( MyStatistic )
-    console.table( MyRank )
-    console.table( Strict )
-    // setStatisticData( MyStatistic || [    
-    //   { type: 'dp', score: 0 },
-    //   { type: 'string', score: 0 },
-    //   { type: 'bruteforce', score: 0 },
-    //   { type: 'graphs', score: 0 },
-    //   { type: 'math', score: 0 },
-    //   { type: 'greedy', score: 0 },
-    //   { type: 'geometry', score: 0 },
-    //   { type: 'implementation', score: 0 },
-    //   { type: 'implementation2', score: 0 },
-    //   { type: 'implementation3', score: 0 },
-    // ]); 
+    // 이거 바꿔 주세요.. 부탁하기
+    const resultStatistic = Object.entries(MyStatistic).map(([type, score]) => ({
+      type: type, // 타입을 소문자로 변환
+      score: typeof score === 'number' ? score : parseInt(score as string, 10),
+    }));
 
-  //   setRankData( MyRank || [
-  //     {
-  //       id: 'rank',
-  //       data: [
-  //         { x: 'DP', y: 1 },
-  //         { x: 'Feb', y: 0 },
-  //         { x: 'Mar', y: 0 },
-  //         { x: 'Apr', y: 0 },
-  //         { x: 'May', y: 0 },
-  //         { x: 'Jun', y: 0 },
-  //         { x: 'July', y: 0 },
-  //         { x: 'Aug', y: 0 },
-  //         { x: 'Sep', y: 0 },
-  //         { x: 'Oct', y: 0 },
-  //         { x: 'Nov', y: 0 },
-  //         { x: 'Dec', y: 0 },
-  //       ],
-  //     },
-  //   ]); 
-  // setStrictData( MyStatistic || []); // result가 falsy일 경우 빈 배열로 설정
+    // 이것도 바꿔주세요.. 
+    const resultRank = [{
+      id: 'rank',
+      data: MyRank.map((item:{ type: string; score: number }) => { 
+      return {x :item.type.slice(0,3), y:item.score }})
+    }]
+
+    setStatisticData( resultStatistic )
+    setRankData( resultRank )
+    setStrictData( Strict); 
   };  
 
   useEffect(() => {

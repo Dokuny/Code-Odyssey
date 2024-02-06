@@ -71,16 +71,16 @@ const MyProfileDetailCard = () => {
     nickname: 'testNickName',
     email: 'test@test.com',
     difficulty: 31,
-    collect_star_cnt: 17,
-    collect_week_star_cnt: 2,
-    bad_cnt: 1,
+    streak: 17,
+    sevenStreak: 2,
+    penalty: 1,
   });
 
 
   const fetchData = async () => {
     const data= await getProfile()
     console.log(data)
-    // setData( data );
+    setData( data );
   };  
 
   useEffect(() => {
@@ -113,17 +113,17 @@ const MyProfileDetailCard = () => {
 
       <StyledMyInfoContainer>
         <StyledMyInfoContentContainer>
-          <Body1 children={data.collect_star_cnt} color={colors.Gray[25]} fontWeight={'bold'} />
+          <Body1 children={data.streak} color={colors.Gray[25]} fontWeight={'bold'} />
           <Body2 children={'모은 별'} color={colors.Gray[500]} />
         </StyledMyInfoContentContainer>
         <Spacer space={'2vw'} horizontal />
         <StyledMyInfoContentContainer>
-          <Body1 children={data.collect_week_star_cnt} color={colors.Gray[25]} fontWeight={'bold'} />
+          <Body1 children={data.sevenStreak} color={colors.Gray[25]} fontWeight={'bold'} />
           <Body2 children={'모은 북두칠성'} color={colors.Gray[500]} />
         </StyledMyInfoContentContainer>
         <Spacer space={'2vw'} horizontal />
         <StyledMyInfoContentContainer>
-          <Body1 children={data.bad_cnt} color={colors.Gray[25]} fontWeight={'bold'} />
+          <Body1 children={data.penalty} color={colors.Gray[25]} fontWeight={'bold'} />
           <Body2 children={'범죄 지수'} color={colors.Gray[500]} />
         </StyledMyInfoContentContainer>
         <Spacer space={'2vw'} horizontal />
