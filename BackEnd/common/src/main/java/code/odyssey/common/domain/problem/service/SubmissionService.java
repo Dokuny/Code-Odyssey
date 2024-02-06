@@ -7,6 +7,7 @@ import code.odyssey.common.domain.memberSprint.entity.enums.SolvedStatus;
 import code.odyssey.common.domain.problem.dto.*;
 import code.odyssey.common.domain.problem.entity.Problem;
 import code.odyssey.common.domain.problem.entity.Submission;
+import code.odyssey.common.domain.problem.entity.enums.LanguageType;
 import code.odyssey.common.domain.problem.entity.enums.ProblemPlatform;
 import code.odyssey.common.domain.problem.entity.enums.ProblemType;
 import code.odyssey.common.domain.problem.repository.ProblemRepository;
@@ -20,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import code.odyssey.common.global.utils.DateUtils; // DateUtil 패키지
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -47,7 +49,7 @@ public class SubmissionService {
 
         return results.stream()
                 .map(row -> SubmissionNumInfo.builder()
-                        .createdAt(((java.sql.Date) row[0]).toLocalDate().atStartOfDay())
+                        .createdAt(((Date) row[0]).toLocalDate().atStartOfDay())
                         .solvedNum(((Number) row[1]).intValue())
                         .build())
                 .collect(Collectors.toList());
@@ -70,7 +72,9 @@ public class SubmissionService {
 
     // 개인 코드 제출
     @Transactional
-    public Long postSubmissionResult(Long memberId, ProblemSubmitRequest request){
+    public Long postSubmissionResult(ProblemSubmitRequest request){
+
+        Long memberId = request.getMemberId();
         // 회원 확인
         Member member = memberRepository.findById(memberId)
                 .filter(m -> m.getResignedAt() == null)  // 탈퇴한 회원인지 체크
@@ -85,6 +89,21 @@ public class SubmissionService {
         // 점수
         Score score = scoreRepository.findStatsByMemberId(memberId)
                 .orElseThrow(() -> new NoSuchElementException("Score not found"));
+        
+        // 언어 체크
+        String language = request.getLanguage();
+        LanguageType langType = null;
+        switch (language){
+            case "python":
+                langType = LanguageType.PYTHON;
+                break;
+            case "java":
+                langType = LanguageType.JAVA;
+                break;
+            case "cpp":
+                langType = LanguageType.CPP;
+                break;
+        }
 
         // db에 저장
         Submission submission = Submission.builder()
@@ -93,6 +112,7 @@ public class SubmissionService {
                 .code(request.getCode())
                 .time(request.getTime())
                 .memory(request.getMemory())
+                .language(langType)
                 .build();
 
         submissionRepository.save(submission);
