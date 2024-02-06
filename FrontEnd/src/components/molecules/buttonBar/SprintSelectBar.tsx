@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { colors } from '../../../config/Color';
-import { Body2 } from '../../atoms/basic/Typography';
+import { Body2, Body3 } from '../../atoms/basic/Typography';
 import SelectButton from '../../atoms/button/SelectButton';
 
 //   예시 - props 내릴때,
@@ -44,7 +44,7 @@ const SprintSelectBar: React.FC<DataProps> = ({ data }) => {
           active={active}
           color2={colors.Puple[25]}
         >
-          {active ? <Body2 children={content} color={colors.Puple[25]} /> : <Body2 children={content} color={colors.Gray[500]} />}
+          {active ? <Body3 children={content} color={colors.Puple[25]} /> : <Body3 children={content} color={colors.Gray[500]} />}
         </SelectButton>
       ))}
     </StyledContainer>

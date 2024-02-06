@@ -11,10 +11,11 @@ interface BasicButtonProps {
   width?: string | number;
   borderRadius?: string | number;
   active?: boolean;
+  padding?: string;
 }
 
-const StyledButton = styled.button<{ theme: { [key: string]: string }; width: number | string; borderradius: number | string; active?: boolean }>`
-  padding: 1.2vmin;
+const StyledButton = styled.button<{ theme: { [key: string]: string }; width: number | string; borderradius: number | string; active?: boolean; padding: string }>`
+  padding: ${(props) => props.padding};
   border: 2px solid ${(props) => props.theme.borderColor};
   border-radius: ${(props) => props.borderradius};
   background-color: ${(props) => props.theme.bgColor};
@@ -47,6 +48,7 @@ const BasicButton = (props: BasicButtonProps) => {
       width={props.width || '100%'}
       borderradius={props.borderRadius || '12px'}
       active={props.active}
+      padding={props.padding || '1.2vmin'}
     >
       {props.children}
     </StyledButton>

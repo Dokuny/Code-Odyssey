@@ -1,6 +1,6 @@
 import GuildIdeTemplate from '../../components/templates/guildIde/GuildIdeTemplate';
 
-const GuildIde = () => {
+const GuildProblemSolve = () => {
   return (
     <div>
       <GuildIdeTemplate />
@@ -8,4 +8,4 @@ const GuildIde = () => {
   );
 };
 
-export default GuildIde;
+export default GuildProblemSolve;
