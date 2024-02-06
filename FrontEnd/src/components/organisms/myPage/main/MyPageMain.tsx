@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Spacer } from '../../../atoms/basic/Spacer';
 import { MyResponsiveRadar } from '../../../atoms/graph/RadarGraph';
@@ -7,6 +7,7 @@ import MyResponsiveLine from '../../../atoms/graph/LineGraph';
 import { Header3 } from '../../../atoms/basic/Typography';
 import { colors } from '../../../../config/Color';
 import HeatMap from '../../../atoms/graph/HeatMap';
+import { getMyRank, getMyStatistic, getMyStrict } from '../../../../utils/api/mypage/myprofile/profile';
 
 const StyledGraphContainer = styled.div`
   display: flex;
@@ -57,7 +58,7 @@ const MyPageMain = () => {
         { x: 'Nov', y: 24 },
         { x: 'Dec', y: 27 },
       ],
-    },
+    }
   ]);
 
   const [strictData, setStrictData] = useState([
@@ -72,6 +73,34 @@ const MyPageMain = () => {
     { day: '2024-02-01', value: 2 },
     { day: '2024-02-02', value: 2 },
   ]);
+
+  const fetchData = async () => {
+    const MyStatistic= await getMyStatistic()
+    const MyRank= await getMyRank()
+    const Strict= await getMyStrict()
+
+    // 이거 바꿔 주세요.. 부탁하기
+    const resultStatistic = Object.entries(MyStatistic).map(([type, score]) => ({
+      type: type, // 타입을 소문자로 변환
+      score: typeof score === 'number' ? score : parseInt(score as string, 10),
+    }));
+
+    // 이것도 바꿔주세요.. 
+    const resultRank = [{
+      id: 'rank',
+      data: MyRank.map((item:{ type: string; score: number }) => { 
+      return {x :item.type.slice(0,3), y:item.score }})
+    }]
+
+    setStatisticData( resultStatistic )
+    setRankData( resultRank )
+    setStrictData( Strict); 
+  };  
+
+  useEffect(() => {
+      fetchData();
+  }, []);
+
 
   return (
     <>

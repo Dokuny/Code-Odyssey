@@ -31,13 +31,13 @@ const TypeBySprint = () => {
   const OPTIONS = [
     { value: 'STRING', name: '문자열' },
     { value: 'MATH', name: '수학' },
-    { value: 'DATA STRUCTURE', name: '자료구조' },
-    { value: 'BRUTE FORCE', name: '브루트 포스' },
+    { value: 'DATA_STRUCTURE', name: '자료구조' },
+    { value: 'BRUTE_FORCE', name: '브루트 포스' },
     { value: 'TREE', name: '트리' },
     { value: 'GRAPH', name: '그래프' },
-    { value: 'AD HOC', name: '애드혹' },
+    { value: 'AD_HOC', name: '애드혹' },
     { value: 'DP', name: '다이나믹 프로그래밍' },
-    { value: 'GREEEY', name: '그리디' },
+    { value: 'GREEDY', name: '그리디' },
     { value: 'SIMULATION', name: '시뮬레이션' },
   ];
 

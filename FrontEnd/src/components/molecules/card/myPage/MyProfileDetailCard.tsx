@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../../../config/Color';
 import { Spacer } from '../../../atoms/basic/Spacer';
@@ -6,6 +6,8 @@ import { Body1, Body2 } from '../../../atoms/basic/Typography';
 import IconButton from '../../../atoms/button/IconButton';
 import { IoIcon } from '../../../atoms/icon/Icons';
 import { difficulty } from '../../../../utils/json/difficulty';
+import { getProfile } from '../../../../utils/api/mypage/myprofile/profile';
+import ModalProfile from '../../../organisms/myPage/main/ModalProfile';
 
 const StyledContainer = styled.div`
   background-color: ${colors.GrayBlue[200]};
@@ -69,10 +71,26 @@ const MyProfileDetailCard = () => {
     nickname: 'testNickName',
     email: 'test@test.com',
     difficulty: 31,
-    collect_star_cnt: 17,
-    collect_week_star_cnt: 2,
-    bad_cnt: 1,
+    streak: 17,
+    sevenStreak: 2,
+    penalty: 1,
   });
+
+
+  const fetchData = async () => {
+    const data= await getProfile()
+    console.log(data)
+    setData( data );
+  };  
+
+  useEffect(() => {
+      fetchData();
+  }, []);
+
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => setModalOpen(true)
+  const closeModal = () => setModalOpen(false)
 
   return (
     <StyledContainer>
@@ -95,23 +113,24 @@ const MyProfileDetailCard = () => {
 
       <StyledMyInfoContainer>
         <StyledMyInfoContentContainer>
-          <Body1 children={data.collect_star_cnt} color={colors.Gray[25]} fontWeight={'bold'} />
+          <Body1 children={data.streak} color={colors.Gray[25]} fontWeight={'bold'} />
           <Body2 children={'모은 별'} color={colors.Gray[500]} />
         </StyledMyInfoContentContainer>
         <Spacer space={'2vw'} horizontal />
         <StyledMyInfoContentContainer>
-          <Body1 children={data.collect_week_star_cnt} color={colors.Gray[25]} fontWeight={'bold'} />
+          <Body1 children={data.sevenStreak} color={colors.Gray[25]} fontWeight={'bold'} />
           <Body2 children={'모은 북두칠성'} color={colors.Gray[500]} />
         </StyledMyInfoContentContainer>
         <Spacer space={'2vw'} horizontal />
         <StyledMyInfoContentContainer>
-          <Body1 children={data.bad_cnt} color={colors.Gray[25]} fontWeight={'bold'} />
+          <Body1 children={data.penalty} color={colors.Gray[25]} fontWeight={'bold'} />
           <Body2 children={'범죄 지수'} color={colors.Gray[500]} />
         </StyledMyInfoContentContainer>
         <Spacer space={'2vw'} horizontal />
-        <IconButton event={() => {}}>
+        <IconButton event={openModal}>
           <IoIcon name={'brush'} size={'2vmax'} color={colors.Gray[25]} />
         </IconButton>
+        <ModalProfile isOpen={isModalOpen} closeModal={closeModal} />
       </StyledMyInfoContainer>
     </StyledContainer>
   );
