@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { Body1, Body2, Header1, Header2 } from '../../../atoms/basic/Typography';
 import { colors } from '../../../../config/Color';
@@ -61,7 +61,13 @@ const StyledImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: contain;
+`
 
+const StyledImage2 = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
 `
 
 const Button = styled.button`
@@ -90,23 +96,54 @@ interface Props {
   closeModal : () => void;
 }
 
+
+
 const ModalProfile: React.FC<Props> = ({isOpen, closeModal}) => {
   const [input,setInput] = useState('')
+  const [imgFile,setImgFile] = useState('')
+  const imgRef = useRef<HTMLInputElement>(null);
+  const saveImgFile = () => {
+    const fileInput = imgRef.current;
+    
+    if (fileInput?.files?.length) {
+      const file: File = fileInput.files[0];
   
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+  
+      reader.onloadend = (event: ProgressEvent<FileReader>) => {
+        const result = event.target?.result as string;
+        setImgFile(result)
+      };
+    }
+  };
+
+  const Close = () => {
+    setImgFile('')
+    closeModal()
+  }
+
   return (
     <StyledDiv isOpen={isOpen}>
-      <Outline onClick={closeModal}>
-        <InItem onClick={(e)=>{e.stopPropagation()}}>
-          <Div1>
-            <StyledImage src={'/images/code_odyssey/Content.png'} alt='로그인 창 이미지' />
-          </Div1>
+      <Outline onClick={Close}>
+        <InItem onClick={(e)=>{e.stopPropagation()}}>            
+              <label htmlFor="file">
+              <Div1>
+                 { imgFile ? 
+                  <StyledImage2 src={imgFile} alt='로그인 창 이미지' />
+                  :
+                  <StyledImage src={'/images/code_odyssey/Content.png'} alt='로그인 창 이미지' />
+                }
+                </Div1>
+                </label>
+               <input style={{ display : 'none'}} type="file" name="file" id="file" accept="image/*" onChange={saveImgFile} ref={imgRef}></input>
           <Div2>
-            <Header2 children={'Name'} color={colors.White} fontWeight={'bold'}></Header2>
-            <Spacer space={'2vh'} />
-            <BasicInput placeholder={'이름'} setInput={setInput} input={input} textAlign={'center'} />
-            <Spacer space={'2vh'} />
-            <Button onClick={()=>{}}>
-              <Body2 children={'프로필 변경'} color={colors.White} ></Body2>
+          <Header2 children={'Name'} color={colors.White} fontWeight={'bold'}></Header2>
+          <Spacer space={'2vh'} />
+          <BasicInput placeholder={'이름'} setInput={setInput} input={input} textAlign={'center'} />
+          <Spacer space={'2vh'} />
+          <Button onClick={()=>{}}>
+            <Body2 children={'프로필 변경'} color={colors.White} ></Body2>
           </Button>
           </Div2>
         </InItem>
@@ -124,10 +161,7 @@ export default ModalProfile;
 //   <StyledImage src={imgFile ? imgFile : '/images/code_odyssey/ProblemSolveBg.svg'} alt='/'/>
 // </Front>
 // <Back>
-//   <label htmlFor="file">
-//     <ChangeImg>CHANGE</ChangeImg>
-//   </label>
-//   <input style={{ display : 'none'}} type="file" name="file" id="file" accept="image/*" onChange={saveImgFile} ref={imgRef}></input>
 //   <StyledImage src='/images/code_odyssey/WaitingBg.svg' alt='/'/>
 // </Back>
 // </StyledMyImgContainer>
+

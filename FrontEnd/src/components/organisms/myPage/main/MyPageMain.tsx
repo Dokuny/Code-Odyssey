@@ -75,10 +75,14 @@ const MyPageMain = () => {
   ]);
 
   const fetchData = async () => {
-    // const MyStatistic= await getMyStatistic()
+    const MyStatistic= await getMyStatistic()
     const MyRank= await getMyRank()
     const Strict= await getMyStrict()
     
+
+    console.table( MyStatistic )
+    console.table( MyRank )
+    console.table( Strict )
     // setStatisticData( MyStatistic || [    
     //   { type: 'dp', score: 0 },
     //   { type: 'string', score: 0 },

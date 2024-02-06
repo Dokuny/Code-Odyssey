@@ -78,7 +78,8 @@ const MyProfileDetailCard = () => {
 
 
   const fetchData = async () => {
-    // const data= await getProfile()
+    const data= await getProfile()
+    console.log(data)
     // setData( data );
   };  
 
