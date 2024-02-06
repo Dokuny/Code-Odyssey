@@ -1,5 +1,6 @@
-package code.odyssey.chat.config;
+package code.odyssey.config;
 
+import code.odyssey.config.RabbitMqProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -13,54 +14,62 @@ import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
+import org.springframework.amqp.core.Queue;
 @EnableRabbit
 @RequiredArgsConstructor
 @Configuration
-public class ChatConfig {
+public class CodeConfig {
 
     private final RabbitMqProperties rabbitMqProperties;
 
-    // RabbitMQ에서 기본적으로 제공하는 Topic 타입의 Exchange를 사용할 예정
-    private static final String TOPIC_EXCHANGE_NAME = "amq.topic";
+    @Value("${spring.rabbitmq.queue.name}")
+    private String queue;
 
-    // Topic Exchange에 맞는 라우팅 키 지정
-    private static final String ROUTING_KEY = "room.*";
+    @Value("${spring.rabbitmq.exchange.name}")
+    private String exchange;
 
-    // 기본 토픽 익스체인지 등록
+    private static final String ROUTING_KEY = "ide.*";
+
+    // spring bean for rabbitmq queue
     @Bean
-    public TopicExchange topicExchange() {
-        return new TopicExchange(TOPIC_EXCHANGE_NAME);
+    public Queue queue(){
+        return new Queue(queue);
     }
 
+    // spring bean for rabbitmq exchange
     @Bean
-    public Binding binding() {
+    public TopicExchange exchange() {
+        return new TopicExchange(exchange);
+    }
+
+    @Bean // binding between queue and exchange using routing key
+    public Binding codeConfigBinding() {
         return BindingBuilder
-                .bind(topicExchange())
-                .to(topicExchange())
+                .bind(queue())
+                .to(exchange())
                 .with(ROUTING_KEY);
     }
 
-
     @Bean
-    public RabbitTemplate rabbitTemplate() {
-        RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory());
-        rabbitTemplate.setMessageConverter(jsonMessageConverter());
+    public RabbitTemplate codeRabbitTemplate() {
+        RabbitTemplate rabbitTemplate = new RabbitTemplate(codeConnectionFactory());
+        rabbitTemplate.setMessageConverter(codeJsonMessageConverter());
         rabbitTemplate.setRoutingKey(ROUTING_KEY);
         return rabbitTemplate;
     }
 
     @Bean
-    public SimpleMessageListenerContainer container() {
+    public SimpleMessageListenerContainer codeContainer() {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
-        container.setConnectionFactory(connectionFactory());
+        container.setConnectionFactory(codeConnectionFactory());
         return container;
     }
 
     @Bean
-    public ConnectionFactory connectionFactory() {
+    public ConnectionFactory codeConnectionFactory() {
         CachingConnectionFactory factory = new CachingConnectionFactory();
         factory.setHost(rabbitMqProperties.getHost());
         factory.setUsername(rabbitMqProperties.getUsername());
@@ -69,17 +78,18 @@ public class ChatConfig {
     }
 
     @Bean
-    public Jackson2JsonMessageConverter jsonMessageConverter() {
+    public Jackson2JsonMessageConverter codeJsonMessageConverter() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
-        objectMapper.registerModule(dateTimeModule());
+        objectMapper.registerModule(codeDateTimeModule());
 
         return new Jackson2JsonMessageConverter(objectMapper);
     }
 
     @Bean
-    public JavaTimeModule dateTimeModule() {
+    public JavaTimeModule codeDateTimeModule() {
         return new JavaTimeModule();
     }
+
 
 }

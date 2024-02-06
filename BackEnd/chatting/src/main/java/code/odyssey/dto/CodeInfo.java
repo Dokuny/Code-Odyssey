@@ -1,4 +1,4 @@
-package code.odyssey.ide.dto;
+package code.odyssey.dto;
 
 import lombok.Getter;
 

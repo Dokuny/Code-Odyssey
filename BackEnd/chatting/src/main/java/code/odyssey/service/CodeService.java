@@ -1,6 +1,6 @@
-package code.odyssey.ide.service;
+package code.odyssey.service;
 
-import code.odyssey.ide.dto.CodeInfo;
+import code.odyssey.dto.CodeInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -19,7 +19,10 @@ public class CodeService {
 
     public void sendCode(CodeInfo codeInfo) {
         log.info(codeInfo.getCode());
-        rabbitTemplate.convertAndSend(exchange, "ide."+codeInfo.getGuildId(), codeInfo);
+        rabbitTemplate.convertAndSend(
+                exchange,
+                "ide."+codeInfo.getGuildId(),
+                codeInfo);
         // /code_exchange/ide.{guildId}를 구독한 클라이언트에게 메세지 전송
 
     }
