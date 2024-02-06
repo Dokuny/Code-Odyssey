@@ -8,6 +8,7 @@ import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
 import { Spacer } from '../../atoms/basic/Spacer';
 import CompileResultCard from '../card/ide/ComplieResultCard';
 import ProblemCaseInputCard from '../card/ide/ProblemCaseInputCard';
+import VarNameChangeCard from '../card/ide/VarNameChangeCard';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -36,7 +37,7 @@ const ProblemCompileForm = (props: ProblemCompileFormProps) => {
 
   useEffect(() => {
     setData({
-      result: 1,
+      result: 2,
       status: '컴파일 에러',
       myOutput: null,
       runtime: null,
@@ -111,8 +112,8 @@ const ProblemCompileForm = (props: ProblemCompileFormProps) => {
         </div>
       </div>
       {props.isActive && menu === 'result' && <CompileResultCard data={data} problemData={{ input: '1 2', output: '1 2' }} />}
-      {props.isActive && menu === 'case' && <ProblemCaseInputCard></ProblemCaseInputCard>}
-      {props.isActive && menu === 'val' && <></>}
+      {props.isActive && menu === 'case' && <ProblemCaseInputCard />}
+      {props.isActive && menu === 'val' && <VarNameChangeCard />}
     </StyledContainer>
   );
 };

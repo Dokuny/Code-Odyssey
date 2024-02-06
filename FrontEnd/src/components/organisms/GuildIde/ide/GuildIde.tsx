@@ -10,6 +10,7 @@ import ProblemCompileForm from '../../../molecules/form/ProblemCompileForm';
 import BasicButton from '../../../atoms/button/BasicButton';
 import { colors } from '../../../../config/Color';
 import { Caption1 } from '../../../atoms/basic/Typography';
+import ToggleSwitch from '../../../atoms/select/ToggleSwitch';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -29,8 +30,8 @@ const GuildIde = () => {
   const [isActive, setIsActive] = useState(true);
   const [activeLanguage, setActiveLanguage] = useState('java');
   const monaco = useMonaco();
-  const [selectedTheme, setSelectedTheme] = useState('true');
   const [input, setInput] = useState('');
+  const [selectedTheme, setSelectedTheme] = useState(true);
 
   const handleEditorChange = (value: string | undefined, event: editor.IModelContentChangedEvent) => {
     if (value !== undefined) setInput(value);
@@ -39,10 +40,10 @@ const GuildIde = () => {
   useEffect(() => {
     if (!monaco) return;
 
-    monaco.editor.defineTheme('true', GitHubDark as editor.IStandaloneThemeData);
-    monaco.editor.defineTheme('false', GitHubLight as editor.IStandaloneThemeData);
+    monaco.editor.defineTheme('dark', GitHubDark as editor.IStandaloneThemeData);
+    monaco.editor.defineTheme('light', GitHubLight as editor.IStandaloneThemeData);
 
-    monaco.editor.setTheme(selectedTheme);
+    monaco.editor.setTheme(selectedTheme ? 'dark' : 'light');
   }, [monaco, selectedTheme]);
 
   return (
@@ -57,18 +58,21 @@ const GuildIde = () => {
             ]}
           />
         </div>
-        <BasicButton
-          width={'auto'}
-          event={() => {
-            setInput('');
-          }}
-          borderColor={'rgba(0, 0, 0, 0)'}
-          deepColor={'rgba(255, 80, 80, 0.2)'}
-          bgColor={'rgba(255, 120, 120, 0.2)'}
-          children={<Caption1 children={'reset'} color={colors.White} fontWeight={'bold'} />}
-          borderRadius={'2em'}
-          padding={'1vmin'}
-        />
+        <div style={{ display: 'flex', alignItems: 'center', gap: '2vmin' }}>
+          <ToggleSwitch setSelectedTheme={setSelectedTheme} />
+          <BasicButton
+            width={'auto'}
+            event={() => {
+              setInput('');
+            }}
+            borderColor={'rgba(0, 0, 0, 0)'}
+            deepColor={'rgba(255, 80, 80, 0.2)'}
+            bgColor={'rgba(255, 120, 120, 0.2)'}
+            children={<Caption1 children={'reset'} color={colors.White} fontWeight={'bold'} />}
+            borderRadius={'2em'}
+            padding={'1vmin'}
+          />
+        </div>
       </StyledMenuContainer>
       <Editor
         height={isActive ? '48vh' : '76vh'}
@@ -76,7 +80,7 @@ const GuildIde = () => {
         defaultValue={''}
         theme={'true'}
         value={input}
-        width={'100%'}
+        width={'40vw'}
         options={{ minimap: { enabled: false } }}
         onChange={handleEditorChange}
       />
