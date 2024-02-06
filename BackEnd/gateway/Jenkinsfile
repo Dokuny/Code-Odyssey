@@ -6,7 +6,8 @@ pipeline {
         JWT_SECRET_KEY = "${env.JWT_SECRET_KEY}"
         DISCOVERY_SERVER="${env.DISCOVERY_SERVER}"
         COMMON_SERVER="${env.COMMON_SERVER}"
-
+        JUDGE_SERVER="${env.JUDGE_SERVER}"
+        CHATTING_SERVER="${env.CHATTING_SERVER}"
     }
 
     agent any
@@ -101,7 +102,7 @@ pipeline {
                             verbose: true,
                             transfers: [
                                 sshTransfer(execCommand: "sudo docker rm -f Gateway"),
-                                sshTransfer(execCommand: "sudo docker run -d -p 8888:8888 --name Gateway --network front -e JWT_SECRET_KEY=\"${JWT_SECRET_KEY}\" -e DISCOVERY_SERVER=\"${DISCOVERY_SERVER}\" -e COMMON_SERVER=\"${COMMON_SERVER}\" " + repository + ":Gateway_${BUILD_NUMBER}")
+                                sshTransfer(execCommand: "sudo docker run -d -p 8888:8888 --name Gateway --network front -e JWT_SECRET_KEY=\"${JWT_SECRET_KEY}\" -e DISCOVERY_SERVER=\"${DISCOVERY_SERVER}\" -e COMMON_SERVER=\"${COMMON_SERVER}\" -e JUDGE_SERVER=\"${JUDGE_SERVER}\" -e CHATTING_SERVER=\"${CHATTING_SERVER}\" " + repository + ":Gateway_${BUILD_NUMBER}")
                             ]
                         )
                     ]

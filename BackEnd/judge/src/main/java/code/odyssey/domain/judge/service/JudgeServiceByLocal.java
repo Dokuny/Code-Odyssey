@@ -117,7 +117,7 @@ public class JudgeServiceByLocal implements JudgeService{
                 boolean isNotTimeOut = process.waitFor(2, TimeUnit.MILLISECONDS);
                 long endTime = System.currentTimeMillis();
                 if(!isNotTimeOut){
-                    throw new JudgeException(JudgeErrorCode.TIME_OUT_ERROR);
+                    return JudgeResult.builder().status(런타임_에러).result(2).runtimeError(error.toString()).build();
                 }
 
                 StringBuilder result = getLog(process.getInputStream());
@@ -125,9 +125,9 @@ public class JudgeServiceByLocal implements JudgeService{
 
 
                 if(isRight(locationOfOutput, result.toString())){
-                    return JudgeResult.builder().myOutput(result.toString()).runtime(endTime-startTime).status(맞았습니다).build();
+                    return JudgeResult.builder().myOutput(result.toString()).result(0).runtime(endTime-startTime).status(맞았습니다).build();
                 }else{
-                    return JudgeResult.builder().myOutput(result.toString()).runtime(endTime-startTime).status(틀렸습니다).build();
+                    return JudgeResult.builder().myOutput(result.toString()).result(1).runtime(endTime-startTime).status(틀렸습니다).build();
                 }
 
             } else {
@@ -135,6 +135,7 @@ public class JudgeServiceByLocal implements JudgeService{
                 System.out.println( compileError.toString().replaceAll("./Main.java", "\n./Main.java"));
                 return JudgeResult.builder()
                         .status(컴파일_에러)
+                        .result(2)
                         .compileError(compileError.toString().replaceAll("./Main.java", "\n./Main.java"))
                         .build();
             }
@@ -181,23 +182,23 @@ public class JudgeServiceByLocal implements JudgeService{
             StringBuilder error = getLog(process.getErrorStream());
             if(!error.isEmpty()){
                 log.error("runtime error : {}", error);
-                return JudgeResult.builder().status(런타임_에러).runtimeError(error.toString()).build();
+                return JudgeResult.builder().status(런타임_에러).result(2).runtimeError(error.toString()).build();
             }
 
             // 프로세스가 종료될 때까지 대기
             boolean isNotTimeOut = process.waitFor(request.timeOut(), TimeUnit.MILLISECONDS);
             long endTime = System.currentTimeMillis();
             if (!isNotTimeOut) {
-                return JudgeResult.builder().status(시간초과).build();
+                return JudgeResult.builder().status(시간초과).result(1).build();
             }
 
             StringBuilder result = getLog(process.getInputStream());
             log.info("result : {}", result);
 
             if(isRight(locationOfOutput, result.toString())){
-                return JudgeResult.builder().myOutput(result.toString()).runtime(endTime-startTime).status(맞았습니다).build();
+                return JudgeResult.builder().result(0).myOutput(result.toString()).runtime(endTime-startTime).status(맞았습니다).build();
             }else{
-                return JudgeResult.builder().myOutput(result.toString()).runtime(endTime-startTime).status(틀렸습니다).build();
+                return JudgeResult.builder().result(1).myOutput(result.toString()).runtime(endTime-startTime).status(틀렸습니다).build();
             }
 
 
@@ -237,31 +238,29 @@ public class JudgeServiceByLocal implements JudgeService{
                 StringBuilder error = getLog(process.getErrorStream());
                 if(!error.isEmpty()){
                     log.error("runtime error : {}", error);
-                    return JudgeResult.builder().status(런타임_에러).runtimeError(error.toString()).build();
+                    return JudgeResult.builder().status(런타임_에러).result(2).runtimeError(error.toString()).build();
                 }
 
                 // 프로세스가 종료될 때까지 대기
                 boolean isNotTimeOut = process.waitFor(request.timeOut(), TimeUnit.MILLISECONDS);
                 long endTime = System.currentTimeMillis();
                 if (!isNotTimeOut) {
-                    return JudgeResult.builder().status(시간초과).build();
+                    return JudgeResult.builder().status(시간초과).result(1).build();
                 }
 
 
-                if (!isNotTimeOut) {
-                    return JudgeResult.builder().status(시간초과).build();
-                }
+
 
                 if(!error.isEmpty()){
                     log.error("runtime error : {}", error);
-                    return JudgeResult.builder().status(런타임_에러).runtimeError(error.toString()).build();
+                    return JudgeResult.builder().status(런타임_에러).runtimeError(error.toString()).result(2).build();
                 }
                 StringBuilder result = getLog(process.getInputStream());
 
                 if(isRight(locationOfOutput, result.toString())){
-                    return JudgeResult.builder().myOutput(result.toString()).runtime(endTime-startTime).status(맞았습니다).build();
+                    return JudgeResult.builder().myOutput(result.toString()).runtime(endTime-startTime).result(0).status(맞았습니다).build();
                 }else{
-                    return JudgeResult.builder().myOutput(result.toString()).runtime(endTime-startTime).status(틀렸습니다).build();
+                    return JudgeResult.builder().myOutput(result.toString()).runtime(endTime-startTime).result(1).status(틀렸습니다).build();
                 }
 
 
@@ -272,6 +271,7 @@ public class JudgeServiceByLocal implements JudgeService{
 
                 return JudgeResult.builder()
                         .status(컴파일_에러)
+                        .result(2)
                         .compileError(compileError.toString().replaceAll("./Main.java", "\n./Main.java"))
                         .build();
             }
