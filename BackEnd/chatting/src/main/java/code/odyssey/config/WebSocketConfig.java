@@ -1,5 +1,6 @@
-package code.odyssey.chat.config;
+package code.odyssey.config;
 
+import code.odyssey.config.RabbitMqProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
