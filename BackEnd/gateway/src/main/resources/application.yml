@@ -91,7 +91,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: ${EUREKA_SERVER}
+      defaultZone: ${DISCOVERY_SERVER}
 
 ---
 
