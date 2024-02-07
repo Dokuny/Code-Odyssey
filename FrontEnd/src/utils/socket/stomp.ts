@@ -2,8 +2,9 @@ import * as StompJs from '@stomp/stompjs';
 import { BASE_URL } from '../../config/Axios';
 
 export const clientdata = new StompJs.Client({
-  brokerURL: `ws://${BASE_URL}/ws`,
-  connectHeaders: { Authorization: '' },
+  //   brokerURL: `ws://${BASE_URL}/ws`,
+  brokerURL: `ws://localhost:8888/ws`,
+  //   connectHeaders: { Authorization: '' },
   debug: function (str: string) {
     console.log(str);
   },

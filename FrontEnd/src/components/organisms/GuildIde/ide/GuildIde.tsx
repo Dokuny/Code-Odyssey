@@ -11,6 +11,7 @@ import BasicButton from '../../../atoms/button/BasicButton';
 import { colors } from '../../../../config/Color';
 import { Caption1 } from '../../../atoms/basic/Typography';
 import ToggleSwitch from '../../../atoms/select/ToggleSwitch';
+import * as StompJs from '@stomp/stompjs';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -27,6 +28,9 @@ const StyledMenuContainer = styled.div`
 `;
 
 const GuildIde = () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const guild_problem_id = JSON.parse(decodeURIComponent(urlParams.get('guild_problem_id') as string));
+  let [client, changeClient] = useState<StompJs.Client>(new StompJs.Client());
   const [isActive, setIsActive] = useState(true);
   const [activeLanguage, setActiveLanguage] = useState('java');
   const monaco = useMonaco();
@@ -36,7 +40,10 @@ const GuildIde = () => {
   const handleEditorChange = (value: string | undefined, event: editor.IModelContentChangedEvent) => {
     if (value !== undefined) {
       setInput(value);
-      // console.log(event.changes[0]);
+      client.publish({
+        destination: '/pub/ide/' + guild_problem_id,
+        body: JSON.stringify({ code: value, guildProblemId: guild_problem_id }),
+      });
     }
   };
 
@@ -48,7 +55,45 @@ const GuildIde = () => {
 
     monaco.editor.setTheme(selectedTheme ? 'dark' : 'light');
   }, [monaco, selectedTheme]);
-  console.log(input);
+
+  const callback = function (message: any) {
+    if (message.body) {
+      let msg = JSON.parse(message.body);
+      setInput(msg.code);
+    }
+  };
+
+  const connect = () => {
+    try {
+      const clientdata = new StompJs.Client({
+        brokerURL: `ws://localhost:8888/ws`,
+        //   connectHeaders: { Authorization: '' },
+        reconnectDelay: 5000,
+        heartbeatIncoming: 4000,
+        heartbeatOutgoing: 4000,
+      });
+      clientdata.onConnect = function () {
+        clientdata.subscribe(`/topic/ide.${guild_problem_id}`, callback);
+      };
+
+      clientdata.activate();
+      changeClient(clientdata);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const disConnect = () => {
+    if (client === null) {
+      return;
+    }
+    client.deactivate();
+  };
+
+  useEffect(() => {
+    connect();
+    return () => disConnect();
+  }, []);
 
   return (
     <StyledContainer>

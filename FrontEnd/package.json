@@ -23,7 +23,6 @@
     "chance": "^1.1.11",
     "date-fns": "^3.3.1",
     "firebase": "^10.8.0",
-    "http-proxy-middleware": "^2.0.6",
     "luxon": "^3.4.4",
     "monaco-editor": "^0.45.0",
     "monaco-themes": "^0.4.4",
