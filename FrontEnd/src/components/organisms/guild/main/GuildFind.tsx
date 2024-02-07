@@ -7,6 +7,8 @@ import GuildRecomment from './GuildFind/GuildRecomment';
 import { Body1, Body3 } from '../../../atoms/basic/Typography';
 import { colors } from '../../../../config/Color';
 
+
+
 const GuildFind = () => {
   const [searchInput, setSearchInput] = useState('');
 
