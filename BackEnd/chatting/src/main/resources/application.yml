@@ -13,8 +13,8 @@ spring:
       password: ${MONGODB_USER_PASSWORD}
 
   rabbitmq:
-    username: ssafy
-    password: ssafy
+    username: ${RABBIT_MQ_USERNAME}
+    password: ${RABBIT_MQ_PASSWORD}
     host: ${CHATTING_SERVER}
     port: 61613
     queue:
