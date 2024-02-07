@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
-@Document(collection = "chat")
+@Document(collection = "chat") // mongo db는 @Entity가 아닌 @Document
 @Getter
 @Setter
 @Builder

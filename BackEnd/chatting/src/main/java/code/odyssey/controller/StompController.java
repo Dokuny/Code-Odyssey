@@ -30,10 +30,10 @@ public class StompController {
     }
 
     // 실시간 코드 수정
-    // /pub/code/{guildId}로 요청하면 브로커를 통해 처리
-    @MessageMapping("code/{guildId}")
+    // /pub/ide/{guildProblemId}로 요청하면 브로커를 통해 처리
+    @MessageMapping("/ide/{guildProblemId}")
     public void sendCode(
-            @DestinationVariable Long guildId,
+            @DestinationVariable Long guildProblemId,
             CodeInfo codeInfo
     ) {
         codeService.sendCode(codeInfo);

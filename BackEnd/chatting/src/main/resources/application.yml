@@ -29,3 +29,4 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: ${DISCOVERY_SERVER}
+

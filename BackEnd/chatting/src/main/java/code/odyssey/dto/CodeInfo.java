@@ -6,5 +6,5 @@ import lombok.Getter;
 public class CodeInfo {
 
     String code;
-    Long guildId;
+    Integer guildProblemId;
 }
