@@ -1,5 +1,6 @@
 package code.odyssey.common.domain.member.service;
 
+import code.odyssey.common.domain.member.dto.ModifyMemberRequest;
 import code.odyssey.common.domain.member.dto.dto.MemberInfo;
 import code.odyssey.common.domain.member.entity.Member;
 import code.odyssey.common.domain.member.exception.MemberErrorCode;
@@ -53,4 +54,18 @@ public class MemberService {
                 .collect(Collectors.toList());
     }
 
+
+    @Transactional
+    public void modifyMember(Long memberId, ModifyMemberRequest request) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberException(MemberErrorCode.NOT_EXISTS_MEMBER));
+
+        Member updatedMember = member.toBuilder()
+                .thumbnail(request.getThumbnail())
+                .nickname(request.getNickname())
+                .build();
+
+        memberRepository.save(updatedMember);
+
+    }
 }

@@ -1,6 +1,7 @@
 package code.odyssey.common.domain.member.controller;
 
 import code.odyssey.common.domain.member.dto.FindMembersRequest;
+import code.odyssey.common.domain.member.dto.ModifyMemberRequest;
 import code.odyssey.common.domain.member.dto.dto.MemberInfo;
 import code.odyssey.common.domain.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +38,16 @@ public class MemberController {
             @RequestBody FindMembersRequest request
     ) {
         return ResponseEntity.ok(memberService.findByNicknameOrEmail(request.getNickname(), request.getEmail()));
+    }
+
+    // 개인 정보 수정
+    @PatchMapping("/me")
+    public ResponseEntity<Void> modifyMember(
+            @RequestHeader("X-Authorization-Id") Long memberId,
+            @RequestBody ModifyMemberRequest request
+    ) {
+        memberService.modifyMember(memberId, request);
+        return ResponseEntity.ok().build();
     }
 
 

@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = PROTECTED)
-@Builder
+@Builder(toBuilder = true)
 @Table(
 	uniqueConstraints = @UniqueConstraint(
 		name = "UQ_member_1",
