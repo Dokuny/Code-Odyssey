@@ -88,6 +88,7 @@ const GuildProfileDetailCard = (props: GuildProfileDetailCardProps) => {
       <Spacer space={'2vh'} />
 
       <StyledMyInfoContainer>
+      <div style={{width:'calc(4% + 1vw)'}}></div>
         <StyledMyInfoContentContainer>
           <Body1 children={data.guildname} color={colors.Gray[25]} fontWeight={'bold'} />
           <Body2 children={data.guild_king} color={colors.Gray[400]} />

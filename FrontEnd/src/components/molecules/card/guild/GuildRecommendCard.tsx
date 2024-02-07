@@ -104,11 +104,11 @@ interface GuildRecommendCardProps {
   guildSearchData: {
     guild_id: number;
     difficulty: number;
-    guildName: string;
-    guildImg: string;
+    guild_name: string;
+    guild_img: string;
     current_cnt: string | number;
     possible_cnt: string | number;
-    langIcons: string[];
+    language: string;
   };
 }
 
@@ -119,9 +119,9 @@ const GuildRecommendCard = (props: GuildRecommendCardProps) => {
       <HeaderDiv>
         <DiffImageDiv src={difficulty[data.difficulty]}></DiffImageDiv>
         <Spacer space={'0.5vmax'} horizontal />
-        <Body1 children={data.guildName} color={colors.Gray[100]} fontWeight={'bold'} />
+        <Body1 children={data.guild_name} color={colors.Gray[100]} fontWeight={'bold'} />
       </HeaderDiv>
-      <ImageStyle src={data.guildImg}></ImageStyle>
+      <ImageStyle src={data.guild_img}></ImageStyle>
       <FooterDiv>
         <SeperateLeft>
           <LineDiv>
@@ -136,11 +136,9 @@ const GuildRecommendCard = (props: GuildRecommendCardProps) => {
         </SeperateLeft>
         <SeperateRight>
           <IconDiv>
-            {data.langIcons.map((ele, index) => (
               <div style={{ margin: '0.2vmax' }}>
-                <LanguageIcon key={index} src={ele} />
+                <LanguageIcon src={'/images/language/'+data.language+'.svg'} />
               </div>
-            ))}
           </IconDiv>
         </SeperateRight>
       </FooterDiv>

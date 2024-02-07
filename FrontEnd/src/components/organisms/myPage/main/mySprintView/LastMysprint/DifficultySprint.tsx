@@ -37,6 +37,7 @@ const DifficultySprint = () => {
   const fetchData = async () => {
     if (selectedValue !== 'select') {
         const result = await getDifficultySprint(selectedValue);
+        console.log(result)
         setData(result || [{}]); // result가 falsy일 경우 빈 배열로 설정
       }
       return

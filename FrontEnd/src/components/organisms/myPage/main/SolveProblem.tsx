@@ -6,6 +6,7 @@ import { PaginationState } from '@tanstack/react-table';
 import SearchDiv from '../../../atoms/select/SearchDiv';
 import { Body1, Body3 } from '../../../atoms/basic/Typography';
 import { colors } from '../../../../config/Color';
+import { getProblem } from '../../../../utils/api/mypage/solveproblem/problem';
 
 const SolveProblem = () => {
   const [searchInput, setSearchInput] = useState('');
@@ -36,10 +37,18 @@ const SolveProblem = () => {
     ],
   });
 
+  const fetchData = async () => {
+    // const result = await getProblem();
+    // console.log(result)
+    // setData(tableData); // result가 falsy일 경우 빈 배열로 설정
+};
+
+
   useEffect(() => {
     // TODO
     // 문제 검색 시 api 붙이기
     // console.log(searchInput);
+    fetchData();
   }, [searchInput]);
 
   useEffect(() => {

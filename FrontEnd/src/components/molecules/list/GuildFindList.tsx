@@ -4,11 +4,11 @@ interface GuildFindListProps {
   data: {
     guild_id: number;
     difficulty: number;
-    guildName: string;
-    guildImg: string;
+    guild_name: string;
+    guild_img: string;
     current_cnt: string | number;
     possible_cnt: string | number;
-    langIcons: string[];
+    language: string;
   }[];
 }
 

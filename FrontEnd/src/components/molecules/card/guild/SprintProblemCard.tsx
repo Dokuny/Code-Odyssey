@@ -101,8 +101,7 @@ const SprintProblemCard = (props: SprintProblemCardProps) => {
   const navigate = useNavigate();
   useEffect(() => {
     if (selectData != null) {
-      const reviewData = { guild_problem_id: data.guild_problem_id, member_id: selectData.member_id };
-      navigate('/review', { state: { reviewData } });
+      window.open(`/review?guild_problem_id=${data.guild_problem_id}&member_id=${selectData.member_id}`, '_blank');
     }
   }, [data, navigate, selectData]);
 
