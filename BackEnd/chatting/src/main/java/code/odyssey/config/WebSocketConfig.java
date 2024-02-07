@@ -2,6 +2,7 @@ package code.odyssey.config;
 
 import code.odyssey.config.RabbitMqProperties;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
@@ -21,19 +22,21 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                 .setAllowedOrigins("*");
     }
 
+    @Value("${spring.rabbitmq.host}")
+    private String mqAddress;
+
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         registry.setApplicationDestinationPrefixes("/pub")
                 .setUserDestinationPrefix("/users")
                 .enableStompBrokerRelay("/queue", "/topic", "/exchange","/amq/queue")
-                .setRelayHost("localhost")
+                .setRelayHost(mqAddress)
                 .setVirtualHost("/")
                 .setRelayPort(61613) // RabbitMQ STOMP 기본 포트
                 .setSystemLogin(rabbitMqProperties.getUsername())
                 .setSystemPasscode(rabbitMqProperties.getPassword())
                 .setClientLogin(rabbitMqProperties.getUsername())
                 .setClientPasscode(rabbitMqProperties.getPassword());
-
     }
 
 
