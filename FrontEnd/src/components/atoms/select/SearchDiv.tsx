@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { colors } from '../../../config/Color';
 import { ChangeEvent } from 'react';
 import { Spacer } from '../basic/Spacer';
+import { KeyboardEvent } from 'react';
+import { Fa6Icon } from '../icon/Icons';
 
 const SearchDivBody = styled.div`
   width: 100%;
@@ -21,6 +23,8 @@ interface SearchDivProps {
   setCategory: React.Dispatch<React.SetStateAction<string>>;
   setDifficulty: React.Dispatch<React.SetStateAction<string>>;
   setPlatform: React.Dispatch<React.SetStateAction<string>>;
+  SearchProblem: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  Search: () => void;
 }
 
 // StyledInput을 SearchDiv 외부에 정의
@@ -41,12 +45,18 @@ const StyledInput = styled.input`
   background-color: ${colors.GrayBlue[600]};
   box-shadow: 2px 2px 4px ${colors.Gray[800]};
 `;
-
+const SearchButton = styled.button`
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 1vmin;
+`;
 const SearchDiv = (props: SearchDivProps) => {
   const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     const text = e.target.value;
     props.setInputText(text);
-    console.log('texting... ', text); // 변경된 값을 출력
   };
 
   const changed = (event: any) => {
@@ -97,7 +107,12 @@ const SearchDiv = (props: SearchDivProps) => {
         borderRadius={'5px'}
       ></DropDown>
       <Spacer space={'0.5vw'} horizontal></Spacer>
-      <StyledInput placeholder='검색어를 입력해주세요' onChange={onChangeInput}></StyledInput>
+      <div style={{ display: 'flex', position: 'relative', width: '70%' }}>
+        <StyledInput placeholder='검색어를 입력해주세요' onChange={onChangeInput} onKeyDown={props.SearchProblem}></StyledInput>
+        <SearchButton type='button' onClick={props.Search}>
+          <Fa6Icon name={'search'} color={colors.Gray[100]} />
+        </SearchButton>
+      </div>
     </SearchDivBody>
   );
 };

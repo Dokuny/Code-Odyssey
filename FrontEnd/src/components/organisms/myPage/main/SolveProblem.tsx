@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, KeyboardEvent, MouseEventHandler } from 'react';
 import { Spacer } from '../../../atoms/basic/Spacer';
 import MainTopCard from '../../../molecules/card/basic/MainTopCard';
 import BasicTable from '../../../atoms/table/BasicTable';
@@ -18,7 +18,7 @@ const SolveProblem = () => {
   const [inputText, setInputText] = useState('');
 
   useEffect(() => {
-    console.log(platform, difficulty, category, inputText, state);
+    // console.log(platform, difficulty, category, inputText, state);
   }, [platform, difficulty, category, inputText, state]);
 
   const [tableData, setTableData] = useState({
@@ -37,6 +37,18 @@ const SolveProblem = () => {
     ],
   });
 
+
+  const SearchProblem = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      // 문제 검색 API
+      console.log('submit ', platform, difficulty, category, inputText);
+    }
+  };
+
+  const Search = () => {
+    console.log('submit ', platform, difficulty, category, inputText);
+  };
+
   const fetchData = async () => {
     // const result = await getProblem();
     // console.log(result)
@@ -50,6 +62,7 @@ const SolveProblem = () => {
     // console.log(searchInput);
     fetchData();
   }, [searchInput]);
+
 
   useEffect(() => {
     // TODO
@@ -85,6 +98,8 @@ const SolveProblem = () => {
             difficulty={difficulty}
             category={category}
             inputText={inputText}
+            SearchProblem={SearchProblem}
+            Search={Search}
           />
         }
         state={state}
