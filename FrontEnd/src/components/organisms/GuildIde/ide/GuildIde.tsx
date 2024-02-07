@@ -34,7 +34,10 @@ const GuildIde = () => {
   const [selectedTheme, setSelectedTheme] = useState(true);
 
   const handleEditorChange = (value: string | undefined, event: editor.IModelContentChangedEvent) => {
-    if (value !== undefined) setInput(value);
+    if (value !== undefined) {
+      setInput(value);
+      // console.log(event.changes[0]);
+    }
   };
 
   useEffect(() => {
@@ -45,6 +48,7 @@ const GuildIde = () => {
 
     monaco.editor.setTheme(selectedTheme ? 'dark' : 'light');
   }, [monaco, selectedTheme]);
+  console.log(input);
 
   return (
     <StyledContainer>

@@ -6,7 +6,6 @@ import { RecoilRoot } from 'recoil';
 import RoutesSetup from './routes/RoutesSetup';
 import GlobalStyle from './config/GlobalStyle';
 
-
 function App() {
   return (
     <DndProvider backend={HTML5Backend}>
