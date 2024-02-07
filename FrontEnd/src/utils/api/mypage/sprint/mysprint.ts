@@ -46,7 +46,7 @@ export const getTypeBySprint = async (type: string) => {
 
 // 지난 난이도 스프린트
 export const getDifficultySprint = async (difficulty: string) => {
-  const data = await tokenInstance.get(`$submissions/difficulty/${difficulty}`);
+  const data = await tokenInstance.get(`submissions/difficulty/${difficulty}`);
   return data && data.data;
 };
 

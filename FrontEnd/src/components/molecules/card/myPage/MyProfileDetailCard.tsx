@@ -42,12 +42,20 @@ const StyledMyImgContainer = styled.div`
 const StyledMyImage = styled.img`
   width: 100%;
   object-fit: cover;
+  margin: 0 auto;
   border-radius: 5em;
   border: 2px solid ${colors.Gray[700]};
   box-sizing: border-box;
 `;
 
 const StyledMyInfoContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
+
+const StyledPositionContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -62,6 +70,8 @@ const StyledMyInfoContentContainer = styled.div`
 `;
 
 const DiffImgageDiv = styled.img`
+
+  position: relative;
   width: 4%;
 `;
 
@@ -70,7 +80,7 @@ const MyProfileDetailCard = () => {
     thumbnail: 'https://picsum.photos/300',
     nickname: 'testNickName',
     email: 'test@test.com',
-    difficulty: 31,
+    tier: 31,
     streak: 17,
     sevenStreak: 2,
     penalty: 1,
@@ -101,29 +111,30 @@ const MyProfileDetailCard = () => {
       </StyledBackgroundImage>
       <Spacer space={'2vh'} />
 
-      <StyledMyInfoContainer>
+      <StyledPositionContainer>
+      <div style={{width:'calc(4% + 1vw)'}}></div>
         <StyledMyInfoContentContainer>
           <Body1 children={data.nickname} color={colors.Gray[25]} fontWeight={'bold'} />
           <Body2 children={data.email} color={colors.Gray[500]} />
         </StyledMyInfoContentContainer>
         <Spacer space={'1vw'} horizontal />
-        <DiffImgageDiv src={difficulty[data.difficulty]}></DiffImgageDiv>
-      </StyledMyInfoContainer>
+        <DiffImgageDiv src={difficulty[data.tier]}></DiffImgageDiv>
+      </StyledPositionContainer>
       <Spacer space={'1vh'} />
 
       <StyledMyInfoContainer>
         <StyledMyInfoContentContainer>
-          <Body1 children={data.streak} color={colors.Gray[25]} fontWeight={'bold'} />
+          <Body1 children={data.streak || 0} color={colors.Gray[25]} fontWeight={'bold'} />
           <Body2 children={'모은 별'} color={colors.Gray[500]} />
         </StyledMyInfoContentContainer>
         <Spacer space={'2vw'} horizontal />
         <StyledMyInfoContentContainer>
-          <Body1 children={data.sevenStreak} color={colors.Gray[25]} fontWeight={'bold'} />
+          <Body1 children={data.sevenStreak || 0} color={colors.Gray[25]} fontWeight={'bold'} />
           <Body2 children={'모은 북두칠성'} color={colors.Gray[500]} />
         </StyledMyInfoContentContainer>
         <Spacer space={'2vw'} horizontal />
         <StyledMyInfoContentContainer>
-          <Body1 children={data.penalty} color={colors.Gray[25]} fontWeight={'bold'} />
+          <Body1 children={data.penalty || 0} color={colors.Gray[25]} fontWeight={'bold'} />
           <Body2 children={'범죄 지수'} color={colors.Gray[500]} />
         </StyledMyInfoContentContainer>
         <Spacer space={'2vw'} horizontal />

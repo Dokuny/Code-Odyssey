@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../../config/Color';
 import Divider from '../../atoms/basic/Divider';
 import { Spacer } from '../../atoms/basic/Spacer';
 import { Body1, Body2, Header2 } from '../../atoms/basic/Typography';
 import StarGraph from '../../atoms/graph/StarGraph';
+import { getMyStreak } from '../../../utils/api/mypage/sprint/mysprint';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -32,6 +33,16 @@ const RunningSprintGraph = () => {
       plowCnt: 10,
     },
   });
+
+  const fetchData = async () => {
+    const result = await getMyStreak();
+    console.log(result)
+    // setData(result || []); // result가 falsy일 경우 빈 배열로 설정
+  };
+
+  useEffect(() => {
+      fetchData();
+    }, []);
 
   return (
     <>
