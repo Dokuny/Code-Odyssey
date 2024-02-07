@@ -19,8 +19,8 @@ const Toggle = styled.input`
     transition: left 250ms linear;
   }
   &:checked {
-    background-color: green;
-    border-color: green;
+    background-color: black;
+    border-color: black;
   }
   &:checked::before {
     background-color: white;
