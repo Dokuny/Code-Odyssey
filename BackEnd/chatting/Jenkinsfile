@@ -7,8 +7,8 @@ pipeline {
         MONGODB_USER_NAME="${env.MONGODB_USER_NAME}"
         MONGODB_USER_PASSWORD="${env.MONGODB_USER_PASSWORD}"
         RABBIT_MQ_USERNAME="${env.RABBIT_MQ_USERNAME}"
-        RABBIT_MQ_PASSWORD="${RABBIT_MQ_PASSWORD}"
-        DISCOVERY_SERVER="${DISCOVERY_SERVER}
+        RABBIT_MQ_PASSWORD="${env.RABBIT_MQ_PASSWORD}"
+        DISCOVERY_SERVER="${env.DISCOVERY_SERVER}"
     }
 
     agent any
@@ -46,7 +46,7 @@ pipeline {
         stage('Build Gateway Image') {
             steps {
                 script {
-                    sh "docker-compose -f ${composeFile} build ${repository}:chatting_${BUILD_NUMBER} ")
+                    sh "docker-compose -f docker-compose.yml build ${repository}:chatting_${BUILD_NUMBER}" // composeFile 변수 제거 및 파일명 직접 지정
                     sh "docker images "
                 }
             }
@@ -82,7 +82,7 @@ pipeline {
                     continueOnError: true, failOnError: false,
                     publishers: [
                         sshPublisherDesc(
-                            configName: "EC2_1",
+                            configName: "CHATTING_SERVER",
                             verbose: true,
                             transfers: [
                                 sshTransfer(execCommand: "sudo docker kill \$(docker ps | grep chatting | tr ' ' '\t' | cut -f1)"),
@@ -100,7 +100,7 @@ pipeline {
                     continueOnError: false, failOnError: true,
                     publishers: [
                         sshPublisherDesc(
-                            configName: "EC2_1",
+                            configName: "CHATTING_SERVER",
                             verbose: true,
                             transfers: [
                                 sshTransfer(execCommand: "sudo docker pull " + repository + ":chatting_$BUILD_NUMBER"),
