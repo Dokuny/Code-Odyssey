@@ -47,11 +47,11 @@ if (isStatusWaiting) {
         .split("/")[0]
         .substring(0, 3);
       if (language.match("Py")) {
-        language = "Python";
+        language = "python";
       } else if (language.match("C+")) {
-        language = "Cpp";
+        language = "cpp";
       } else if (language.match("Ja")) {
-        language = "Java";
+        language = "java";
       }
       const num = document
         .querySelector(
