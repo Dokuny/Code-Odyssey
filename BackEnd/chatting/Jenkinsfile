@@ -46,8 +46,8 @@ pipeline {
         stage('Build Gateway Image') {
             steps {
                 script {
-                    sh "docker-compose -f docker-compose.yml build ${repository}:chatting_${BUILD_NUMBER}" // composeFile 변수 제거 및 파일명 직접 지정
-                    sh "docker images "
+                    dockerImage = docker.build("${repository}:chatting_${BUILD_NUMBER}", "-f BackEnd/chatting/Dockerfile ./BackEnd/chatting")
+
                 }
             }
         }
