@@ -8,6 +8,8 @@ import { IoIcon } from '../../../atoms/icon/Icons';
 import { difficulty } from '../../../../utils/json/difficulty';
 import { getProfile } from '../../../../utils/api/mypage/myprofile/profile';
 import ModalProfile from '../../../organisms/myPage/main/ModalProfile';
+import { getDownloadURL, ref } from '@firebase/storage';
+import { fstorage } from '../../../../firebase';
 
 const StyledContainer = styled.div`
   background-color: ${colors.GrayBlue[200]};
@@ -90,12 +92,22 @@ const MyProfileDetailCard = () => {
   const fetchData = async () => {
     const data= await getProfile()
     console.log(data)
-    setData( data );
+    // 파이어 베이스에서 이미지 가져오는 로직 추가
+    if (data.thumbnail && data.thumbnail.includes('firebase')) {
+      const url = await getDownloadURL(ref(fstorage, data.thumbnail));
+      setData({
+        ...data,
+        thumbnail : url
+      })
+    // 카카오에서 썸네일 가져왔다면 바로 집어넣기      
+    } else {
+      setData( data );
+    }
   };  
 
   useEffect(() => {
       fetchData();
-  }, []);
+  }, [  data.thumbnail,data.nickname]);
 
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -141,7 +153,7 @@ const MyProfileDetailCard = () => {
         <IconButton event={openModal}>
           <IoIcon name={'brush'} size={'2vmax'} color={colors.Gray[25]} />
         </IconButton>
-        <ModalProfile isOpen={isModalOpen} closeModal={closeModal} />
+        <ModalProfile isOpen={isModalOpen} closeModal={closeModal} nickname ={data.nickname}/>
       </StyledMyInfoContainer>
     </StyledContainer>
   );
