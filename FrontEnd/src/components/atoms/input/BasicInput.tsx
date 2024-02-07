@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { colors } from '../../../config/Color';
 import { ChangeEvent } from 'react';
 
-const StyleInput = styled.input<{ fontSize: string; color: string; fontcolor: string; textAlign: string }>`
+const StyleInput = styled.input<{ fontSize: string; color: string; fontcolor: string; textAlign: string; borderRadius: string }>`
   display: flex;
   font-size: ${(props) => props.fontSize};
   width: 100%;
@@ -14,8 +14,8 @@ const StyleInput = styled.input<{ fontSize: string; color: string; fontcolor: st
   padding-left: 4vmin;
   padding-right: 4vmin;
   box-sizing: border-box;
-  border-radius: 2em;
   text-align: ${(props) => props.textAlign};
+  border-radius: ${(props) => props.borderRadius};
 `;
 
 interface BasicInputProps {
@@ -27,6 +27,7 @@ interface BasicInputProps {
   fontcolor?: string;
   input: string;
   textAlign?: string;
+  borderRadius?: string;
 }
 
 const BasicInput = (props: BasicInputProps) => {
@@ -50,6 +51,7 @@ const BasicInput = (props: BasicInputProps) => {
       value={props.input}
       color={props.color || colors.GrayBlue[200]}
       fontcolor={props.fontcolor || colors.Black}
+      borderRadius={props.borderRadius || '2em'}
     />
   );
 };
