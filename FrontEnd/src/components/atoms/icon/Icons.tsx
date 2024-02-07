@@ -75,6 +75,7 @@ export const Fa6Icon = (props: IconProps) => {
     doubleleft: FA6.FaAngleLeft,
     down: FA6.FaAngleDown,
     up: FA6.FaAngleUp,
+    search: FA6.FaMagnifyingGlass,
   };
 
   const { name, ...rest } = props;
