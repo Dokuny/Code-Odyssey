@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { colors } from '../../../config/Color';
 import { ChangeEvent } from 'react';
 import { Spacer } from '../basic/Spacer';
-import { KeyboardEvent } from 'react';
 import { Fa6Icon } from '../icon/Icons';
+import { difficultyList, platformList, categoryList } from '../../../utils/json/selectList';
 
 const SearchDivBody = styled.div`
   width: 100%;
@@ -61,11 +61,32 @@ const SearchDiv = (props: SearchDivProps) => {
 
   const changed = (event: any) => {
     if (event.target.id === 'platform') {
-      props.setPlatform(event.target.value);
+      let platform = event.target.value;
+      for (let i = 0; i < platformList.length; i++) {
+        if (platform === platformList[i].name) {
+          platform = platformList[i].value;
+          props.setPlatform(platform);
+          break;
+        }
+      }
     } else if (event.target.id === 'difficulty') {
-      props.setDifficulty(event.target.value);
+      let diff = event.target.value;
+      for (let i = 0; i < difficultyList.length; i++) {
+        if (diff === difficultyList[i].name) {
+          diff = difficultyList[i].value;
+          props.setDifficulty(diff);
+          break;
+        }
+      }
     } else if (event.target.id === 'category') {
-      props.setCategory(event.target.value);
+      let cate = event.target.value;
+      for (let i = 0; i < categoryList.length; i++) {
+        if (cate === categoryList[i].name) {
+          cate = categoryList[i].value;
+          props.setCategory(cate);
+          break;
+        }
+      }
     }
   };
 
@@ -74,7 +95,7 @@ const SearchDiv = (props: SearchDivProps) => {
       <DropDown
         id={'platform'}
         setSelectValue={props.setPlatform}
-        values={['BOJ', 'SWEA']}
+        values={['플렛폼', '백준', 'SWEA']}
         bgColor={colors.GrayBlue[600]}
         height={'100%'}
         width={'9%'}
@@ -86,7 +107,7 @@ const SearchDiv = (props: SearchDivProps) => {
       <DropDown
         id={'difficulty'}
         setSelectValue={props.setDifficulty}
-        values={['bronze', 'silver', 'gold', 'platinum', 'ruby']}
+        values={['난이도', '브론즈', '실버', '골드', '플레티넘', '다이아', '루비']}
         bgColor={colors.GrayBlue[600]}
         height={'100%'}
         width={'11%'}
@@ -98,16 +119,16 @@ const SearchDiv = (props: SearchDivProps) => {
       <DropDown
         id={'category'}
         setSelectValue={props.setCategory}
-        values={['DP', 'Brute-Force', 'Greedy']}
+        values={['유형', 'STRING', 'MATH', 'DATA STRUCTURE', 'BRUTE FORCE', 'TREE', 'GRAPH', 'AD HOC', 'DP', 'SHORTEST PATH', 'BINARY SEARCH', 'GREEDY', 'SIMULATION']}
         bgColor={colors.GrayBlue[600]}
         height={'100%'}
-        width={'12%'}
+        width={'20%'}
         fontcolor={colors.GrayBlue[200]}
         selectedValue={props.category}
         borderRadius={'5px'}
       ></DropDown>
       <Spacer space={'0.5vw'} horizontal></Spacer>
-      <div style={{ display: 'flex', position: 'relative', width: '70%' }}>
+      <div style={{ display: 'flex', position: 'relative', width: '60%' }}>
         <StyledInput placeholder='검색어를 입력해주세요' onChange={onChangeInput} onKeyDown={props.SearchProblem}></StyledInput>
         <SearchButton type='button' onClick={props.Search}>
           <Fa6Icon name={'search'} color={colors.Gray[100]} />

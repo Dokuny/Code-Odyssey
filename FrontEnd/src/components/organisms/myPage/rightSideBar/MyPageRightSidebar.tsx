@@ -6,6 +6,7 @@ import MyFriendListCard from '../../../molecules/card/basic/MyFriendListCard';
 import { useState } from 'react';
 import { Header3 } from '../../../atoms/basic/Typography';
 import { colors } from '../../../../config/Color';
+import FindFriendModal from '../../../molecules/modal/FindFriendModal';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -45,6 +46,11 @@ const MyPageRightSidebar = () => {
     { src: 'https://picsum.photos/300', member_id: 10, name: 'FriendName10', state: 'started', time: '20 min ago' },
   ]);
 
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
+
   return (
     <StyledContainer>
       <RightSidebarLogo />
@@ -59,7 +65,7 @@ const MyPageRightSidebar = () => {
       <Spacer space={'0.5vh'} />
 
       <StyledFriendListContainer>
-        <MyFriendListCard src={'/images/code_odyssey/plus.svg'} name={''} state={'친구 추가하기'} time={''} key={0} active={activeFriend === 0} event={() => setActiveFriend(0)} />
+        <MyFriendListCard src={'/images/code_odyssey/plus.svg'} name={''} state={'친구 추가하기'} time={''} key={0} active={activeFriend === 0} event={() => openModal()} />
         {data.map((value) => (
           <MyFriendListCard
             src={value.src}
@@ -72,6 +78,7 @@ const MyPageRightSidebar = () => {
           />
         ))}
       </StyledFriendListContainer>
+      <FindFriendModal isOpen={isModalOpen} closeModal={closeModal}></FindFriendModal>
     </StyledContainer>
   );
 };
