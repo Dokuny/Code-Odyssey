@@ -215,9 +215,9 @@ async function parseData() {
     .split(" ")[0]
     .replaceAll(",", "");
   const languages = {
-    "C++": "Cpp",
-    Python: "Python",
-    JAVA: "Java",
+    "C++": "cpp",
+    Python: "python",
+    JAVA: "java",
   };
   const data = await getProblemData(problemId);
   if (isNull(data?.codes)) {
