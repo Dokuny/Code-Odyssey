@@ -5,10 +5,28 @@ interface MyResponsiveLineProps {
   data: Serie[];
 }
 
+
+
+
 const StarGraph = (props: MyResponsiveLineProps) => {
+
+  const graphData = [
+    {
+      id: 'rank',
+      data: [
+        { x: '월', y: 1 },
+        { x: '화', y: 1.5 },
+        { x: '수', y: 1.2 },
+        { x: '목', y: 1.4 },
+        { x: '금', y: 0.5 },
+        { x: '토', y: 0.6 },
+        { x: '일', y: 1.8 },
+      ]
+    }
+  ]
   return (
     <ResponsiveLine
-      data={props.data}
+      data={graphData}
       margin={{ top: 30, right: 30, bottom: 30, left: 30 }}
       enableGridY={false}
       enableGridX={false}
@@ -19,6 +37,11 @@ const StarGraph = (props: MyResponsiveLineProps) => {
       colors={colors.White}
       useMesh={false}
       theme={{ text: { fill: colors.Gray[300], fontSize: '0.6em' } }}
+      pointSymbol={() => (
+        <polygon points='20,0 5,5 0,20 -5,5 -20,0 -5,-5 0,-20 5,-5 20,0' fill='white'>
+          <animateTransform attributeName='transform' attributeType='XML' type='rotate' from={`0 0 0`} to={`180 0 0`} dur={`${Math.random() * 2 + 2}s`} repeatCount='indefinite' />
+        </polygon>
+      )}
     />
   );
 };

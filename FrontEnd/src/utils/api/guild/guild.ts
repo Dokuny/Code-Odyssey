@@ -13,17 +13,27 @@ interface CreateGuild {
 
 // 길드 생성
 export const createGuild = async (params: CreateGuild) => {
-  try {
-    const data = await tokenInstance.post('guilds', params);
-    return data && data.data;
-  } catch (error) {
-    console.error("Error in createGuild:", error);
-    throw error;
-  }
+  const data = await tokenInstance.post('/guilds', params);
+  return data && data.data;
 };
 
 // 가입한 길드 조회
 export const getGuild = async () => {
-  const data = await tokenInstance.get(`guilds/me`);
+  const data = await tokenInstance.get(`/guilds/me`);
+  return data && data.data;
+};
+
+export const getRecommendWeak = async () => {
+  const data = await tokenInstance.get(`/guilds/recommend/weak`);
+  return data && data.data;
+};
+
+export const getRecommendSimilar = async () => {
+  const data = await tokenInstance.get(`/guilds/recommend/similar`);
+  return data && data.data;
+};
+
+export const getRecommendDifficult = async () => {
+  const data = await tokenInstance.get(`/guilds/recommend/difficult`);
   return data && data.data;
 };

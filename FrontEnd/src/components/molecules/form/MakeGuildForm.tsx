@@ -141,7 +141,7 @@ const MakeGuildForm = () => {
   const [selectDifficulty, setSelecDifficulty] = useState('1');
   const [selectCapacity, setSelectCapacity] = useState('1');
   const [selectProblemCapacity, setSelectProblemCapacity] = useState('1');
-  const [selectLanguage, setSelectLanguage] = useState('python');
+  const [selectLanguage, setSelectLanguage] = useState('PYTHON');
   const [imgFile, setImgFile] = useState("");
   const imgRef = useRef<HTMLInputElement>(null);
 
@@ -171,7 +171,7 @@ const MakeGuildForm = () => {
 
     const data = {
       name: GuildName,
-      image: imgFile, // '' 으로 저장되면..? -> 기본값 출력하기로
+      image: 'x', // '' 으로 저장되면..? -> 기본값 출력하기로
       introduction: value,
       capacity: parseInt(selectCapacity, 10),
       language: selectLanguage,
@@ -180,7 +180,7 @@ const MakeGuildForm = () => {
     };
 
     console.log(data)
-    // await console.log(createGuild(data))
+    await console.log(createGuild(data))
   }
 
 
@@ -286,7 +286,7 @@ const MakeGuildForm = () => {
             borderRadius={'5px'}
             setSelectValue={setSelectLanguage}
             height={'30px'}
-            values={['python', 'Java', 'C++']}
+            values={['PYTHON', 'JAVA', 'CPP']}
             bgColor={colors.White}
             fontcolor={colors.Black}
             selectedValue={selectLanguage}

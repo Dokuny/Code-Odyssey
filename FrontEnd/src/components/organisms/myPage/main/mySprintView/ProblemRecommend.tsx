@@ -2,6 +2,7 @@ import ProblemCardList from '../../../../molecules/list/ProblemCardList';
 import DailyCardList from '../../../../molecules/list/DailyCardList';
 import { Spacer } from '../../../../atoms/basic/Spacer';
 import { useEffect, useState } from 'react';
+import { getRecommendSprint } from '../../../../../utils/api/mypage/sprint/mysprint';
 
 const ProblemRecommend = () => {
   const [dayilyData, setDailyData] = useState([
@@ -20,7 +21,14 @@ const ProblemRecommend = () => {
     { problem_id: '16532', no: '11314', title: '토끼가강한이유', platform: 'BAEKJOON', difficulty: '22', type: 'STRING' },
   ]);
 
+  const fetchData = async () => {
+    const result = await getRecommendSprint();
+    console.log(result)
+    // setData(result || []); // result가 falsy일 경우 빈 배열로 설정
+  };
+
   useEffect(() => {
+    fetchData()
     console.log(dayilyData);
   }, [dayilyData]);
   return (
