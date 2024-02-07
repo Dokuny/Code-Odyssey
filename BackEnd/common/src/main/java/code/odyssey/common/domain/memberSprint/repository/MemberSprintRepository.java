@@ -25,8 +25,20 @@ public interface MemberSprintRepository extends JpaRepository<MemberSprint, Long
             "    SELECT 1 FROM Submission s " +
             "    WHERE s.problem.id = p.id AND s.member.id = :memberId" +
             ")")
-    List<Problem> getRecommendedProblems(@Param("memberId")Long memberId,
-                                         @Param("ptype")ProblemType ptype,
-                                         @Param("difficulty")Integer difficulty,
+    List<Problem> getRecommendedProblems(@Param("memberId") Long memberId,
+                                         @Param("ptype") ProblemType ptype,
+                                         @Param("difficulty") Integer difficulty,
                                          Pageable pageable);
+
+    @Query("SELECT p FROM Problem p " +
+            "WHERE p.difficulty BETWEEN :tier - 1 AND :tier + 1 " +
+            "AND NOT EXISTS (" +
+            "    SELECT 1 FROM Submission s " +
+            "    WHERE s.problem.id = p.id AND s.member.id = :memberId" +
+            ")")
+    List<Problem> getRandomProblems(@Param("memberId") Long memberId,
+                                    @Param("tier") Integer tier,
+                                    Pageable pageable);
+
+
 }
