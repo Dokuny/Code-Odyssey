@@ -53,7 +53,7 @@ const GuildIde = () => {
     monaco.editor.defineTheme('dark', GitHubDark as editor.IStandaloneThemeData);
     monaco.editor.defineTheme('light', GitHubLight as editor.IStandaloneThemeData);
 
-    monaco.editor.setTheme(selectedTheme ? 'dark' : 'light');
+    monaco.editor.setTheme(selectedTheme ? 'light' : 'dark');
   }, [monaco, selectedTheme]);
 
   const callback = function (message: any) {
