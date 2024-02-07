@@ -8,6 +8,7 @@ pipeline {
         MONGODB_USER_PASSWORD="${env.MONGODB_USER_PASSWORD}"
         RABBIT_MQ_USERNAME="${env.RABBIT_MQ_USERNAME}"
         RABBIT_MQ_PASSWORD="${RABBIT_MQ_PASSWORD}"
+        DISCOVERY_SERVER="${DISCOVERY_SERVER}
     }
 
     agent any
@@ -103,7 +104,7 @@ pipeline {
                             verbose: true,
                             transfers: [
                                 sshTransfer(execCommand: "sudo docker pull " + repository + ":chatting_$BUILD_NUMBER"),
-                                sshTransfer(execCommand: "sudo docker run -d -p 8888:8888 --name chatting  -e CHATTING_SERVER=\"${CHATTING_SERVER}\" -e MONGODB_USER_NAME=\"${MONGODB_USER_NAME}\" -e MONGODB_USER_PASSWORD=\"${MONGODB_USER_PASSWORD}\" -e RABBIT_MQ_USERNAME=\"${RABBIT_MQ_USERNAME}\" -e RABBIT_MQ_PASSWORD=\"${RABBIT_MQ_PASSWORD}\" " + repository + ":chatting_${BUILD_NUMBER}")
+                                sshTransfer(execCommand: "sudo docker run -d -p 8888:8888 --name chatting  -e CHATTING_SERVER=\"${CHATTING_SERVER}\" -e MONGODB_USER_NAME=\"${MONGODB_USER_NAME}\" -e MONGODB_USER_PASSWORD=\"${MONGODB_USER_PASSWORD}\" -e RABBIT_MQ_USERNAME=\"${RABBIT_MQ_USERNAME}\" -e RABBIT_MQ_PASSWORD=\"${RABBIT_MQ_PASSWORD}\" -e DISCOVERY_SERVER=\"${DISCOVERY_SERVER}\" " + repository + ":chatting_${BUILD_NUMBER}")
                             ]
                         )
                     ]
