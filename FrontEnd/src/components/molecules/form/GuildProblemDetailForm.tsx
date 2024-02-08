@@ -11,6 +11,7 @@ import styled from 'styled-components';
 
 const StyledScrollDiv = styled.div`
   display: flex;
+  background-color: ${colors.White};
   flex-direction: column;
   overflow: scroll;
   -ms-overflow-style: none; /* 인터넷 익스플로러 */
@@ -101,8 +102,9 @@ const GuildProblemDetailForm = (props: GuildProblemDetailFormProps) => {
         <Divider />
       </div>
       <StyledScrollDiv>
-        <HtmlTypography htmlContent={detailProblemData && detailProblemData.detail} color={colors.Gray[300]} fontSize={'0.8em'} />
+        <HtmlTypography htmlContent={detailProblemData && detailProblemData.detail} fontSize={'0.8em'} />
       </StyledScrollDiv>
+      <Spacer space={'1vmin'} />
       <div style={{ display: 'flex', width: '100%' }}>
         <BasicButton
           event={() => props.setSelectedProblem({})}

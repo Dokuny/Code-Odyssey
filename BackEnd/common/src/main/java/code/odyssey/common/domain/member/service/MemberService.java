@@ -1,7 +1,7 @@
 package code.odyssey.common.domain.member.service;
 
 import code.odyssey.common.domain.member.dto.ModifyMemberRequest;
-import code.odyssey.common.domain.member.dto.dto.MemberInfo;
+import code.odyssey.common.domain.member.dto.MemberInfo;
 import code.odyssey.common.domain.member.entity.Member;
 import code.odyssey.common.domain.member.exception.MemberErrorCode;
 import code.odyssey.common.domain.member.exception.MemberException;
@@ -68,4 +68,9 @@ public class MemberService {
         memberRepository.save(updatedMember);
 
     }
+
+    // 친구 정보 조회: 닉네임, 이메일, 썸네일, 티어, 모은별, 북두칠성, 범죄 지수
+    // 유형별 통계, 유형별 랭킹, 전체 스트릭
+
+
 }

@@ -16,12 +16,12 @@ public class CodeService {
     private final RabbitTemplate rabbitTemplate;
 
     public void sendCode(CodeInfo codeInfo) {
-        log.info(codeInfo.getCode());
+        
         rabbitTemplate.convertAndSend(
                 topicExchange.getName(),
                 "ide."+codeInfo.getGuildProblemId(),
                 codeInfo);
-        // /topic/ide.{guildProblemId}를 구독한 클라이언트에게 메세지 전송
+        
 
     }
 

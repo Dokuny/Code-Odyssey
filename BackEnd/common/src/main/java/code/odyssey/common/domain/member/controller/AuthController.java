@@ -1,9 +1,9 @@
 package code.odyssey.common.domain.member.controller;
 
 
-import code.odyssey.common.domain.member.dto.dto.LoginResponse;
-import code.odyssey.common.domain.member.dto.dto.TokenRefreshRequest;
-import code.odyssey.common.domain.member.dto.dto.Tokens;
+import code.odyssey.common.domain.member.dto.LoginResponse;
+import code.odyssey.common.domain.member.dto.TokenRefreshRequest;
+import code.odyssey.common.domain.member.dto.Tokens;
 import code.odyssey.common.domain.member.service.OAuthService;
 import code.odyssey.common.global.oauth.vendor.enums.OAuthProvider;
 import jakarta.servlet.http.HttpServletRequest;

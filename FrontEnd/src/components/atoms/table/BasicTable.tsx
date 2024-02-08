@@ -1,7 +1,7 @@
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable, getSortedRowModel, PaginationState } from '@tanstack/react-table';
 import React, { useState } from 'react';
 import { IoMdCheckmarkCircle, IoMdCloseCircle } from 'react-icons/io';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { colors } from '../../../config/Color';
 import { FaIcon } from '../icon/Icons';
 import { difficulty } from '../../../utils/json/difficulty';
@@ -38,10 +38,14 @@ const StyledTh = styled.th`
   text-align: center;
 `;
 
-const StyledTd = styled.td`
+const StyledTd = styled.td<{ isCursor: boolean }>`
   box-sizing: border-box;
   padding: 1.5vh;
-  cursor: pointer;
+  ${(props) =>
+    props.isCursor &&
+    css`
+      cursor: pointer;
+    `}
 `;
 
 const StyledHeaderContainer = styled.div`
@@ -97,6 +101,7 @@ interface BasicTableProps {
   pageBtnColor?: string;
   pageBtnDeepColor?: string;
   title?: React.ReactNode;
+  isCursor: boolean;
 }
 
 const BasicTable = (props: BasicTableProps) => {
@@ -171,7 +176,7 @@ const BasicTable = (props: BasicTableProps) => {
                 .getVisibleCells()
                 .slice(1)
                 .map((cell) => (
-                  <StyledTd key={cell.id} onClick={() => handleTdClick(row.original)}>
+                  <StyledTd key={cell.id} onClick={() => handleTdClick(row.original)} isCursor={props.isCursor}>
                     {!props.percentData.includes(cell.column.columnDef.header as string) &&
                       !props.booleanData.includes(cell.column.columnDef.header as string) &&
                       !props.imageData.includes(cell.column.columnDef.header as string) &&

@@ -12,6 +12,7 @@ import { colors } from '../../../../config/Color';
 import { Caption1 } from '../../../atoms/basic/Typography';
 import ToggleSwitch from '../../../atoms/select/ToggleSwitch';
 import * as StompJs from '@stomp/stompjs';
+import { CHAT_URL } from '../../../../config/Axios';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -27,10 +28,13 @@ const StyledMenuContainer = styled.div`
   justify-content: space-between;
 `;
 
-const GuildIde = () => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const guild_problem_id = JSON.parse(decodeURIComponent(urlParams.get('guild_problem_id') as string));
-  let [client, changeClient] = useState<StompJs.Client>(new StompJs.Client());
+interface GuildIdeProps {
+  problem_id: number;
+}
+
+const GuildIde = (props: GuildIdeProps) => {
+  const guild_problem_id = props.problem_id;
+  const [client, setClient] = useState<StompJs.Client | null>(null);
   const [isActive, setIsActive] = useState(true);
   const [activeLanguage, setActiveLanguage] = useState('java');
   const monaco = useMonaco();
@@ -38,8 +42,7 @@ const GuildIde = () => {
   const [selectedTheme, setSelectedTheme] = useState(true);
 
   const handleEditorChange = (value: string | undefined, event: editor.IModelContentChangedEvent) => {
-    if (value !== undefined) {
-      setInput(value);
+    if (value !== undefined && client !== null) {
       client.publish({
         destination: '/pub/ide/' + guild_problem_id,
         body: JSON.stringify({ code: value, guildProblemId: guild_problem_id }),
@@ -56,44 +59,44 @@ const GuildIde = () => {
     monaco.editor.setTheme(selectedTheme ? 'light' : 'dark');
   }, [monaco, selectedTheme]);
 
-  const callback = function (message: any) {
-    if (message.body) {
-      let msg = JSON.parse(message.body);
-      setInput(msg.code);
-    }
-  };
-
-  const connect = () => {
-    try {
-      const clientdata = new StompJs.Client({
-        brokerURL: `ws://localhost:8888/ws`,
-        //   connectHeaders: { Authorization: '' },
-        reconnectDelay: 5000,
-        heartbeatIncoming: 4000,
-        heartbeatOutgoing: 4000,
-      });
-      clientdata.onConnect = function () {
-        clientdata.subscribe(`/topic/ide.${guild_problem_id}`, callback);
-      };
-
-      clientdata.activate();
-      changeClient(clientdata);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const disConnect = () => {
-    if (client === null) {
-      return;
-    }
-    client.deactivate();
-  };
-
   useEffect(() => {
-    connect();
+    const connect = () => {
+      try {
+        const clientdata = new StompJs.Client({
+          brokerURL: CHAT_URL,
+          // brokerURL: 'ws://localhost:8888/ws',
+          //   connectHeaders: { Authorization: '' },
+          reconnectDelay: 5000,
+          heartbeatIncoming: 4000,
+          heartbeatOutgoing: 4000,
+        });
+        clientdata.onConnect = function () {
+          clientdata.subscribe(`/topic/ide.${guild_problem_id}`, callback);
+        };
+        clientdata.activate();
+        setClient(clientdata);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    const disConnect = () => {
+      if (client !== null) {
+        client.deactivate();
+      }
+    };
+
+    const callback = function (message: any) {
+      if (message.body) {
+        let msg = JSON.parse(message.body);
+        setInput(msg.code);
+      }
+    };
+
+    if (client === null) connect();
+
     return () => disConnect();
-  }, []);
+  }, [client, guild_problem_id]);
 
   return (
     <StyledContainer>

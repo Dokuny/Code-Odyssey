@@ -5,8 +5,7 @@ server:
 spring:
   data:
     mongodb:
-      host: localhost
-      port: 27017
+      host: ${CHATTING_SERVER}
       database: code-odyssey
       authentication-database: admin
       username: ${MONGODB_USER_NAME}
@@ -15,7 +14,7 @@ spring:
   rabbitmq:
     username: ${RABBIT_MQ_USERNAME}
     password: ${RABBIT_MQ_PASSWORD}
-    host: localhost
+    host: ${CHATTING_SERVER}
     port: 61613
     queue:
       name: code

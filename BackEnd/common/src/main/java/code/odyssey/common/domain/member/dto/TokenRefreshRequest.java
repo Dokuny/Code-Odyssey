@@ -1,4 +1,4 @@
-package code.odyssey.common.domain.member.dto.dto;
+package code.odyssey.common.domain.member.dto;
 
 public record TokenRefreshRequest (
 	String refreshToken,
