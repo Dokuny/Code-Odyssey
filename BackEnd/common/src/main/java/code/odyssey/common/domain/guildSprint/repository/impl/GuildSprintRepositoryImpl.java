@@ -185,6 +185,7 @@ public class GuildSprintRepositoryImpl implements GuildSprintRepositoryCustom {
 			InProgressGuildSprintInfo.InProgressGuildProblemInfo problemInfo = InProgressGuildSprintInfo.InProgressGuildProblemInfo.builder()
 					.type(gp.getProblem().getType().name().replace("_", " "))
 					.guildProblemId(gp.getId())
+					.problemId(gp.getProblem().getId())
 					.difficulty(gp.getProblem().getDifficulty())
 					.title(gp.getProblem().getTitle())
 					.build();
