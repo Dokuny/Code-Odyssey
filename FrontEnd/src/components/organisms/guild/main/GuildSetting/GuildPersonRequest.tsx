@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Spacer } from '../../../../atoms/basic/Spacer';
 import { PaginationState } from '@tanstack/react-table';
 import GuildRequestMemberCard from '../../../../molecules/card/guild/GuildRequestMemberCard';
+import { getGuildApplications, getGuildApplicationsAccept, getGuildApplicationsReject } from '../../../../../utils/api/guild/setting/guildsetting';
+import { getDownloadURL, ref } from '@firebase/storage';
+import { fstorage } from '../../../../../firebase';
 
 interface GuildPersonRequestProps {
   guild_id: number;
@@ -58,7 +61,36 @@ const GuildPersonRequest = (props: GuildPersonRequestProps) => {
       collect_week_star_cnt: 9,
     },
   ]);
-  console.log(selectData);
+
+  const fetchData = async () => {
+    const data= await getGuildApplications(props.guild_id) //guild id
+
+    // 한개당 썸네일 파이어베이스이면 바꿔주기
+    data.map( async (data: any)=> {
+      if (data.thumbnail && data.thumbnail.includes('firebase')) {
+        const url = await getDownloadURL(ref(fstorage, data.thumbnail));
+        return {...data , thumbnail : url}
+      } else {
+        return data
+      }
+    })
+    console.log(data)
+    setData( data );
+  }
+
+  useEffect(() => {
+    fetchData()
+  },[])
+
+  const AcceptMember = async (applicationId : number) => { 
+    await getGuildApplicationsAccept(props.guild_id,applicationId) //guild id
+    fetchData()
+  }
+
+  const RejectMember = async (applicationId: number) => {
+    await getGuildApplicationsReject(props.guild_id,applicationId ) //guild id
+    fetchData()
+  }
   return (
     <>
       <Spacer space={'2vmin'} />
@@ -74,6 +106,8 @@ const GuildPersonRequest = (props: GuildPersonRequestProps) => {
             thumbnail={value.thumbnail}
             collect_star_cnt={value.collect_star_cnt}
             collect_week_star_cnt={value.collect_week_star_cnt}
+            accept={AcceptMember}
+            reject={RejectMember}
           />
           <Spacer space={'1vmin'} />
         </>

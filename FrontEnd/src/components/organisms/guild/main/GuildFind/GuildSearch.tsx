@@ -8,19 +8,29 @@ import { findGuild } from '../../../../../utils/api/guild/guild';
 
 interface GuildSearchProps {
   searchInput: string;
+  data : any;
 }
 
 const GuildSearch = (props: GuildSearchProps) => {
-  const [data, setData] = useState<Array<any>>([]);
 
-  const fetchData = async () => {
-      const data= await findGuild({ keyword : props.searchInput})
-      console.log({ keyword : props.searchInput })
-      setData(data)
-  };  
+  return (
+    <>
+      <div style={{ display: 'flex', alignItems: 'center', padding: '1vmin' }}>
+        <Header4 children={props.searchInput} color={colors.Gray[100]} fontWeight={'bold'} />
+        <Spacer space={'1vmax'} horizontal />
+        <Body2 children={': 검색된 길드'} color={colors.Gray[300]} fontWeight={'bold'} />
+      </div>
+      <Divider />
+      <Spacer space={'1vmin'} />
 
-  useEffect(() => {
-    fetchData();
+      <GuildFindList data={props.data} />
+    </>
+  );
+};
+
+export default GuildSearch;
+
+
     // setData([
     //   {
     //     guild_id: 1,
@@ -95,21 +105,3 @@ const GuildSearch = (props: GuildSearchProps) => {
     //     langIcons: ['/images/language/java.svg', '/images/language/javascript.svg'],
     //   },
     // ]);
-  }, [props.searchInput]);
-
-  return (
-    <>
-      <div style={{ display: 'flex', alignItems: 'center', padding: '1vmin' }}>
-        <Header4 children={props.searchInput} color={colors.Gray[100]} fontWeight={'bold'} />
-        <Spacer space={'1vmax'} horizontal />
-        <Body2 children={': 검색된 길드'} color={colors.Gray[300]} fontWeight={'bold'} />
-      </div>
-      <Divider />
-      <Spacer space={'1vmin'} />
-
-      <GuildFindList data={data} />
-    </>
-  );
-};
-
-export default GuildSearch;
