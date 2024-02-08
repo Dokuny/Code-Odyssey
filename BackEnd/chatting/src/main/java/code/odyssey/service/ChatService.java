@@ -23,7 +23,7 @@ public class ChatService {
 
     public void sendChat(ChatMessage message, Long guildId) {
 
-        log.info("{}", message.getMemberId());
+
 
         Chat chat = Chat.builder()
                 .memberId(message.getMemberId())
@@ -34,14 +34,12 @@ public class ChatService {
                 .sendTime(LocalDateTime.now())
                 .build();
 
-//        System.out.println(guildId);
+
 
         rabbitTemplate.convertAndSend(topicExchange.getName(),
                 "room."+ guildId,
                 chat);  // exchange 이름, routing-key, 전송하고자 하는 것
-        // amq.topic/room.{guildId} 를 구독한 클라이언트에게 메세지 전송
 
-        // DB에 저장
         chatRepository.save(chat);
 
     }
