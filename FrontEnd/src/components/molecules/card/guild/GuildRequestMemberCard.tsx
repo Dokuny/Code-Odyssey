@@ -38,6 +38,8 @@ interface GuildRequestMemberCardProps {
   request_at: string;
   collect_star_cnt: number;
   collect_week_star_cnt: number;
+  accept : any;
+  reject : any;
 }
 
 const GuildRequestMemberCard = (props: GuildRequestMemberCardProps) => {
@@ -77,6 +79,7 @@ const GuildRequestMemberCard = (props: GuildRequestMemberCardProps) => {
         <BasicButton
           event={(event: { stopPropagation: () => void }) => {
             event.stopPropagation();
+            props.reject()
             console.log('x: ', props.member_id);
           }}
           borderRadius={'50%'}
@@ -90,6 +93,7 @@ const GuildRequestMemberCard = (props: GuildRequestMemberCardProps) => {
         <BasicButton
           event={(event: { stopPropagation: () => void }) => {
             event.stopPropagation();
+            props.accept()
             console.log('o: ', props.member_id);
           }}
           borderRadius={'50%'}

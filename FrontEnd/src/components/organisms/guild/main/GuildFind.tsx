@@ -16,7 +16,7 @@ const GuildFind = () => {
   const [data, setData] = useState([])
 
   const fetchData = async () => {
-    const data= await findGuild({ keyword : searchInput ,guildId : 1}) //guild id
+    const data= await findGuild({ keyword : searchInput , guildId : null}) //guild id
     console.log(data)
     setData(data)
   }

@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Spacer } from '../../../../atoms/basic/Spacer';
 import MemberInfoCard from '../../../../molecules/card/basic/MemberInfoCard';
+import { getGuildMembers } from '../../../../../utils/api/guild/setting/guildsetting';
+import { getDownloadURL, ref } from '@firebase/storage';
+import { fstorage } from '../../../../../firebase';
 
 interface GuildPersonSettingProps {
   guild_id: number;
@@ -19,6 +22,28 @@ const GuildPersonSetting = (props: GuildPersonSettingProps) => {
     { member_id: 10, name: 'name10', solve_percent: 92.5, difficulty: 15, join_at: '2024-01-31', thumbnail: 'https://picsum.photos/300' },
     { member_id: 8, name: 'name8', solve_percent: 100, difficulty: 2, join_at: '2024-01-31', thumbnail: 'https://picsum.photos/300' },
   ]);
+
+  const fetchData = async () => {
+    const data= await getGuildMembers(props.guild_id) //guild id
+    console.log(data)
+
+    // 한개당 썸네일 파이어베이스이면 바꿔주기
+    data.map( async (data: any)=> {
+      if (data.thumbnail && data.thumbnail.includes('firebase')) {
+        const url = await getDownloadURL(ref(fstorage, data.thumbnail));
+        return {...data , thumbnail : url}
+      } else {
+        return data
+      }
+    })
+    console.log(data)
+    setData( data );
+  }
+
+  useEffect(() => {
+    fetchData()
+  },[])
+
 
   return (
     <>
