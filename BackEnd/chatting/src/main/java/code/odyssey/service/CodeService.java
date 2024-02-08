@@ -21,7 +21,7 @@ public class CodeService {
                 topicExchange.getName(),
                 "ide."+codeInfo.getGuildProblemId(),
                 codeInfo);
-        // /topic/ide.{guildProblemId}를 구독한 클라이언트에게 메세지 전송
+        
 
     }
 
