@@ -7,6 +7,7 @@ import code.odyssey.common.domain.memberSprint.dto.MemberSprintCreateRequest;
 import code.odyssey.common.domain.memberSprint.dto.MemberSprintInfo;
 import code.odyssey.common.domain.memberSprint.entity.MemberSprint;
 import code.odyssey.common.domain.memberSprint.entity.enums.DayType;
+import code.odyssey.common.domain.memberSprint.entity.enums.DifficultyLevel;
 import code.odyssey.common.domain.memberSprint.repository.MemberSprintRepository;
 import code.odyssey.common.domain.problem.entity.Problem;
 import code.odyssey.common.domain.problem.entity.enums.ProblemType;
@@ -104,9 +105,28 @@ public class MemberSprintService {
         return memberSprints.stream()
                 .map(memberSprint -> MemberSprintInfo.builder()
                         .day(memberSprint.getDay())
-                        .recommendedDifficulty(memberSprint.getRecommendDifficulty())
+                        .recommendedDifficulty(matchDifficulty(memberSprint.getRecommendDifficulty()))
                         .recommendedType(memberSprint.getRecommendType())
                         .build())
                 .collect(Collectors.toList());
+    }
+
+    public DifficultyLevel matchDifficulty(int difficulty) {
+        DifficultyLevel level = null;
+        if (1 <= difficulty && difficulty <= 5) {
+            level = DifficultyLevel.BRONZE;
+        } else if (6 <= difficulty && difficulty <= 10) {
+            level = DifficultyLevel.SILVER;
+        } else if (11 <= difficulty && difficulty <= 15) {
+            level = DifficultyLevel.GOLD;
+        } else if (16 <= difficulty && difficulty <= 20) {
+            level = DifficultyLevel.PLATINUM;
+        } else if (21 <= difficulty && difficulty <= 25) {
+            level = DifficultyLevel.DIAMOND;
+        } else {
+            level = DifficultyLevel.RUBY;
+        }
+
+        return level;
     }
 }
