@@ -2,7 +2,7 @@ import ProblemCardList from '../../../../molecules/list/ProblemCardList';
 import DailyCardList from '../../../../molecules/list/DailyCardList';
 import { Spacer } from '../../../../atoms/basic/Spacer';
 import { useEffect, useState } from 'react';
-import { getRecommendSprint } from '../../../../../utils/api/mypage/sprint/mysprint';
+import { getMySprint, getRecommendSprint } from '../../../../../utils/api/mypage/sprint/mysprint';
 
 const ProblemRecommend = () => {
   const [dayilyData, setDailyData] = useState([
@@ -22,8 +22,10 @@ const ProblemRecommend = () => {
   ]);
 
   const fetchData = async () => {
-    const result = await getRecommendSprint();
-    console.log(result)
+    const Mysprint = await getMySprint();
+    
+    // const result = await getRecommendSprint();
+    // console.log(result)
     // setData(result || []); // result가 falsy일 경우 빈 배열로 설정
   };
 
