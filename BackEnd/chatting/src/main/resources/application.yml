@@ -30,3 +30,5 @@ eureka:
     service-url:
       defaultZone: ${DISCOVERY_SERVER}
 
+OPENVIDU_URL: ${OPENVIDU_URL}
+OPENVIDU_SECRET: ${OPENVIDU_SECRET}
