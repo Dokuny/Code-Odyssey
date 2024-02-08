@@ -154,36 +154,32 @@ const MakeGuildForm = () => {
     const fileInput = imgRef.current;
 
     if (fileInput?.files?.length) {
-      const file: File = fileInput.files[0]
-        try {        
-          //이미지 업로드
-          const storageRef = ref(fstorage, `images/${file.name}`);
+          const file: File = fileInput.files[0]
+          //파이어 베이스 이미지 업로드
+          const storageRef = ref(fstorage, `firebase/${file.name}`);
           await uploadBytes( storageRef, file );
+          // 주소 DB에 저장
+          const data = {
+            name: GuildName,
+            image: `firebase/${file.name}`, // '' 으로 저장되면..? -> 기본값 출력하기로
+            introduction: value,
+            capacity: parseInt(selectCapacity, 10),
+            language: selectLanguage,
+            difficulty: parseInt(selectDifficulty, 10),
+            problemCapacity: parseInt(selectProblemCapacity, 10),
+          };
 
-          //이미지 가져오기
-          const url = await getDownloadURL(storageRef);       
-          setImgFile(url);
-        } catch (error) {
-          console.error("Error uploading image:", error);
-        }
-        
+          console.log(data)
+          createGuild(data)
+          // window.location.reload()
+      }
     }
-
-    const data = {
-      name: GuildName,
-      image: 'x', // '' 으로 저장되면..? -> 기본값 출력하기로
-      introduction: value,
-      capacity: parseInt(selectCapacity, 10),
-      language: selectLanguage,
-      difficulty: parseInt(selectDifficulty, 10),
-      problemCapacity: parseInt(selectProblemCapacity, 10),
-    };
-
-    console.log(data)
-    await console.log(createGuild(data))
-  }
-
-
+    // //이미지 가져오기
+    // const url = await getDownloadURL(storageRef);       
+    // setImgFile(url);
+    // console.log(url)
+    
+    
   // 이미지 업로드 input의 onChange
   const saveImgFile = () => {
     const fileInput = imgRef.current;

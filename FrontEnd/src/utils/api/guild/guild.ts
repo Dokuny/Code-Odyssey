@@ -23,6 +23,21 @@ export const getGuild = async () => {
   return data && data.data;
 };
 
+
+// 내가 가입할 수 있는 길드 검색
+
+interface FindGuild {
+  keyword : string;
+  guildId ?: number;
+}
+
+export const findGuild = async (params:FindGuild) => {
+  const data = await tokenInstance.get(`/guilds`, { data : params});
+  return data && data.data;
+};
+
+// 추천
+
 export const getRecommendWeak = async () => {
   const data = await tokenInstance.get(`/guilds/recommend/weak`);
   return data && data.data;

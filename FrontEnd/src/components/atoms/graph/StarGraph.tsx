@@ -1,29 +1,43 @@
 import { ResponsiveLine, Serie } from '@nivo/line';
 import { colors } from '../../../config/Color';
+import { getMyStreak } from '../../../utils/api/mypage/sprint/mysprint';
+import { useEffect, useState } from 'react';
 
-interface MyResponsiveLineProps {
-  data: Serie[];
-}
+const StarGraph = () => {
 
+  const test: any = [
+      { x: '월', y: 1 },
+      { x: '화', y: 1.5 },
+      { x: '수', y: 1.2 },
+      { x: '목', y: 1.4 },
+      { x: '금', y: 0.5 },
+      { x: '토', y: 0.6 },
+      { x: '일', y: 1.8 },
+    ]
 
+  const [graphData, setGraphData] = useState([{
+    id: 'rank',
+    data: [],
+  }]);
 
-
-const StarGraph = (props: MyResponsiveLineProps) => {
-
-  const graphData = [
-    {
-      id: 'rank',
-      data: [
-        { x: '월', y: 1 },
-        { x: '화', y: 1.5 },
-        { x: '수', y: 1.2 },
-        { x: '목', y: 1.4 },
-        { x: '금', y: 0.5 },
-        { x: '토', y: 0.6 },
-        { x: '일', y: 1.8 },
-      ]
+  const fetchData = async () => {
+    const data = await getMyStreak();
+    for (let i = 0; i < 7; i++) {
+      if (data[i].y === 'FALSE') {
+        test[i].y = null
+      }
     }
-  ]
+    setGraphData([{
+      id: 'rank',
+      data: test,
+    }]);
+    console.log(test);
+  };
+  
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <ResponsiveLine
       data={graphData}

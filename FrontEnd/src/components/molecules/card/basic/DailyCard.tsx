@@ -64,9 +64,9 @@ const Wrapper = styled.form`
 
 interface DailyCardProps {
   day: string;
-  difficulty: string;
-  type: string;
-  setData: React.Dispatch<React.SetStateAction<{ day: string; difficulty: string; type: string }[]>>;
+  recommendDifficulty: string;
+  recommendType: string;
+  setData: React.Dispatch<React.SetStateAction<{ day: string; recommendDifficulty: string; recommendType: string }[]>>;
 }
 
 interface AlgoDataProps {
@@ -82,12 +82,12 @@ const DailyCard = (props: DailyCardProps) => {
     { key: 'Brute-Force', value: '/images/code_odyssey/algo_pics/algoPic3.png' },
   ];
 
-  const Levels = ['lv1', 'lv2', 'lv3'];
-  const algoCate = ['math', 'DP', 'Brute-Force', 'shortest path', 'math', 'DP', 'Brute-Force', 'shortest path', 'math', 'DP', 'Brute-Force', 'shortest path'];
+  const Levels = ['난이도', '브론즈', '실버', '골드', '플레티넘', '다이아', '루비'];
+  const algoCate = ['유형', 'STRING', 'MATH', 'DATA STRUCTURE', 'BRUTE FORCE', 'TREE', 'GRAPH', 'AD HOC', 'DP', 'SHORTEST PATH', 'BINARY SEARCH', 'GREEDY', 'SIMULATION'];
 
   const [srcData, setSrcData] = useState('/images/code_odyssey/algo_pics/algoPic1.png');
-  const [selectValueDifficulty, setSelectValueDifficulty] = useState(props.difficulty);
-  const [selectValueCategory, setSelectValueCategory] = useState(props.type);
+  const [selectValueDifficulty, setSelectValueDifficulty] = useState(props.recommendDifficulty);
+  const [selectValueCategory, setSelectValueCategory] = useState(props.recommendType);
 
   const categoryChanged = (event: any) => {
     if (event.target.id === 'difficulty') {
