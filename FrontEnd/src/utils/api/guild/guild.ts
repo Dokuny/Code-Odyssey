@@ -28,11 +28,11 @@ export const getGuild = async () => {
 
 interface FindGuild {
   keyword : string;
-  guildId ?: number;
+  guildId ?: number | null;
 }
 
-export const findGuild = async (params:FindGuild) => {
-  const data = await tokenInstance.get(`/guilds`, { data : params});
+export const findGuild = async ({keyword,guildId}:FindGuild) => {
+  const data = await tokenInstance.get(`/guilds?keyword=${keyword} &guildId=${guildId}`);
   return data && data.data;
 };
 
