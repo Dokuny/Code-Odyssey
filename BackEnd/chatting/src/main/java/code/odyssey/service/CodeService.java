@@ -16,7 +16,7 @@ public class CodeService {
     private final RabbitTemplate rabbitTemplate;
 
     public void sendCode(CodeInfo codeInfo) {
-        log.info(codeInfo.getCode());
+        
         rabbitTemplate.convertAndSend(
                 topicExchange.getName(),
                 "ide."+codeInfo.getGuildProblemId(),
