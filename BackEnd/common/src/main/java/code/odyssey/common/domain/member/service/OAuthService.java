@@ -3,10 +3,10 @@ package code.odyssey.common.domain.member.service;
 
 import static code.odyssey.common.domain.member.exception.MemberErrorCode.ALREADY_EXISTS_MEMBER;
 
-import code.odyssey.common.domain.member.dto.dto.LoginResponse;
-import code.odyssey.common.domain.member.dto.dto.MemberInfo;
-import code.odyssey.common.domain.member.dto.dto.TokenRefreshRequest;
-import code.odyssey.common.domain.member.dto.dto.Tokens;
+import code.odyssey.common.domain.member.dto.LoginResponse;
+import code.odyssey.common.domain.member.dto.MemberInfo;
+import code.odyssey.common.domain.member.dto.TokenRefreshRequest;
+import code.odyssey.common.domain.member.dto.Tokens;
 import code.odyssey.common.domain.member.entity.Member;
 import code.odyssey.common.domain.member.exception.MemberException;
 import code.odyssey.common.domain.member.repository.MemberRepository;

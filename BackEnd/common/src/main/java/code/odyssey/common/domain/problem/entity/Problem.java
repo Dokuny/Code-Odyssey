@@ -57,11 +57,4 @@ public class Problem {
     @Column
     private String output;
 
-
-
-    @Column
-    private String input;
-    @Column
-    private String output;
-
 }

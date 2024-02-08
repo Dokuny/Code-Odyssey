@@ -2,7 +2,7 @@ package code.odyssey.common.domain.member.controller;
 
 import code.odyssey.common.domain.member.dto.FindMembersRequest;
 import code.odyssey.common.domain.member.dto.ModifyMemberRequest;
-import code.odyssey.common.domain.member.dto.dto.MemberInfo;
+import code.odyssey.common.domain.member.dto.MemberInfo;
 import code.odyssey.common.domain.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -49,6 +49,14 @@ public class MemberController {
         memberService.modifyMember(memberId, request);
         return ResponseEntity.ok().build();
     }
+
+    // 친구 메인 페이지 조회
+//    @GetMapping("/friend/{memberId}")
+//    public ResponseEntity<FriendTotalInfo> getFriend(
+//            @PathVariable("memberId") Long memberId
+//    ) {
+//        memberService.getFriendInfo(memberId);
+//    }
 
 
 }

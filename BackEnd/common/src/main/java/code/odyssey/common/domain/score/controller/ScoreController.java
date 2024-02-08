@@ -8,10 +8,7 @@ import code.odyssey.common.domain.score.service.ScoreService;
 import code.odyssey.common.domain.score.service.ScoreTypeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -59,10 +56,36 @@ public class ScoreController {
         return ResponseEntity.ok(rankTypeInfos);
     }
 
+    // 친구 유형별 랭킹 조회
+    @GetMapping("/rank/type/friend/{memberId}")
+    public ResponseEntity<List<RankTypeInfo>> getFriendRankByType(
+            @PathVariable("memberId") Long memberId
+    ) {
+        List<RankTypeInfo> rankTypeInfos = scoreTypeService.findRankByMemberId(memberId);
+        return ResponseEntity.ok(rankTypeInfos);
+    }
+
+    // 친구 유형별 점수 조회
+    @GetMapping("/type/friend/{memberId}")
+    public ResponseEntity<ScoreTypeInfo> getFriendScoresByType(
+            @PathVariable("memberId") Long memberId
+    ) {
+        ScoreTypeInfo stype = scoreTypeService.findStatsByMemberId(memberId);
+        return ResponseEntity.ok(stype);
+    }
+
     // 개인 정보 + 문제 풀이 내역 통계
     @GetMapping("/profile")
     public ResponseEntity<ProfileInfo> getProfile(
             @RequestHeader("X-Authorization-Id") Long memberId
+    ) {
+        ProfileInfo profileInfo = scoreService.getProfile(memberId);
+        return ResponseEntity.ok(profileInfo);
+    }
+
+    @GetMapping("/friend/{memberId}")
+    public ResponseEntity<ProfileInfo> getFriendProfile(
+            @PathVariable("memberId") Long memberId
     ) {
         ProfileInfo profileInfo = scoreService.getProfile(memberId);
         return ResponseEntity.ok(profileInfo);

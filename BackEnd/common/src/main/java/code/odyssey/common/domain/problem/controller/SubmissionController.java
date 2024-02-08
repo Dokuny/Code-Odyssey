@@ -26,6 +26,15 @@ public class SubmissionController {
         return ResponseEntity.ok(sNum);
     }
 
+    // 친구 전체 스트릭 조회
+    @GetMapping("/friend/streak/{memberId}")
+    public ResponseEntity<List<SubmissionNumInfo>> getFriendTotalStreak (
+            @PathVariable("memberId") Long memberId
+    ) {
+        List<SubmissionNumInfo> sNum = submissionService.countSubmissionsByDate(memberId);
+        return ResponseEntity.ok(sNum);
+    }
+
     // 개인 제출 코드 조회
     @GetMapping("/{problemId}")
     public ResponseEntity<List<SubmissionInfo>> getSubmissionResult(
