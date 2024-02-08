@@ -89,6 +89,7 @@ pipeline {
                             transfers: [
                                 sshTransfer(execCommand: "sudo docker kill \$(docker ps | grep chatting | tr ' ' '\t' | cut -f1)"),
                                 sshTransfer(execCommand: "sudo docker system prune -af")
+                                sshTransfer(execCommand: "sudo docker rm -f chatting")
                             ]
                         )
                     ]
