@@ -154,8 +154,7 @@ const MakeGuildForm = () => {
     const fileInput = imgRef.current;
 
     if (fileInput?.files?.length) {
-      const file: File = fileInput.files[0]
-        try {        
+          const file: File = fileInput.files[0]
           //파이어 베이스 이미지 업로드
           const storageRef = ref(fstorage, `firebase/${file.name}`);
           await uploadBytes( storageRef, file );
@@ -169,13 +168,10 @@ const MakeGuildForm = () => {
             difficulty: parseInt(selectDifficulty, 10),
             problemCapacity: parseInt(selectProblemCapacity, 10),
           };
+
           console.log(data)
-          await console.log(createGuild(data))
+          createGuild(data)
           // window.location.reload()
-        } catch (error) {
-          console.error("Error uploading image:", error);
-        }
-        
       }
     }
     // //이미지 가져오기

@@ -16,14 +16,9 @@ interface ScheduleInfo {
   recommendDifficulty: number;
 }
 
-export const postMySprint = async (value: {scheduleInfoList: ScheduleInfo}): Promise<any> => {
-  try {
+export const postMySprint = async (value: any): Promise<any> => {
     const data = await tokenInstance.post(`sprints`, value);
     return data && data.data;
-  } catch (error) {
-    console.error("Error in postMySprint:", error);
-    throw error;
-  }
 };
 
 // 개인 스프린트 조회

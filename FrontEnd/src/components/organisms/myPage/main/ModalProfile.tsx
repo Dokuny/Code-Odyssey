@@ -4,7 +4,7 @@ import { Body1, Body2, Header1, Header2 } from '../../../atoms/basic/Typography'
 import { colors } from '../../../../config/Color';
 import BasicInput from '../../../atoms/input/BasicInput';
 import { Spacer } from '../../../atoms/basic/Spacer';
-import { changeMyProfile } from '../../../../utils/api/mypage/myprofile/profile';
+import { changeMyProfile, getProfile } from '../../../../utils/api/mypage/myprofile/profile';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { fstorage } from '../../../../firebase';
 interface StyledDivProps {
@@ -125,12 +125,20 @@ const ModalProfile: React.FC<Props> = ({isOpen, closeModal, nickname}) => {
 
   
   const chageProfile = async () => {
+
     const fileInput = imgRef.current;
-    if (fileInput?.files?.length) {
+    if (fileInput?.files?.length) {    
       const file: File = fileInput.files[0];
       const storageRef = ref(fstorage, `firebase/${file.name}`);
-      // await uploadBytes(storageRef, file);
-      // await changeMyProfile({thumbnail: `images/${file.name}`, nickname: input});
+
+      await uploadBytes(storageRef, file);      
+      const profile = await getProfile()
+      const newProfile = {
+        ...profile,
+        thumbnail: `firebase/${file.name}`, 
+        nickname: input
+      }
+      await changeMyProfile(newProfile);
       window.location.reload()
     }
   }

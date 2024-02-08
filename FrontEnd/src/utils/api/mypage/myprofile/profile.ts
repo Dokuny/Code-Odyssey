@@ -11,8 +11,9 @@ interface ChangeData {
   nickname : string;
 }
 
-export const changeMyProfile = async ( props:ChangeData) => {
-  const data = await tokenInstance.put(`members/me`,props);
+export const changeMyProfile = async ( props:any ) => {
+  console.log(props)
+  const data = await tokenInstance.patch(`members/me`,props);
   return data && data.data;
 };
 

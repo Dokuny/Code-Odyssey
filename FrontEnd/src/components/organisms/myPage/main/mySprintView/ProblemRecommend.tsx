@@ -2,17 +2,17 @@ import ProblemCardList from '../../../../molecules/list/ProblemCardList';
 import DailyCardList from '../../../../molecules/list/DailyCardList';
 import { Spacer } from '../../../../atoms/basic/Spacer';
 import { useEffect, useState } from 'react';
-import { getMySprint, getRecommendSprint } from '../../../../../utils/api/mypage/sprint/mysprint';
+import { getMySprint, getRecommendSprint, postMySprint } from '../../../../../utils/api/mypage/sprint/mysprint';
 
 const ProblemRecommend = () => {
   const [dayilyData, setDailyData] = useState([
-    { day: 'MON', difficulty: 'BRONZE', type: 'DP' },
-    { day: 'TUE', difficulty: 'GOLD', type: 'MATH' },
-    { day: 'WED', difficulty: 'BRONZE', type: 'STRING' },
-    { day: 'THU', difficulty: 'SILVER', type: 'TREE' },
-    { day: 'FRI', difficulty: 'BRONZE', type: 'DP' },
-    { day: 'SAT', difficulty: 'SILVER', type: 'BINARY SEARCH' },
-    { day: 'SUN', difficulty: 'BRONZE', type: 'GRAPH' },
+    { day: 'MON', recommendDifficulty: 'BRONZE', recommendType: 'DP' },
+    { day: 'TUE', recommendDifficulty: 'GOLD', recommendType: 'MATH' },
+    { day: 'WED', recommendDifficulty: 'BRONZE', recommendType: 'STRING' },
+    { day: 'THU', recommendDifficulty: 'SILVER', recommendType: 'TREE' },
+    { day: 'FRI', recommendDifficulty: 'BRONZE', recommendType: 'DP' },
+    { day: 'SAT', recommendDifficulty: 'SILVER', recommendType: 'BINARY SEARCH' },
+    { day: 'SUN', recommendDifficulty: 'BRONZE', recommendType: 'GRAPH' },
   ]);
   const [problemData, setProblemData] = useState([
     { problem_id: '1123', no: '2313', title: '습격자 초라기', platform: 'BAEKJOON', difficulty: '11', type: 'DP' },
@@ -23,7 +23,10 @@ const ProblemRecommend = () => {
 
   const fetchData = async () => {
     const MySprint = await getMySprint(); // 가져오기
-    // const RecommendSprint = await getRecommendSprint(); // 스프린트 추천
+    const RecommendSprint = await getRecommendSprint(); // 스프린트 추천
+    
+    console.log(MySprint)
+    console.log(RecommendSprint)
 
     // if (MySprint) {
     //   setDailyData(MySprint)
@@ -37,10 +40,28 @@ const ProblemRecommend = () => {
   useEffect(() => {
     fetchData()
     console.log(dayilyData);
-  }, [dayilyData]);
+  });
+
+// // 개인 스프린트 생성
+// interface ScheduleInfo {
+//   day: string;
+//   recommendType: string;
+//   recommendDifficulty: number;
+// }
+
+// export const postMySprint = async (value: {scheduleInfoList: ScheduleInfo}): Promise<any> => {
+//     const data = await tokenInstance.post(`sprints`, value);
+//     return data && data.data;
+// };
+  const submit = async () => {
+    await postMySprint({ scheduleInfoList : dayilyData })
+    fetchData();
+  };
+
+
   return (
     <>
-      <DailyCardList data={dayilyData} setDailyData={setDailyData} />
+      <DailyCardList data={dayilyData} setDailyData={setDailyData} submit={submit}/>
       <Spacer space={'2vmin'} />
       <ProblemCardList data={problemData} />
     </>
