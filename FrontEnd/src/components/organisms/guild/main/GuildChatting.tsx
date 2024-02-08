@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import BasicInput from '../../../atoms/input/BasicInput';
 import { IoMdSend } from 'react-icons/io';
 import * as StompJs from '@stomp/stompjs';
+import { CHAT_URL } from '../../../../config/Axios';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -102,14 +103,14 @@ const GuildChatting = (props: GuildChattingProps) => {
     if (message.body) {
       let msg = JSON.parse(message.body);
       console.log(msg);
-      // setInput(msg.code);
     }
   };
 
   const connect = () => {
     try {
       const clientdata = new StompJs.Client({
-        brokerURL: `ws://localhost:8888/ws`,
+        brokerURL: CHAT_URL,
+        // brokerURL: 'ws://localhost:8888/ws',
         //   connectHeaders: { Authorization: '' },
         reconnectDelay: 5000,
         heartbeatIncoming: 4000,

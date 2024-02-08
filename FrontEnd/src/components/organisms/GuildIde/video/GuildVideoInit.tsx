@@ -3,11 +3,14 @@ import { useState } from 'react';
 import { OpenVidu, Session as OVSession, Publisher, Subscriber } from 'openvidu-browser';
 import Session from './Session';
 import { Spacer } from '../../../atoms/basic/Spacer';
-import { getToken } from '../../../../utils/openVido/openVidoUtil';
+import { getToken } from '../../../../utils/openVidu/openViduUtil';
 
-const GuildIdeInit = () => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const guild_problem_id = JSON.parse(decodeURIComponent(urlParams.get('guild_problem_id') as string));
+interface GuildVideoInitProps {
+  guild_problem_id: number;
+}
+
+const GuildVideoInit = (props: GuildVideoInitProps) => {
+  const guild_problem_id = props.guild_problem_id;
   const [session, setSession] = useState<OVSession | ''>('');
   const [inputSessionId, setInputSessionId] = useState<string>('GIDE' + guild_problem_id);
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
@@ -96,4 +99,4 @@ const GuildIdeInit = () => {
   );
 };
 
-export default GuildIdeInit;
+export default GuildVideoInit;

@@ -20,7 +20,7 @@ const Toggle = styled.input`
   }
   &:checked {
     background-color: black;
-    border-color: black;
+    border-color: gray;
   }
   &:checked::before {
     background-color: white;

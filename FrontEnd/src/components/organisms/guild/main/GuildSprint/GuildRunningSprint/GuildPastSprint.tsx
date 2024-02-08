@@ -18,6 +18,10 @@ interface GuildPastSprintProps {
 }
 
 const GuildPastSprint = (props: GuildPastSprintProps) => {
+  const onClick = (guild_problem_id: number, problem_id: number) => {
+    window.open(`/ide?guild_problem_id=${guild_problem_id}&problem_id=${problem_id}`, '_blank');
+  };
+
   return (
     <>
       <Header4 children={'[길드명]의'} color={colors.Gray[100]} fontWeight={'bold'} />
@@ -55,7 +59,7 @@ const GuildPastSprint = (props: GuildPastSprintProps) => {
             title={value.title}
             state={'past'}
             guild_problem_id={value.guild_problem_id}
-            onClick={() => console.log(value.problem_id, props.guild_id)}
+            onClick={() => onClick(value.guild_problem_id, value.problem_id)}
           />
         ))}
       </div>

@@ -48,7 +48,7 @@ const ProblemCompileForm = (props: ProblemCompileFormProps) => {
 
   const clickMenu = (menu: string) => {
     setMenu(menu);
-    setButtonName(menu === 'result' ? '제출하기' : menu === 'case' ? '등록하기' : '변환하기');
+    setButtonName(menu === 'result' ? '제출하기' : menu === 'case' ? '실행하기' : '변환하기');
     props.setIsActive(true);
   };
 

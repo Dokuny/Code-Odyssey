@@ -143,6 +143,7 @@ const SprintProblemCard = (props: SprintProblemCardProps) => {
                       <Body1 children={'#Score'} color={colors.Gray[100]} fontWeight={'bold'} fontStyle='Eagle Lake' />
                     </>
                   }
+                  isCursor={true}
                   tableData={tableData}
                   setSelectData={setSelectData}
                   percentData={[]}
