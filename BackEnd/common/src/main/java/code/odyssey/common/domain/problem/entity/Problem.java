@@ -20,19 +20,19 @@ public class Problem {
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "problem_id")
     @Id
-    private Long id;
+    private Long id;//
 
     @Column
-    private String title;
+    private String title;//
 
     @Column
-    private String content;
+    private String content;//
 
     @Column
-    private String href;
+    private String href;//
 
     @Column
-    private Integer difficulty;
+    private Integer difficulty;//
 
     @Column
     @Enumerated(STRING)
@@ -40,9 +40,28 @@ public class Problem {
 
     @Column
     @Enumerated(STRING)
-    private ProblemPlatform platform;
+    private ProblemPlatform platform;//
 
     @Column
-    private Integer no;
+    private Integer no;//
+
+    @Column
+    private String runtime;//
+
+    @Column
+    private String memory;//
+
+    @Column
+    private String input;
+
+    @Column
+    private String output;
+
+
+
+    @Column
+    private String input;
+    @Column
+    private String output;
 
 }
