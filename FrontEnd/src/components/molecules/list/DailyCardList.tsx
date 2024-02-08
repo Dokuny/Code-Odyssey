@@ -37,20 +37,17 @@ const DetailButton = styled.button`
 interface DailyCardlistProps {
   data: {
     day: string;
-    difficulty: string;
-    type: string;
+    recommendDifficulty: string;
+    recommendType: string;
   }[];
-  setDailyData: React.Dispatch<React.SetStateAction<{ day: string; difficulty: string; type: string }[]>>;
+  setDailyData: React.Dispatch<React.SetStateAction<{ day: string; recommendDifficulty: string; recommendType: string }[]>>;
+  submit : () => void;
 }
 
 const DailyCardList = (props: DailyCardlistProps) => {
   const [data, setData] = useState(props.data);
 
-  const submit = () => {
-    console.log('submitted !! : ');
-    props.setDailyData(data);
-  };
-  const DailyDataChange = (updatedData: React.SetStateAction<{ day: string; difficulty: string; type: string }[]>) => {
+  const DailyDataChange = (updatedData: React.SetStateAction<{ day: string; recommendDifficulty: string; recommendType: string }[]>) => {
     setData(updatedData);
   };
   return (
@@ -64,7 +61,7 @@ const DailyCardList = (props: DailyCardlistProps) => {
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'end', height: '100%' }}>
           <Body2 children={': 요일별로 풀고 싶은 유형을 등록해놓으세요'} color={colors.Gray[500]} />
         </div>
-        <DetailButton onClick={submit}>확정하기</DetailButton>
+        <DetailButton onClick={props.submit}>확정하기</DetailButton>
       </div>
       <HorizenDiv>
         <Spacer space={'1vmin'} />
@@ -72,7 +69,7 @@ const DailyCardList = (props: DailyCardlistProps) => {
       <Spacer space={'2vmin'} />
       <DailyCardDiv>
         {props.data.map((value, index) => (
-          <DailyCard key={index} day={value.day} difficulty={value.difficulty} type={value.type} setData={DailyDataChange}></DailyCard>
+          <DailyCard key={index} day={value.day} recommendDifficulty={value.recommendDifficulty} recommendType={value.recommendType} setData={DailyDataChange}></DailyCard>
         ))}
       </DailyCardDiv>
     </>

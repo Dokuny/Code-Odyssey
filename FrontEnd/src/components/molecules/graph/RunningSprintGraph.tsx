@@ -6,37 +6,51 @@ import { Spacer } from '../../atoms/basic/Spacer';
 import { Body1, Body2, Header2 } from '../../atoms/basic/Typography';
 import StarGraph from '../../atoms/graph/StarGraph';
 import { getMyStreak } from '../../../utils/api/mypage/sprint/mysprint';
+import { getProfile } from '../../../utils/api/mypage/myprofile/profile';
+
+// {
+//   graphData: [
+//     {
+//       id: 'rank',
+//       data: [
+//         { x: '월', y: 1 },
+//         { x: '화', y: 1.5 },
+//         { x: '수', y: 1.2 },
+//         { x: '목', y: 1.4 },
+//         { x: '금', y: 0.5 },
+//         { x: '토', y: 0.6 },
+//         { x: '일', y: 1.8 },
+//       ],
+//     },
+//   ],
+//   myData: {
+//     starsCnt: 120,
+//     plowCnt: 10,
+//   },
+// }
 
 const StyledContainer = styled.div`
   display: flex;
+  width: auto;
   height: 80%;
 `;
 
 const RunningSprintGraph = () => {
-  const [mySprintData, setMySprintData] = useState({
-    graphData: [
-      {
-        id: 'rank',
-        data: [
-          { x: '월', y: 1 },
-          { x: '화', y: 1.5 },
-          { x: '수', y: 1.2 },
-          { x: '목', y: 1.4 },
-          { x: '금', y: 0.5 },
-          { x: '토', y: 0.6 },
-          { x: '일', y: 1.8 },
-        ],
-      },
-    ],
-    myData: {
-      starsCnt: 120,
-      plowCnt: 10,
-    },
-  });
+  const [myData, setMyData] = useState<{
+    email?: string | null;
+    nickname? : string | null;
+    penalty? : number | null;
+    sevenStreak? : number | null;
+    streak? : number | null;
+    thumbnail? : string | null;
+    tier? : string | null;
+  }>({});
 
   const fetchData = async () => {
-    const result = await getMyStreak();
-    console.log(result)
+    const data = await getProfile();
+    setMyData( data )
+    console.log(myData)
+
     // setData(result || []); // result가 falsy일 경우 빈 배열로 설정
   };
 
@@ -61,15 +75,15 @@ const RunningSprintGraph = () => {
             </div>
             <Spacer space={'2vmax'} horizontal />
             <div style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-evenly' }}>
-              <Body1 children={`: ${mySprintData.myData.starsCnt}`} color={colors.Gray[400]} fontWeight={'bold'} />
-              <Body1 children={`: ${mySprintData.myData.plowCnt}`} color={colors.Gray[400]} fontWeight={'bold'} />
+              <Body1 children={`: ${myData.streak || 0}`} color={colors.Gray[400]} fontWeight={'bold'} />
+              <Body1 children={`: ${myData.sevenStreak || 0} `} color={colors.Gray[400]} fontWeight={'bold'} />
             </div>
           </div>
         </div>
       </div>
       <Divider />
       <StyledContainer>
-        <StarGraph data={mySprintData.graphData} />
+        <StarGraph />
       </StyledContainer>
     </>
   );
