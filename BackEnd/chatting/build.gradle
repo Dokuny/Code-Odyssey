@@ -38,6 +38,8 @@ dependencies {
     testImplementation 'org.springframework.amqp:spring-rabbit-test'
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 
+    implementation 'io.openvidu:openvidu-java-client:2.29.0'
+
     //외부 브로커를 사용하기 위해
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-reactor-netty', version: '2.4.6'
 
