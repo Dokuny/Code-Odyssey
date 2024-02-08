@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { Header3 } from '../../../atoms/basic/Typography';
 import { colors } from '../../../../config/Color';
 import FindFriendModal from '../../../molecules/modal/FindFriendModal';
+import PersonalPageModal from '../../../molecules/modal/PersonalPageModal';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -47,9 +48,12 @@ const MyPageRightSidebar = () => {
   ]);
 
   const [isModalOpen, setModalOpen] = useState(false);
-
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
+
+  const [isPersonalModalOpen, setPersonalModalOpen] = useState(false);
+  const openPersonalModal = () => setPersonalModalOpen(true);
+  const closePersonalModal = () => setPersonalModalOpen(false);
 
   return (
     <StyledContainer>
@@ -74,11 +78,15 @@ const MyPageRightSidebar = () => {
             time={value.time}
             key={value.member_id}
             active={activeFriend === value.member_id}
-            event={() => setActiveFriend(value.member_id)}
+            event={() => {
+              setActiveFriend(value.member_id);
+              openPersonalModal();
+            }}
           />
         ))}
       </StyledFriendListContainer>
       <FindFriendModal isOpen={isModalOpen} closeModal={closeModal}></FindFriendModal>
+      <PersonalPageModal isOpen={isPersonalModalOpen} closeModal={closePersonalModal}></PersonalPageModal>
     </StyledContainer>
   );
 };

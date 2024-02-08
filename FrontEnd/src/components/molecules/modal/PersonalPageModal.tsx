@@ -1,11 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Body1, Header3 } from '../../atoms/basic/Typography';
-import { Spacer } from '../../atoms/basic/Spacer';
-import BasicInput from '../../atoms/input/BasicInput';
 import { colors } from '../../../config/Color';
-import MyFriendListCard from '../card/basic/MyFriendListCard';
-import { Fa6Icon } from '../../atoms/icon/Icons';
+import PersonalPage from '../../organisms/myPage/main/PersonalPage';
 
 interface StyledDivProps {
   isOpen: boolean;
@@ -16,7 +12,7 @@ const StyledDiv = styled.div<StyledDivProps>`
 `;
 
 const Outline = styled.div`
-  z-index: 1;
+  z-index: 2;
   position: fixed;
   top: 0;
   left: 0;
@@ -29,14 +25,21 @@ const Outline = styled.div`
   border-radius: 10px;
 `;
 const InItem = styled.div`
-  width: 500px;
-  height: 365px;
+  width: 70%;
+  height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 20px;
   margin: 10px;
-  background-color: #111c44;
+  background-color: ${colors.GrayBlue[900]};
+  box-shadow: 0px 0px 3px 3px ${colors.GrayBlue[500]};
+  overflow: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 interface Props {
@@ -82,7 +85,7 @@ const AddButton = styled.button`
   bottom: 0;
 `;
 
-const FindFriendModal: React.FC<Props> = ({ isOpen, closeModal }) => {
+const PersonalPageModal: React.FC<Props> = ({ isOpen, closeModal }) => {
   const [input, setInput] = useState('');
   const [data, setData] = useState([
     { src: 'https://picsum.photos/300', member_id: 1, name: 'FriendName1', state: 'started', time: '20 min ago' },
@@ -114,10 +117,6 @@ const FindFriendModal: React.FC<Props> = ({ isOpen, closeModal }) => {
     closeModal();
   };
 
-  const AddFriend = (memberId: any) => {
-    console.log(memberId);
-  };
-
   return (
     <StyledDiv isOpen={isOpen}>
       <Outline onClick={Close}>
@@ -126,37 +125,11 @@ const FindFriendModal: React.FC<Props> = ({ isOpen, closeModal }) => {
             e.stopPropagation();
           }}
         >
-          <div style={{ width: '617px', height: '365px', padding: '20px', boxSizing: 'border-box', display: 'flex', flexDirection: 'column' }}>
-            <HeaderDiv>
-              {/* <Body1 children={'username '} color={colors.GrayBlue[100]} fontWeight={'bold'}></Body1> */}
-              <div style={{ width: '70%' }}>
-                <BasicInput color={colors.GrayBlue[600]} placeholder={'닉네임을 입력해 주세요'} setInput={setInput} input={''}></BasicInput>
-              </div>
-            </HeaderDiv>
-            <Spacer space={'10px'}></Spacer>
-            <BodyDiv>
-              {data.map((user) => (
-                <div style={{ display: 'flex', position: 'relative', width: '48%', boxSizing: 'border-box', marginBottom: '1px' }}>
-                  <MyFriendListCard
-                    src={user.src}
-                    name={user.name}
-                    state={''}
-                    time={''}
-                    event={function (): void {
-                      throw new Error('Function not implemented.');
-                    }}
-                  ></MyFriendListCard>
-                  <AddButton key={user.member_id} onClick={() => AddFriend(user.member_id)}>
-                    <Fa6Icon name={'plus'} color='white' size={'17px'}></Fa6Icon>
-                  </AddButton>
-                </div>
-              ))}
-            </BodyDiv>
-          </div>
+          <PersonalPage></PersonalPage>
         </InItem>
       </Outline>
     </StyledDiv>
   );
 };
 
-export default FindFriendModal;
+export default PersonalPageModal;

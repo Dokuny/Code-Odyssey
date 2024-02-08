@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Spacer } from '../../../atoms/basic/Spacer';
 import { MyResponsiveRadar } from '../../../atoms/graph/RadarGraph';
-import MyProfileDetailCard from '../../../molecules/card/myPage/MyProfileDetailCard';
 import MyResponsiveLine from '../../../atoms/graph/LineGraph';
 import { Header3 } from '../../../atoms/basic/Typography';
 import { colors } from '../../../../config/Color';
 import HeatMap from '../../../atoms/graph/HeatMap';
 import { getMyRank, getMyStatistic, getMyStrict } from '../../../../utils/api/mypage/myprofile/profile';
+import PersonalPageProfile from '../../../molecules/card/myPage/PersonalPageProfile';
 
 const StyledGraphContainer = styled.div`
   display: flex;
@@ -27,7 +27,7 @@ const StyledHeatMapContentContainer = styled.div`
   flex-direction: column;
 `;
 
-const MyPageMain = () => {
+const PersonalPage = () => {
   const [statisticData, setStatisticData] = useState([
     { type: 'dp', score: 12 },
     { type: 'string', score: 25 },
@@ -75,6 +75,7 @@ const MyPageMain = () => {
   ]);
 
   const fetchData = async () => {
+    // 멤버 아이디 받아서 정보 뜨게 수정(현재는 내정보)
     const MyStatistic = await getMyStatistic();
     const MyRank = await getMyRank();
     const Strict = await getMyStrict();
@@ -105,8 +106,11 @@ const MyPageMain = () => {
   }, []);
 
   return (
-    <>
-      <MyProfileDetailCard />
+    <div style={{ width: '80%' }}>
+      <div style={{ height: '35vh', width: '100%' }}>a</div>
+      <div>
+        <PersonalPageProfile />
+      </div>
       <Spacer space={'3vmin'} />
       <StyledGraphContainer>
         <StyledGraphContentContainer>
@@ -123,8 +127,8 @@ const MyPageMain = () => {
         <Header3 children={'My Strict'} color={colors.Gray[300]} fontWeight={'bold'} />
         <HeatMap data={strictData} />
       </StyledHeatMapContentContainer>
-    </>
+    </div>
   );
 };
 
-export default MyPageMain;
+export default PersonalPage;
