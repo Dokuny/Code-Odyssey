@@ -1,10 +1,12 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { Body1, Body2, Header1, Header2 } from '../../../atoms/basic/Typography';
 import { colors } from '../../../../config/Color';
 import BasicInput from '../../../atoms/input/BasicInput';
 import { Spacer } from '../../../atoms/basic/Spacer';
-
+import { changeMyProfile } from '../../../../utils/api/mypage/myprofile/profile';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { fstorage } from '../../../../firebase';
 interface StyledDivProps {
   isOpen : boolean;
 }
@@ -93,15 +95,17 @@ const Button = styled.button`
 
 interface Props {
   isOpen : boolean;
+  nickname : string;
   closeModal : () => void;
 }
 
 
 
-const ModalProfile: React.FC<Props> = ({isOpen, closeModal}) => {
-  const [input,setInput] = useState('')
-  const [imgFile,setImgFile] = useState('')
+const ModalProfile: React.FC<Props> = ({isOpen, closeModal, nickname}) => {
+  const [input,setInput] = useState<string>('')
+  const [imgFile,setImgFile] = useState<string>('')
   const imgRef = useRef<HTMLInputElement>(null);
+
   const saveImgFile = () => {
     const fileInput = imgRef.current;
     
@@ -118,8 +122,22 @@ const ModalProfile: React.FC<Props> = ({isOpen, closeModal}) => {
     }
   };
 
+
+  
+  const chageProfile = async () => {
+    const fileInput = imgRef.current;
+    if (fileInput?.files?.length) {
+      const file: File = fileInput.files[0];
+      const storageRef = ref(fstorage, `firebase/${file.name}`);
+      // await uploadBytes(storageRef, file);
+      // await changeMyProfile({thumbnail: `images/${file.name}`, nickname: input});
+      window.location.reload()
+    }
+  }
+
   const Close = () => {
     setImgFile('')
+    setInput('')
     closeModal()
   }
 
@@ -132,7 +150,7 @@ const ModalProfile: React.FC<Props> = ({isOpen, closeModal}) => {
                  { imgFile ? 
                   <StyledImage2 src={imgFile} alt='로그인 창 이미지' />
                   :
-                  <StyledImage src={'/images/code_odyssey/Content.png'} alt='로그인 창 이미지' />
+                  <StyledImage src={'/images/code_odyssey/Content.png'} alt='창 이미지' />
                 }
                 </Div1>
                 </label>
@@ -140,9 +158,9 @@ const ModalProfile: React.FC<Props> = ({isOpen, closeModal}) => {
           <Div2>
           <Header2 children={'Name'} color={colors.White} fontWeight={'bold'}></Header2>
           <Spacer space={'2vh'} />
-          <BasicInput placeholder={'이름'} setInput={setInput} input={input} textAlign={'center'} />
+          <BasicInput placeholder={nickname} setInput={setInput} input={input} textAlign={'center'} />
           <Spacer space={'2vh'} />
-          <Button onClick={()=>{}}>
+          <Button onClick={chageProfile}>
             <Body2 children={'프로필 변경'} color={colors.White} ></Body2>
           </Button>
           </Div2>
@@ -154,14 +172,4 @@ const ModalProfile: React.FC<Props> = ({isOpen, closeModal}) => {
 };
 
 export default ModalProfile;
-
-
-// <StyledMyImgContainer>
-// <Front>
-//   <StyledImage src={imgFile ? imgFile : '/images/code_odyssey/ProblemSolveBg.svg'} alt='/'/>
-// </Front>
-// <Back>
-//   <StyledImage src='/images/code_odyssey/WaitingBg.svg' alt='/'/>
-// </Back>
-// </StyledMyImgContainer>
 

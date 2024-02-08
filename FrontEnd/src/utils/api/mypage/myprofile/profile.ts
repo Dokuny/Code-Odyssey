@@ -5,6 +5,17 @@ export const getProfile = async () => {
   return data && data.data;
 };
 
+//프로필 변경 내일 물어보기..
+interface ChangeData {
+  thumbnail : string;
+  nickname : string;
+}
+
+export const changeMyProfile = async ( props:ChangeData) => {
+  const data = await tokenInstance.put(`members/me`,props);
+  return data && data.data;
+};
+
 export const getMyStrict = async () => {
   const data = await tokenInstance.get(`submissions/date`);
   return data && data.data;

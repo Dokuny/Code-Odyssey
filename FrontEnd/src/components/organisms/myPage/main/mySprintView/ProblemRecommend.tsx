@@ -22,11 +22,16 @@ const ProblemRecommend = () => {
   ]);
 
   const fetchData = async () => {
-    const Mysprint = await getMySprint();
-    
-    // const result = await getRecommendSprint();
-    // console.log(result)
-    // setData(result || []); // result가 falsy일 경우 빈 배열로 설정
+    const MySprint = await getMySprint(); // 가져오기
+    // const RecommendSprint = await getRecommendSprint(); // 스프린트 추천
+
+    // if (MySprint) {
+    //   setDailyData(MySprint)
+    //   setProblemData(RecommendSprint)
+    // } else {
+    //   setProblemData(RecommendSprint)
+    // }
+
   };
 
   useEffect(() => {
