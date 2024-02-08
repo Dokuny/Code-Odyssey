@@ -36,6 +36,7 @@ public class InProgressGuildSprintInfo {
     public static class InProgressGuildProblemInfo {
         private String type;
         private Long guildProblemId;
+        private Long problemId;
         private Integer difficulty;
         private String title;
         private Integer percent;
