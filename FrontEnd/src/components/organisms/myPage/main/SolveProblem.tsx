@@ -37,7 +37,6 @@ const SolveProblem = () => {
     ],
   });
 
-
   const SearchProblem = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       // 문제 검색 API
@@ -53,8 +52,7 @@ const SolveProblem = () => {
     // const result = await getProblem();
     // console.log(result)
     // setData(tableData); // result가 falsy일 경우 빈 배열로 설정
-};
-
+  };
 
   useEffect(() => {
     // TODO
@@ -62,7 +60,6 @@ const SolveProblem = () => {
     // console.log(searchInput);
     fetchData();
   }, [searchInput]);
-
 
   useEffect(() => {
     // TODO
@@ -106,6 +103,7 @@ const SolveProblem = () => {
         setState={setState}
         booleanData={[]}
         imageData={['difficulty']}
+        isCursor={true}
       />
     </>
   );

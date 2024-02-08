@@ -43,15 +43,15 @@ const VarNameChangeCard = () => {
         <IoMdSwap color={colors.White} size={'2em'} />
       </div>
       <StyledContentContainer>
-        <Body3 children={'Predicted Output'} color={colors.Gray[300]} fontWeight={'bolwd'} />
+        <Body3 children={'Camel Case'} color={colors.Gray[300]} fontWeight={'bold'} />
         <Spacer space={'0.5vmin'} />
         <MultiTextarea readOnly={true} placeholder={''} setInput={() => {}} input={data.camel} />
         <Spacer space={'1vmin'} />
-        <Body3 children={'Predicted Output'} color={colors.Gray[300]} fontWeight={'bold'} />
+        <Body3 children={'Snake Case'} color={colors.Gray[300]} fontWeight={'bold'} />
         <Spacer space={'0.5vmin'} />
         <MultiTextarea readOnly={true} placeholder={''} setInput={() => {}} input={data.snake} />
         <Spacer space={'1vmin'} />
-        <Body3 children={'Predicted Output'} color={colors.Gray[300]} fontWeight={'bold'} />
+        <Body3 children={'Pascal Case'} color={colors.Gray[300]} fontWeight={'bold'} />
         <Spacer space={'0.5vmin'} />
         <MultiTextarea readOnly={true} placeholder={''} setInput={() => {}} input={data.pascal} />
       </StyledContentContainer>

@@ -19,22 +19,22 @@ const GuildRunningSprint = (props: GuildRunningSprintProps) => {
     //   started_at: '2024-01-29',
     //   ended_at: '2024-01-29',
     //   problem_list: [
-    //     { type: 'DP', guild_problem_id: 1, difficulty: 17, title: '톱니바퀴1', percent: 50 },
-    //     { type: 'BRUTE FORCE', guild_problem_id: 2, difficulty: 18, title: '톱니바퀴2', percent: 100 },
-    //     { type: 'GRAPH', guild_problem_id: 3, difficulty: 15, title: '톱니바퀴3', percent: 50 },
-    //     { type: 'STRING', guild_problem_id: 3, difficulty: 15, title: '톱니바퀴3', percent: 50 },
+    //     { type: 'DP', problem_id: 1, guild_problem_id: 1, difficulty: 17, title: '톱니바퀴1', percent: 50 },
+    //     { type: 'BRUTE FORCE', problem_id: 1, guild_problem_id: 2, difficulty: 18, title: '톱니바퀴2', percent: 100 },
+    //     { type: 'GRAPH', problem_id: 1, guild_problem_id: 3, difficulty: 15, title: '톱니바퀴3', percent: 50 },
+    //     { type: 'STRING', problem_id: 1, guild_problem_id: 3, difficulty: 15, title: '톱니바퀴3', percent: 50 },
     //   ],
     // });
     setData({
       sprint_id: 1,
       sprint_name: 'test1',
       started_at: '2024-01-29',
-      ended_at: '2024-03-02',
+      ended_at: '2024-02-02',
       problem_list: [
-        { type: 'DP', guild_problem_id: 1, difficulty: 17, title: '톱니바퀴1', percent: 50 },
-        { type: 'BRUTE FORCE', guild_problem_id: 2, difficulty: 18, title: '톱니바퀴2', percent: 100 },
-        { type: 'GRAPH', guild_problem_id: 3, difficulty: 15, title: '톱니바퀴3', percent: 50 },
-        { type: 'STRING', guild_problem_id: 3, difficulty: 15, title: '톱니바퀴3', percent: 50 },
+        { type: 'DP', problem_id: 1, guild_problem_id: 1, difficulty: 17, title: '톱니바퀴1', percent: 50 },
+        { type: 'BRUTE FORCE', problem_id: 1, guild_problem_id: 2, difficulty: 18, title: '톱니바퀴2', percent: 100 },
+        { type: 'GRAPH', problem_id: 1, guild_problem_id: 3, difficulty: 15, title: '톱니바퀴3', percent: 50 },
+        { type: 'STRING', problem_id: 1, guild_problem_id: 3, difficulty: 15, title: '톱니바퀴3', percent: 50 },
       ],
     });
   }, []);
