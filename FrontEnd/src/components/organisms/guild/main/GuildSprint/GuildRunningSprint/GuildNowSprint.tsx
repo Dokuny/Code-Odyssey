@@ -5,6 +5,7 @@ import GuildSprintImageCard from '../../../../../molecules/card/guild/GuildSprin
 import Divider from '../../../../../atoms/basic/Divider';
 
 interface GuildNowSprintProps {
+  guild_name: string;
   guild_id: number;
   data: {
     sprint_id: number;
@@ -22,7 +23,7 @@ const GuildNowSprint = (props: GuildNowSprintProps) => {
 
   return (
     <>
-      <Header4 children={'[길드명]의'} color={colors.Gray[100]} fontWeight={'bold'} />
+      <Header4 children={`[${props.guild_name}]의`} color={colors.Gray[100]} fontWeight={'bold'} />
       <div style={{ display: 'flex', alignItems: 'flex-end' }}>
         <Header4 children={'진행 중인 스프린트'} color={colors.Gray[100]} fontWeight={'bold'} />
         <Spacer space={'1.5vmax'} horizontal />
@@ -40,7 +41,8 @@ const GuildNowSprint = (props: GuildNowSprintProps) => {
             value={value.percent}
             title={value.title}
             state={'now'}
-            guild_problem_id={value.problem_id}
+            guild_problem_id={value.guild_problem_id}
+            problem_id={value.problem_id}
             onClick={() => onClick(value.guild_problem_id, value.problem_id)}
           />
         ))}

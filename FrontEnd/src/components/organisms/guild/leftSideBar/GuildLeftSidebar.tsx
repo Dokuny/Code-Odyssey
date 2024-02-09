@@ -39,8 +39,9 @@ const StyledBlurImage = styled.div`
 
 interface MyPageLeftSidebarProps {
   MyMenuProps: { activeIndex: number; setActiveIndex: React.Dispatch<React.SetStateAction<number>> };
-  MyGuildListProps: { guildListIndex: number; setGuildListIndex: Dispatch<SetStateAction<number>> };
+  MyGuildListProps: { guildListIndex: number; setGuildListIndex: Dispatch<SetStateAction<number>>; setGuildName: Dispatch<SetStateAction<string>> };
   guild_id: number;
+  guild_name: string;
 }
 
 const GuildLeftSidebar = (props: MyPageLeftSidebarProps) => {
@@ -50,13 +51,13 @@ const GuildLeftSidebar = (props: MyPageLeftSidebarProps) => {
   return (
     <>
       <StyledBlurImage>
-        <MyGuildList guildListIndex={MyGuildListProps.guildListIndex} setGuildListIndex={MyGuildListProps.setGuildListIndex} />
+        <MyGuildList guildListIndex={MyGuildListProps.guildListIndex} setGuildListIndex={MyGuildListProps.setGuildListIndex} setGuildName={MyGuildListProps.setGuildName} />
       </StyledBlurImage>
       <StyledImage>
         {props.guild_id === -2 ? (
           <GuildMenu activeIndex={MyMenuProps.activeIndex} setActiveIndex={MyMenuProps.setActiveIndex} />
         ) : (
-          <GuildDetailMenu activeIndex={MyMenuProps.activeIndex} setActiveIndex={MyMenuProps.setActiveIndex} />
+          <GuildDetailMenu activeIndex={MyMenuProps.activeIndex} setActiveIndex={MyMenuProps.setActiveIndex} guild_name={props.guild_name} />
         )}
       </StyledImage>
     </>

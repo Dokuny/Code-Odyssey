@@ -34,11 +34,11 @@ const GuildProblemRecommentForm = (props: GuildProblemRecommentFormProps) => {
 
   useEffect(() => {
     setData([
-      { difficulty: 6, problem_id: 4, title: 'test1', platform: 'BOJ' },
-      { difficulty: 2, problem_id: 5, title: 'test2', platform: 'BOJ' },
-      { difficulty: 4, problem_id: 6, title: 'test3', platform: 'BOJ' },
-      { difficulty: 3, problem_id: 7, title: 'test4', platform: 'BOJ' },
-      { difficulty: 5, problem_id: 8, title: 'test5', platform: 'BOJ' },
+      { difficulty: 6, problem_id: 1, title: 'test1', platform: 'BOJ' },
+      { difficulty: 2, problem_id: 2, title: 'test2', platform: 'BOJ' },
+      { difficulty: 4, problem_id: 3, title: 'test3', platform: 'BOJ' },
+      { difficulty: 3, problem_id: 4, title: 'test4', platform: 'BOJ' },
+      { difficulty: 5, problem_id: 5, title: 'test5', platform: 'BOJ' },
     ]);
   }, []);
 

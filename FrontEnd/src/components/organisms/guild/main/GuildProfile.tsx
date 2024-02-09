@@ -10,6 +10,7 @@ import GuildPerson from './GuildProfile/GuildPerson';
 
 interface GuildProfileProps {
   guild_id: number;
+  guild_name: string;
 }
 
 const GuildProfile = (props: GuildProfileProps) => {
@@ -21,7 +22,7 @@ const GuildProfile = (props: GuildProfileProps) => {
         {activeIndex === 1 && (
           <MainTopCard
             src={'/images/code_odyssey/GuildProfileBg.svg'}
-            title={<Body1 children={'[길드명]에서 크루원 보기'} color={colors.Gray[100]} fontWeight={'bold'} />}
+            title={<Body1 children={`[${props.guild_name}]에서 크루원 보기`} color={colors.Gray[100]} fontWeight={'bold'} />}
             subTitle={<Body3 children={'여정에 함께할 동료를 찾아보세요'} color={colors.Gray[100]} fontWeight={'bold'} />}
             content={''}
             background={true}

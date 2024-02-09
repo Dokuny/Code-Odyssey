@@ -9,6 +9,7 @@ import GuildPersonRequest from './GuildSetting/GuildPersonRequest';
 
 interface GuildSettingProps {
   guild_id: number;
+  guild_name: string;
 }
 
 const GuildSetting = (props: GuildSettingProps) => {
@@ -18,7 +19,7 @@ const GuildSetting = (props: GuildSettingProps) => {
     <>
       <MainTopCard
         src={'/images/code_odyssey/GuildProfileBg.svg'}
-        title={<Body1 children={'[길드명] 관리'} color={colors.Gray[100]} fontWeight={'bold'} />}
+        title={<Body1 children={`[${props.guild_name}] 관리`} color={colors.Gray[100]} fontWeight={'bold'} />}
         subTitle={<Body3 children={'선박을 정비하세요'} color={colors.Gray[100]} fontWeight={'bold'} />}
         content={
           <div style={{ width: '80%' }}>

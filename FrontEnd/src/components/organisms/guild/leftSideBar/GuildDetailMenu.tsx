@@ -31,6 +31,7 @@ const StyledButtonContentContainer = styled.div`
 interface MyMenuProps {
   activeIndex: number;
   setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
+  guild_name: string;
 }
 
 const GuildDetailMenu = (props: MyMenuProps) => {
@@ -44,8 +45,8 @@ const GuildDetailMenu = (props: MyMenuProps) => {
   return (
     <StyledContainer>
       <StyledContentContainer>
-        <Header3 children={"Dokuny's"} color={colors.Gray[200]} fontWeight={'bold'} />
-        <Body1 children={'항해일지'} color={colors.Gray[300]} />
+        <Header3 children={`[${props.guild_name}]`} color={colors.Gray[200]} fontWeight={'bold'} />
+        <Body1 children={'함께하는 항해'} color={colors.Gray[300]} />
       </StyledContentContainer>
       <StyledContentContainer>
         {MenuList.map((value, index) => (

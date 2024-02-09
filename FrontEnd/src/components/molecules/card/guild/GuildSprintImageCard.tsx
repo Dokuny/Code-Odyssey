@@ -2,9 +2,10 @@ import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-pro
 import styled from 'styled-components';
 import { colors } from '../../../../config/Color';
 import { sprintContent, sprintImage, sprintName } from '../../../../utils/json/sprint';
-import { Body3, Caption1, Caption2, Header3 } from '../../../atoms/basic/Typography';
+import { Body3, Caption1, Caption2, Header3, Header4 } from '../../../atoms/basic/Typography';
 import { Spacer } from '../../../atoms/basic/Spacer';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { sprintProblemSolvePeople } from '../../../../utils/api/guild/sprint/guildsprint';
 
 const StyledSprintContainer = styled.div<{ isFin: boolean }>`
   width: 8vmax;
@@ -54,28 +55,26 @@ interface GuildSprintImageCardProps {
   state: 'past' | 'now';
   guild_problem_id: number;
   guild_id: number;
+  problem_id: number;
   onClick: () => void;
 }
 
 const GuildSprintImageCard = (props: GuildSprintImageCardProps) => {
-  const [data, setData] = useState([
-    { member_id: 1, thumbnail: 'https://picsum.photos/300', is_solved: true },
-    { member_id: 2, thumbnail: 'https://picsum.photos/300', is_solved: false },
-    { member_id: 3, thumbnail: 'https://picsum.photos/300', is_solved: true },
-    { member_id: 4, thumbnail: 'https://picsum.photos/300', is_solved: true },
-    { member_id: 5, thumbnail: 'https://picsum.photos/300', is_solved: true },
-    { member_id: 6, thumbnail: 'https://picsum.photos/300', is_solved: true },
-    { member_id: 7, thumbnail: 'https://picsum.photos/300', is_solved: true },
-    { member_id: 8, thumbnail: 'https://picsum.photos/300', is_solved: true },
-    { member_id: 9, thumbnail: 'https://picsum.photos/300', is_solved: false },
-    { member_id: 10, thumbnail: 'https://picsum.photos/300', is_solved: true },
-  ]);
+  const [memberData, setMemberData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await sprintProblemSolvePeople(props.guild_id, props.guild_problem_id);
+      setMemberData(data);
+    };
+    fetchData();
+  }, [props.guild_id, props.guild_problem_id]);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '32%', padding: '0.5vmin' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '32%', padding: '0.5vmin', flex: 1 }}>
       <StyledButton onClick={props.onClick}>
         <div style={{ display: 'flex', height: '100%', alignItems: 'center' }}>
-          <Header3 children={props.type} color={props.value === 100 ? colors.Kakao[300] : colors.Gray[400]} fontWeight={'bold'} fontStyle='Eagle Lake' />
+          <Header4 children={props.type} color={props.value === 100 ? colors.Kakao[300] : colors.Gray[400]} fontWeight={'bold'} fontStyle='Eagle Lake' />
         </div>
         <StyledSprintContainer isFin={props.value === 100}>
           <CircularProgressbarWithChildren value={props.value} styles={buildStyles({ strokeLinecap: 'butt', pathColor: `${colors.Kakao[300]}`, trailColor: `${colors.Gray[500]}` })}>
@@ -101,7 +100,9 @@ const GuildSprintImageCard = (props: GuildSprintImageCardProps) => {
           <Spacer space={'1vmin'} />
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-evenly', padding: '0.5vmin', width: '100%' }}>
-          {data && data.map((value: any) => <StyledProfileImg is_solved={value.is_solved} src={value.thumbnail} alt='' />)}
+          {memberData.map((value: any) => (
+            <StyledProfileImg key={value.member_id} is_solved={value.is_solved} src={value.thumbnail} alt='' />
+          ))}
         </div>
       </StyledButton>
     </div>
