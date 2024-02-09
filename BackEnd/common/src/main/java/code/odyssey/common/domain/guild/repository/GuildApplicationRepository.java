@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import java.util.Optional;
 
-public interface GuildApplicationRepository extends JpaRepository<GuildApplication, Long> {
+public interface GuildApplicationRepository extends JpaRepository<GuildApplication, Long>, GuildApplicationRepositoryCustom {
 
     Optional<GuildApplication> findByGuildIdAndMemberIdAndResult(Long guildId, Long memberId, GuildApplicationResult result);
 

@@ -19,7 +19,7 @@ public class GuildApplicationController {
     @PostMapping
     public ResponseEntity<Long> applyGuild(
             @RequestHeader("X-Authorization-Id") Long memberId,
-            @PathVariable Long guildId
+            @PathVariable("guildId") Long guildId
     ) {
         return ResponseEntity.ok(guildApplyService.applyGuild(memberId, guildId));
     }
@@ -27,7 +27,7 @@ public class GuildApplicationController {
     @GetMapping("/{applicationId}/accept")
     public ResponseEntity<Void> acceptApplication(
             @RequestHeader("X-Authorization-Id") Long memberId,
-            @PathVariable Long applicationId
+            @PathVariable("applicationId") Long applicationId
     ) {
         guildApplyService.acceptApplication(applicationId, memberId);
         return ResponseEntity.ok().build();
@@ -36,7 +36,7 @@ public class GuildApplicationController {
     @GetMapping("/{applicationId}/reject")
     public ResponseEntity<Void> rejectApplication(
             @RequestHeader("X-Authorization-Id") Long memberId,
-            @PathVariable Long applicationId
+            @PathVariable("applicationId") Long applicationId
     ) {
         guildApplyService.rejectApplication(applicationId, memberId);
         return ResponseEntity.ok().build();
@@ -45,7 +45,7 @@ public class GuildApplicationController {
     @GetMapping
     public ResponseEntity<List<GuildApplicationInfo>> getApplications(
             @RequestHeader("X-Authorization-Id") Long memberId,
-            @PathVariable Long guildId
+            @PathVariable("guildId") Long guildId
     ) {
         return ResponseEntity.ok().body(guildApplyService.getGuildApplications(memberId, guildId));
     }
