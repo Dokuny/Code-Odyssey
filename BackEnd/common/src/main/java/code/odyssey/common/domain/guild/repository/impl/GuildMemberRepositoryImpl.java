@@ -40,7 +40,7 @@ public class GuildMemberRepositoryImpl implements GuildMemberRepositoryCustom {
 	@Override
 	public List<GuildMemberInfo> getGuildMemberList(Long guildId) {
 		return queryFactory.select(
-				Projections.fields(GuildMemberInfo.class,
+				Projections.constructor(GuildMemberInfo.class,
 					guildMember.member.id.as("memberId"),
 					guildMember.member.nickname.as("name"),
 					guildMember.member.thumbnail.as("thumbnail"),
