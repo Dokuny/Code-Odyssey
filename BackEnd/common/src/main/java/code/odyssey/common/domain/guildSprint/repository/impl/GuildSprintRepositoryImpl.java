@@ -142,9 +142,9 @@ public class GuildSprintRepositoryImpl implements GuildSprintRepositoryCustom {
 	public InProgressGuildSprintInfo findInProgressGuildSprint(Long guildId) {
 
 		GuildSprint inProgressGuildSprint = queryFactory.selectFrom(guildSprint)
-				.join(guildSprint.problems, guildProblem)
+				.leftJoin(guildSprint.problems, guildProblem)
 				.fetchJoin()
-				.join(guildProblem.problem, problem)
+				.leftJoin(guildProblem.problem, problem)
 				.fetchJoin()
 				.where(guildSprint.guild.id.eq(guildId), guildSprint.status.eq(IN_PROGRESS)).distinct()
 				.fetchOne();
