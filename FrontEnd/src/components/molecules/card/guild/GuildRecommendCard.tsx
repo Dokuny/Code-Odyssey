@@ -152,7 +152,7 @@ const GuildRecommendCard = (props: GuildRecommendCardProps) => {
         </SeperateRight>
       </FooterDiv>
     </GuildBackDiv>
-    <ModalGuildProfile isOpen={isModalOpen} closeModal={closeModal} guild_id={data.guild_id}></ModalGuildProfile>
+    <ModalGuildProfile isOpen={isModalOpen} closeModal={closeModal} guild_id={data.guild_id} guild_name={data.guild_name}></ModalGuildProfile>
     </div>
   );
 };

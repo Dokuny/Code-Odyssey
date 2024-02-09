@@ -1,4 +1,5 @@
 import { colors } from '../../../../../config/Color';
+import { Spacer } from '../../../../atoms/basic/Spacer';
 import { Body1 } from '../../../../atoms/basic/Typography';
 import ModifyGuildForm from '../../../../molecules/form/ModifyGuildForm';
 
@@ -9,8 +10,8 @@ interface GuildModifyProps {
 const GuildModify = (props: GuildModifyProps) => {
   return (
     <>
-      <Body1 children={props.guild_id} color={colors.Gray[300]} />
-      <ModifyGuildForm />
+      <Spacer space={'4vh'}></Spacer>
+      <ModifyGuildForm guild_id={props.guild_id}/>
     </>
   );
 };

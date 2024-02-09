@@ -66,9 +66,10 @@ interface Props {
     isOpen: boolean;
     closeModal: () => void;
     guild_id: number;
+    guild_name : string;
   }
 
-const ModalGuildProfile: React.FC<Props> = ({ isOpen, closeModal,guild_id }) => {
+const ModalGuildProfile: React.FC<Props> = ({ isOpen, closeModal,guild_id,guild_name }) => {
 
 
     return (
@@ -76,7 +77,7 @@ const ModalGuildProfile: React.FC<Props> = ({ isOpen, closeModal,guild_id }) => 
         <Outline >
             <StyledMain>
                 <StyledButton onClick={closeModal}>X</StyledButton>
-                <GuildProfile guild_id={guild_id} />
+                <GuildProfile guild_id={guild_id} guild_name={guild_name} />
             </StyledMain>
         </Outline>
       </StyledDiv>

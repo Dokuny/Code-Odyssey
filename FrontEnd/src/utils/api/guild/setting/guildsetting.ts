@@ -2,8 +2,13 @@ import tokenInstance from '../../../axios/tokenInstance';
 
 // 길드 정보 수정 -- 미완
 
-export const getGuildInfo = async (guildId: number, form: any) => {
-  const data = await tokenInstance.put(`/guilds/${guildId}`, form);
+export const getGuildInfo = async (guildId: number) => {
+  const data = await tokenInstance.get(`/`);
+  return data && data.data;
+};
+
+export const changeGuild = async (guildId: number, form: any) => {
+  const data = await tokenInstance.put(`/guilds/${guildId}`, form );
   return data && data.data;
 };
 

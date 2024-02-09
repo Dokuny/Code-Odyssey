@@ -10,7 +10,11 @@ import { ref, getDownloadURL, deleteObject, uploadBytes } from 'firebase/storage
 import { fstorage } from '../../../firebase';
 import { createGuild } from '../../../utils/api/guild/guild';
 
-const ModifyGuildForm = () => {
+interface props{
+  guild_id : number;
+}
+
+const ModifyGuildForm = (props:props) => {
   const [value, setValue] = useState('');
   const [GuildName, setGuildName] = useState('');
   const [selectDifficulty, setSelecDifficulty] = useState('1');
@@ -25,7 +29,7 @@ const ModifyGuildForm = () => {
   
   useEffect(() => {
     const fetchData = async () => {
-    //   const data = await getGuildInfo()
+    //   const data = await getGuildInfo(props.guild_id)
     const data = {
         name: '오디세이',
         image: '', // '' 으로 저장되면..? -> 기본값 출력하기로
@@ -81,6 +85,7 @@ const ModifyGuildForm = () => {
       problemCapacity: parseInt(selectProblemCapacity, 10),
     };
 
+    // changeGuild()
     console.log(data)
   }
 
