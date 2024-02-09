@@ -88,18 +88,19 @@ const MyProfileDetailCard = () => {
     penalty: 0,
   });
 
-
-  const fetchData = async () => {
-    const data= await getProfile()
-    console.log(data)
-    setData( data );
-  };  
-
   useEffect(() => {
-      fetchData();
+    const fetchData = async () => {
+      const data= await getProfile()
+      console.log(data)
+      setData( data );
+      setInput(data.nickname)
+    };  
+
+    fetchData();
   }, []);
 
   const [isModalOpen, setModalOpen] = useState(false);
+  const [input,setInput] = useState<string>('')
 
   const openModal = () => setModalOpen(true)
   const closeModal = () => setModalOpen(false)
@@ -143,7 +144,7 @@ const MyProfileDetailCard = () => {
         <IconButton event={openModal}>
           <IoIcon name={'brush'} size={'2vmax'} color={colors.Gray[25]} />
         </IconButton>
-        <ModalProfile isOpen={isModalOpen} closeModal={closeModal} nickname ={data.nickname} data={data} fetchData={fetchData}/>
+        <ModalProfile isOpen={isModalOpen} closeModal={closeModal}  data={data} input={input} setInput={setInput}/>
       </StyledMyInfoContainer>
     </StyledContainer>
   );
