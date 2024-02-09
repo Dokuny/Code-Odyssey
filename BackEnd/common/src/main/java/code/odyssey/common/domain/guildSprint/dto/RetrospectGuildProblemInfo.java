@@ -33,15 +33,15 @@ public class RetrospectGuildProblemInfo {
 	public static class RetrospectiveGuildMemberInfo{
 		private Long memberId;
 		private String thumbnail;
-		private boolean isSolved;
+		private Boolean isSolved;
 		private String name;
 		private LocalDate solvedAt;
-		private String memory;
-		private String time;
+		private Integer memory;
+		private Integer time;
 
-		public RetrospectiveGuildMemberInfo(Long memberId, String thumbnail, boolean isSolved,
+		public RetrospectiveGuildMemberInfo(Long memberId, String thumbnail, Boolean isSolved,
 			String name,
-			LocalDateTime solvedAt, String memory, String time) {
+			LocalDateTime solvedAt, Integer memory, Integer time) {
 			this.memberId = memberId;
 			this.thumbnail = thumbnail;
 			this.isSolved = isSolved;
