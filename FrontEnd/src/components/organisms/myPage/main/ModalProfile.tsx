@@ -95,23 +95,17 @@ const Button = styled.button`
 
 interface Props {
   isOpen : boolean;
-  nickname : string;
   closeModal : () => void;
   data : any;
-  fetchData : any;
+  input : any;
+  setInput : any;
 }
 
 
 
-const ModalProfile: React.FC<Props> = ({isOpen, closeModal, nickname, data, fetchData}) => {
-  const [input,setInput] = useState<string>('')
+const ModalProfile: React.FC<Props> = ({isOpen, closeModal, data, input, setInput}) => {
   const [imgFile,setImgFile] = useState<string>('')
   const imgRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    setInput(data.nickname)
-  })
-
 
   const saveImgFile = () => {
     const fileInput = imgRef.current;
