@@ -81,19 +81,10 @@ public class GuildSprintRepositoryImpl implements GuildSprintRepositoryCustom {
 							problem.difficulty.as("difficulty"),
 							problem.title.as("title"),
 							problem.platform.as("platform")
-						)
+						).skipNulls()
 					).as("problemList")
 				)
 			));
-
-		result.forEach(endGuildSprintInfo -> {
-			// 문제가 없는 경우, 빈 리스트가 아닌 null이 들어가는 객체가 들어가는 것을 방지하기 위함
-			if (endGuildSprintInfo.getProblemList().size() == 1 &&
-				endGuildSprintInfo.getProblemList().get(0).getGuildProblemId() == null) {
-				endGuildSprintInfo.setProblemList(Collections.emptyList());
-			}
-		});
-
 		return result;
 	}
 
