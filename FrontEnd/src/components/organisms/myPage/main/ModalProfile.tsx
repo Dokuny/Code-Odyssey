@@ -97,24 +97,28 @@ interface Props {
   isOpen : boolean;
   nickname : string;
   closeModal : () => void;
+  data : any;
+  fetchData : any;
 }
 
 
 
-const ModalProfile: React.FC<Props> = ({isOpen, closeModal, nickname}) => {
+const ModalProfile: React.FC<Props> = ({isOpen, closeModal, nickname, data, fetchData}) => {
   const [input,setInput] = useState<string>('')
   const [imgFile,setImgFile] = useState<string>('')
   const imgRef = useRef<HTMLInputElement>(null);
 
+  useEffect(() => {
+    setInput(data.nickname)
+  })
+
+
   const saveImgFile = () => {
     const fileInput = imgRef.current;
-    
     if (fileInput?.files?.length) {
       const file: File = fileInput.files[0];
-  
       const reader = new FileReader();
       reader.readAsDataURL(file);
-  
       reader.onloadend = (event: ProgressEvent<FileReader>) => {
         const result = event.target?.result as string;
         setImgFile(result)
@@ -122,30 +126,37 @@ const ModalProfile: React.FC<Props> = ({isOpen, closeModal, nickname}) => {
     }
   };
 
-
-  
   const chageProfile = async () => {
-
+    // 초기 가져오기
+    let profile = {...data}
+    //파일이 바뀌었다? --> 그러면 실행
     const fileInput = imgRef.current;
     if (fileInput?.files?.length) {    
       const file: File = fileInput.files[0];
       const storageRef = ref(fstorage, `firebase/${file.name}`);
-
-      await uploadBytes(storageRef, file);      
-      const profile = await getProfile()
-      const newProfile = {
+      await uploadBytes(storageRef, file);
+      const url = await getDownloadURL(ref(fstorage, `firebase/${file.name}`));
+      profile = {
         ...profile,
-        thumbnail: `firebase/${file.name}`, 
-        nickname: input
+        thumbnail: url, 
       }
-      await changeMyProfile(newProfile);
-      window.location.reload()
     }
-  }
+    // 이름은 그냥 보내기 어짜피 초기값 data.nickname임
+    profile = {
+      ...profile,
+      nickname: input, 
+    }
+    
+    await changeMyProfile(profile);
+    window.location.reload()
+
+    }
+    // 이미지가 바뀌었다? --> 그러면 실행
+
 
   const Close = () => {
     setImgFile('')
-    setInput('')
+    setInput(data.nickname)
     closeModal()
   }
 
@@ -166,7 +177,7 @@ const ModalProfile: React.FC<Props> = ({isOpen, closeModal, nickname}) => {
           <Div2>
           <Header2 children={'Name'} color={colors.White} fontWeight={'bold'}></Header2>
           <Spacer space={'2vh'} />
-          <BasicInput placeholder={nickname} setInput={setInput} input={input} textAlign={'center'} />
+          <BasicInput placeholder={'이름을 변경해주세요'} setInput={setInput} input={input} textAlign={'center'} />
           <Spacer space={'2vh'} />
           <Button onClick={chageProfile}>
             <Body2 children={'프로필 변경'} color={colors.White} ></Body2>

@@ -79,7 +79,7 @@ const GuildPersonRequest = (props: GuildPersonRequestProps) => {
   }
 
   useEffect(() => {
-    fetchData()
+    // fetchData()
   },[])
 
   const AcceptMember = async (applicationId : number) => { 

@@ -61,46 +61,37 @@ const MyPageMain = () => {
     },
   ]);
 
-  const [strictData, setStrictData] = useState([
-    { day: '2024-01-04', value: 1 },
-    { day: '2024-01-14', value: 3 },
-    { day: '2024-01-22', value: 1 },
-    { day: '2024-01-23', value: 2 },
-    { day: '2024-01-28', value: 1 },
-    { day: '2024-01-29', value: 3 },
-    { day: '2024-01-30', value: 4 },
-    { day: '2024-01-31', value: 6 },
-    { day: '2024-02-01', value: 2 },
-    { day: '2024-02-02', value: 2 },
-  ]);
+  const [strictData, setStrictData] = useState([]);
 
-  const fetchData = async () => {
-    const MyStatistic = await getMyStatistic();
-    const MyRank = await getMyRank();
-    const Strict = await getMyStrict();
-
-    // 이거 바꿔 주세요.. 부탁하기
-    const resultStatistic = Object.entries(MyStatistic).map(([type, score]) => ({
-      type: type, // 타입을 소문자로 변환
-      score: typeof score === 'number' ? score : parseInt(score as string, 10),
-    }));
-
-    // 이것도 바꿔주세요..
-    const resultRank = [
-      {
-        id: 'rank',
-        data: MyRank.map((item: { type: string; score: number }) => {
-          return { x: item.type.slice(0, 3), y: item.score };
-        }),
-      },
-    ];
-
-    setStatisticData(resultStatistic);
-    setRankData(resultRank);
-    setStrictData(Strict);
-  };
 
   useEffect(() => {
+    
+    const fetchData = async () => {
+      const MyStatistic = await getMyStatistic();
+      const MyRank = await getMyRank();
+      const Strict = await getMyStrict();
+
+      // 이거 바꿔 주세요.. 부탁하기
+      const resultStatistic = Object.entries(MyStatistic).map(([type, score]) => ({
+        type: type, // 타입을 소문자로 변환
+        score: typeof score === 'number' ? score : parseInt(score as string, 10),
+      }));
+
+      // 이것도 바꿔주세요..
+      const resultRank = [
+        {
+          id: 'rank',
+          data: MyRank.map((item: { type: string; score: number }) => {
+            return { x: item.type.slice(0, 3), y: item.score };
+          }),
+        },
+      ];
+
+      setStatisticData(resultStatistic);
+      setRankData(resultRank);
+      setStrictData(Strict);
+    };
+
     fetchData();
   }, []);
 
