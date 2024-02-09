@@ -79,35 +79,25 @@ const DiffImgageDiv = styled.img`
 
 const MyProfileDetailCard = () => {
   const [data, setData] = useState({
-    thumbnail: 'https://picsum.photos/300',
-    nickname: 'testNickName',
-    email: 'test@test.com',
-    tier: 31,
-    streak: 17,
-    sevenStreak: 2,
-    penalty: 1,
+    thumbnail: '',
+    nickname: '',
+    email: '',
+    tier: 0,
+    streak: 0,
+    sevenStreak: 0,
+    penalty: 0,
   });
 
 
   const fetchData = async () => {
     const data= await getProfile()
     console.log(data)
-    // 파이어 베이스에서 이미지 가져오는 로직 추가
-    if (data.thumbnail && data.thumbnail.includes('firebase')) {
-      const url = await getDownloadURL(ref(fstorage, data.thumbnail));
-      setData({
-        ...data,
-        thumbnail : url
-      })
-    // 카카오에서 썸네일 가져왔다면 바로 집어넣기      
-    } else {
-      setData( data );
-    }
+    setData( data );
   };  
 
   useEffect(() => {
       fetchData();
-  }, [  data.thumbnail,data.nickname]);
+  }, []);
 
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -153,7 +143,7 @@ const MyProfileDetailCard = () => {
         <IconButton event={openModal}>
           <IoIcon name={'brush'} size={'2vmax'} color={colors.Gray[25]} />
         </IconButton>
-        <ModalProfile isOpen={isModalOpen} closeModal={closeModal} nickname ={data.nickname}/>
+        <ModalProfile isOpen={isModalOpen} closeModal={closeModal} nickname ={data.nickname} data={data} fetchData={fetchData}/>
       </StyledMyInfoContainer>
     </StyledContainer>
   );

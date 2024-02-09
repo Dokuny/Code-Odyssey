@@ -27,12 +27,12 @@ export const getGuild = async () => {
 // 내가 가입할 수 있는 길드 검색
 
 interface FindGuild {
-  keyword : string;
+  keyword : string | number;
   guildId ?: number | null;
 }
 
-export const findGuild = async ({keyword,guildId}:FindGuild) => {
-  const data = await tokenInstance.get(`/guilds?keyword=${keyword} &guildId=${guildId}`);
+export const findGuild = async (Params: FindGuild) => {
+  const data = await tokenInstance.get(`/guilds`, { params : Params} );
   return data && data.data;
 };
 
