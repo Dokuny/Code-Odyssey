@@ -7,6 +7,8 @@ import { Spacer } from '../../atoms/basic/Spacer';
 import MDEditor from '@uiw/react-md-editor';
 import DropDown from '../../atoms/select/Dropdown';
 import { createGuild } from '../../../utils/api/guild/guild';
+import { fstorage } from '../../../firebase';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 const StyledContainer = styled.form`
   display: flex;
@@ -130,9 +132,9 @@ const MakeGuildForm = () => {
   const Capacity = Array.from({ length: 10 }, (_, index) => index + 1);
 
   const onClickEvent = async () => {
-    const data = {
+    let data = {
       name: GuildName,
-      image: imgFile,
+      image: '/images/code_odyssey/ProblemSolveBg.svg',
       introduction: value,
       capacity: parseInt(selectCapacity, 10),
       language: selectLanguage,
@@ -140,12 +142,23 @@ const MakeGuildForm = () => {
       problemCapacity: parseInt(selectProblemCapacity, 10),
     };
 
+    const fileInput = imgRef.current;
+    if (fileInput?.files?.length) {    
+      const file: File = fileInput.files[0];
+      const storageRef = ref(fstorage, `firebase/${file.name}`);
+      await uploadBytes(storageRef, file);
+      const url = await getDownloadURL(ref(fstorage, `firebase/${file.name}`));
+      data = {
+        ...data,
+        image: url 
+      }
+    }
+
     createGuild(data);
   };
 
   const saveImgFile = () => {
     const fileInput = imgRef.current;
-
     if (fileInput?.files?.length) {
       const file: File = fileInput.files[0];
 

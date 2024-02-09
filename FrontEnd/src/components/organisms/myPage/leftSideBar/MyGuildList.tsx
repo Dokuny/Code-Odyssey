@@ -34,6 +34,7 @@ const MyGuildList = (props: MyGuildListProps) => {
     const fetchData = async () => {
       const data = await getGuild();
       setGuildData(data);
+      console.log(data)
     };
     fetchData();
   }, []);
@@ -44,7 +45,7 @@ const MyGuildList = (props: MyGuildListProps) => {
       <GuildButton event={() => props.setGuildListIndex(-2)} src={'/images/code_odyssey/Navi.svg'} spacer={'1vmin'} active={props.guildListIndex === -2} />
       <StyledGuildContainer>
         {guildData.map((value) => (
-          <GuildButton event={() => props.setGuildListIndex(value.guildId)} src={'https://picsum.photos/300'} key={value.guildId} active={props.guildListIndex === value.guildId} />
+          <GuildButton event={() => props.setGuildListIndex(value.guildId)} src={value.image} key={value.guildId} active={props.guildListIndex === value.guildId} />
         ))}
       </StyledGuildContainer>
     </>
