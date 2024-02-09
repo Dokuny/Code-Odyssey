@@ -24,6 +24,13 @@ public class MemberController {
         return ResponseEntity.ok(memberService.getMemberInfo(memberId));
     }
 
+    @GetMapping("/info/{memberId}")
+    public ResponseEntity<MemberInfo> getMemberInfoById(
+            @PathVariable("memberId") Long memberId
+    ){
+        return ResponseEntity.ok(memberService.getMemberInfo(memberId));
+    }
+
     @DeleteMapping("/me")
     public ResponseEntity<Long> resignMember(
             @RequestHeader("X-Authorization-Id") Long memberId
@@ -49,14 +56,6 @@ public class MemberController {
         memberService.modifyMember(memberId, request);
         return ResponseEntity.ok().build();
     }
-
-    // 친구 메인 페이지 조회
-//    @GetMapping("/friend/{memberId}")
-//    public ResponseEntity<FriendTotalInfo> getFriend(
-//            @PathVariable("memberId") Long memberId
-//    ) {
-//        memberService.getFriendInfo(memberId);
-//    }
 
 
 }
