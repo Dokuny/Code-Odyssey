@@ -92,11 +92,19 @@ public class GuildSprintService {
 		sprint.end();
 	}
 
+	@Transactional(readOnly = true)
 	public List<WaitingGuildSprintInfo> getWaitingGuildSprintInfo(Long guildId) {
+
+		List<WaitingGuildSprintInfo> waitingGuildSprints = guildSprintRepository.findWaitingGuildSprints(
+			guildId);
+
+		waitingGuildSprints.stream().forEach(waitingGuildSprintInfo ->
+			waitingGuildSprintInfo.getProblemList());
 
 		return guildSprintRepository.findWaitingGuildSprints(guildId);
 	}
 
+	@Transactional(readOnly = true)
 	public List<EndGuildSprintInfo> getEndedGuildSprintInfo(Long guildId) {
 		return guildSprintRepository.findEndedGuildSprintInfo(guildId);
 	}

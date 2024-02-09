@@ -38,8 +38,8 @@ public class GuildSprintRepositoryImpl implements GuildSprintRepositoryCustom {
 	public List<WaitingGuildSprintInfo> findWaitingGuildSprints(Long guildId) {
 
 		return queryFactory.selectFrom(guildSprint)
-			.innerJoin(guildSprint.problems, guildProblem)
-			.innerJoin(guildProblem.problem, problem)
+			.leftJoin(guildSprint.problems, guildProblem)
+			.leftJoin(guildProblem.problem, problem)
 			.where(guildSprint.guild.id.eq(guildId), guildSprint.status.eq(WAITING))
 			.transform(groupBy(guildSprint.id).list(
 				Projections.fields(
@@ -54,7 +54,7 @@ public class GuildSprintRepositoryImpl implements GuildSprintRepositoryCustom {
 							problem.difficulty.as("difficulty"),
 							problem.title.as("title"),
 							problem.platform.as("platform")
-						)
+						).skipNulls()
 					).as("problemList")
 				)
 			));
