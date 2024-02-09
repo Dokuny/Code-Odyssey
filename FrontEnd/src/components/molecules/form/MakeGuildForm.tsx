@@ -1,15 +1,12 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../../config/Color';
-import { Body1, Body2} from '../../atoms/basic/Typography';
+import { Body1, Body2 } from '../../atoms/basic/Typography';
 import BasicInput from '../../atoms/input/BasicInput';
 import { Spacer } from '../../atoms/basic/Spacer';
 import MDEditor from '@uiw/react-md-editor';
 import DropDown from '../../atoms/select/Dropdown';
-import { ref, getDownloadURL, deleteObject, uploadBytes } from 'firebase/storage'
-import { fstorage } from '../../../firebase';
 import { createGuild } from '../../../utils/api/guild/guild';
- 
 
 const StyledContainer = styled.form`
   display: flex;
@@ -34,7 +31,7 @@ const Name = styled.div`
   justify-content: center;
   flex: 1 1 40%;
   margin: 10px;
-`
+`;
 
 const StyledMyImgContainer = styled.div`
   width: 15vmax;
@@ -47,7 +44,6 @@ const StyledMyImgContainer = styled.div`
   &:hover {
     transform: rotateY(-180deg); /* 추가 */
   }
-  
 `;
 
 const StyledImage = styled.img`
@@ -77,7 +73,6 @@ const Button = styled.button`
     background-color: #4f378b;
   }
 `;
-
 
 const ChangeImg = styled.div`
   position: absolute;
@@ -118,21 +113,7 @@ const Back = styled.div`
   /* background-color: red; */
 `;
 
-
 const Rule = styled.div``;
-
-
-
-interface CreateGuild {
-  name: string;
-  image: string;
-  introduction: string;
-  capacity: number;
-  language: string;
-  difficulty: number;
-  problemCapacity : number;
-}
-
 
 const MakeGuildForm = () => {
   const [value, setValue] = useState('');
@@ -142,18 +123,16 @@ const MakeGuildForm = () => {
   const [selectCapacity, setSelectCapacity] = useState('1');
   const [selectProblemCapacity, setSelectProblemCapacity] = useState('1');
   const [selectLanguage, setSelectLanguage] = useState('PYTHON');
-  const [imgFile, setImgFile] = useState("");
+  const [imgFile, setImgFile] = useState('');
   const imgRef = useRef<HTMLInputElement>(null);
 
   const Difficulty = Array.from({ length: 30 }, (_, index) => index + 1);
   const Capacity = Array.from({ length: 10 }, (_, index) => index + 1);
-  
 
-
-  const onClickEvent = async () => {    
-    let data = {
+  const onClickEvent = async () => {
+    const data = {
       name: GuildName,
-      image: ``, //기본이미지 넣으면 좋고
+      image: imgFile,
       introduction: value,
       capacity: parseInt(selectCapacity, 10),
       language: selectLanguage,
@@ -161,31 +140,18 @@ const MakeGuildForm = () => {
       problemCapacity: parseInt(selectProblemCapacity, 10),
     };
 
-    const fileInput = imgRef.current;
-    if (fileInput?.files?.length) {
-          const file: File = fileInput.files[0]
-          const storageRef = ref(fstorage, `firebase/${file.name}`);
-          await uploadBytes( storageRef, file );
-          const url = await getDownloadURL(storageRef);      
-          data = {...data, image: url}
-        }
-        
-    console.log(data)
-    createGuild(data)
-    // 주소 DB에 저장
-    window.location.reload()  
-    }
+    createGuild(data);
+  };
 
-  // 이미지 업로드 input의 onChange
   const saveImgFile = () => {
     const fileInput = imgRef.current;
-    
+
     if (fileInput?.files?.length) {
       const file: File = fileInput.files[0];
-  
+
       const reader = new FileReader();
       reader.readAsDataURL(file);
-  
+
       reader.onloadend = (event: ProgressEvent<FileReader>) => {
         const result = event.target?.result as string;
         setImgFile(result);
@@ -198,19 +164,19 @@ const MakeGuildForm = () => {
       <StyledContainer>
         <Name>
           <StyledMyImgContainer>
-              <Front>
-                <StyledImage src={imgFile ? imgFile : '/images/code_odyssey/ProblemSolveBg.svg'} alt='/'/>
-              </Front>
-              <Back>
-                <label htmlFor="file">
-                  <ChangeImg>CHANGE</ChangeImg>
-                </label>
-                <input style={{ display : 'none'}} type="file" name="file" id="file" accept="image/*" onChange={saveImgFile} ref={imgRef}></input>
-                <StyledImage src='/images/code_odyssey/WaitingBg.svg' alt='/'/>
-              </Back>
+            <Front>
+              <StyledImage src={imgFile ? imgFile : '/images/code_odyssey/ProblemSolveBg.svg'} alt='/' />
+            </Front>
+            <Back>
+              <label htmlFor='file'>
+                <ChangeImg>CHANGE</ChangeImg>
+              </label>
+              <input style={{ display: 'none' }} type='file' name='file' id='file' accept='image/*' onChange={saveImgFile} ref={imgRef}></input>
+              <StyledImage src='/images/code_odyssey/WaitingBg.svg' alt='/' />
+            </Back>
           </StyledMyImgContainer>
           <Spacer space={'4vh'}></Spacer>
-          <div style={ { textAlign: 'center'} }>
+          <div style={{ textAlign: 'center' }}>
             <BasicInput placeholder={'길드 이름'} setInput={setGuildName} input={GuildName} textAlign={'center'} />
           </div>
         </Name>
@@ -285,7 +251,7 @@ const MakeGuildForm = () => {
           </div>
         </StyledMarkarea>
       </Rule>
-      <Spacer space={'2vw'} ></Spacer>
+      <Spacer space={'2vw'}></Spacer>
       <Button onClick={onClickEvent}>
         <Body2 children={'길드 생성하기'} color={colors.White}></Body2>
       </Button>

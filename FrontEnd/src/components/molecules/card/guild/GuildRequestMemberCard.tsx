@@ -8,8 +8,9 @@ import { FaDoorOpen, FaStar } from 'react-icons/fa';
 import { BsStars } from 'react-icons/bs';
 import BasicButton from '../../../atoms/button/BasicButton';
 import { IoMdCheckmark, IoMdClose } from 'react-icons/io';
+import { getGuildApplications, getGuildApplicationsAccept, getGuildApplicationsReject } from '../../../../utils/api/guild/setting/guildsetting';
 
-const StyledContainer = styled.button`
+const StyledContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -18,11 +19,6 @@ const StyledContainer = styled.button`
   border: transparent;
   border-radius: 4em;
   box-sizing: border-box;
-
-  &:hover {
-    cursor: pointer;
-    background-color: rgba(65, 65, 65, 0.4);
-  }
 `;
 
 const StyledImage = styled.img`
@@ -30,7 +26,8 @@ const StyledImage = styled.img`
 `;
 
 interface GuildRequestMemberCardProps {
-  member_id: number;
+  guild_id: number;
+  application_id: number;
   name: string;
   difficulty: number;
   thumbnail: string;
@@ -38,17 +35,24 @@ interface GuildRequestMemberCardProps {
   request_at: string;
   collect_star_cnt: number;
   collect_week_star_cnt: number;
-  accept : any;
-  reject : any;
+  setData: React.Dispatch<React.SetStateAction<any[]>>;
 }
 
 const GuildRequestMemberCard = (props: GuildRequestMemberCardProps) => {
+  const AcceptMember = async () => {
+    await getGuildApplicationsAccept(props.guild_id, props.application_id);
+    const data = await getGuildApplications(props.guild_id);
+    props.setData(data);
+  };
+
+  const RejectMember = async () => {
+    await getGuildApplicationsReject(props.guild_id, props.application_id);
+    const data = await getGuildApplications(props.guild_id);
+    props.setData(data);
+  };
+
   return (
-    <StyledContainer
-      onClick={() => {
-        console.log('hi: ', props.member_id);
-      }}
-    >
+    <StyledContainer>
       <div style={{ display: 'flex', alignItems: 'center', width: '30%', justifyContent: 'flex-start' }}>
         <Spacer space={'2vmax'} horizontal />
         <StyledImage src={difficulty[props.difficulty]} />
@@ -79,8 +83,8 @@ const GuildRequestMemberCard = (props: GuildRequestMemberCardProps) => {
         <BasicButton
           event={(event: { stopPropagation: () => void }) => {
             event.stopPropagation();
-            props.reject()
-            console.log('x: ', props.member_id);
+            console.log('x: ', props.application_id);
+            RejectMember();
           }}
           borderRadius={'50%'}
           width={'auto'}
@@ -93,8 +97,8 @@ const GuildRequestMemberCard = (props: GuildRequestMemberCardProps) => {
         <BasicButton
           event={(event: { stopPropagation: () => void }) => {
             event.stopPropagation();
-            props.accept()
-            console.log('o: ', props.member_id);
+            console.log('o: ', props.application_id);
+            AcceptMember();
           }}
           borderRadius={'50%'}
           width={'auto'}

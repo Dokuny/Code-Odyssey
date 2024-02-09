@@ -1,7 +1,8 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { colors } from '../../../../config/Color';
 import GuildButton from '../../../atoms/button/GuildButton';
 import styled from 'styled-components';
+import { getGuild } from '../../../../utils/api/guild/guild';
 
 const StyledGuildContainer = styled.div`
   border-right-width: 0;
@@ -27,21 +28,23 @@ interface MyGuildListProps {
 }
 
 const MyGuildList = (props: MyGuildListProps) => {
-  const [data, setData] = useState([
-    { image: 'https://picsum.photos/300', guild_id: 1 },
-    { image: 'https://picsum.photos/300', guild_id: 2 },
-    { image: 'https://picsum.photos/300', guild_id: 3 },
-    { image: 'https://picsum.photos/300', guild_id: 4 },
-    { image: 'https://picsum.photos/300', guild_id: 5 },
-  ]);
+  const [guildData, setGuildData] = useState<Array<any>>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getGuild();
+      setGuildData(data);
+    };
+    fetchData();
+  }, []);
 
   return (
     <>
       <GuildButton event={() => props.setGuildListIndex(-1)} src={'/images/code_odyssey/MyInfo.svg'} spacer={'1vmin'} active={props.guildListIndex === -1} />
       <GuildButton event={() => props.setGuildListIndex(-2)} src={'/images/code_odyssey/Navi.svg'} spacer={'1vmin'} active={props.guildListIndex === -2} />
       <StyledGuildContainer>
-        {data.map((value) => (
-          <GuildButton event={() => props.setGuildListIndex(value.guild_id)} src={value.image} key={value.guild_id} active={props.guildListIndex === value.guild_id} />
+        {guildData.map((value) => (
+          <GuildButton event={() => props.setGuildListIndex(value.guildId)} src={'https://picsum.photos/300'} key={value.guildId} active={props.guildListIndex === value.guildId} />
         ))}
       </StyledGuildContainer>
     </>

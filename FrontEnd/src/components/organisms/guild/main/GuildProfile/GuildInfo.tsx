@@ -1,4 +1,3 @@
-import MDEditor from '@uiw/react-md-editor';
 import { Spacer } from '../../../../atoms/basic/Spacer';
 import styled from 'styled-components';
 import { useState } from 'react';

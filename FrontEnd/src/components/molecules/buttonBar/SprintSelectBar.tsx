@@ -34,6 +34,7 @@ const SprintSelectBar: React.FC<DataProps> = ({ data }) => {
     <StyledContainer>
       {data.map(({ content, event, active }, index) => (
         <SelectButton
+          key={index}
           event={event}
           borderColor={colors.Black}
           deepColor={colors.GrayBlack}
