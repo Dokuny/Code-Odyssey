@@ -1,7 +1,6 @@
-import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
 import styled from 'styled-components';
 import { colors } from '../../../../config/Color';
-import { Body1, Body2 } from '../../../atoms/basic/Typography';
+import { Body2 } from '../../../atoms/basic/Typography';
 import { difficulty } from '../../../../utils/json/difficulty';
 import { Spacer } from '../../../atoms/basic/Spacer';
 import BasicButton from '../../../atoms/button/BasicButton';
@@ -44,7 +43,6 @@ interface MemberInfoCardProps {
   member_id: number;
   name: string;
   thumbnail: string;
-  solve_percent: number;
   difficulty: number;
   join_at: string;
   in_guild?: boolean;
@@ -58,9 +56,7 @@ const MemberInfoCard = (props: MemberInfoCardProps) => {
       }}
     >
       <StyledProgressContainer>
-        <CircularProgressbarWithChildren value={props.solve_percent} styles={buildStyles({ strokeLinecap: 'butt', pathColor: `${colors.Kakao[500]}`, trailColor: `${colors.Gray[500]}` })}>
-          <img src={props.thumbnail} alt='thumbnail' style={{ borderRadius: '50%', width: '90%', paddingBottom: '0.5vmax' }} />
-        </CircularProgressbarWithChildren>
+        <img src={props.thumbnail} alt='thumbnail' style={{ borderRadius: '50%', width: '90%', paddingBottom: '0.5vmax' }} />
         {props.in_guild && (
           <div style={{ position: 'absolute', bottom: 0, right: 0 }}>
             <BasicButton

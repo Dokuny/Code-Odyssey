@@ -7,6 +7,7 @@ import BasicButton from '../../../../../atoms/button/BasicButton';
 import SprintList from '../../../../../molecules/list/SprintList';
 import BasicInput from '../../../../../atoms/input/BasicInput';
 import styled from 'styled-components';
+import { sprintAdd, sprintWaiting } from '../../../../../../utils/api/guild/sprint/guildsprint';
 
 const StyledAddContainer = styled.div<{ isOpen: boolean }>`
   display: flex;
@@ -20,12 +21,22 @@ interface GuildFutureSprintListProps {
   data: Array<any>;
   guild_id: number;
   setIsProblem: React.Dispatch<React.SetStateAction<number>>;
+  setSprintData: React.Dispatch<React.SetStateAction<any[]>>;
 }
 
 const GuildFutureSprintList = (props: GuildFutureSprintListProps) => {
   const [isAddSprintOpen, setIsAddSprintOpen] = useState(false);
   const [sprintNameInput, setSprintNameInput] = useState('');
   const [sprintDayInput, setSprintDayInput] = useState('');
+
+  const clickAddSprint = async () => {
+    await sprintAdd(props.guild_id, { title: sprintNameInput, period: sprintDayInput as unknown as number });
+    const data = await sprintWaiting(props.guild_id);
+    props.setSprintData(data);
+    setSprintNameInput('');
+    setSprintDayInput('');
+    setIsAddSprintOpen(false);
+  };
 
   useEffect(() => {
     const isValidInput = /^\d+$/.test(sprintDayInput) && parseInt(sprintDayInput, 10) >= 1 && parseInt(sprintDayInput, 10) <= 7;
@@ -89,7 +100,9 @@ const GuildFutureSprintList = (props: GuildFutureSprintListProps) => {
               />
               <Spacer space={'1vmin'} horizontal />
               <BasicButton
-                event={() => {}}
+                event={() => {
+                  clickAddSprint();
+                }}
                 borderColor={'rgba(0, 0, 0, 0)'}
                 deepColor={'rgba(200, 100, 255, 0.1)'}
                 bgColor={'rgba(255, 220, 220, 0.1)'}
@@ -98,7 +111,7 @@ const GuildFutureSprintList = (props: GuildFutureSprintListProps) => {
             </div>
           </div>
         )}
-        </StyledAddContainer>
+      </StyledAddContainer>
     </>
   );
 };
