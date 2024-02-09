@@ -48,8 +48,9 @@ const StyledRightSidebar = styled.div`
 `;
 
 interface GuildTemplateProps {
-  GuildSelectProps: { guildListIndex: number; setGuildListIndex: Dispatch<SetStateAction<number>> };
+  GuildSelectProps: { guildListIndex: number; setGuildListIndex: Dispatch<SetStateAction<number>>; setGuildName: Dispatch<SetStateAction<string>> };
   guild_id: number;
+  guild_name: string;
 }
 
 const GuildTemplate = (props: GuildTemplateProps) => {
@@ -64,15 +65,20 @@ const GuildTemplate = (props: GuildTemplateProps) => {
   return (
     <StyledContainer>
       <StyledLeftSidebar>
-        <GuildLeftSidebar MyMenuProps={{ activeIndex: activeMenuIndex, setActiveIndex: setActiveMenuIndex }} MyGuildListProps={GuildSelectProps} guild_id={props.guild_id} />
+        <GuildLeftSidebar
+          MyMenuProps={{ activeIndex: activeMenuIndex, setActiveIndex: setActiveMenuIndex }}
+          MyGuildListProps={GuildSelectProps}
+          guild_id={props.guild_id}
+          guild_name={props.guild_name}
+        />
       </StyledLeftSidebar>
       <StyledMain>
-        {activeMenuIndex === 0 && <GuildFind/>}
+        {activeMenuIndex === 0 && <GuildFind />}
         {activeMenuIndex === 1 && <GuildAdd />}
-        {activeMenuIndex === 2 && <GuildProfile guild_id={props.guild_id} />}
-        {activeMenuIndex === 3 && <GuildSprint guild_id={props.guild_id} />}
-        {activeMenuIndex === 4 && <GuildSetting guild_id={props.guild_id} />}
-        {activeMenuIndex === 5 && <GuildChatting guild_id={props.guild_id} />}
+        {activeMenuIndex === 2 && <GuildProfile guild_id={props.guild_id} guild_name={props.guild_name} />}
+        {activeMenuIndex === 3 && <GuildSprint guild_id={props.guild_id} guild_name={props.guild_name} />}
+        {activeMenuIndex === 4 && <GuildSetting guild_id={props.guild_id} guild_name={props.guild_name} />}
+        {activeMenuIndex === 5 && <GuildChatting guild_id={props.guild_id} guild_name={props.guild_name} />}
       </StyledMain>
       <StyledRightSidebar>
         <GuildRightSidebar />

@@ -35,6 +35,7 @@ const StyledScrollContainer = styled.div`
 
 interface GuildChattingProps {
   guild_id: number;
+  guild_name: string;
 }
 
 const GuildChatting = (props: GuildChattingProps) => {

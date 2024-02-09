@@ -6,13 +6,14 @@ import BasicButton from '../../../../../atoms/button/BasicButton';
 import GuildSprintStateCard from '../../../../../molecules/card/guild/GuildSprintStateCard';
 
 interface GuildNoSprintProps {
+  guild_name: string;
   setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const GuildNoSprint = (props: GuildNoSprintProps) => {
   return (
     <>
-      <Header4 children={'[길드명]의'} color={colors.Gray[100]} fontWeight={'bold'} />
+      <Header4 children={`[${props.guild_name}]의`} color={colors.Gray[100]} fontWeight={'bold'} />
       <div style={{ display: 'flex', alignItems: 'flex-end' }}>
         <Header4 children={'진행 중인 스프린트'} color={colors.Gray[100]} fontWeight={'bold'} />
         <Spacer space={'1.5vmax'} horizontal />

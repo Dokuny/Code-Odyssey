@@ -46,6 +46,12 @@ dependencies {
     //jackson2json에서 LocalDateTime을 handling 하기 위해
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.12.4'
 
+    // open feign
+    implementation 'org.springframework.cloud:spring-cloud-loadbalancer:4.1.0'
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:4.1.0'
+
+
+
 }
 
 tasks.named('test') {

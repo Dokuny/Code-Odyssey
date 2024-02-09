@@ -126,7 +126,7 @@ public class GuildSprintRepositoryImpl implements GuildSprintRepositoryCustom {
 			.fetch();
 
 
-		long solvedCnt = guildMembers.stream().filter(RetrospectiveGuildMemberInfo::isSolved)
+		long solvedCnt = guildMembers.stream().filter(RetrospectiveGuildMemberInfo::getIsSolved)
 			.count();
 
 		return RetrospectGuildProblemInfo.builder()

@@ -10,6 +10,7 @@ import { Spacer } from '../../../atoms/basic/Spacer';
 
 interface GuildSprintProps {
   guild_id: number;
+  guild_name: string;
 }
 
 const GuildSprint = (props: GuildSprintProps) => {
@@ -39,7 +40,7 @@ const GuildSprint = (props: GuildSprintProps) => {
         }
       />
       <Spacer space={'4vmin'} />
-      {activeIndex === 0 && <GuildRunningSprint guild_id={props.guild_id} setActiveIndex={setActiveIndex} />}
+      {activeIndex === 0 && <GuildRunningSprint guild_id={props.guild_id} setActiveIndex={setActiveIndex} guild_name={props.guild_name} />}
       {activeIndex === 1 && <GuildLastSprint guild_id={props.guild_id} />}
       {activeIndex === 2 && <GuildFutureSprint guild_id={props.guild_id} setActiveIndex={setActiveIndex} />}
     </>

@@ -28,65 +28,65 @@ import static lombok.AccessLevel.PROTECTED;
 @Entity
 public class GuildSprint extends BaseEntity {
 
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "guild_sprint_id")
-    @Id
-    private Long id;
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "guild_sprint_id")
+	@Id
+	private Long id;
 
-    @ManyToOne(fetch = LAZY, optional = false)
-    @JoinColumn(name = "guild_id", nullable = false)
-    private Guild guild;
+	@ManyToOne(fetch = LAZY, optional = false)
+	@JoinColumn(name = "guild_id", nullable = false)
+	private Guild guild;
 
-    @Column
-    private String title;
+	@Column
+	private String title;
 
-    @Column
-    private Integer period;
+	@Column
+	private Integer period;
 
-    @Column
-    @Enumerated(STRING)
-    private GuildSprintStatus status;
+	@Column
+	@Enumerated(STRING)
+	private GuildSprintStatus status;
 
-    @Column
-    private LocalDate startedAt;
+	@Column
+	private LocalDate startedAt;
 
-    @Column
-    private LocalDate endedAt;
+	@Column
+	private LocalDate endedAt;
 
-    @OneToMany(mappedBy = "guildSprint", orphanRemoval = true, cascade = ALL)
-    private List<GuildProblem> problems = new ArrayList<>();
+	@OneToMany(mappedBy = "guildSprint", orphanRemoval = true, cascade = ALL)
+	private List<GuildProblem> problems = new ArrayList<>();
 
-    public static GuildSprint createGuildSprint(Guild guild, String title, Integer period) {
-        GuildSprint guildSprint = new GuildSprint();
+	public static GuildSprint createGuildSprint(Guild guild, String title, Integer period) {
+		GuildSprint guildSprint = new GuildSprint();
 
-        guildSprint.guild = guild;
+		guildSprint.guild = guild;
 
-        if (period < 1 || period > 7) {
-            throw new IllegalArgumentException("스프린트 기간은 1~7일 사이여야 합니다.");
-        }
+		if (period < 1 || period > 7) {
+			throw new IllegalArgumentException("스프린트 기간은 1~7일 사이여야 합니다.");
+		}
 
-        guildSprint.title = title;
-        guildSprint.period = period;
-        guildSprint.status = WAITING;
+		guildSprint.title = title;
+		guildSprint.period = period;
+		guildSprint.status = WAITING;
 
-        return guildSprint;
-    }
+		return guildSprint;
+	}
 
-    public void start() {
-        if (!this.status.equals(WAITING)) {
-            throw new GuildSprintException(CANNOT_START_SPRINT);
-        }
+	public void start() {
+		if (!this.status.equals(WAITING)) {
+			throw new GuildSprintException(CANNOT_START_SPRINT);
+		}
 
-        this.status = IN_PROGRESS;
-        this.startedAt = LocalDate.now();
-        this.endedAt = this.startedAt.plusDays(period);
-    }
+		this.status = IN_PROGRESS;
+		this.startedAt = LocalDate.now();
+		this.endedAt = this.startedAt.plusDays(period - 1);
+	}
 
-    public void end() {
-        if (!this.status.equals(IN_PROGRESS) || this.endedAt.isAfter(LocalDate.now())) {
-            throw new GuildSprintException(CANNOT_END_SPRINT);
-        }
+	public void end() {
+		if (!this.status.equals(IN_PROGRESS) || this.endedAt.isAfter(LocalDate.now())) {
+			throw new GuildSprintException(CANNOT_END_SPRINT);
+		}
 
-        this.status = ENDED;
-    }
+		this.status = ENDED;
+	}
 }

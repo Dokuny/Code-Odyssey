@@ -46,7 +46,7 @@ const StyledRightSidebar = styled.div`
 `;
 
 interface MyPageTemplateProps {
-  GuildSelectProps: { guildListIndex: number; setGuildListIndex: Dispatch<SetStateAction<number>> };
+  GuildSelectProps: { guildListIndex: number; setGuildListIndex: Dispatch<SetStateAction<number>>; setGuildName: Dispatch<SetStateAction<string>> };
 }
 
 const MyPageTemplate = (props: MyPageTemplateProps) => {

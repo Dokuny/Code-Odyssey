@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../../config/Color';
 import { Spacer } from '../../atoms/basic/Spacer';
@@ -67,16 +67,11 @@ const GuildProblemSearchForm = (props: GuildProblemSearchFormProps) => {
     setData({
       totalPage: 11,
       data: [
-        { problem_id: 4, title: 'test4', difficulty: 6, platform: 'BOJ', type: 'dp' },
-        { problem_id: 5, title: 'test5', difficulty: 2, platform: 'BOJ', type: 'dp' },
-        { problem_id: 6, title: 'test6', difficulty: 4, platform: 'BOJ', type: 'dp' },
-        { problem_id: 7, title: 'test7', difficulty: 3, platform: 'BOJ', type: 'dp' },
-        { problem_id: 8, title: 'test8', difficulty: 5, platform: 'BOJ', type: 'dp' },
-        { problem_id: 9, title: 'test9', difficulty: 5, platform: 'BOJ', type: 'dp' },
-        { problem_id: 10, title: 'test10', difficulty: 10, platform: 'BOJ', type: 'dp' },
-        { problem_id: 11, title: 'test11', difficulty: 11, platform: 'BOJ', type: 'dp' },
-        { problem_id: 12, title: 'test12', difficulty: 12, platform: 'BOJ', type: 'dp' },
-        { problem_id: 13, title: 'test13', difficulty: 13, platform: 'BOJ', type: 'dp' },
+        { problem_id: 1, title: 'test4', difficulty: 6, platform: 'BOJ', type: 'dp' },
+        { problem_id: 2, title: 'test5', difficulty: 2, platform: 'BOJ', type: 'dp' },
+        { problem_id: 3, title: 'test6', difficulty: 4, platform: 'BOJ', type: 'dp' },
+        { problem_id: 4, title: 'test7', difficulty: 3, platform: 'BOJ', type: 'dp' },
+        { problem_id: 5, title: 'test8', difficulty: 5, platform: 'BOJ', type: 'dp' },
       ],
     });
   }, []);
@@ -89,21 +84,21 @@ const GuildProblemSearchForm = (props: GuildProblemSearchFormProps) => {
     <StyledContainer>
       <Spacer space={'0.5vmin'} />
       <StyledBox>
-        <StyledSelect value={selectedDifficulty} onChange={(e) => setSelectedDifficulty(e.target.value)}>
+        <StyledSelect value={selectedDifficulty} onChange={(e: { target: { value: SetStateAction<string> } }) => setSelectedDifficulty(e.target.value)}>
           {difficultyList.map((option) => (
             <option key={option.value} value={option.value === '' ? 'select' : option.value} disabled={option.value === '' && true}>
               {option.name}
             </option>
           ))}
         </StyledSelect>
-        <StyledSelect value={selectedPlatform} onChange={(e) => setSelectedPlatform(e.target.value)}>
+        <StyledSelect value={selectedPlatform} onChange={(e: { target: { value: SetStateAction<string> } }) => setSelectedPlatform(e.target.value)}>
           {platformList.map((option) => (
             <option key={option.value} value={option.value === '' ? 'select' : option.value} disabled={option.value === '' && true}>
               {option.name}
             </option>
           ))}
         </StyledSelect>
-        <StyledSelect value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
+        <StyledSelect value={selectedCategory} onChange={(e: { target: { value: SetStateAction<string> } }) => setSelectedCategory(e.target.value)}>
           {categoryList.map((option) => (
             <option key={option.value} value={option.value === '' ? 'select' : option.value} disabled={option.value === '' && true}>
               {option.name}
