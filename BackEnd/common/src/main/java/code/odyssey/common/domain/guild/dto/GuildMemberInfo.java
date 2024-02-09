@@ -11,5 +11,6 @@ public class GuildMemberInfo {
     private String name;
     private String thumbnail;
     private GuildRole role;
+    private Integer difficulty;
 
 }

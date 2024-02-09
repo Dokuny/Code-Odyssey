@@ -18,7 +18,7 @@ public class GuildMemberController {
 
     @GetMapping
     public ResponseEntity<List<GuildMemberInfo>> getGuildMemberList(
-            @PathVariable Long guildId
+            @PathVariable("guildId") Long guildId
     ) {
         return ResponseEntity.ok(guildMemberService.getGuildMembers(guildId));
     }
