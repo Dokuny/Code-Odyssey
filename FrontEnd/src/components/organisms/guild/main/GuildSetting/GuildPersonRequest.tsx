@@ -12,8 +12,7 @@ const GuildPersonRequest = (props: GuildPersonRequestProps) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getGuildApplications(props.guild_id); //guild id
-      console.log(data);
+      const data = await getGuildApplications(props.guild_id);
       setData(data);
     };
 

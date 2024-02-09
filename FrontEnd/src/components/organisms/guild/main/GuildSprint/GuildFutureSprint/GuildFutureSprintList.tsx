@@ -22,6 +22,7 @@ interface GuildFutureSprintListProps {
   guild_id: number;
   setIsProblem: React.Dispatch<React.SetStateAction<number>>;
   setSprintData: React.Dispatch<React.SetStateAction<any[]>>;
+  setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const GuildFutureSprintList = (props: GuildFutureSprintListProps) => {
@@ -51,12 +52,15 @@ const GuildFutureSprintList = (props: GuildFutureSprintListProps) => {
       {props.data.map((value) => (
         <SprintList
           key={value.sprint_id}
+          guild_id={props.guild_id}
           sprint_id={value.sprint_id}
           sprint_day={value.sprint_day}
           sprint_name={value.sprint_name}
           problem_list={value.problem_list}
           state={'future'}
           setIsProblem={props.setIsProblem}
+          setSprintData={props.setSprintData}
+          setActiveIndex={props.setActiveIndex}
         />
       ))}
       <StyledAddContainer isOpen={isAddSprintOpen}>
@@ -100,9 +104,7 @@ const GuildFutureSprintList = (props: GuildFutureSprintListProps) => {
               />
               <Spacer space={'1vmin'} horizontal />
               <BasicButton
-                event={() => {
-                  clickAddSprint();
-                }}
+                event={clickAddSprint}
                 borderColor={'rgba(0, 0, 0, 0)'}
                 deepColor={'rgba(200, 100, 255, 0.1)'}
                 bgColor={'rgba(255, 220, 220, 0.1)'}

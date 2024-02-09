@@ -41,7 +41,7 @@ const GuildSprint = (props: GuildSprintProps) => {
       <Spacer space={'4vmin'} />
       {activeIndex === 0 && <GuildRunningSprint guild_id={props.guild_id} setActiveIndex={setActiveIndex} />}
       {activeIndex === 1 && <GuildLastSprint guild_id={props.guild_id} />}
-      {activeIndex === 2 && <GuildFutureSprint guild_id={props.guild_id} />}
+      {activeIndex === 2 && <GuildFutureSprint guild_id={props.guild_id} setActiveIndex={setActiveIndex} />}
     </>
   );
 };

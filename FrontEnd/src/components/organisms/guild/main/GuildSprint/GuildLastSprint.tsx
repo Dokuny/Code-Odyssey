@@ -38,6 +38,7 @@ const GuildLastSprint = (props: GuildLastSprintProps) => {
       {data.map((value) => (
         <SprintList
           key={value.sprint_id}
+          guild_id={props.guild_id}
           sprint_id={value.sprint_id}
           sprint_name={value.sprint_name}
           start_at={value.start_at}

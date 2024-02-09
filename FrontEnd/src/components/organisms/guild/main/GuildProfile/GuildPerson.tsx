@@ -13,7 +13,6 @@ const GuildPerson = (props: GuildPersonProps) => {
   useEffect(() => {
     const fetchData = async () => {
       const data = await getGuildMembers(props.guild_id);
-      console.log(data);
       setData(data);
     };
 
@@ -26,7 +25,7 @@ const GuildPerson = (props: GuildPersonProps) => {
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         {data.map((value) => (
           <div style={{ width: '25%' }}>
-            <MemberInfoCard member_id={value.member_id} name={value.name} thumbnail={value.thumbnail} difficulty={value.difficulty} join_at={value.join_at} />
+            <MemberInfoCard key={value.memberId} member_id={value.memberId} name={value.name} thumbnail={value.thumbnail} difficulty={value.difficulty} join_at={value.joinAt} />
           </div>
         ))}
       </div>
