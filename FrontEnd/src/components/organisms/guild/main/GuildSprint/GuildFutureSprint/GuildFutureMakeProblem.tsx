@@ -9,6 +9,7 @@ import BasicButton from '../../../../../atoms/button/BasicButton';
 import GuildProblemDetailForm from '../../../../../molecules/form/GuildProblemDetailForm';
 import GuildProblemSelectForm from '../../../../../molecules/form/GuildProblemSelectForm';
 import GuildProblemRecommentForm from '../../../../../molecules/form/GuildProblemRecommentForm';
+import { sprintProblemAdd, sprintWaiting } from '../../../../../../utils/api/guild/sprint/guildsprint';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -49,6 +50,7 @@ interface GuildFutureMakeProblemProps {
   guild_id: number;
   sprint_id: number;
   setIsProblem: React.Dispatch<React.SetStateAction<number>>;
+  setSprintData: React.Dispatch<React.SetStateAction<any[]>>;
 }
 
 const GuildFutureMakeProblem = (props: GuildFutureMakeProblemProps) => {
@@ -64,9 +66,11 @@ const GuildFutureMakeProblem = (props: GuildFutureMakeProblemProps) => {
     return { addProblems: addedProblemIds, deleteGuildProblems: missingProblemIds };
   };
 
-  const onClickAdd = () => {
-    console.log({ rightListData, problemList: props.problemList, guild_id: props.guild_id, sprint_id: props.sprint_id });
-    console.log(resultData(props.problemList, rightListData));
+  const onClickAdd = async () => {
+    const params = resultData(props.problemList, rightListData);
+    await sprintProblemAdd(props.guild_id, props.sprint_id, params);
+    const data = await sprintWaiting(props.guild_id);
+    props.setSprintData(data);
     props.setIsProblem(0);
   };
 

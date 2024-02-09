@@ -30,7 +30,7 @@ const GuildFutureSprint = (props: GuildFutureSprintProps) => {
       {isProblem === 0 ? (
         <GuildFutureSprintList data={sprintData} guild_id={props.guild_id} setIsProblem={setIsProblem} setSprintData={setSprintData} setActiveIndex={props.setActiveIndex} />
       ) : (
-        <GuildFutureMakeProblem problemList={getSprintProblemList(isProblem)} guild_id={props.guild_id} setIsProblem={setIsProblem} sprint_id={isProblem} />
+        <GuildFutureMakeProblem problemList={getSprintProblemList(isProblem)} guild_id={props.guild_id} setIsProblem={setIsProblem} sprint_id={isProblem} setSprintData={setSprintData} />
       )}
     </>
   );

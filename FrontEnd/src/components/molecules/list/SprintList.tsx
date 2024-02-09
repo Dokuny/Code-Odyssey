@@ -116,7 +116,17 @@ const SprintList = (props: SprintListProps) => {
       {isOpen && (
         <div style={{ padding: '0.8vmin' }}>
           {props.problem_list.map((value) => (
-            <SprintProblemCard key={value.problem_id} problem_id={value.problem_id} difficulty={value.difficulty} title={value.title} state={props.state} platform={value.platform} />
+            <SprintProblemCard
+              key={value.problem_id}
+              sprint_id={props.sprint_id}
+              guild_id={props.guild_id}
+              problem_id={value.problem_id}
+              guild_problem_id={value.guild_problem_id}
+              difficulty={value.difficulty}
+              title={value.title}
+              state={props.state}
+              platform={value.platform}
+            />
           ))}
           {props.state === 'future' && (
             <>

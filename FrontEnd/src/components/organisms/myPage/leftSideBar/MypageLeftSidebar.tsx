@@ -38,7 +38,7 @@ const StyledBlurImage = styled.div`
 
 interface MyPageLeftSidebarProps {
   MyMenuProps: { activeIndex: number; setActiveIndex: React.Dispatch<React.SetStateAction<number>> };
-  MyGuildListProps: { guildListIndex: number; setGuildListIndex: Dispatch<SetStateAction<number>> };
+  MyGuildListProps: { guildListIndex: number; setGuildListIndex: Dispatch<SetStateAction<number>>; setGuildName: Dispatch<SetStateAction<string>> };
 }
 
 const MypageLeftSidebar = (props: MyPageLeftSidebarProps) => {
@@ -48,7 +48,7 @@ const MypageLeftSidebar = (props: MyPageLeftSidebarProps) => {
   return (
     <>
       <StyledBlurImage>
-        <MyGuildList guildListIndex={MyGuildListProps.guildListIndex} setGuildListIndex={MyGuildListProps.setGuildListIndex} />
+        <MyGuildList guildListIndex={MyGuildListProps.guildListIndex} setGuildListIndex={MyGuildListProps.setGuildListIndex} setGuildName={MyGuildListProps.setGuildName} />
       </StyledBlurImage>
       <StyledImage>
         <MyMenu activeIndex={MyMenuProps.activeIndex} setActiveIndex={MyMenuProps.setActiveIndex} />

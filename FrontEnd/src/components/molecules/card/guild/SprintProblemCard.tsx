@@ -10,6 +10,7 @@ import Divider from '../../../atoms/basic/Divider';
 import { Fa6Icon } from '../../../atoms/icon/Icons';
 import { useNavigate } from 'react-router-dom';
 import GuildSprintResultImageCard from './GuildSprintResultImageCard';
+import { sprintLastReport } from '../../../../utils/api/guild/sprint/guildsprint';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -45,7 +46,10 @@ const StyledProfileImg = styled.img`
 `;
 
 interface SprintProblemCardProps {
+  sprint_id: number;
+  guild_id: number;
   problem_id: number;
+  guild_problem_id: number;
   difficulty: number;
   title: string;
   state: 'past' | 'future';
@@ -53,7 +57,7 @@ interface SprintProblemCardProps {
 }
 
 const SprintProblemCard = (props: SprintProblemCardProps) => {
-  const [data, setData] = useState<any>(null);
+  const [reportData, setReportData] = useState<any>(null);
   const [tableData, setTableData] = useState<any>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [state, setState] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 });
@@ -61,32 +65,17 @@ const SprintProblemCard = (props: SprintProblemCardProps) => {
 
   useEffect(() => {
     if (props.state === 'past') {
-      // solve_state : 'fail' | 'success'
-      setData({
-        guild_problem_id: 1,
-        title: '톱니바퀴 돌리기',
-        type: 'STRING',
-        percent: 100,
-        guild_member: [
-          { member_id: 1, thumbnail: 'https://picsum.photos/300', is_solved: true, name: '이도훈', solved_at: '2024-01-31', memory: '12235KB', time: '24ms' },
-          { member_id: 4, thumbnail: 'https://picsum.photos/300', is_solved: false, name: '김한주', solved_at: '2024-01-31', memory: '14435KB', time: '25ms' },
-          { member_id: 2, thumbnail: 'https://picsum.photos/300', is_solved: true, name: '이유빈', solved_at: '2024-01-31', memory: '14235KB', time: '145ms' },
-          { member_id: 3, thumbnail: 'https://picsum.photos/300', is_solved: true, name: '이주현', solved_at: '2024-01-31', memory: '14235KB', time: '15ms' },
-          { member_id: 5, thumbnail: 'https://picsum.photos/300', is_solved: false, name: '김범수', solved_at: '2024-01-31', memory: '14475KB', time: '185ms' },
-          { member_id: 6, thumbnail: 'https://picsum.photos/300', is_solved: false, name: '김범수', solved_at: '2024-01-31', memory: '14475KB', time: '185ms' },
-          { member_id: 8, thumbnail: 'https://picsum.photos/300', is_solved: false, name: '김범수', solved_at: '2024-01-31', memory: '14475KB', time: '185ms' },
-          { member_id: 9, thumbnail: 'https://picsum.photos/300', is_solved: false, name: '김범수', solved_at: '2024-01-31', memory: '14475KB', time: '185ms' },
-          { member_id: 7, thumbnail: 'https://picsum.photos/300', is_solved: false, name: '김범수', solved_at: '2024-01-31', memory: '14475KB', time: '185ms' },
-          { member_id: 10, thumbnail: 'https://picsum.photos/300', is_solved: false, name: '김범수', solved_at: '2024-01-31', memory: '14475KB', time: '185ms' },
-        ],
-        solve_state: 'success',
-      });
+      const fetchData = async () => {
+        const data = await sprintLastReport(props.guild_id, props.sprint_id, props.guild_problem_id);
+        setReportData(data);
+      };
+      fetchData();
     }
-  }, [props.state]);
+  }, [props]);
 
   useEffect(() => {
-    if (data) {
-      const scoreWithNames = data.guild_member.map((value: any) => ({
+    if (reportData) {
+      const scoreWithNames = reportData.guild_member.map((value: any) => ({
         member_id: value.member_id,
         name: value.name,
         is_solved: value.is_solved,
@@ -96,14 +85,14 @@ const SprintProblemCard = (props: SprintProblemCardProps) => {
       }));
       setTableData({ totalPages: 0, data: scoreWithNames });
     }
-  }, [data]);
+  }, [reportData]);
 
   const navigate = useNavigate();
   useEffect(() => {
     if (selectData != null) {
-      window.open(`/review?guild_problem_id=${data.guild_problem_id}&member_id=${selectData.member_id}`, '_blank');
+      window.open(`/review?guild_problem_id=${reportData.guild_problem_id}&member_id=${selectData.member_id}`, '_blank');
     }
-  }, [data, navigate, selectData]);
+  }, [reportData, navigate, selectData]);
 
   return (
     <StyledContainer>
@@ -119,8 +108,17 @@ const SprintProblemCard = (props: SprintProblemCardProps) => {
               <Body2 children={`[${props.platform}] ${props.title}`} color={colors.Gray[100]} />
             </div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', width: '50%', height: '100%' }}>
-              {data && data.guild_member.map((value: any) => <>{value.is_solved && <StyledProfileImg key={value.member_id} src={value.thumbnail} alt='' />}</>)}
-              <div style={{ display: 'flex', width: '10%', backgroundColor: data && data.solve_state === 'fail' ? colors.Red : colors.Naver[300], zIndex: 1, height: '100%', marginLeft: '0.5vmax' }} />
+              {reportData && reportData.guild_member.map((value: any) => <>{value.is_solved && <StyledProfileImg key={value.member_id} src={value.thumbnail} alt='' />}</>)}
+              <div
+                style={{
+                  display: 'flex',
+                  width: '10%',
+                  backgroundColor: reportData && reportData.solve_state === 'fail' ? colors.Red : colors.Naver[300],
+                  zIndex: 1,
+                  height: '100%',
+                  marginLeft: '0.5vmax',
+                }}
+              />
             </div>
           </StyledButton>
           {isOpen && (
@@ -129,10 +127,10 @@ const SprintProblemCard = (props: SprintProblemCardProps) => {
               <div style={{ display: 'flex', width: '100%', flexDirection: 'column', padding: '2vmax', boxSizing: 'border-box' }}>
                 <div style={{ display: 'flex', width: '100%' }}>
                   <div style={{ width: '40%' }}>
-                    <GuildSprintResultImageCard value={data.percent} type={data.type} problem_id={data.problem_id} />
+                    <GuildSprintResultImageCard value={reportData.percent} type={reportData.type} problem_id={reportData.problem_id} />
                   </div>
                   <div style={{ width: '60%' }}>
-                    <GuildSprintResultImageCard value={data.percent} type={data.type} problem_id={data.problem_id} />
+                    <GuildSprintResultImageCard value={reportData.percent} type={reportData.type} problem_id={reportData.problem_id} />
                   </div>
                 </div>
                 <Spacer space={'1vmax'} />
