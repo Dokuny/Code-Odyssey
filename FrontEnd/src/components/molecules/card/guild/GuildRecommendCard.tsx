@@ -3,6 +3,8 @@ import { colors } from '../../../../config/Color';
 import { Body1, Caption1 } from '../../../atoms/basic/Typography';
 import { Spacer } from '../../../atoms/basic/Spacer';
 import { difficulty } from '../../../../utils/json/difficulty';
+import ModalGuildProfile from '../../../organisms/guild/main/ModalGuildProfile';
+import { useState } from 'react';
 
 const GuildBackDiv = styled.div`
   display: flex;
@@ -114,8 +116,15 @@ interface GuildRecommendCardProps {
 
 const GuildRecommendCard = (props: GuildRecommendCardProps) => {
   const data = props.guildSearchData;
+  const [isModalOpen, setModalOpen] = useState(false);
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
+
+
   return (
-    <GuildBackDiv>
+    <div>
+
+      <GuildBackDiv onClick={openModal}>
       <HeaderDiv>
         <DiffImageDiv src={difficulty[data.difficulty]}></DiffImageDiv>
         <Spacer space={'0.5vmax'} horizontal />
@@ -143,6 +152,8 @@ const GuildRecommendCard = (props: GuildRecommendCardProps) => {
         </SeperateRight>
       </FooterDiv>
     </GuildBackDiv>
+    <ModalGuildProfile isOpen={isModalOpen} closeModal={closeModal} guild_id={data.guild_id}></ModalGuildProfile>
+    </div>
   );
 };
 export default GuildRecommendCard;
