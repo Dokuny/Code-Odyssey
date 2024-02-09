@@ -10,7 +10,7 @@ import { ref, getDownloadURL, deleteObject, uploadBytes } from 'firebase/storage
 import { fstorage } from '../../../firebase';
 import { createGuild } from '../../../utils/api/guild/guild';
 
-const ChangeGuildForm = () => {
+const ModifyGuildForm = () => {
   const [value, setValue] = useState('');
   const [GuildName, setGuildName] = useState('');
   const [selectDifficulty, setSelecDifficulty] = useState('1');
@@ -23,9 +23,31 @@ const ChangeGuildForm = () => {
   const Difficulty = Array.from({ length: 30 }, (_, index) => index + 1);
   const Capacity = Array.from({ length: 10 }, (_, index) => index + 1);
   
-  useEffect( () => {
-    // 길드 정보 가져오기 
-  },[])
+  useEffect(() => {
+    const fetchData = async () => {
+    //   const data = await getGuildInfo()
+    const data = {
+        name: '오디세이',
+        image: '', // '' 으로 저장되면..? -> 기본값 출력하기로
+        introduction: 'ㄱㄱㄱ',
+        capacity: 2,
+        language: 'PYTHON',
+        difficulty: 1,
+        problemCapacity: 1,
+      };
+    
+      setGuildName(data.name)
+      setImgFile(data.image)
+      setValue(data.introduction)
+      setSelectCapacity(String(data.capacity))
+      setSelectLanguage(data.language)
+      setSelecDifficulty(String(data.difficulty))
+      setSelectProblemCapacity(String(data.problemCapacity))
+    
+    };  
+
+    fetchData();
+  }, []);
 
 
   const onClickEvent = async () => {
@@ -35,7 +57,7 @@ const ChangeGuildForm = () => {
     // 만약 길드 이미지가 없었다면 바로 업로드
     const fileInput = imgRef.current;
     if (fileInput?.files?.length) {
-      const file: File = fileInput.files[0]
+        const file: File = fileInput.files[0]
         try {        
           //이미지 업로드
           const storageRef = ref(fstorage, `images/${file.name}`);
@@ -47,8 +69,7 @@ const ChangeGuildForm = () => {
         } catch (error) {
           console.error("Error uploading image:", error);
         }
-        
-    }
+        }   
 
     const data = {
       name: GuildName,
@@ -181,7 +202,7 @@ const ChangeGuildForm = () => {
   );
 };
 
-export default ChangeGuildForm;
+export default ModifyGuildForm;
 
 
 
@@ -294,3 +315,4 @@ const Back = styled.div`
 
 
 const Rule = styled.div``;
+
