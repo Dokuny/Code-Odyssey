@@ -45,7 +45,8 @@ public class GuildMemberRepositoryImpl implements GuildMemberRepositoryCustom {
 					guildMember.member.nickname.as("name"),
 					guildMember.member.thumbnail.as("thumbnail"),
 					guildMember.role.as("role"),
-					score.tier.as("difficulty")
+					score.tier.as("difficulty"),
+					guildMember.createdAt.as("joinAt")
 				)).from(guildMember)
 			.join(guildMember.member, member)
 			.join(score).on(score.member.id.eq(guildMember.member.id))

@@ -2,6 +2,7 @@ package code.odyssey.common.domain.guild.entity;
 
 import code.odyssey.common.domain.guild.enums.GuildRole;
 import code.odyssey.common.domain.member.entity.Member;
+import code.odyssey.common.global.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,7 +19,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor
 @Builder @Getter
 @Entity
-public class GuildMember {
+public class GuildMember extends BaseEntity {
 
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "guild_member_id")
