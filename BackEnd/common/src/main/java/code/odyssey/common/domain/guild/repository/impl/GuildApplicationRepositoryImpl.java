@@ -29,12 +29,12 @@ public class GuildApplicationRepositoryImpl implements GuildApplicationRepositor
 
     @Override
     public List<GuildApplicationInfo> findAllByGuildId(Long guildId) {
-        return queryFactory.select(Projections.fields(
+        return queryFactory.select(Projections.constructor(
                 GuildApplicationInfo.class,
                 guildApplication.id.as("applicationId"),
-                member.nickname.as("applicantName"),
-                member.thumbnail.as("applicantImage"),
+                member.nickname.as("name"),
                 score.tier.as("difficulty"),
+                score.penalty.as("badCnt"),
                 guildApplication.createdAt.as("requestAt")
             )).from(guildApplication)
             .join(guildApplication.member, member)
