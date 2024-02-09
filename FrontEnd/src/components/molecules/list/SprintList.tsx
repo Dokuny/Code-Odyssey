@@ -7,6 +7,8 @@ import { Fa6Icon } from '../../atoms/icon/Icons';
 import SprintProblemCard from '../card/guild/SprintProblemCard';
 import BasicButton from '../../atoms/button/BasicButton';
 import { FaPlus } from 'react-icons/fa';
+import { IoMdTrash } from 'react-icons/io';
+import { sprintDelete, sprintStart, sprintWaiting } from '../../../utils/api/guild/sprint/guildsprint';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -30,10 +32,12 @@ const StyledButton = styled.div<{ state: 'past' | 'future' }>`
 
 const StyledStartButton = styled.div`
   display: flex;
-  width: 10%;
+  width: auto;
   align-items: center;
   justify-content: center;
   padding: 0.5vmin;
+  padding-left: 1vmin;
+  padding-right: 1vmin;
   background-color: rgba(255, 220, 220, 0.1);
   border-radius: 1em;
 
@@ -43,8 +47,26 @@ const StyledStartButton = styled.div`
   }
 `;
 
+const StyledDeleteButton = styled.div`
+  display: flex;
+  width: auto;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5vmin;
+  padding-left: 1vmin;
+  padding-right: 1vmin;
+  background-color: rgba(255, 220, 220, 0.1);
+  border-radius: 1em;
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgba(255, 100, 100, 0.1);
+  }
+`;
+
 interface SprintListProps {
   sprint_id: number;
+  guild_id: number;
   sprint_name: string;
   start_at?: string;
   ended_at?: string;
@@ -52,10 +74,23 @@ interface SprintListProps {
   problem_list: Array<any>;
   state: 'past' | 'future';
   setIsProblem?: React.Dispatch<React.SetStateAction<number>>;
+  setSprintData?: React.Dispatch<React.SetStateAction<any[]>>;
+  setActiveIndex?: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const SprintList = (props: SprintListProps) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const clickStart = async () => {
+    await sprintStart(props.guild_id, props.sprint_id);
+    props.setActiveIndex && props.setActiveIndex(0);
+  };
+
+  const clickDelete = async () => {
+    await sprintDelete(props.guild_id, props.sprint_id);
+    const data = await sprintWaiting(props.guild_id);
+    props.setSprintData && props.setSprintData(data);
+  };
 
   return (
     <StyledContainer>
@@ -68,9 +103,14 @@ const SprintList = (props: SprintListProps) => {
           <Caption1 children={props.state === 'past' ? ': ' + props.start_at + ' ~ ' + props.ended_at : ': ' + props.sprint_day + 'day'} color={colors.Gray[400]} />
         </StyledButton>
         {props.state === 'future' && (
-          <StyledStartButton onClick={() => {}}>
-            <Body2 children={'START'} color={colors.Gray[100]} fontWeight={'bold'} />
-          </StyledStartButton>
+          <div style={{ display: 'flex', width: 'auto', gap: '1vmin' }}>
+            <StyledStartButton onClick={clickStart}>
+              <Body2 children={'START'} color={colors.Gray[100]} fontWeight={'bold'} />
+            </StyledStartButton>
+            <StyledDeleteButton onClick={clickDelete}>
+              <IoMdTrash color={colors.Red} />
+            </StyledDeleteButton>
+          </div>
         )}
       </div>
       {isOpen && (

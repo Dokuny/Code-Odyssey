@@ -5,6 +5,7 @@ import { sprintWaiting } from '../../../../../utils/api/guild/sprint/guildsprint
 
 interface GuildFutureSprintProps {
   guild_id: number;
+  setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const GuildFutureSprint = (props: GuildFutureSprintProps) => {
@@ -27,7 +28,7 @@ const GuildFutureSprint = (props: GuildFutureSprintProps) => {
   return (
     <>
       {isProblem === 0 ? (
-        <GuildFutureSprintList data={sprintData} guild_id={props.guild_id} setIsProblem={setIsProblem} setSprintData={setSprintData} />
+        <GuildFutureSprintList data={sprintData} guild_id={props.guild_id} setIsProblem={setIsProblem} setSprintData={setSprintData} setActiveIndex={props.setActiveIndex} />
       ) : (
         <GuildFutureMakeProblem problemList={getSprintProblemList(isProblem)} guild_id={props.guild_id} setIsProblem={setIsProblem} sprint_id={isProblem} />
       )}
