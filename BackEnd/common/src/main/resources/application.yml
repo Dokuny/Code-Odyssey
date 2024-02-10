@@ -15,11 +15,11 @@ spring:
       max-lifetime: 160000
 
   jpa:
-    defer-datasource-initialization: true
-    generate-ddl: true
+    defer-datasource-initialization: false
+    generate-ddl: false
 
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     open-in-view: false
     show-sql: true
     properties:

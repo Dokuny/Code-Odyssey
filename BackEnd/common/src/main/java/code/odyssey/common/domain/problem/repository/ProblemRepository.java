@@ -10,6 +10,8 @@ public interface ProblemRepository extends JpaRepository<Problem, Long>{
 
     Optional<Problem> findByPlatformAndNo(ProblemPlatform platform, int no);
 
+
+    Optional<Problem> findById(long id);
 //    @Query("SELECT p FROM Problem p " +
 //            "WHERE p.type = :ptype " +
 //            "AND p.difficulty = :difficulty")

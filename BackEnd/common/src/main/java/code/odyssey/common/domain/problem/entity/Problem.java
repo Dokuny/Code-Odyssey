@@ -1,5 +1,6 @@
 package code.odyssey.common.domain.problem.entity;
 
+import code.odyssey.common.domain.problem.dto.problem.ProblemDetailInfo;
 import code.odyssey.common.domain.problem.entity.enums.ProblemPlatform;
 import code.odyssey.common.domain.problem.entity.enums.ProblemType;
 import jakarta.persistence.*;
@@ -56,5 +57,18 @@ public class Problem {
 
     @Column
     private String output;
+
+    public ProblemDetailInfo toDto(){
+        return ProblemDetailInfo.builder()
+                .problem_id(this.id)
+                .detail(this.content)
+                .title(this.title)
+                .memory(this.memory)
+                .input(this.input)
+                .output(this.output)
+                .runtime(this.runtime)
+                .platform(this.platform)
+                .build();
+    }
 
 }
