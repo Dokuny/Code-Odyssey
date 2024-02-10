@@ -61,25 +61,23 @@ const StyledButton = styled.button`
 `;
 
 interface Props {
-    isOpen: boolean;
-    closeModal: () => void;
-    guild_id: number;
-    guild_name : string;
-  }
+  isOpen: boolean;
+  closeModal: () => void;
+  guild_id: number;
+  guild_name: string;
+}
 
-const ModalGuildProfile: React.FC<Props> = ({ isOpen, closeModal,guild_id,guild_name }) => {
-
-
-    return (
-      <StyledDiv isOpen={isOpen}>
-        <Outline >
-            <StyledMain>
-                <StyledButton onClick={closeModal}>X</StyledButton>
-                <GuildProfile guild_id={guild_id} guild_name={guild_name} />
-            </StyledMain>
-        </Outline>
-      </StyledDiv>
-    );
+const ModalGuildProfile: React.FC<Props> = ({ isOpen, closeModal, guild_id, guild_name }) => {
+  return (
+    <StyledDiv isOpen={isOpen}>
+      <Outline>
+        <StyledMain>
+          <StyledButton onClick={closeModal}>X</StyledButton>
+          <GuildProfile guild_id={guild_id} guild_name={guild_name} />
+        </StyledMain>
+      </Outline>
+    </StyledDiv>
+  );
 };
 
 export default ModalGuildProfile;

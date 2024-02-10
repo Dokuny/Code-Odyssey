@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { SetStateAction, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../../config/Color';
@@ -7,8 +8,9 @@ import SelectProblemButton from '../../atoms/button/SelectProblemButton';
 import { categoryList, difficultyList, platformList } from '../../../utils/json/selectList';
 import { PaginationState } from '@tanstack/react-table';
 import BasicButton from '../../atoms/button/BasicButton';
-import { Body3 } from '../../atoms/basic/Typography';
 import { FaPlus } from 'react-icons/fa';
+import { sprintProblemSearch } from '../../../utils/api/guild/sprint/guildsprint';
+import { IoMdSearch } from 'react-icons/io';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -58,27 +60,36 @@ interface GuildProblemSearchFormProps {
 
 const GuildProblemSearchForm = (props: GuildProblemSearchFormProps) => {
   const [data, setData] = useState<any>(null);
-  const [selectedDifficulty, setSelectedDifficulty] = useState('select');
-  const [selectedPlatform, setSelectedPlatform] = useState('select');
-  const [selectedCategory, setSelectedCategory] = useState('select');
+  const [input, setInput] = useState('');
+  const [selectedDifficulty, setSelectedDifficulty] = useState<string>('');
+  const [selectedPlatform, setSelectedPlatform] = useState<string>('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [searchInput, setSearchInput] = useState('');
   const [state, setState] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 });
 
   useEffect(() => {
-    setData({
-      totalPage: 11,
-      data: [
-        { problem_id: 13342, title: 'test4', difficulty: 6, platform: 'BOJ', type: 'dp' },
-        { problem_id: 13343, title: 'test5', difficulty: 2, platform: 'BOJ', type: 'dp' },
-        { problem_id: 13344, title: 'test6', difficulty: 4, platform: 'BOJ', type: 'dp' },
-        { problem_id: 13345, title: 'test7', difficulty: 3, platform: 'BOJ', type: 'dp' },
-        { problem_id: 13346, title: 'test8', difficulty: 5, platform: 'BOJ', type: 'dp' },
-      ],
-    });
-  }, []);
+    setState({ pageIndex: 0, pageSize: 10 });
+    const fetchData = async () => {
+      const fetchedData = await sprintProblemSearch(input, selectedCategory, selectedDifficulty as unknown as number, selectedPlatform, 0, 10);
+      setData(fetchedData);
+    };
+    fetchData();
+  }, [input, selectedCategory, selectedDifficulty, selectedPlatform]);
 
   useEffect(() => {
-    console.log(state);
+    if (state.pageIndex !== 0) {
+      const fetchData = async () => {
+        const fetchedData = await sprintProblemSearch(input, selectedCategory, selectedDifficulty as unknown as number, selectedPlatform, state.pageIndex, state.pageSize);
+        setData((prevData: any) => {
+          if (!prevData) return fetchedData;
+          return {
+            total_pages: fetchedData.total_pages,
+            data: [...prevData.data, ...fetchedData.data],
+          };
+        });
+      };
+      fetchData();
+    }
   }, [state]);
 
   return (
@@ -87,28 +98,46 @@ const GuildProblemSearchForm = (props: GuildProblemSearchFormProps) => {
       <StyledBox>
         <StyledSelect value={selectedDifficulty} onChange={(e: { target: { value: SetStateAction<string> } }) => setSelectedDifficulty(e.target.value)}>
           {difficultyList.map((option) => (
-            <option key={option.value} value={option.value === '' ? 'select' : option.value} disabled={option.value === '' && true}>
+            <option key={option.value} value={option.value === 0 ? '' : option.value} disabled={option.value === 0 && true}>
               {option.name}
             </option>
           ))}
         </StyledSelect>
         <StyledSelect value={selectedPlatform} onChange={(e: { target: { value: SetStateAction<string> } }) => setSelectedPlatform(e.target.value)}>
           {platformList.map((option) => (
-            <option key={option.value} value={option.value === '' ? 'select' : option.value} disabled={option.value === '' && true}>
+            <option key={option.value} value={option.value === '' ? '' : option.value} disabled={option.value === '' && true}>
               {option.name}
             </option>
           ))}
         </StyledSelect>
         <StyledSelect value={selectedCategory} onChange={(e: { target: { value: SetStateAction<string> } }) => setSelectedCategory(e.target.value)}>
           {categoryList.map((option) => (
-            <option key={option.value} value={option.value === '' ? 'select' : option.value} disabled={option.value === '' && true}>
+            <option key={option.value} value={option.value === '' ? '' : option.value} disabled={option.value === '' && true}>
               {option.name}
             </option>
           ))}
         </StyledSelect>
       </StyledBox>
       <Spacer space={'1.5vmin'} />
-      <BasicInput placeholder={'문제 찾아보기'} setInput={setSearchInput} input={searchInput} fontSize='0.8em' />
+      <div style={{ display: 'flex', alignItems: 'center', gap: '2vmin' }}>
+        <BasicInput
+          placeholder={'문제 찾아보기'}
+          setInput={setSearchInput}
+          input={searchInput}
+          fontSize='0.8em'
+          onKeyDown={() => {
+            setInput(searchInput);
+          }}
+        />
+        <IoMdSearch
+          size={'1.5em'}
+          color={colors.White}
+          onClick={() => {
+            setInput(searchInput);
+          }}
+          style={{ cursor: 'pointer' }}
+        />
+      </div>
       <Spacer space={'1.5vmin'} />
       <StyledScrollDiv>
         {data &&
@@ -126,7 +155,7 @@ const GuildProblemSearchForm = (props: GuildProblemSearchFormProps) => {
               imgWidth={'8%'}
             />
           ))}
-        {data && data.totalPage > state.pageIndex && (
+        {data && data.total_pages > state.pageIndex && (
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '1vmin' }}>
             <BasicButton
               event={() => setState({ pageIndex: state.pageIndex + 1, pageSize: state.pageSize })}

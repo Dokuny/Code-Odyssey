@@ -7,7 +7,7 @@ interface CreateGuild {
   introduction: string;
   language: string;
   difficulty: number;
-  problemCapacity : number;
+  problemCapacity: number;
   capacity: number;
 }
 
@@ -23,16 +23,15 @@ export const getGuild = async () => {
   return data && data.data;
 };
 
-
 // 내가 가입할 수 있는 길드 검색
 
 interface FindGuild {
-  keyword : string | number;
-  guildId ?: number | null;
+  keyword: string | number;
+  guildId?: number | null;
 }
 
 export const findGuild = async (Params: FindGuild) => {
-  const data = await tokenInstance.get(`/guilds`, { params : Params} );
+  const data = await tokenInstance.get(`/guilds`, { params: Params });
   return data && data.data;
 };
 
@@ -50,5 +49,15 @@ export const getRecommendSimilar = async () => {
 
 export const getRecommendDifficult = async () => {
   const data = await tokenInstance.get(`/guilds/recommend/difficult`);
+  return data && data.data;
+};
+
+export const guildDetail = async (guild_id: number) => {
+  const data = await tokenInstance.get(`/guilds/${guild_id}`);
+  return data && data.data;
+};
+
+export const guildRequest = async (guild_id: number) => {
+  const data = await tokenInstance.post(`/guilds/${guild_id}/applications`);
   return data && data.data;
 };

@@ -18,7 +18,7 @@ const GuildProfile = (props: GuildProfileProps) => {
   return (
     <>
       <div style={{ minHeight: '35%', maxHeight: '35%' }}>
-        {activeIndex === 0 && <GuildProfileDetailCard />}
+        {activeIndex === 0 && <GuildProfileDetailCard guild_id={props.guild_id} />}
         {activeIndex === 1 && (
           <MainTopCard
             src={'/images/code_odyssey/GuildProfileBg.svg'}

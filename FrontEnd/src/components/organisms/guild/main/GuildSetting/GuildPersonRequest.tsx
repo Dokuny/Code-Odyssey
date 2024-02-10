@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
+import { getGuildApplications } from '../../../../../utils/api/guild/setting/guildsetting';
 import { Spacer } from '../../../../atoms/basic/Spacer';
 import GuildRequestMemberCard from '../../../../molecules/card/guild/GuildRequestMemberCard';
-import { getGuildApplications } from '../../../../../utils/api/guild/setting/guildsetting';
 
 interface GuildPersonRequestProps {
   guild_id: number;
@@ -13,6 +13,7 @@ const GuildPersonRequest = (props: GuildPersonRequestProps) => {
   useEffect(() => {
     const fetchData = async () => {
       const data = await getGuildApplications(props.guild_id);
+      console.log(data);
       setData(data);
     };
 
@@ -25,7 +26,7 @@ const GuildPersonRequest = (props: GuildPersonRequestProps) => {
       {data.map((value) => (
         <>
           <GuildRequestMemberCard
-            key={value.member_id}
+            key={value.application_id}
             guild_id={props.guild_id}
             application_id={value.application_id}
             name={value.name}

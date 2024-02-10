@@ -8,7 +8,7 @@ export const getGuildInfo = async (guildId: number) => {
 };
 
 export const changeGuild = async (guildId: number, form: any) => {
-  const data = await tokenInstance.put(`/guilds/${guildId}`, form );
+  const data = await tokenInstance.put(`/guilds/${guildId}`, form);
   return data && data.data;
 };
 
@@ -27,12 +27,12 @@ export const getGuildApplications = async (guildId: number) => {
 
 // 가입 수락
 export const getGuildApplicationsAccept = async (guildId: number, applicationId: number) => {
-  const data = await tokenInstance.get(`/guilds/${guildId}/members`);
+  const data = await tokenInstance.get(`/guilds/${guildId}/applications/${applicationId}/accept`);
   return data && data.data;
 };
 
 // 가입 거절
 export const getGuildApplicationsReject = async (guildId: number, applicationId: number) => {
-  const data = await tokenInstance.get(`/guilds/${guildId}/members`);
+  const data = await tokenInstance.get(`/guilds/${guildId}/applications/${applicationId}/reject`);
   return data && data.data;
 };

@@ -143,19 +143,19 @@ const MakeGuildForm = () => {
     };
 
     const fileInput = imgRef.current;
-    if (fileInput?.files?.length) {    
+    if (fileInput?.files?.length) {
       const file: File = fileInput.files[0];
       const storageRef = ref(fstorage, `firebase/${file.name}`);
       await uploadBytes(storageRef, file);
       const url = await getDownloadURL(ref(fstorage, `firebase/${file.name}`));
       data = {
         ...data,
-        image: url 
-      }
+        image: url,
+      };
     }
 
-    createGuild(data);
-    window.location.reload()
+    await createGuild(data);
+    window.location.reload();
   };
 
   const saveImgFile = () => {

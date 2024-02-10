@@ -1,5 +1,5 @@
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable, getSortedRowModel, PaginationState } from '@tanstack/react-table';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IoMdCheckmarkCircle, IoMdCloseCircle } from 'react-icons/io';
 import styled, { css } from 'styled-components';
 import { colors } from '../../../config/Color';
@@ -90,7 +90,7 @@ const DiffImageDiv = styled.img`
 `;
 
 interface BasicTableProps {
-  tableData: { totalPages: number; data: Array<any> };
+  tableData: { total_pages: number; data: Array<any> };
   setSelectData: React.Dispatch<any>;
   percentData: string[];
   imageData: string[];
@@ -105,7 +105,7 @@ interface BasicTableProps {
 }
 
 const BasicTable = (props: BasicTableProps) => {
-  const [data] = useState(props.tableData.data);
+  const [data, setData] = useState<any>(null);
   const columnHelper = createColumnHelper<any>();
   const columns =
     props.tableData.data.length > 0
@@ -133,8 +133,8 @@ const BasicTable = (props: BasicTableProps) => {
   };
 
   const renderPageButtons = () => {
-    const totalPages = Math.min(props.tableData.totalPages, 5);
-    const startIndex = Math.min(Math.max(0, props.tableData.totalPages - 5), Math.max(0, props.state.pageIndex - 2));
+    const totalPages = Math.min(props.tableData.total_pages, 5);
+    const startIndex = Math.min(Math.max(0, props.tableData.total_pages - 5), Math.max(0, props.state.pageIndex - 2));
 
     return [...Array(totalPages)].map((_, index) => (
       <StyledPageButton
@@ -149,89 +149,97 @@ const BasicTable = (props: BasicTableProps) => {
     ));
   };
 
+  useEffect(() => {
+    setData(props.tableData.data);
+  }, [props.tableData.data]);
+
   return (
     <StyledContainer color={props.color || colors.GrayBlue[800]}>
       <StyledTitleContainer>{props.title}</StyledTitleContainer>
-      <StyledTable>
-        <StyledThead>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.slice(1).map((header) => (
-                <StyledTh key={header.id} style={{ width: header.getSize(), cursor: header.column.getCanSort() ? 'pointer' : 'default' }} onClick={header.column.getToggleSortingHandler()}>
-                  <StyledHeaderContainer>
-                    {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                    {{ asc: <FaIcon name='sortup' size={'1em'} />, desc: <FaIcon name='sortdown' size={'1em'} /> }[header.column.getIsSorted() as 'asc' | 'desc']}
-                    {header.column.getCanSort() && !header.column.getIsSorted() ? <FaIcon name='sort' size={'1em'} /> : null}
-                  </StyledHeaderContainer>
-                </StyledTh>
+      {data && (
+        <>
+          <StyledTable>
+            <StyledThead>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <tr key={headerGroup.id}>
+                  {headerGroup.headers.slice(1).map((header) => (
+                    <StyledTh key={header.id} style={{ width: header.getSize(), cursor: header.column.getCanSort() ? 'pointer' : 'default' }} onClick={header.column.getToggleSortingHandler()}>
+                      <StyledHeaderContainer>
+                        {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                        {{ asc: <FaIcon name='sortup' size={'1em'} />, desc: <FaIcon name='sortdown' size={'1em'} /> }[header.column.getIsSorted() as 'asc' | 'desc']}
+                        {header.column.getCanSort() && !header.column.getIsSorted() ? <FaIcon name='sort' size={'1em'} /> : null}
+                      </StyledHeaderContainer>
+                    </StyledTh>
+                  ))}
+                </tr>
               ))}
-            </tr>
-          ))}
-        </StyledThead>
+            </StyledThead>
 
-        <StyledTbody>
-          {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
-              {row
-                .getVisibleCells()
-                .slice(1)
-                .map((cell) => (
-                  <StyledTd key={cell.id} onClick={() => handleTdClick(row.original)} isCursor={props.isCursor}>
-                    {!props.percentData.includes(cell.column.columnDef.header as string) &&
-                      !props.booleanData.includes(cell.column.columnDef.header as string) &&
-                      !props.imageData.includes(cell.column.columnDef.header as string) &&
-                      flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    {props.percentData.includes(cell.column.columnDef.header as string) && (
-                      <Container>
-                        <ProgressBar progress={cell.getValue() as number} />
-                      </Container>
-                    )}
-                    {props.booleanData.includes(cell.column.columnDef.header as string) && (
-                      <>{(cell.getValue() as boolean) ? <IoMdCheckmarkCircle color={colors.Naver[500]} /> : <IoMdCloseCircle color={colors.Red} />} </>
-                    )}
-                    {props.imageData.includes(cell.column.columnDef.header as string) && <DiffImageDiv src={difficulty[cell.getValue() as number]} />}
-                  </StyledTd>
-                ))}
-            </tr>
-          ))}
-        </StyledTbody>
-      </StyledTable>
-      {props.tableData.totalPages !== 0 && (
-        <StyledPagination>
-          <StyledPageButton
-            onClick={() => props.setState({ ...props.state, pageIndex: 0 })}
-            disabled={props.state.pageIndex === 0}
-            pageBtnColor={props.pageBtnColor || colors.GrayBlue[700]}
-            pageBtnDeepColor={props.pageBtnDeepColor || colors.Indigo[700]}
-          >
-            {`<<`}
-          </StyledPageButton>
-          <StyledPageButton
-            onClick={() => props.setState({ ...props.state, pageIndex: Math.max(0, props.state.pageIndex - 1) })}
-            disabled={props.state.pageIndex === 0}
-            pageBtnColor={props.pageBtnColor || colors.GrayBlue[700]}
-            pageBtnDeepColor={props.pageBtnDeepColor || colors.Indigo[700]}
-          >
-            {`<`}
-          </StyledPageButton>
-          {renderPageButtons()}
-          <StyledPageButton
-            onClick={() => props.setState({ ...props.state, pageIndex: Math.min(props.state.pageIndex + 1, props.tableData.totalPages - 1) })}
-            disabled={props.state.pageIndex === props.tableData.totalPages - 1}
-            pageBtnColor={props.pageBtnColor || colors.GrayBlue[700]}
-            pageBtnDeepColor={props.pageBtnDeepColor || colors.Indigo[700]}
-          >
-            {`>`}
-          </StyledPageButton>
-          <StyledPageButton
-            onClick={() => props.setState({ ...props.state, pageIndex: props.tableData.totalPages - 1 })}
-            disabled={props.state.pageIndex === props.tableData.totalPages - 1 || props.tableData.totalPages <= 5}
-            pageBtnColor={props.pageBtnColor || colors.GrayBlue[700]}
-            pageBtnDeepColor={props.pageBtnDeepColor || colors.Indigo[700]}
-          >
-            {`>>`}
-          </StyledPageButton>
-        </StyledPagination>
+            <StyledTbody>
+              {table.getRowModel().rows.map((row) => (
+                <tr key={row.id}>
+                  {row
+                    .getVisibleCells()
+                    .slice(1)
+                    .map((cell) => (
+                      <StyledTd key={cell.id} onClick={() => handleTdClick(row.original)} isCursor={props.isCursor}>
+                        {!props.percentData.includes(cell.column.columnDef.header as string) &&
+                          !props.booleanData.includes(cell.column.columnDef.header as string) &&
+                          !props.imageData.includes(cell.column.columnDef.header as string) &&
+                          flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        {props.percentData.includes(cell.column.columnDef.header as string) && (
+                          <Container>
+                            <ProgressBar progress={cell.getValue() as number} />
+                          </Container>
+                        )}
+                        {props.booleanData.includes(cell.column.columnDef.header as string) && (
+                          <>{(cell.getValue() as boolean) ? <IoMdCheckmarkCircle color={colors.Naver[500]} /> : <IoMdCloseCircle color={colors.Red} />} </>
+                        )}
+                        {props.imageData.includes(cell.column.columnDef.header as string) && <DiffImageDiv src={difficulty[cell.getValue() as number]} />}
+                      </StyledTd>
+                    ))}
+                </tr>
+              ))}
+            </StyledTbody>
+          </StyledTable>
+          {props.tableData.total_pages !== 0 && (
+            <StyledPagination>
+              <StyledPageButton
+                onClick={() => props.setState({ ...props.state, pageIndex: 0 })}
+                disabled={props.state.pageIndex === 0}
+                pageBtnColor={props.pageBtnColor || colors.GrayBlue[700]}
+                pageBtnDeepColor={props.pageBtnDeepColor || colors.Indigo[700]}
+              >
+                {`<<`}
+              </StyledPageButton>
+              <StyledPageButton
+                onClick={() => props.setState({ ...props.state, pageIndex: Math.max(0, props.state.pageIndex - 1) })}
+                disabled={props.state.pageIndex === 0}
+                pageBtnColor={props.pageBtnColor || colors.GrayBlue[700]}
+                pageBtnDeepColor={props.pageBtnDeepColor || colors.Indigo[700]}
+              >
+                {`<`}
+              </StyledPageButton>
+              {renderPageButtons()}
+              <StyledPageButton
+                onClick={() => props.setState({ ...props.state, pageIndex: Math.min(props.state.pageIndex + 1, props.tableData.total_pages - 1) })}
+                disabled={props.state.pageIndex === props.tableData.total_pages - 1}
+                pageBtnColor={props.pageBtnColor || colors.GrayBlue[700]}
+                pageBtnDeepColor={props.pageBtnDeepColor || colors.Indigo[700]}
+              >
+                {`>`}
+              </StyledPageButton>
+              <StyledPageButton
+                onClick={() => props.setState({ ...props.state, pageIndex: props.tableData.total_pages - 1 })}
+                disabled={props.state.pageIndex === props.tableData.total_pages - 1 || props.tableData.total_pages <= 5}
+                pageBtnColor={props.pageBtnColor || colors.GrayBlue[700]}
+                pageBtnDeepColor={props.pageBtnDeepColor || colors.Indigo[700]}
+              >
+                {`>>`}
+              </StyledPageButton>
+            </StyledPagination>
+          )}
+        </>
       )}
     </StyledContainer>
   );

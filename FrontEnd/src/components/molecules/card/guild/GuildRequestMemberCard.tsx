@@ -81,11 +81,7 @@ const GuildRequestMemberCard = (props: GuildRequestMemberCardProps) => {
       </div>
       <div style={{ display: 'flex', alignItems: 'center', width: '15%', justifyContent: 'flex-end' }}>
         <BasicButton
-          event={(event: { stopPropagation: () => void }) => {
-            event.stopPropagation();
-            console.log('x: ', props.application_id);
-            RejectMember();
-          }}
+          event={RejectMember}
           borderRadius={'50%'}
           width={'auto'}
           borderColor={'rgba(0, 0, 0, 0)'}
@@ -95,11 +91,7 @@ const GuildRequestMemberCard = (props: GuildRequestMemberCardProps) => {
         />
         <Spacer space={'1vmax'} horizontal />
         <BasicButton
-          event={(event: { stopPropagation: () => void }) => {
-            event.stopPropagation();
-            console.log('o: ', props.application_id);
-            AcceptMember();
-          }}
+          event={AcceptMember}
           borderRadius={'50%'}
           width={'auto'}
           borderColor={'rgba(0, 0, 0, 0)'}
