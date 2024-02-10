@@ -74,14 +74,15 @@ public class GuildApplyService {
 			.filter(gm -> MASTER.equals(gm.getRole()))
 			.orElseThrow(() -> new GuildException(NO_AUTHENTICATION));
 
-		guildApplicationRepository.delete(application);
-
 		// 길드원으로 등록
 		guildMemberRepository.save(GuildMember.builder()
 			.member(application.getMember())
 			.guild(application.getGuild())
 			.role(MEMBER)
 			.build());
+
+		guildApplicationRepository.delete(application);
+
 	}
 
 	public void rejectApplication(Long applicationId, Long memberId) {
