@@ -32,7 +32,7 @@ const StyledButton = styled.button<{ theme: { [key: string]: string }; src: stri
   transition: all 100ms ease-in-out;
   background-image: url(${(props) => props.src});
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
   background-position: center center;
   background-color: rgba(0, 0, 0, 0);
 
