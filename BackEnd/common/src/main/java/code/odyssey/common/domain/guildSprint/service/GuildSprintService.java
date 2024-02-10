@@ -10,7 +10,9 @@ import static code.odyssey.common.domain.guildSprint.exception.GuildSprintErrorC
 import static code.odyssey.common.domain.guildSprint.exception.GuildSprintErrorCode.SPRINT_IN_PROGRESS;
 
 import code.odyssey.common.domain.guild.entity.GuildMember;
+import code.odyssey.common.domain.guild.entity.GuildScore;
 import code.odyssey.common.domain.guild.repository.GuildMemberRepository;
+import code.odyssey.common.domain.guild.repository.GuildScoreRepository;
 import code.odyssey.common.domain.guildSprint.dto.*;
 import code.odyssey.common.domain.guildSprint.entity.GuildSprint;
 import code.odyssey.common.domain.guildSprint.exception.GuildSprintException;
@@ -27,6 +29,7 @@ public class GuildSprintService {
 
 	private final GuildMemberRepository guildMemberRepository;
 	private final GuildSprintRepository guildSprintRepository;
+	private final GuildScoreRepository guildScoreRepository;
 
 	public Long createGuildSprint(Long memberId, Long guildId, GuildSprintCreateRequest request) {
 		GuildMember guildMember = guildMemberRepository.findByMemberInGuild(guildId, memberId)
@@ -89,6 +92,18 @@ public class GuildSprintService {
 			.orElseThrow(() -> new GuildSprintException(NO_AUTHNETICATION));
 
 		// 스프린트 종료
+		InProgressGuildSprintInfo inProgressGuildSprint = guildSprintRepository.findInProgressGuildSprint(
+			sprint.getGuild().getId());
+
+		GuildScore guildScore = guildScoreRepository.findByGuildId(sprint.getGuild().getId())
+			.orElseThrow();
+
+		long count = inProgressGuildSprint.getProblemList().stream().filter(
+				inProgressGuildProblemInfo -> inProgressGuildProblemInfo.getPercent().equals(100))
+			.count();
+
+		guildScore.increaseStar((int) count);
+
 		sprint.end();
 	}
 
