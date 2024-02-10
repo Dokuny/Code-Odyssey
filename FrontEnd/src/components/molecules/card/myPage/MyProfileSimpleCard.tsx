@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../../../config/Color';
 import { AddComma } from '../../../../utils/basic/BasicUtil';
 import { Spacer } from '../../../atoms/basic/Spacer';
 import { Body1, Body2 } from '../../../atoms/basic/Typography';
+import { getProfile } from '../../../../utils/api/mypage/myprofile/profile';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -39,8 +40,17 @@ const MyProfileSimpleCard = () => {
   const [data, setData] = useState({
     thumbnail: 'https://picsum.photos/300',
     nickname: 'Dev_1week',
-    reward: 32000,
   });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getProfile();
+      setData({ thumbnail: data.thumbnail, nickname: data.nickname });
+      // setData(data);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <StyledContainer>
@@ -52,7 +62,7 @@ const MyProfileSimpleCard = () => {
       <StyledMyInfoContentContainer>
         <Body1 children={data.nickname} color={colors.Gray[25]} fontWeight={'bold'} />
         <Spacer space={'0.5vh'} />
-        <Body2 children={`REWARD $${AddComma(data.reward)}`} color={colors.Gray[25]} fontWeight={'bold'} />
+        {/* <Body2 children={`REWARD $${AddComma(data.reward)}`} color={colors.Gray[25]} fontWeight={'bold'} /> */}
       </StyledMyInfoContentContainer>
     </StyledContainer>
   );
