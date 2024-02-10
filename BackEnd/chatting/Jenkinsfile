@@ -106,6 +106,7 @@ pipeline {
                             configName: "CHATTING_SERVER",
                             verbose: true,
                             transfers: [
+                                sshTransfer(execCommand: "sudo docker rm -f chatting"),
                                 sshTransfer(execCommand: "sudo docker pull " + repository + ":chatting_$BUILD_NUMBER"),
                                 sshTransfer(execCommand: "sudo docker run -d -p 8888:8888 --name chatting  -e CHATTING_SERVER=\"${CHATTING_SERVER}\" -e MONGODB_USER_NAME=\"${MONGODB_USER_NAME}\" -e MONGODB_USER_PASSWORD=\"${MONGODB_USER_PASSWORD}\" -e RABBIT_MQ_USERNAME=\"${RABBIT_MQ_USERNAME}\" -e RABBIT_MQ_PASSWORD=\"${RABBIT_MQ_PASSWORD}\" -e DISCOVERY_SERVER=\"${DISCOVERY_SERVER}\" -e OPENVIDU_URL=\"${OPENVIDU_URL}\" -e OPENVIDU_SECRET=\"${OPENVIDU_SECRET}\" " + repository + ":chatting_${BUILD_NUMBER}")
                             ]
@@ -122,7 +123,7 @@ pipeline {
                 def Author_Name = sh(script: "git show -s --pretty=%ae", returnStdout: true).trim()
                 mattermostSend (color: 'good',
                 message: "빌드 성공: ${env.JOB_NAME} #${env.BUILD_NUMBER} by ${Author_ID}(${Author_Name})\n(<${env.BUILD_URL}|Details>)",
-                endpoint: 'https://meeting.ssafy.com/hooks/6yuhqf9sxbr5tg7s7rkfayhtuh',
+                endpoint: "${env.MM_WEBHOOK}",
                 channel: 'C205'
                 )
             }
@@ -133,7 +134,7 @@ pipeline {
                 def Author_Name = sh(script: "git show -s --pretty=%ae", returnStdout: true).trim()
                 mattermostSend (color: 'danger',
                 message: "빌드 실패: ${env.JOB_NAME} #${env.BUILD_NUMBER} by ${Author_ID}(${Author_Name})\n(<${env.BUILD_URL}|Details>)",
-                endpoint: 'https://meeting.ssafy.com/hooks/6yuhqf9sxbr5tg7s7rkfayhtuh',
+                endpoint: "${env.MM_WEBHOOK}",
                 channel: 'C205'
                 )
             }
