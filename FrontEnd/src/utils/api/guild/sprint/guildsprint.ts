@@ -54,3 +54,8 @@ export const sprintProblemDetail = async (problem_id: number) => {
   const data = await tokenInstance.get(`/problems/${problem_id}`);
   return data && data.data;
 };
+
+export const sprintProblemSearch = async (keyword: string, type: string | null, difficulty: number | null, platform: string | null, page: number, size: number) => {
+  const data = await tokenInstance.get(`/problems?keyword=${keyword}&type=${type}&difficulty=${difficulty}&platform=${platform}&page=${page}&size=${size}`);
+  return data && data.data;
+};
