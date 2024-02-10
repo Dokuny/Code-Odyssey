@@ -18,7 +18,7 @@ const GuildProfile = (props: GuildProfileProps) => {
   return (
     <>
       <div style={{ minHeight: '35%', maxHeight: '35%' }}>
-        {activeIndex === 0 && <GuildProfileDetailCard in_guild={true} />}
+        {activeIndex === 0 && <GuildProfileDetailCard />}
         {activeIndex === 1 && (
           <MainTopCard
             src={'/images/code_odyssey/GuildProfileBg.svg'}
@@ -33,7 +33,7 @@ const GuildProfile = (props: GuildProfileProps) => {
       <SelectBar
         data={[
           { content: '길드 정보', event: () => setActiveIndex(0), active: activeIndex === 0 },
-          { content: '길드원 보기', event: () => setActiveIndex(1), active: activeIndex === 1 },
+          { content: '길드 소개', event: () => setActiveIndex(1), active: activeIndex === 1 },
         ]}
       />
       {activeIndex === 0 && <GuildInfo guild_id={props.guild_id} />}

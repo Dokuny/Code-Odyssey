@@ -30,34 +30,36 @@ interface GuildInfoProps {
 
 const GuildInfo = (props: GuildInfoProps) => {
   const [statisticData, setStatisticData] = useState([
-    { type: 'dp', score: 12 },
-    { type: 'string', score: 25 },
-    { type: 'bruteforce', score: 5 },
-    { type: 'graphs', score: 19 },
-    { type: 'math', score: 12 },
-    { type: 'greedy', score: 55 },
-    { type: 'geometry', score: 23 },
-    { type: 'implementation', score: 42 },
-    { type: 'implementation2', score: 42 },
-    { type: 'implementation3', score: 42 },
+    { type: 'STRING', score: 12 },
+    { type: 'MATH', score: 25 },
+    { type: 'DATA STRUCTURE', score: 5 },
+    { type: 'BRUTE FORCE', score: 19 },
+    { type: 'TREE', score: 12 },
+    { type: 'GRAPH', score: 55 },
+    { type: 'AD HOC', score: 23 },
+    { type: 'DP', score: 42 },
+    { type: 'SHORTEST PATH', score: 42 },
+    { type: 'BINARY SEARCH', score: 42 },
+    { type: 'GREEDY', score: 24 },
+    { type: 'SIMULATION', score: 27 },
   ]);
 
   const [rankData, setRankData] = useState([
     {
       id: 'rank',
       data: [
-        { x: 'Jan', y: 2 },
-        { x: 'Feb', y: 4 },
-        { x: 'Mar', y: 5 },
-        { x: 'Apr', y: 7 },
-        { x: 'May', y: 9 },
-        { x: 'Jun', y: 12 },
-        { x: 'July', y: 14 },
-        { x: 'Aug', y: 16 },
-        { x: 'Sep', y: 19 },
-        { x: 'Oct', y: 22 },
-        { x: 'Nov', y: 24 },
-        { x: 'Dec', y: 27 },
+        { x: 'STRING', y: 2 },
+        { x: 'MATH', y: 4 },
+        { x: 'DATA STRUCTURE', y: 5 },
+        { x: 'BRUTE FORCE', y: 7 },
+        { x: 'TREE', y: 9 },
+        { x: 'GRAPH', y: 12 },
+        { x: 'AD HOC', y: 14 },
+        { x: 'DP', y: 16 },
+        { x: 'SHORTEST PATH', y: 19 },
+        { x: 'SEARCH', y: 22 },
+        { x: 'GREEDY', y: 24 },
+        { x: 'SIMULATION', y: 27 },
       ],
     },
   ]);
@@ -77,9 +79,6 @@ const GuildInfo = (props: GuildInfoProps) => {
 
   return (
     <>
-      {/* <div className='markdownDiv' data-color-mode='light' style={{ padding: 15 }}>
-        <MDEditor.Markdown style={{ padding: 10, borderRadius: '10px' }} source={'### 안녕하세요! ~~dfsdfs~~ **gdfgdfg**'} />
-      </div> */}
       <Spacer space={'3vmin'} />
       <StyledGraphContainer>
         <StyledGraphContentContainer>

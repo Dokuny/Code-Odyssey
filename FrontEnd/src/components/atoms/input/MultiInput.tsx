@@ -7,7 +7,7 @@ const StyleTextarea = styled.textarea<{ fontSize: string; color: string; fontcol
   resize: none;
   font-size: ${(props) => props.fontSize};
   width: 100%;
-  flex: 1;
+  height: 100%;
   border: none;
   outline: none;
   color: ${(props) => props.fontcolor};

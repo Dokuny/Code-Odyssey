@@ -78,6 +78,8 @@ const GuildIdeTemplate = () => {
   // 1. 내가 접근할 수 있는 길드문제id인지 api
   // 2. 문제 정보 가져오기
   const [problemDetailData, setProblemDetailData] = useState({
+    platform: 'SWEA',
+    title: '가장 많이 받은 선물',
     detail: `
   <p class="txt">
   
@@ -126,15 +128,17 @@ const GuildIdeTemplate = () => {
     
   <p></p>
 `,
-    title: 'test1',
     problem_id: 4,
-    platform: 'BOJ',
+    runtime: '26개 테스트케이스를 합쳐서 C의 경우 30초 / C++의 경우 30초 / Java의 경우 30초 / Python의 경우 30초',
+    memory: '힙, 정적 메모리 합쳐서 256MB 이내, 스택 메모리 1MB 이내',
+    input: '1 3\n1234\n2345\n3456',
+    output: '2',
   });
 
   return (
     <StyledContainer>
       <StyledProblemHeader>
-        <Body2 children={'프로그래머스 > 가장 많이 받은 선물'} color={colors.White} fontWeight={'bold'} />
+        <Body2 children={`[${problemDetailData.platform}] > ${problemDetailData.title}`} color={colors.White} fontWeight={'bold'} />
       </StyledProblemHeader>
       <StyledMainContainer>
         <StyledProblemContainer>
