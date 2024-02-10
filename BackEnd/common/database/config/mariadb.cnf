@@ -11,5 +11,5 @@ skip-character-set-client-handshake
 
 [mysqldump]
 default-character-set=utf8mb4
-
+[mysqld]
 lower_case_table_names=1
