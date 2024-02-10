@@ -55,8 +55,8 @@ public class MemberSprintService {
                     return MemberSprint.builder()
                             .member(member)
                             .day(scheduleInfo.getDay())
-                            .recommendType(scheduleInfo.getRecommendType())
-                            .recommendDifficulty(convertLevelToInteger(scheduleInfo.getRecommendDifficulty()))
+                            .recommendType(scheduleInfo.getRecommendedType())
+                            .recommendDifficulty(convertLevelToInteger(scheduleInfo.getRecommendedDifficulty()))
                             .build();
                 })
                 .toList();
