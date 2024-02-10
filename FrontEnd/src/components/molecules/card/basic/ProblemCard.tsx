@@ -2,17 +2,18 @@ import styled from 'styled-components';
 import { colors } from '../../../../config/Color';
 import { Spacer } from '../../../atoms/basic/Spacer';
 import { difficulty } from '../../../../utils/json/difficulty';
+import { Body3, Caption1, Caption2, Header1 } from '../../../atoms/basic/Typography';
 
 const ProblemCardDiv = styled.div`
   display: flex;
-  aspect-ratio: 17 / 25;
+  width: 90%;
+  height: 100%;
+  margin: auto;
   flex-direction: column;
-  justify-content: space-between;
   background-color: ${colors.Gray[700]};
   border-radius: 20px;
   padding-top: 1vh;
   box-shadow: 2px 2px 4px ${colors.Gray[800]};
-  margin: 1vmin;
   box-sizing: border-box;
 
   &:hover {
@@ -23,10 +24,10 @@ const ProblemCardDiv = styled.div`
 
 const HeaderDiv = styled.div`
   display: flex;
-  padding-left: 1.5vmin;
-  padding-right: 1.5vmin;
+  margin-top: 1vh;
+  padding-left: 1vw;
+  padding-right: 1vw;
   box-sizing: border-box;
-  justify-content: center;
 `;
 
 const TextDiv = styled.div`
@@ -39,29 +40,23 @@ const TextDiv = styled.div`
   padding-right: 1.5vmin;
   color: ${colors.White};
 `;
-const Title = styled.div`
-  height: fit-content;
-  margin: 0;
-`;
-
-const SubTitle = styled.div`
-  font-size: 0.7rem;
-  margin: 0;
-`;
 
 const ImageDiv = styled.div`
-  padding-top: 1vmin;
-  width: 17%;
+  width: 20%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
 `;
 
 const DiffImgageDiv = styled.img`
+  display: block;
+  object-fit: fill;
   width: 100%;
 `;
 
 const ImageStyle = styled.img`
+  display: block;
   width: 100%;
   object-fit: contain;
   padding-top: 10px;
@@ -75,12 +70,12 @@ const FooterDiv = styled.div`
   color: ${colors.White};
   display: flex;
   flex-direction: column;
+  height: 100%;
 `;
 
 const DetailButton = styled.button`
-  margin-top: 10px;
   color: ${colors.GrayBlue[400]};
-  width: 40%;
+  width: 100%;
   height: 30px;
   border-radius: 50px;
   background-color: ${colors.Gray[700]};
@@ -94,11 +89,19 @@ const DetailButton = styled.button`
 `;
 
 const SeperateDiv = styled.div`
-  width: 100%;
+  margin-top: 1vmin;
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column-reverse;
+  flex: 1;
+  width: 100%;
   padding-bottom: 10px;
 `;
+
+const Div1 = styled.div`
+  display: flex;
+  flex-direction: column;
+  
+`
 
 interface ProblemCardProps {
   data: { problem_id: string; title: string; platform: string; difficulty: string; type: string; no: string };
@@ -117,17 +120,18 @@ const ProblemCard = (props: ProblemCardProps) => {
           <DiffImgageDiv src={difficulty[props.data.difficulty]} />
         </ImageDiv>
         <TextDiv>
-          <Title>{props.data.platform}</Title>
-          <SubTitle>{props.data.no}</SubTitle>
+          <Body3 children={props.data.platform} color={colors.White} />
+          <Caption1 children={props.data.no} color={colors.White} />
         </TextDiv>
       </HeaderDiv>
       <ImageStyle src={imageSrc} />
       <FooterDiv>
-        <div className='seperate-1'>
-          <Title>{props.data.title}</Title>
+        <Div1>
+          <Spacer space={'1vh'}></Spacer>
+          <Body3 children={props.data.title.length > 10 ? `${props.data.title.slice(0, 10)}...`: props.data.title} color={colors.White} />
           <Spacer space={'5px'}></Spacer>
-          <SubTitle>{props.data.type}</SubTitle>
-        </div>
+          <Caption1 children={props.data.type} color={colors.White} />
+        </Div1>
         <SeperateDiv>
           <DetailButton onClick={problemPage}>풀러가기</DetailButton>
         </SeperateDiv>
