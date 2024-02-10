@@ -16,29 +16,19 @@ public class GuildApplicationInfo {
 	private Integer difficulty;
 	private Integer badCnt;
 	private LocalDate requestAt;
-	private String thunmbnail;
+	private String thumbnail;
 	private Integer collectStarCnt;
 	private Integer collectWeekStarCnt;
 
-
 	public GuildApplicationInfo(Long applicationId, String name, Integer difficulty, Integer badCnt,
-		LocalDateTime requestAt) {
-		this.applicationId = applicationId;
-		this.name = name;
-		this.difficulty = difficulty;
-		this.badCnt = badCnt;
-		this.requestAt = requestAt.toLocalDate();
-	}
-
-	public GuildApplicationInfo(Long applicationId, String name, Integer difficulty, Integer badCnt,
-		LocalDateTime requestAt, String thunmbnail, Integer collectStarCnt,
+		LocalDateTime requestAt, String thumbnail, Integer collectStarCnt,
 		Integer collectWeekStarCnt) {
 		this.applicationId = applicationId;
 		this.name = name;
 		this.difficulty = difficulty;
 		this.badCnt = badCnt;
 		this.requestAt = requestAt.toLocalDate();
-		this.thunmbnail = thunmbnail;
+		this.thumbnail = thumbnail;
 		this.collectStarCnt = collectStarCnt;
 		this.collectWeekStarCnt = collectWeekStarCnt;
 	}

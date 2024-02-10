@@ -1,23 +1,14 @@
 package code.odyssey.common.domain.guild.repository.impl;
 
-import static code.odyssey.common.domain.guild.entity.QGuild.guild;
 import static code.odyssey.common.domain.guild.entity.QGuildApplication.guildApplication;
-import static code.odyssey.common.domain.guild.entity.QGuildMember.guildMember;
 import static code.odyssey.common.domain.member.entity.QMember.member;
 import static code.odyssey.common.domain.score.entity.QScore.score;
 
 import code.odyssey.common.domain.guild.dto.GuildApplicationInfo;
-import code.odyssey.common.domain.guild.dto.GuildInfo;
-import code.odyssey.common.domain.guild.dto.GuildMemberInfo;
-import code.odyssey.common.domain.guild.entity.GuildMember;
-import code.odyssey.common.domain.guild.entity.QGuildApplication;
 import code.odyssey.common.domain.guild.repository.GuildApplicationRepositoryCustom;
-import code.odyssey.common.domain.guild.repository.GuildMemberRepositoryCustom;
-import code.odyssey.common.domain.score.entity.QScore;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

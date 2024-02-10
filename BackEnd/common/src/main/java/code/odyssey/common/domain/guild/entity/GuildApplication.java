@@ -37,16 +37,4 @@ public class GuildApplication extends BaseEntity {
     @JoinColumn(name = "guild_id")
     private Guild guild;
 
-    @Enumerated(STRING)
-    @Column
-    private GuildApplicationResult result;
-
-    public void accept() {
-        this.result = ACCEPT;
-    }
-
-    public void reject() {
-        this.result = REJECT;
-    }
-
 }

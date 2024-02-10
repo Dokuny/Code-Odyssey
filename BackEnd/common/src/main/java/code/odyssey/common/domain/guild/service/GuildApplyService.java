@@ -38,7 +38,6 @@ public class GuildApplyService {
 	private final ScoreRepository scoreRepository;
 
 	public Long applyGuild(Long memberId, Long guildId) {
-
 		// 회원 검증
 		Member member = memberRepository.findById(memberId)
 			.filter(m -> m.getResignedAt() == null)
@@ -50,13 +49,12 @@ public class GuildApplyService {
 			.orElseThrow(() -> new GuildException(NOT_EXISTS_GUILD));
 
 		// 길드 멤버가 아니여야 함
-
 		if (guildMemberRepository.findByMemberInGuild(guildId, memberId).isPresent()) {
 			throw new GuildException(ALREADY_JOINED_GUILD);
 		}
 
 		// 길드 가입 대기 중이 아니여야 함
-		if (guildApplicationRepository.findByGuildIdAndMemberIdAndResult(guildId, memberId, WAIT)
+		if (guildApplicationRepository.findByGuildIdAndMemberId(guildId, memberId)
 			.isPresent()) {
 			throw new GuildException(ALREADY_APPLY_GUILD);
 		}
@@ -64,13 +62,11 @@ public class GuildApplyService {
 		return guildApplicationRepository.save(GuildApplication.builder()
 			.guild(guild)
 			.member(member)
-			.result(WAIT)
 			.build()).getId();
 	}
 
 	public void acceptApplication(Long applicationId, Long memberId) {
 		GuildApplication application = guildApplicationRepository.findById(applicationId)
-			.filter(a -> WAIT.equals(a.getResult()))
 			.orElseThrow(() -> new GuildException(NOT_EXISTS_APPLICATION));
 
 		// 요청자가 길드 마스터인지 확인
@@ -78,7 +74,7 @@ public class GuildApplyService {
 			.filter(gm -> MASTER.equals(gm.getRole()))
 			.orElseThrow(() -> new GuildException(NO_AUTHENTICATION));
 
-		application.accept();
+		guildApplicationRepository.delete(application);
 
 		// 길드원으로 등록
 		guildMemberRepository.save(GuildMember.builder()
@@ -90,14 +86,13 @@ public class GuildApplyService {
 
 	public void rejectApplication(Long applicationId, Long memberId) {
 		GuildApplication application = guildApplicationRepository.findById(applicationId)
-			.filter(a -> WAIT.equals(a.getResult()))
 			.orElseThrow(() -> new GuildException(NOT_EXISTS_APPLICATION));
 
 		guildMemberRepository.findByMemberInGuild(application.getGuild().getId(), memberId)
 			.filter(gm -> MASTER.equals(gm.getRole()))
 			.orElseThrow(() -> new GuildException(NO_AUTHENTICATION));
 
-		application.reject();
+		guildApplicationRepository.delete(application);
 	}
 
 	public List<GuildApplicationInfo> getGuildApplications(Long memberId, Long guildId) {
