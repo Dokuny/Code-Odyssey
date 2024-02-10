@@ -3,6 +3,7 @@ package code.odyssey.common.domain.problem.service.impl;
 import code.odyssey.common.domain.problem.dto.problem.ProblemDetailInfo;
 import code.odyssey.common.domain.problem.dto.problem.ProblemInfo;
 import code.odyssey.common.domain.problem.dto.problem.ProblemRequestDto;
+import code.odyssey.common.domain.problem.exception.problem.ProblemException;
 import code.odyssey.common.domain.problem.repository.ProblemRepository;
 import code.odyssey.common.domain.problem.repository.QuerydslProblemRepository;
 import code.odyssey.common.domain.problem.service.ProblemService;
@@ -16,6 +17,9 @@ import java.util.NoSuchElementException;
 import code.odyssey.common.domain.problem.entity.Problem;
 
 import org.springframework.transaction.annotation.Transactional;
+
+import static code.odyssey.common.domain.problem.exception.problem.ProblemErrorCode.NOT_EXIST_PROBLEM;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -34,7 +38,7 @@ public class ProblemServiceImpl implements ProblemService {
     public ProblemDetailInfo getProblem(Long problemId) {
         return repository
                 .findById(problemId)
-                .orElseThrow(()->new NoSuchElementException("Problem not found"))
+                .orElseThrow(()->new ProblemException(NOT_EXIST_PROBLEM))
                 .toDto();
     }
 }
