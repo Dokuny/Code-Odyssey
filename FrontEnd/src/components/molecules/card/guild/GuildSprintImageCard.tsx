@@ -2,7 +2,7 @@ import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-pro
 import styled from 'styled-components';
 import { colors } from '../../../../config/Color';
 import { sprintContent, sprintImage, sprintName } from '../../../../utils/json/sprint';
-import { Body3, Caption1, Caption2, Header3, Header4 } from '../../../atoms/basic/Typography';
+import { Body3, Caption1, Caption2, Header4 } from '../../../atoms/basic/Typography';
 import { Spacer } from '../../../atoms/basic/Spacer';
 import { useEffect, useState } from 'react';
 import { sprintProblemSolvePeople } from '../../../../utils/api/guild/sprint/guildsprint';
@@ -71,7 +71,7 @@ const GuildSprintImageCard = (props: GuildSprintImageCardProps) => {
   }, [props.guild_id, props.guild_problem_id]);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '32%', padding: '0.5vmin', flex: 1 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '32%', padding: '0.5vmin' }}>
       <StyledButton onClick={props.onClick}>
         <div style={{ display: 'flex', height: '100%', alignItems: 'center' }}>
           <Header4 children={props.type} color={props.value === 100 ? colors.Kakao[300] : colors.Gray[400]} fontWeight={'bold'} fontStyle='Eagle Lake' />

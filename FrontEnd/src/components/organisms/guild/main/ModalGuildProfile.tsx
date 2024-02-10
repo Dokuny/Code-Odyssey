@@ -5,8 +5,8 @@ import { Button } from 'react-bootstrap';
 import GuildProfile from './GuildProfile';
 
 interface StyledDivProps {
-    isOpen: boolean;
-  }
+  isOpen: boolean;
+}
 
 const StyledDiv = styled.div<StyledDivProps>`
   display: ${(props) => (props.isOpen ? 'block' : 'none')};
@@ -22,7 +22,7 @@ const Outline = styled.div`
 `;
 
 const StyledMain = styled.div`
-position: relative;
+  position: relative;
   display: flex;
   flex-direction: column;
   max-height: 100%;
@@ -42,25 +42,23 @@ position: relative;
 `;
 
 const StyledButton = styled.button`
-    width: 40px;
-    margin: 0 0 20px auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #ff0000;
-    color: #ffffff;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
+  width: 40px;
+  margin: 0 0 20px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ff0000;
+  color: #ffffff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
 
-    &:hover {
-        background-color: #cc0000;
+  &:hover {
+    background-color: #cc0000;
   }
-
-`
-
+`;
 
 interface Props {
     isOpen: boolean;

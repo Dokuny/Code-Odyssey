@@ -63,11 +63,7 @@ const DiffImgageDiv = styled.img`
   width: 4%;
 `;
 
-interface GuildProfileDetailCardProps {
-  in_guild: boolean;
-}
-
-const GuildProfileDetailCard = (props: GuildProfileDetailCardProps) => {
+const GuildProfileDetailCard = () => {
   const [data, setData] = useState({
     thumbnail: 'https://picsum.photos/300',
     guildname: 'guildName',
@@ -76,6 +72,7 @@ const GuildProfileDetailCard = (props: GuildProfileDetailCardProps) => {
     collect_star_cnt: 17,
     collect_week_star_cnt: 2,
     bad_cnt: 1,
+    in_guild: true,
   });
 
   return (
@@ -88,7 +85,7 @@ const GuildProfileDetailCard = (props: GuildProfileDetailCardProps) => {
       <Spacer space={'2vh'} />
 
       <StyledMyInfoContainer>
-      <div style={{width:'calc(4% + 1vw)'}}></div>
+        <div style={{ width: 'calc(4% + 1vw)' }}></div>
         <StyledMyInfoContentContainer>
           <Body1 children={data.guildname} color={colors.Gray[25]} fontWeight={'bold'} />
           <Body2 children={data.guild_king} color={colors.Gray[400]} />
@@ -119,13 +116,13 @@ const GuildProfileDetailCard = (props: GuildProfileDetailCardProps) => {
           width={'auto'}
           event={() => {}}
           borderColor={'rgba(0, 0, 0, 0)'}
-          deepColor={props.in_guild ? 'rgba(255, 100, 100, 0.3)' : 'rgba(100, 255, 108, 0.3)'}
-          bgColor={props.in_guild ? 'rgba(255, 100, 100, 0.2)' : 'rgba(100, 255, 108, 0.2)'}
+          deepColor={data.in_guild ? 'rgba(255, 100, 100, 0.3)' : 'rgba(100, 255, 108, 0.3)'}
+          bgColor={data.in_guild ? 'rgba(255, 100, 100, 0.2)' : 'rgba(100, 255, 108, 0.2)'}
           children={
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingRight: '0.2vmin' }}>
-              {props.in_guild ? <IoMdExit color={colors.Red} /> : <IoMdCheckmarkCircle color={colors.Naver[300]} />}
+              {data.in_guild ? <IoMdExit color={colors.Red} /> : <IoMdCheckmarkCircle color={colors.Naver[300]} />}
               <Spacer space={'0.5vmin'} horizontal />
-              <Body3 children={props.in_guild ? 'EXIT' : 'JOIN'} color={props.in_guild ? colors.White : colors.DarkGray[700]} fontWeight={'bold'} />
+              <Body3 children={data.in_guild ? 'EXIT' : 'JOIN'} color={data.in_guild ? colors.White : colors.DarkGray[700]} fontWeight={'bold'} />
             </div>
           }
         />

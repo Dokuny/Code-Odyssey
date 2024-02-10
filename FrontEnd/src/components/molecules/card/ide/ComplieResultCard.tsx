@@ -2,12 +2,14 @@ import styled from 'styled-components';
 import { Body1, Body3, Caption1 } from '../../../atoms/basic/Typography';
 import { colors } from '../../../../config/Color';
 import { Spacer } from '../../../atoms/basic/Spacer';
+import MultiTextarea from '../../../atoms/input/MultiInput';
+import { useState } from 'react';
 
 const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 28vh;
+  height: 30vh;
   padding: 1vmin;
   background-color: ${colors.GrayBlack};
   box-sizing: border-box;
@@ -16,38 +18,28 @@ const StyledContainer = styled.div`
 const StyledContentContainer = styled.div<{ color: string }>`
   display: flex;
   flex-direction: column;
-  flex: 1;
+  width: 100%;
   padding: 1vmin;
   background-color: ${(props) => props.color};
   border-radius: 1em;
+  height: 22vh;
   overflow: scroll;
-  -ms-overflow-style: none; /* 인터넷 익스플로러 */
-  scrollbar-width: none; /* 파이어폭스 */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
   &::-webkit-scrollbar {
-    display: none; /* 크롬, 사파리, 오페라, 엣지 */
+    display: none;
   }
   box-sizing: border-box;
 `;
 
-const StyledTestCaseContainer = styled.div`
+const StyledInputContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  height: 54%;
-  box-sizing: border-box;
-`;
-
-const StyledOutputContainer = styled.div`
-  display: flex;
-  height: 40%;
-  justify-content: space-between;
-  box-sizing: border-box;
-`;
-
-const StyledOutputDetailContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 48%;
   height: 100%;
+  width: 100%;
+  flex-direction: column;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding: 1vmin;
   box-sizing: border-box;
 `;
 
@@ -57,54 +49,40 @@ interface CompileResultCardProps {
 }
 
 const CompileResultCard = (props: CompileResultCardProps) => {
+  const [inputData, setInputData] = useState('');
+  const [outputData, setOutputData] = useState('');
+
   return (
     <StyledContainer>
-      {props.data === null ? (
-        <></>
-      ) : (
+      {props.data !== null && (
         <>
-          <div style={{ display: 'flex', alignItems: 'flex-end', gap: '1vmin' }}>
+          <div style={{ display: 'flex', alignItems: 'flex-end', gap: '1vmin', flex: 1 }}>
             <Body1 children={props.data.status} color={props.data.result === 0 ? colors.Naver[300] : props.data.result === 1 ? colors.Red : colors.Kakao[800]} fontWeight={'bold'} />
             <Body3 children={props.data.runtime !== null ? props.data.runtime + 'ms' : ''} color={colors.Gray[300]} />
           </div>
-          {(props.data.result === 0 || props.data.result === 1) && (
-            <>
-              <StyledTestCaseContainer>
-                <Spacer space={'1vmin'} />
-                <Caption1 children={'테스트 케이스'} color={colors.Gray[300]} fontWeight={'bold'} />
+
+          <div style={{ display: 'flex', height: '100%' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+              <StyledInputContainer>
+                <Body3 children={'input'} color={colors.Gray[300]} fontWeight={'bold'} />
                 <Spacer space={'0.5vmin'} />
-                <StyledContentContainer color={colors.GrayBlue[200]}>
-                  <Body3 children={props.problemData.input} color={colors.Gray[800]} />
-                </StyledContentContainer>
-              </StyledTestCaseContainer>
-              <StyledOutputContainer>
-                <StyledOutputDetailContainer>
-                  <Spacer space={'0.5vmin'} />
-                  <Caption1 children={'정답'} color={colors.Gray[300]} fontWeight={'bold'} />
-                  <Spacer space={'0.5vmin'} />
-                  <StyledContentContainer color={colors.GrayBlue[200]}>
-                    <Body3 children={props.problemData.output} color={colors.Gray[800]} />
-                  </StyledContentContainer>
-                </StyledOutputDetailContainer>
-                <StyledOutputDetailContainer>
-                  <Spacer space={'0.5vmin'} />
-                  <Caption1 children={'나의 출력'} color={colors.Gray[300]} fontWeight={'bold'} />
-                  <Spacer space={'0.5vmin'} />
-                  <StyledContentContainer color={colors.GrayBlue[200]}>
-                    <Body3 children={props.data.myOutput} color={colors.Gray[800]} />
-                  </StyledContentContainer>
-                </StyledOutputDetailContainer>
-              </StyledOutputContainer>
-            </>
-          )}
-          {props.data.result === 2 && (
-            <>
-              <Spacer space={'1vmin'} />
-              <StyledContentContainer color={colors.Kakao[300]}>
-                <Body3 children={props.data.error} color={colors.Gray[800]} />
+                <MultiTextarea placeholder={''} setInput={setInputData} input={inputData} />
+              </StyledInputContainer>
+              <StyledInputContainer>
+                <Body3 children={'정답'} color={colors.Gray[300]} fontWeight={'bold'} />
+                <Spacer space={'0.5vmin'} />
+                <MultiTextarea placeholder={''} setInput={setOutputData} input={outputData} />
+              </StyledInputContainer>
+            </div>
+
+            <StyledInputContainer>
+              <Body3 children={'output'} color={colors.Gray[300]} fontWeight={'bold'} />
+              <Spacer space={'0.5vmin'} />
+              <StyledContentContainer color={props.data.result === 0 ? colors.Naver[300] : props.data.result === 1 ? colors.Red : colors.Kakao[300]}>
+                <Body3 children={props.data.result === 0 ? props.data.myOutput : props.data.result === 1 ? props.data.myOutput : props.data.error} color={colors.Gray[800]} />
               </StyledContentContainer>
-            </>
-          )}
+            </StyledInputContainer>
+          </div>
         </>
       )}
     </StyledContainer>

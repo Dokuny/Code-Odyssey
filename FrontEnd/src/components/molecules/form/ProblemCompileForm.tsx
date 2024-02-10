@@ -7,7 +7,6 @@ import { colors } from '../../../config/Color';
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
 import { Spacer } from '../../atoms/basic/Spacer';
 import CompileResultCard from '../card/ide/ComplieResultCard';
-import ProblemCaseInputCard from '../card/ide/ProblemCaseInputCard';
 import VarNameChangeCard from '../card/ide/VarNameChangeCard';
 
 const StyledContainer = styled.div`
@@ -48,7 +47,7 @@ const ProblemCompileForm = (props: ProblemCompileFormProps) => {
 
   const clickMenu = (menu: string) => {
     setMenu(menu);
-    setButtonName(menu === 'result' ? '제출하기' : menu === 'case' ? '실행하기' : '변환하기');
+    setButtonName(menu === 'result' ? '제출하기' : '변환하기');
     props.setIsActive(true);
   };
 
@@ -56,8 +55,6 @@ const ProblemCompileForm = (props: ProblemCompileFormProps) => {
     props.setIsActive(true);
     if (menu === 'result') {
       console.log('result');
-    } else if (menu === 'case') {
-      console.log('case');
     } else if (menu === 'val') {
       console.log('val');
     }
@@ -66,11 +63,10 @@ const ProblemCompileForm = (props: ProblemCompileFormProps) => {
   return (
     <StyledContainer>
       <div style={{ display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'space-between', backgroundColor: colors.GrayBlack }}>
-        <div style={{ width: '60%' }}>
+        <div style={{ width: '50%' }}>
           <SprintSelectBar
             data={[
               { content: '실행 결과', event: () => clickMenu('result'), active: menu === 'result' },
-              { content: '케이스 넣기', event: () => clickMenu('case'), active: menu === 'case' },
               { content: '변수명 짓기', event: () => clickMenu('val'), active: menu === 'val' },
             ]}
           />
@@ -112,7 +108,6 @@ const ProblemCompileForm = (props: ProblemCompileFormProps) => {
         </div>
       </div>
       {props.isActive && menu === 'result' && <CompileResultCard data={data} problemData={{ input: '1 2', output: '1 2' }} />}
-      {props.isActive && menu === 'case' && <ProblemCaseInputCard />}
       {props.isActive && menu === 'val' && <VarNameChangeCard />}
     </StyledContainer>
   );

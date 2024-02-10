@@ -9,7 +9,7 @@ import { IoMdSwap } from 'react-icons/io';
 const StyledContainer = styled.div`
   display: flex;
   width: 100%;
-  height: 28vh;
+  height: 30vh;
   padding: 1vmin;
   background-color: ${colors.GrayBlack};
   box-sizing: border-box;
