@@ -31,7 +31,7 @@ public class ProblemController {
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "1") int page
     ){
-        Pageable pageable = PageRequest.of(page-1, size);
+        Pageable pageable = PageRequest.of(page, size);
         return ResponseEntity.ok(problemService.getProblems(request, pageable));
     }
 
