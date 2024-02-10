@@ -8,6 +8,8 @@ import lombok.*;
 @Builder
 public class ChatMessage {
 
-    private Long memberId;
+    private String token;
+//    private Long memberId;
     private String message;
+    private Long guildId;
 }
