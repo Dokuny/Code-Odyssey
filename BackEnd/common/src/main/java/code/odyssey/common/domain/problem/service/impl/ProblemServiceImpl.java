@@ -3,6 +3,7 @@ package code.odyssey.common.domain.problem.service.impl;
 import code.odyssey.common.domain.problem.dto.problem.ProblemDetailInfo;
 import code.odyssey.common.domain.problem.dto.problem.ProblemInfo;
 import code.odyssey.common.domain.problem.dto.problem.ProblemRequestDto;
+import code.odyssey.common.domain.problem.dto.problem.SearchResultInfo;
 import code.odyssey.common.domain.problem.exception.problem.ProblemException;
 import code.odyssey.common.domain.problem.repository.ProblemRepository;
 import code.odyssey.common.domain.problem.repository.QuerydslProblemRepository;
@@ -29,13 +30,14 @@ public class ProblemServiceImpl implements ProblemService {
     private final ProblemRepository repository;
 
     @Override
-    public List<ProblemInfo> getProblems(ProblemRequestDto request,
-                                         Pageable pageable) {
+    public SearchResultInfo getProblems(ProblemRequestDto request,
+                                        Pageable pageable) {
         return dslRepository.getProblems(request, pageable);
     }
 
     @Override
     public ProblemDetailInfo getProblem(Long problemId) {
+
         return repository
                 .findById(problemId)
                 .orElseThrow(()->new ProblemException(NOT_EXIST_PROBLEM))
