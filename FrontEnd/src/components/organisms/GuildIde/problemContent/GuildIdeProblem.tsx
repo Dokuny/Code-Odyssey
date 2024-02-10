@@ -2,13 +2,14 @@ import styled from 'styled-components';
 import { colors } from '../../../../config/Color';
 import HtmlTypography from '../../../atoms/basic/HtmlTypography';
 import { Spacer } from '../../../atoms/basic/Spacer';
-import { Body2, Body3, Caption1 } from '../../../atoms/basic/Typography';
+import { Body3, Caption1 } from '../../../atoms/basic/Typography';
 
 const StyledScrollDiv = styled.div`
   display: flex;
   background-color: ${colors.Gray[25]};
   border-radius: 1em;
   padding: 1vmin;
+  height: 81vh;
   flex-direction: column;
   overflow: scroll;
   -ms-overflow-style: none; /* 인터넷 익스플로러 */

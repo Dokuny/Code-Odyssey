@@ -37,7 +37,7 @@ const ProblemCaseInputCard = () => {
       <StyledContentContainer>
         <Body3 children={'Predicted Output'} color={colors.Gray[300]} fontWeight={'bold'} />
         <Spacer space={'0.5vmin'} />
-        <MultiTextarea placeholder={''} setInput={() => {}} input={outputData} readOnly />
+        <MultiTextarea placeholder={''} setInput={setOutputData} input={outputData} />
       </StyledContentContainer>
     </StyledContainer>
   );

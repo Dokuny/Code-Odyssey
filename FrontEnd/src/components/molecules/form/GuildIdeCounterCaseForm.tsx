@@ -9,7 +9,7 @@ import BasicButton from '../../atoms/button/BasicButton';
 const StyledContainer = styled.div`
   display: flex;
   width: 100%;
-  height: 40vh;
+  height: 22vh;
   flex-direction: column;
   padding: 1vmin;
   background-color: ${colors.Gray[700]};

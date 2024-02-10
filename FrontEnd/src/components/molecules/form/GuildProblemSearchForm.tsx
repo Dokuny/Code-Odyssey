@@ -53,6 +53,7 @@ interface GuildProblemSearchFormProps {
   setSelectedProblem: React.Dispatch<React.SetStateAction<any>>;
   rightListData: Array<any>;
   setRightListData: React.Dispatch<React.SetStateAction<any[]>>;
+  setProblemId: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const GuildProblemSearchForm = (props: GuildProblemSearchFormProps) => {
@@ -67,11 +68,11 @@ const GuildProblemSearchForm = (props: GuildProblemSearchFormProps) => {
     setData({
       totalPage: 11,
       data: [
-        { problem_id: 1, title: 'test4', difficulty: 6, platform: 'BOJ', type: 'dp' },
-        { problem_id: 2, title: 'test5', difficulty: 2, platform: 'BOJ', type: 'dp' },
-        { problem_id: 3, title: 'test6', difficulty: 4, platform: 'BOJ', type: 'dp' },
-        { problem_id: 4, title: 'test7', difficulty: 3, platform: 'BOJ', type: 'dp' },
-        { problem_id: 5, title: 'test8', difficulty: 5, platform: 'BOJ', type: 'dp' },
+        { problem_id: 13342, title: 'test4', difficulty: 6, platform: 'BOJ', type: 'dp' },
+        { problem_id: 13343, title: 'test5', difficulty: 2, platform: 'BOJ', type: 'dp' },
+        { problem_id: 13344, title: 'test6', difficulty: 4, platform: 'BOJ', type: 'dp' },
+        { problem_id: 13345, title: 'test7', difficulty: 3, platform: 'BOJ', type: 'dp' },
+        { problem_id: 13346, title: 'test8', difficulty: 5, platform: 'BOJ', type: 'dp' },
       ],
     });
   }, []);
@@ -116,7 +117,10 @@ const GuildProblemSearchForm = (props: GuildProblemSearchFormProps) => {
               difficulty={value.difficulty}
               problem_id={value.problem_id}
               title={value.title}
-              onClick={() => props.setSelectedProblem(data.data.find((item: { problem_id: number }) => item.problem_id === value.problem_id))}
+              onClick={() => {
+                props.setProblemId(value.problem_id);
+                props.setSelectedProblem(data.data.find((item: { problem_id: number }) => item.problem_id === value.problem_id));
+              }}
               is_active={props.selectedProblem.problem_id === value.problem_id}
               platform={value.platform}
               imgWidth={'8%'}

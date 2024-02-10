@@ -27,6 +27,7 @@ interface GuildProblemRecommentFormProps {
   setSelectedProblem: React.Dispatch<React.SetStateAction<any>>;
   rightListData: Array<any>;
   setRightListData: React.Dispatch<React.SetStateAction<any[]>>;
+  setProblemId: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const GuildProblemRecommentForm = (props: GuildProblemRecommentFormProps) => {
@@ -51,7 +52,10 @@ const GuildProblemRecommentForm = (props: GuildProblemRecommentFormProps) => {
             difficulty={value.difficulty}
             problem_id={value.problem_id}
             title={value.title}
-            onClick={() => props.setSelectedProblem(data.find((item) => item.problem_id === value.problem_id))}
+            onClick={() => {
+              props.setProblemId(value.problem_id);
+              props.setSelectedProblem(data.find((item) => item.problem_id === value.problem_id));
+            }}
             is_active={props.selectedProblem.problem_id === value.problem_id}
             platform={value.platform}
             imgWidth={'8%'}
