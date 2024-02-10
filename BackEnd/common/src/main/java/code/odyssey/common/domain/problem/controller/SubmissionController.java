@@ -49,10 +49,10 @@ public class SubmissionController {
     // 개인 코드 제출
     @PostMapping
     public ResponseEntity<Long> postSubmissionResult(
-//            @RequestHeader("X-Authorization-Id") Long memberId,
+            @RequestHeader("X-Authorization-Id") Long memberId,
             @RequestBody ProblemSubmitRequest request
     ){
-        Long result = submissionService.postSubmissionResult(request);
+        Long result = submissionService.postSubmissionResult(request, memberId);
         return ResponseEntity.ok(result);
     }
 

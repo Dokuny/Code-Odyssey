@@ -9,7 +9,7 @@ import java.util.Map;
 @Getter
 public class ProblemSubmitRequest {
 
-    private Long memberId;
+//    private Long memberId;
     private String platform;
     private Integer no;
     private String code;
