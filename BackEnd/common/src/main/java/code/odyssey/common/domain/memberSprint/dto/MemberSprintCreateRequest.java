@@ -17,8 +17,8 @@ public class MemberSprintCreateRequest {
     public static class ScheduleInfo {
         private Long memberId;
         private DayType day;
-        private ProblemType recommendType;
-        private DifficultyLevel recommendDifficulty;
+        private ProblemType recommendedType;
+        private DifficultyLevel recommendedDifficulty;
         private SolvedStatus solvedStatus;
 
     }

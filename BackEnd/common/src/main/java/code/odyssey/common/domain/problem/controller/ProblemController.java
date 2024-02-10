@@ -3,10 +3,12 @@ package code.odyssey.common.domain.problem.controller;
 import code.odyssey.common.domain.problem.dto.problem.ProblemDetailInfo;
 import code.odyssey.common.domain.problem.dto.problem.ProblemInfo;
 import code.odyssey.common.domain.problem.dto.problem.ProblemRequestDto;
+import code.odyssey.common.domain.problem.dto.problem.SearchResultInfo;
 import code.odyssey.common.domain.problem.service.ProblemService;
 import code.odyssey.common.global.oauth.vendor.naver.dto.NaverMemberResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Pageable;
@@ -23,11 +25,13 @@ public class ProblemController {
     ///problems?keyword=example&type=TYPE1&difficulty=3&platform=PLATFORM1&page=1&size=10&sort=title,asc
 
     @GetMapping
-    public ResponseEntity<List<ProblemInfo>> getProblemList(
+    public ResponseEntity<SearchResultInfo> getProblemList(
             @RequestHeader("X-Authorization-Id") Long memberId,
             @ModelAttribute ProblemRequestDto request,
-            @ModelAttribute Pageable pageable
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "1") int page
     ){
+        Pageable pageable = PageRequest.of(page, size);
         return ResponseEntity.ok(problemService.getProblems(request, pageable));
     }
 
