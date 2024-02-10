@@ -46,7 +46,7 @@ const MyProfileSimpleCard = () => {
     const fetchData = async () => {
       const data = await getProfile();
       setData({ thumbnail: data.thumbnail, nickname: data.nickname });
-      // setData(data);
+      console.log('updated, ', data);
     };
 
     fetchData();

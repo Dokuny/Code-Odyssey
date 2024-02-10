@@ -3,7 +3,7 @@ import { Spacer } from '../../../atoms/basic/Spacer';
 import RightSidebarLogo from '../../../atoms/image/RightSidebarLogo';
 import MyProfileSimpleCard from '../../../molecules/card/myPage/MyProfileSimpleCard';
 import MyFriendListCard from '../../../molecules/card/basic/MyFriendListCard';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Header3 } from '../../../atoms/basic/Typography';
 import { colors } from '../../../../config/Color';
 import FindFriendModal from '../../../molecules/modal/FindFriendModal';
@@ -55,6 +55,10 @@ const MyPageRightSidebar = () => {
   const openPersonalModal = () => setPersonalModalOpen(true);
   const closePersonalModal = () => setPersonalModalOpen(false);
 
+  useEffect(() => {
+    console.log(activeFriend);
+  }, [activeFriend]);
+
   return (
     <StyledContainer>
       <RightSidebarLogo />
@@ -86,7 +90,7 @@ const MyPageRightSidebar = () => {
         ))}
       </StyledFriendListContainer>
       <FindFriendModal isOpen={isModalOpen} closeModal={closeModal}></FindFriendModal>
-      <PersonalPageModal isOpen={isPersonalModalOpen} closeModal={closePersonalModal}></PersonalPageModal>
+      <PersonalPageModal isOpen={isPersonalModalOpen} closeModal={closePersonalModal} memberId={activeFriend || 1}></PersonalPageModal>
     </StyledContainer>
   );
 };

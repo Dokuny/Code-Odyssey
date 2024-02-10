@@ -4,7 +4,7 @@ import { colors } from '../../../../config/Color';
 import { Spacer } from '../../../atoms/basic/Spacer';
 import { Body1, Body2 } from '../../../atoms/basic/Typography';
 import { difficulty } from '../../../../utils/json/difficulty';
-import { getProfile } from '../../../../utils/api/mypage/myprofile/profile';
+import { getPersonalProfile } from '../../../../utils/api/mypage/myprofile/profile';
 
 const StyledContainer = styled.div`
   background-color: ${colors.GrayBlue[200]};
@@ -71,8 +71,11 @@ const DiffImgageDiv = styled.img`
   width: 4%;
 `;
 
-const PersonalPageProfile = () => {
-  // 이 친구의 데이터는.. 이전의 모달이 뜰 때 받아서 프롭스토 내려주기
+interface PersonalPageProfile {
+  memberId: number;
+}
+
+const PersonalPageProfile = (props: PersonalPageProfile) => {
   const [data, setData] = useState({
     thumbnail: 'https://picsum.photos/300',
     nickname: 'testNickName',
@@ -84,14 +87,15 @@ const PersonalPageProfile = () => {
   });
 
   const fetchData = async () => {
-    const data = await getProfile();
+    const data = await getPersonalProfile(props.memberId);
     console.log(data);
     setData(data);
   };
 
   useEffect(() => {
     fetchData();
-  }, []);
+    console.log('fetch data!');
+  }, [props.memberId]);
 
   return (
     <StyledContainer>
@@ -128,7 +132,6 @@ const PersonalPageProfile = () => {
           <Body1 children={data.penalty || 0} color={colors.Gray[25]} fontWeight={'bold'} />
           <Body2 children={'범죄 지수'} color={colors.Gray[500]} />
         </StyledMyInfoContentContainer>
-        <Spacer space={'2vw'} horizontal />
       </StyledMyInfoContainer>
     </StyledContainer>
   );

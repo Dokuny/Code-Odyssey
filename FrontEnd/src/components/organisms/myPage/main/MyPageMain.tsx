@@ -63,9 +63,7 @@ const MyPageMain = () => {
 
   const [strictData, setStrictData] = useState([]);
 
-
   useEffect(() => {
-    
     const fetchData = async () => {
       const MyStatistic = await getMyStatistic();
       const MyRank = await getMyRank();
