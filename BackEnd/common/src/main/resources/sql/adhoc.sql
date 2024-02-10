@@ -1,4 +1,4 @@
-INSERT INTO problem (problem_id,platform,href,no,title,runtime,memory,difficulty,content,input,output,type) VALUES
+INSERT INTO PROBLEM (problem_id,platform,href,no,title,runtime,memory,difficulty,content,input,output,type) VALUES
                                                                                                                 (13342,'BAEKJOON','https://www.acmicpc.net/problem/1069',1069,'집으로','2초','128 MB',13,'<p>은진이는 지금 (X, Y)에 있고, (0, 0)에 있는 집으로 가능한 빨리 가려고 한다. 이동할 수 있는 방법은 다음 두 가지이다.</p>
 
 <p>첫 번째 방법은 걷는것이다. 걸을 때는 1초에 1만큼 움직인다. 두 번째 방법은 점프하는 것이다. 점프를 하게 되면, T초에 D만큼 움직인다. 점프는 일직선으로만 할 수 있고, 정확하게 D칸만 움직일 수 있다.</p>

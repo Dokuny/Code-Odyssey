@@ -1,4 +1,4 @@
-INSERT INTO problem (problem_id,platform,href,no,title,runtime,memory,difficulty,content,input,output,type) VALUES
+INSERT INTO PROBLEM (problem_id,platform,href,no,title,runtime,memory,difficulty,content,input,output,type) VALUES
                                                                                                                                         (14570,'BAEKJOON','https://www.acmicpc.net/problem/1056',1056,'수','2초','128 MB',19,'<p>1부터 시작해서 N을 만들려고 한다. 사용할 수 있는 연산은 아래와 같이 총 3가지이다. 이때, N을 만드는데 사용하는 연산의 최소 횟수를 구하는 프로그램을 작성하시오.</p>
 
 <ol>
