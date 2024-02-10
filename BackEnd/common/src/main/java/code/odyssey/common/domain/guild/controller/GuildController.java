@@ -1,6 +1,7 @@
 package code.odyssey.common.domain.guild.controller;
 
 import code.odyssey.common.domain.guild.dto.GuildCreateRequest;
+import code.odyssey.common.domain.guild.dto.GuildDetailInfo;
 import code.odyssey.common.domain.guild.dto.GuildInfo;
 import code.odyssey.common.domain.guild.dto.GuildSearchCond;
 import code.odyssey.common.domain.guild.dto.GuildSearchInfo;
@@ -41,4 +42,14 @@ public class GuildController {
     ) {
         return ResponseEntity.ok(guildService.searchGuilds(cond, memberId));
     }
+
+    @GetMapping("/{guildId}")
+    public ResponseEntity<GuildDetailInfo> getGuildDetail(
+        @RequestHeader("X-Authorization-Id") Long memberId,
+        @PathVariable("guildId") Long guildId
+    ) {
+        return ResponseEntity.ok(guildService.getGuildDetail(memberId, guildId));
+    }
+
+
 }

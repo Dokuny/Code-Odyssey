@@ -26,8 +26,8 @@ public class GuildMember extends BaseEntity {
     @Id
     private Long id;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "member_id")
+    @ManyToOne(fetch = LAZY, optional = false)
+    @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
     @ManyToOne(fetch = LAZY)
