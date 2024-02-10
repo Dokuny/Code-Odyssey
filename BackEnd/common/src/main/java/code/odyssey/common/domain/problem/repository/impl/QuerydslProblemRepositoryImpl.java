@@ -5,6 +5,8 @@ import static code.odyssey.common.domain.problem.entity.QProblem.problem;
 import code.odyssey.common.domain.problem.dto.problem.ProblemInfo;
 import code.odyssey.common.domain.problem.dto.problem.ProblemRequestDto;
 import code.odyssey.common.domain.problem.dto.problem.SearchResultInfo;
+import code.odyssey.common.domain.problem.exception.problem.ProblemErrorCode;
+import code.odyssey.common.domain.problem.exception.problem.ProblemException;
 import code.odyssey.common.domain.problem.repository.QuerydslProblemRepository;
 import code.odyssey.common.domain.problem.service.ProblemService;
 import com.querydsl.core.BooleanBuilder;
@@ -51,6 +53,7 @@ public class QuerydslProblemRepositoryImpl  implements QuerydslProblemRepository
     @Override
     public SearchResultInfo getProblems(ProblemRequestDto request, Pageable pageable) {
         BooleanBuilder searchOptions = getSearchOption(request);
+
         QueryResults<ProblemInfo> queryResults = jpaQueryFactory
                 .select(Projections.fields(ProblemInfo.class,
                         problem.id.as("problem_id"),
@@ -63,7 +66,13 @@ public class QuerydslProblemRepositoryImpl  implements QuerydslProblemRepository
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetchResults();
-        long total = queryResults.getTotal()/ pageable.getPageSize()+1;
+
+        long total = queryResults.getTotal()/ pageable.getPageSize();
+
+
+        if(pageable.getPageNumber()>total){
+            throw new ProblemException(ProblemErrorCode.EXCEED_PAGE_NUMBER);
+        }
 
         //ProblemInfo(String title, ProblemPlatform platform, int difficulty, ProblemType type) {
         return SearchResultInfo.builder().data(queryResults.getResults()).total_pages(total).build();
