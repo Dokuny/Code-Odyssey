@@ -50,19 +50,31 @@ public class MemberSprintService {
             memberSprintRepository.deleteAll(existingSprints);
         }
 
-
         List<MemberSprint> sprintSchedules = request.getScheduleInfoList().stream()
                 .map(scheduleInfo -> {
                     return MemberSprint.builder()
                             .member(member)
                             .day(scheduleInfo.getDay())
                             .recommendType(scheduleInfo.getRecommendType())
-                            .recommendDifficulty(scheduleInfo.getRecommendDifficulty())
+                            .recommendDifficulty(convertLevelToInteger(scheduleInfo.getRecommendDifficulty()))
                             .build();
                 })
                 .toList();
 
         memberSprintRepository.saveAll(sprintSchedules);
+    }
+
+    private Integer convertLevelToInteger(DifficultyLevel recommendDifficulty) {
+        int difficulty = 0;
+        switch (recommendDifficulty) {
+            case BRONZE -> difficulty = 1;
+            case SILVER -> difficulty = 6;
+            case GOLD -> difficulty = 11;
+            case PLATINUM -> difficulty = 16;
+            case DIAMOND -> difficulty = 21;
+            case RUBY -> difficulty = 26;
+        }
+        return difficulty;
     }
 
 
@@ -90,11 +102,21 @@ public class MemberSprintService {
             ProblemType ptype = memberSprint.getRecommendType();
             Integer difficulty = memberSprint.getRecommendDifficulty();
 
-            return memberSprintRepository.getRecommendedProblems(
-                    memberId,
-                    ptype,
-                    difficulty,
-                    PageRequest.of(0, 4));
+            if (difficulty == 26) {
+                return memberSprintRepository.getRecommendedRubyProblems(
+                        memberId,
+                        ptype,
+                        difficulty,
+                        PageRequest.of(0, 4));
+            } else {
+
+                return memberSprintRepository.getRecommendedProblems(
+                        memberId,
+                        ptype,
+                        difficulty,
+                        PageRequest.of(0, 4));
+            }
+
         }
 
     }

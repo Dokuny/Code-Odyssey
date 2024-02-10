@@ -25,6 +25,18 @@ public interface MemberSprintRepository extends JpaRepository<MemberSprint, Long
             "    SELECT 1 FROM Submission s " +
             "    WHERE s.problem.id = p.id AND s.member.id = :memberId" +
             ")")
+    List<Problem> getRecommendedRubyProblems(@Param("memberId") Long memberId,
+                                         @Param("ptype") ProblemType ptype,
+                                         @Param("difficulty") Integer difficulty,
+                                         Pageable pageable);
+
+    @Query("SELECT p FROM Problem p " +
+            "WHERE p.type = :ptype " +
+            "AND p.difficulty BETWEEN :difficulty AND (:difficulty + 4) " +
+            "AND NOT EXISTS (" +
+            "    SELECT 1 FROM Submission s " +
+            "    WHERE s.problem.id = p.id AND s.member.id = :memberId" +
+            ")")
     List<Problem> getRecommendedProblems(@Param("memberId") Long memberId,
                                          @Param("ptype") ProblemType ptype,
                                          @Param("difficulty") Integer difficulty,
