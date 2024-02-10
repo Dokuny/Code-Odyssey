@@ -57,6 +57,7 @@ const GuildFutureMakeProblem = (props: GuildFutureMakeProblemProps) => {
   const [rightListData, setRightListData] = useState(props.problemList);
   const [activeIndex, setActiveIndex] = useState(0);
   const [selectedProblem, setSelectedProblem] = useState<any>({});
+  const [problemId, setProblemId] = useState(0);
 
   const resultData = (problemList: Array<any>, rightListData: Array<any>) => {
     const existingProblemIds = rightListData.map((problem) => problem.problem_id);
@@ -85,9 +86,23 @@ const GuildFutureMakeProblem = (props: GuildFutureMakeProblemProps) => {
             ]}
           />
           <Divider />
-          {activeIndex === 0 && <GuildProblemSearchForm setSelectedProblem={setSelectedProblem} selectedProblem={selectedProblem} rightListData={rightListData} setRightListData={setRightListData} />}
+          {activeIndex === 0 && (
+            <GuildProblemSearchForm
+              setSelectedProblem={setSelectedProblem}
+              selectedProblem={selectedProblem}
+              rightListData={rightListData}
+              setRightListData={setRightListData}
+              setProblemId={setProblemId}
+            />
+          )}
           {activeIndex === 1 && (
-            <GuildProblemRecommentForm setSelectedProblem={setSelectedProblem} selectedProblem={selectedProblem} rightListData={rightListData} setRightListData={setRightListData} />
+            <GuildProblemRecommentForm
+              setSelectedProblem={setSelectedProblem}
+              selectedProblem={selectedProblem}
+              rightListData={rightListData}
+              setRightListData={setRightListData}
+              setProblemId={setProblemId}
+            />
           )}
         </div>
         <BasicButton
@@ -113,7 +128,7 @@ const GuildFutureMakeProblem = (props: GuildFutureMakeProblemProps) => {
             />
           </>
         ) : (
-          <GuildProblemDetailForm setSelectedProblem={setSelectedProblem} selectedProblem={selectedProblem} rightListData={rightListData} setRightListData={setRightListData} />
+          <GuildProblemDetailForm setSelectedProblem={setSelectedProblem} selectedProblem={selectedProblem} rightListData={rightListData} setRightListData={setRightListData} problem_id={problemId} />
         )}
       </StyledRightContentContainer>
     </StyledContainer>

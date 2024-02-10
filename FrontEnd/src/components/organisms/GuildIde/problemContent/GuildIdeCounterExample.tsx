@@ -7,7 +7,7 @@ import GuildIdeCounterCaseForm from '../../../molecules/form/GuildIdeCounterCase
 const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 92%;
+  height: 82%;
   justify-content: space-between;
 `;
 
@@ -16,6 +16,7 @@ const StyledScrollDiv = styled.div`
   flex-direction: column;
   padding-bottom: 1vmin;
   overflow: scroll;
+  height: 58vh;
   -ms-overflow-style: none; /* 인터넷 익스플로러 */
   scrollbar-width: none; /* 파이어폭스 */
   &::-webkit-scrollbar {

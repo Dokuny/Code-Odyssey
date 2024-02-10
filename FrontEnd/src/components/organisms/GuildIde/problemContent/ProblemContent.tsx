@@ -11,7 +11,7 @@ const StyledContainer = styled.div`
   flex: 1;
   flex-direction: column;
   width: 100%;
-  height: 88vh;
+  height: 100%;
 `;
 
 interface ProblemContentProps {

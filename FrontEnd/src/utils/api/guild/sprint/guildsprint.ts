@@ -49,3 +49,8 @@ export const sprintLastReport = async (guild_id: number, sprint_id: number, guil
   const data = await tokenInstance.get(`/guilds/${guild_id}/sprints/${sprint_id}/problems/${guild_problem_id}`);
   return data && data.data;
 };
+
+export const sprintProblemDetail = async (problem_id: number) => {
+  const data = await tokenInstance.get(`/problems/${problem_id}`);
+  return data && data.data;
+};
