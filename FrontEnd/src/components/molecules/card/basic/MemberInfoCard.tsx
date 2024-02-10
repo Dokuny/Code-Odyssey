@@ -56,7 +56,7 @@ const MemberInfoCard = (props: MemberInfoCardProps) => {
       }}
     >
       <StyledProgressContainer>
-        <img src={props.thumbnail} alt='thumbnail' style={{ borderRadius: '50%', width: '90%', paddingBottom: '0.5vmax' }} />
+        <img src={props.thumbnail} alt='thumbnail' style={{ borderRadius: '50%', width: '100%', aspectRatio: '1' ,paddingBottom: '0.5vmax', objectFit:'cover' }} />
         {props.in_guild && (
           <div style={{ position: 'absolute', bottom: 0, right: 0 }}>
             <BasicButton

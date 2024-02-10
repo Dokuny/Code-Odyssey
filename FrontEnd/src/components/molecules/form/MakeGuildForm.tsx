@@ -155,6 +155,7 @@ const MakeGuildForm = () => {
     }
 
     createGuild(data);
+    window.location.reload()
   };
 
   const saveImgFile = () => {
