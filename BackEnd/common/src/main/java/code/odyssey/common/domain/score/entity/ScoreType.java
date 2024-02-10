@@ -16,7 +16,9 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Entity
 public class ScoreType {
 
-    @Id @GeneratedValue(strategy = IDENTITY)
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "score_type_id")
     private Long id;
 
     @OneToOne(fetch = LAZY)

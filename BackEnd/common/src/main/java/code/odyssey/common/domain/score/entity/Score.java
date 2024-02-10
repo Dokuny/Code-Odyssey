@@ -16,6 +16,7 @@ public class Score {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "score_id")
     private Long id;
 
     @OneToOne(fetch = LAZY)
