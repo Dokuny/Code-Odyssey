@@ -87,7 +87,7 @@ const DailyCard = (props: DailyCardProps) => {
   const algoCate = ['유형', '문자열', '수학', '자료구조', '브루트포스', '트리', '그래프', '애드훅', 'DP', 'BFS/DFS', '이진탐색', '그리디', '시뮬레이션'];
 
   const changeLevels:any = [['난이도' , '난이도'], 
-                        ['BRONEZE','브론즈'], 
+                        ['BRONZE','브론즈'], 
                         ['SILVER' , '실버'], 
                         ['GOLD' ,'골드'] ,
                         ['PLATINUM' , '플레티넘'] ,

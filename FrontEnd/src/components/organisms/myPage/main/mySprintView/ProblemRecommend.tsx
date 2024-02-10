@@ -30,6 +30,8 @@ const ProblemRecommend = () => {
     if (MySprint.length !== 0) {
       setDailyData(MySprint);
       setProblemData(RecommendSprint);
+      console.log(MySprint)
+      console.log(RecommendSprint)
     } else {
       setProblemData(RecommendSprint);
     }
@@ -65,7 +67,9 @@ const ProblemRecommend = () => {
       return
     }
     // 만약 난이도, 유형이 값이 있다면 
-    await postMySprint({ scheduleInfoList : dayilyData })
+    await postMySprint({ scheduleInfoList : dayilyData.map((item)=>{ 
+    return {day:item.day , recommendType : item.recommendedType, recommendDifficulty : item.recommendedDifficulty}}
+    ) })
     fetchData();
   };
 
