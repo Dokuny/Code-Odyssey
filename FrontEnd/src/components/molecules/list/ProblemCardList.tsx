@@ -6,7 +6,6 @@ import { Header4, Body2 } from '../../atoms/basic/Typography';
 
 const ProblemDiv = styled.div`
   display: flex;
-  flex-wrap: wrap;
 `;
 
 const HorizenDiv = styled.div`

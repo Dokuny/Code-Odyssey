@@ -4,6 +4,7 @@ import { Body2, Header1, Header2, Header3 } from '../../../atoms/basic/Typograph
 import { SetStateAction, useEffect, useState } from 'react';
 import DropDown from '../../../atoms/select/Dropdown';
 import { Spacer } from '../../../atoms/basic/Spacer';
+import DropDown2 from '../../../atoms/select/Dropdown2';
 
 const DailyCardDiv = styled.div`
   background-color: ${colors.Gray[700]};
@@ -64,9 +65,9 @@ const Wrapper = styled.form`
 
 interface DailyCardProps {
   day: string;
-  recommendDifficulty: string;
-  recommendType: string;
-  setData: React.Dispatch<React.SetStateAction<{ day: string; recommendDifficulty: string; recommendType: string }[]>>;
+  recommendedDifficulty: string;
+  recommendedType: string;
+  setData: React.Dispatch<React.SetStateAction<{ day: string; recommendedDifficulty: string; recommendedType: string }[]>>;
 }
 
 interface AlgoDataProps {
@@ -83,59 +84,73 @@ const DailyCard = (props: DailyCardProps) => {
   ];
 
   const Levels = ['난이도', '브론즈', '실버', '골드', '플레티넘', '다이아', '루비'];
-  const algoCate = ['유형', 'STRING', 'MATH', 'DATA STRUCTURE', 'BRUTE FORCE', 'TREE', 'GRAPH', 'AD HOC', 'DP', 'SHORTEST PATH', 'BINARY SEARCH', 'GREEDY', 'SIMULATION'];
+  const algoCate = ['유형', '문자열', '수학', '자료구조', '브루트포스', '트리', '그래프', '애드훅', 'DP', 'BFS/DFS', '이진탐색', '그리디', '시뮬레이션'];
+
+  const changeLevels:any = [['난이도' , '난이도'], 
+                        ['BRONZE','브론즈'], 
+                        ['SILVER' , '실버'], 
+                        ['GOLD' ,'골드'] ,
+                        ['PLATINUM' , '플레티넘'] ,
+                        ['DIAMOND' , '다이아'] ,
+                        ['RUBY' ,'루비' ]];
+
+
+const changeAlgocate: [string, string][] = [
+                          ['유형', '유형'],
+                          ["STRING", '문자열'],
+                          ['MATH', '수학'],
+                          ['DATA_STRUCTURE', '자료구조'],
+                          ['BRUTE_FORCE', '브루트포스'],
+                          ['TREE', '트리'],
+                          ['GRAPH', '그래프'],
+                          ['AD_HOC', '애드훅'],
+                          ['DP', 'DP'],
+                          ['SHORTEST_PATH', 'BFS/DFS'],
+                          ['BINARY_SEARCH', '이진탐색'],
+                          ['GREEDY', '그리디'],
+                          ['SIMULATION', '시뮬레이션']
+                        ];
+  
+
 
   const [srcData, setSrcData] = useState('/images/code_odyssey/algo_pics/algoPic1.png');
-  const [selectValueDifficulty, setSelectValueDifficulty] = useState(props.recommendDifficulty);
-  const [selectValueCategory, setSelectValueCategory] = useState(props.recommendType);
+  const [selectValueDifficulty, setSelectValueDifficulty] = useState(props.recommendedDifficulty);
+  const [selectValueCategory, setSelectValueCategory] = useState(props.recommendedType);
 
-  const categoryChanged = (event: any) => {
-    if (event.target.id === 'difficulty') {
-      let selectedDiff = event.target.value;
-      setSelectValueDifficulty(selectedDiff);
-    }
-    if (event.target.id === 'category') {
-      let selectedCategory = event.target.value;
-      setSelectValueCategory(selectedCategory);
+  useEffect(()=>{
+    setSelectValueDifficulty(props.recommendedDifficulty)
+    setSelectValueCategory(props.recommendedType)
+  },[props.recommendedDifficulty, props.recommendedType])
 
-      // console.log(selectedCategory);
-      AlgoData.find((element) => {
-        if (element.key === selectedCategory) {
-          setSrcData(element.value);
-        }
-      });
-    }
-  };
 
   useEffect(() => {
     props.setData((prevData) => {
       return prevData.map((item) => {
         if (item.day === props.day) {
-          return { ...item, difficulty: selectValueDifficulty, type: selectValueCategory };
+          return { ...item, recommendedDifficulty: selectValueDifficulty, recommendedType: selectValueCategory };
         }
         return item;
       });
     });
-    // console.log(selectValueDifficulty, selectValueCategory);
   }, [selectValueDifficulty, selectValueCategory]);
 
   return (
     <DailyCardDiv>
       <HeaderDiv>
-        <Body2 children={props.day} color={'white'} />
+        <Body2 children={props.day.slice(0,3)} color={'white'} />
       </HeaderDiv>
       <ImageStyle src={srcData}></ImageStyle>
       <FooterDiv>
         <Wrapper
           id='problem'
           onChange={(event) => {
-            categoryChanged(event);
+            // categoryChanged(event);
           }}
         >
-          <DropDown
+          <DropDown2
             id={'difficulty'}
             setSelectValue={setSelectValueDifficulty}
-            values={Levels}
+            values={changeLevels}
             bgColor={colors.Gray[700]}
             height={'30%'}
             fontSize={'0.7rem'}
@@ -143,12 +158,12 @@ const DailyCard = (props: DailyCardProps) => {
             selectedValue={selectValueDifficulty}
             borderRadius={'5px'}
             width={'80%'}
-          ></DropDown>
+          ></DropDown2>
           <Spacer space={'5px'}></Spacer>
-          <DropDown
+          <DropDown2
             id={'category'}
             setSelectValue={setSelectValueCategory}
-            values={algoCate}
+            values={changeAlgocate}
             bgColor={colors.Gray[700]}
             height={'30%'}
             fontSize={'0.7rem'}
@@ -156,7 +171,7 @@ const DailyCard = (props: DailyCardProps) => {
             selectedValue={selectValueCategory}
             borderRadius={'5px'}
             width={'80%'}
-          ></DropDown>
+          ></DropDown2>
         </Wrapper>
       </FooterDiv>
     </DailyCardDiv>

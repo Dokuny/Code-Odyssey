@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DailyCard from '../card/basic/DailyCard';
 import styled from 'styled-components';
 import { colors } from '../../../config/Color';
@@ -37,19 +37,14 @@ const DetailButton = styled.button`
 interface DailyCardlistProps {
   data: {
     day: string;
-    recommendDifficulty: string;
-    recommendType: string;
+    recommendedDifficulty: string;
+    recommendedType: string;
   }[];
-  setDailyData: React.Dispatch<React.SetStateAction<{ day: string; recommendDifficulty: string; recommendType: string }[]>>;
+  setDailyData: React.Dispatch<React.SetStateAction<{ day: string; recommendedDifficulty: string; recommendedType: string }[]>>;
   submit : () => void;
 }
 
 const DailyCardList = (props: DailyCardlistProps) => {
-  const [data, setData] = useState(props.data);
-
-  const DailyDataChange = (updatedData: React.SetStateAction<{ day: string; recommendDifficulty: string; recommendType: string }[]>) => {
-    setData(updatedData);
-  };
   return (
     <>
       <div style={{ display: 'flex', alignItems: 'end', padding: '1vmin' }}>
@@ -69,7 +64,7 @@ const DailyCardList = (props: DailyCardlistProps) => {
       <Spacer space={'2vmin'} />
       <DailyCardDiv>
         {props.data.map((value, index) => (
-          <DailyCard key={index} day={value.day} recommendDifficulty={value.recommendDifficulty} recommendType={value.recommendType} setData={DailyDataChange}></DailyCard>
+          <DailyCard key={index} day={value.day} recommendedDifficulty={value.recommendedDifficulty} recommendedType={value.recommendedType} setData={props.setDailyData} ></DailyCard>
         ))}
       </DailyCardDiv>
     </>

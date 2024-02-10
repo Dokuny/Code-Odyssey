@@ -17,6 +17,7 @@ interface ScheduleInfo {
 }
 
 export const postMySprint = async (value: any): Promise<any> => {
+    console.log(value)
     const data = await tokenInstance.post(`sprints`, value);
     return data && data.data;
 };
