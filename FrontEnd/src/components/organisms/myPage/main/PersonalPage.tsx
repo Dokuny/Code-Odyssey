@@ -110,8 +110,7 @@ const PersonalPage = (props: PersonalPageProps) => {
   }, [props.isOpen, props.memberId]);
 
   return (
-    <div style={{ width: '80%' }}>
-      <div style={{ height: '35vh', width: '100%' }}>a</div>
+    <div style={{ width: '100%' }}>
       <div>
         <PersonalPageProfile memberId={props.memberId} />
       </div>
