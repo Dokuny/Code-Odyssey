@@ -153,7 +153,8 @@ pipeline {
                 message: "빌드 성공: ${env.JOB_NAME} #${env.BUILD_NUMBER} by ${Author_ID}(${Author_Name})\n(<${env.BUILD_URL}|Details>)",
                 endpoint: "${env.MM_WEBHOOK}",
                 channel: 'C205'
-            )
+                )
+            }
         }
     }
 }
