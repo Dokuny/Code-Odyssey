@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../../config/Color';
 import PersonalPage from '../../organisms/myPage/main/PersonalPage';
+import { getPersonalProfile } from '../../../utils/api/mypage/myprofile/profile';
 
 interface StyledDivProps {
   isOpen: boolean;
@@ -42,94 +43,31 @@ const InItem = styled.div`
   }
 `;
 
-interface Props {
+interface PersonalPageModalProps {
   isOpen: boolean;
   closeModal: () => void;
+  memberId: number;
 }
-
-const HeaderDiv = styled.div`
-  /* background-color: red; */
-  width: 100%;
-  height: 15%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-`;
-
-const BodyDiv = styled.div`
-  background-color: ${colors.GrayBlue[600]};
-  border-radius: 10px;
-  padding: 10px;
-  width: 100%;
-  height: 80%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  box-sizing: border-box;
-  overflow: scroll;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
-
-const AddButton = styled.button`
-  background-color: transparent;
-  border: none;
-  position: absolute;
-  right: 1vmin;
-  top: 0;
-  bottom: 0;
-`;
-
-const PersonalPageModal: React.FC<Props> = ({ isOpen, closeModal }) => {
-  const [input, setInput] = useState('');
-  const [data, setData] = useState([
-    { src: 'https://picsum.photos/300', member_id: 1, name: 'FriendName1', state: 'started', time: '20 min ago' },
-    { src: 'https://picsum.photos/300', member_id: 2, name: 'FriendName2', state: 'started', time: '20 min ago' },
-    { src: 'https://picsum.photos/300', member_id: 3, name: 'FriendName3', state: 'started', time: '20 min ago' },
-    { src: 'https://picsum.photos/300', member_id: 4, name: 'FriendName4', state: 'started', time: '20 min ago' },
-    { src: 'https://picsum.photos/300', member_id: 5, name: 'FriendName5', state: 'started', time: '20 min ago' },
-    { src: 'https://picsum.photos/300', member_id: 6, name: 'FriendName6', state: 'started', time: '20 min ago' },
-    { src: 'https://picsum.photos/300', member_id: 7, name: 'FriendName7', state: 'started', time: '20 min ago' },
-    { src: 'https://picsum.photos/300', member_id: 8, name: 'FriendName8', state: 'started', time: '20 min ago' },
-    { src: 'https://picsum.photos/300', member_id: 9, name: 'FriendName9', state: 'started', time: '20 min ago' },
-    { src: 'https://picsum.photos/300', member_id: 10, name: 'FriendName10', state: 'started', time: '20 min ago' },
-    { src: 'https://picsum.photos/300', member_id: 8, name: 'FriendName8', state: 'started', time: '20 min ago' },
-    { src: 'https://picsum.photos/300', member_id: 9, name: 'FriendName9', state: 'started', time: '20 min ago' },
-    { src: 'https://picsum.photos/300', member_id: 10, name: 'FriendName10', state: 'started', time: '20 min ago' },
-    { src: 'https://picsum.photos/300', member_id: 8, name: 'FriendName8', state: 'started', time: '20 min ago' },
-    { src: 'https://picsum.photos/300', member_id: 9, name: 'FriendName9', state: 'started', time: '20 min ago' },
-    { src: 'https://picsum.photos/300', member_id: 10, name: 'FriendName10', state: 'started', time: '20 min ago' },
-    { src: 'https://picsum.photos/300', member_id: 8, name: 'FriendName8', state: 'started', time: '20 min ago' },
-    { src: 'https://picsum.photos/300', member_id: 9, name: 'FriendName9', state: 'started', time: '20 min ago' },
-    { src: 'https://picsum.photos/300', member_id: 10, name: 'FriendName10', state: 'started', time: '20 min ago' },
-  ]);
-
-  useEffect(() => {
-    console.log(input);
-  }, [input]);
+const PersonalPageModal: React.FC<PersonalPageModalProps> = (props) => {
+  const [data, setData] = useState([{ thumbnail: 'https://picsum.photos/300', nickname: 'FriendName1', email: 'asdf@ssafy.com', state: 'started', time: '20 min ago' }]);
 
   const Close = () => {
-    closeModal();
+    props.closeModal();
   };
-
+  console.log(props.memberId);
   return (
-    <StyledDiv isOpen={isOpen}>
+    <StyledDiv isOpen={props.isOpen}>
       <Outline onClick={Close}>
         <InItem
           onClick={(e) => {
             e.stopPropagation();
           }}
         >
-          <PersonalPage></PersonalPage>
+          <PersonalPage memberId={props.memberId as number} isOpen={props.isOpen}></PersonalPage>
+          <h1>{props.memberId}</h1>
         </InItem>
       </Outline>
     </StyledDiv>
   );
 };
-
 export default PersonalPageModal;

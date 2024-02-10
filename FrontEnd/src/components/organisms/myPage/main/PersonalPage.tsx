@@ -6,7 +6,7 @@ import MyResponsiveLine from '../../../atoms/graph/LineGraph';
 import { Header3 } from '../../../atoms/basic/Typography';
 import { colors } from '../../../../config/Color';
 import HeatMap from '../../../atoms/graph/HeatMap';
-import { getMyRank, getMyStatistic, getMyStrict } from '../../../../utils/api/mypage/myprofile/profile';
+import { getPersonalRank, getPersonalStatistic, getPersonalStrict } from '../../../../utils/api/mypage/myprofile/profile';
 import PersonalPageProfile from '../../../molecules/card/myPage/PersonalPageProfile';
 
 const StyledGraphContainer = styled.div`
@@ -26,8 +26,12 @@ const StyledHeatMapContentContainer = styled.div`
   height: 24vmin;
   flex-direction: column;
 `;
+interface PersonalPageProps {
+  memberId: number;
+  isOpen: boolean;
+}
 
-const PersonalPage = () => {
+const PersonalPage = (props: PersonalPageProps) => {
   const [statisticData, setStatisticData] = useState([
     { type: 'dp', score: 12 },
     { type: 'string', score: 25 },
@@ -76,21 +80,19 @@ const PersonalPage = () => {
 
   const fetchData = async () => {
     // 멤버 아이디 받아서 정보 뜨게 수정(현재는 내정보)
-    const MyStatistic = await getMyStatistic();
-    const MyRank = await getMyRank();
-    const Strict = await getMyStrict();
+    const userStatistic = await getPersonalStatistic(props.memberId);
+    const userRank = await getPersonalRank(props.memberId);
+    const userStrict = await getPersonalStrict(props.memberId);
 
-    // 이거 바꿔 주세요.. 부탁하기
-    const resultStatistic = Object.entries(MyStatistic).map(([type, score]) => ({
-      type: type, // 타입을 소문자로 변환
+    const resultStatistic = Object.entries(userStatistic).map(([type, score]) => ({
+      type: type,
       score: typeof score === 'number' ? score : parseInt(score as string, 10),
     }));
 
-    // 이것도 바꿔주세요..
     const resultRank = [
       {
         id: 'rank',
-        data: MyRank.map((item: { type: string; score: number }) => {
+        data: userRank.map((item: { type: string; score: number }) => {
           return { x: item.type.slice(0, 3), y: item.score };
         }),
       },
@@ -98,18 +100,20 @@ const PersonalPage = () => {
 
     setStatisticData(resultStatistic);
     setRankData(resultRank);
-    setStrictData(Strict);
+    setStrictData(userStrict);
   };
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (props.isOpen && props.memberId) {
+      fetchData();
+    }
+  }, [props.isOpen, props.memberId]);
 
   return (
     <div style={{ width: '80%' }}>
       <div style={{ height: '35vh', width: '100%' }}>a</div>
       <div>
-        <PersonalPageProfile />
+        <PersonalPageProfile memberId={props.memberId} />
       </div>
       <Spacer space={'3vmin'} />
       <StyledGraphContainer>
