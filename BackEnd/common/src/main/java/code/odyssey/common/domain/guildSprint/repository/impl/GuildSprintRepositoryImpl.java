@@ -13,6 +13,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Collections;
@@ -110,7 +111,8 @@ public class GuildSprintRepositoryImpl implements GuildSprintRepositoryCustom {
 				member.nickname.as("name"),
 				submission.createdAt.as("solvedAt"),
 				submission.memory.as("memory"),
-				submission.time.as("time")
+				submission.time.as("time"),
+				submission.id.as("submissionId")
 			)).from(guildMember)
 			.innerJoin(guildMember.member, member)
 			.leftJoin(submission).on(submission.member.id.eq(guildMember.member.id),

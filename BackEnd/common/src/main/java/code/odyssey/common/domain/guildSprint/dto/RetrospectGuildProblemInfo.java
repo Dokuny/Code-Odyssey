@@ -6,12 +6,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+
+import lombok.*;
 import lombok.Builder.Default;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -38,10 +35,11 @@ public class RetrospectGuildProblemInfo {
 		private LocalDate solvedAt;
 		private Integer memory;
 		private Integer time;
+		private Long submissionId;
 
 		public RetrospectiveGuildMemberInfo(Long memberId, String thumbnail, Boolean isSolved,
 			String name,
-			LocalDateTime solvedAt, Integer memory, Integer time) {
+			LocalDateTime solvedAt, Integer memory, Integer time, Long submissionId) {
 			this.memberId = memberId;
 			this.thumbnail = thumbnail;
 			this.isSolved = isSolved;
@@ -53,6 +51,9 @@ public class RetrospectGuildProblemInfo {
 			}
 			this.memory = memory;
 			this.time = time;
+			this.submissionId = submissionId;
 		}
+
+
 	}
 }
