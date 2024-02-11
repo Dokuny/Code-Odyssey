@@ -5,12 +5,14 @@ import code.odyssey.common.domain.guild.dto.GuildDetailInfo;
 import code.odyssey.common.domain.guild.dto.GuildInfo;
 import code.odyssey.common.domain.guild.dto.GuildSearchCond;
 import code.odyssey.common.domain.guild.dto.GuildSearchInfo;
+import code.odyssey.common.domain.guild.dto.ProblemTypeStatistics;
 import code.odyssey.common.domain.guild.entity.Guild;
 import code.odyssey.common.domain.guild.entity.GuildMember;
 import code.odyssey.common.domain.guild.entity.GuildScore;
 import code.odyssey.common.domain.guild.enums.GuildRole;
 import code.odyssey.common.domain.guild.exception.GuildErrorCode;
 import code.odyssey.common.domain.guild.exception.GuildException;
+import code.odyssey.common.domain.guild.repository.GuildInfoRepository;
 import code.odyssey.common.domain.guild.repository.GuildMemberRepository;
 import code.odyssey.common.domain.guild.repository.GuildRepository;
 import code.odyssey.common.domain.guild.repository.GuildScoreRepository;
@@ -39,6 +41,7 @@ public class GuildService {
 	private final GuildMemberRepository guildMemberRepository;
 	private final MemberRepository memberRepository;
 	private final GuildScoreRepository guildScoreRepository;
+	private final GuildInfoRepository guildInfoRepository;
 
 
 	public Long createGuild(Long memberId, GuildCreateRequest request) {
@@ -124,6 +127,10 @@ public class GuildService {
 
 	public String getGuildIntroduce(Long guildId) {
 		return guildRepository.findIntroduceByGuildId(guildId);
+	}
+
+	public List<ProblemTypeStatistics> getGuildTypeStatistics(Long guildId) {
+		return guildInfoRepository.getGuildProblemTypes(guildId);
 	}
 
 }
