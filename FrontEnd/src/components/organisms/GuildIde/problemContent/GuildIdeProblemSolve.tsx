@@ -40,7 +40,7 @@ const GuildIdeProblemSolve = (props: GuildIdeProblemSolveProps) => {
         memory: value.memory,
         time: value.time,
       }));
-      setTableData({ totalPages: 11, data: scoreWithNames });
+      setTableData({ total_pages: 11, data: scoreWithNames });
     }
   }, [data]);
 

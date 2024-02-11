@@ -22,7 +22,7 @@ const StyledContentContainer = styled.div<{ color: string }>`
   padding: 1vmin;
   background-color: ${(props) => props.color};
   border-radius: 1em;
-  height: 22vh;
+  height: 24vh;
   overflow: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -45,46 +45,49 @@ const StyledInputContainer = styled.div`
 
 interface CompileResultCardProps {
   data: any;
-  problemData: any;
+  inputData: string;
+  outputData: string;
+  setInputData: React.Dispatch<React.SetStateAction<string>>;
+  setOutputData: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const CompileResultCard = (props: CompileResultCardProps) => {
-  const [inputData, setInputData] = useState('');
-  const [outputData, setOutputData] = useState('');
-
   return (
     <StyledContainer>
-      {props.data !== null && (
-        <>
-          <div style={{ display: 'flex', alignItems: 'flex-end', gap: '1vmin', flex: 1 }}>
-            <Body1 children={props.data.status} color={props.data.result === 0 ? colors.Naver[300] : props.data.result === 1 ? colors.Red : colors.Kakao[800]} fontWeight={'bold'} />
-            <Body3 children={props.data.runtime !== null ? props.data.runtime + 'ms' : ''} color={colors.Gray[300]} />
-          </div>
+      <div style={{ display: 'flex', height: '100%' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+          <StyledInputContainer>
+            <Body3 children={'input'} color={colors.Gray[300]} fontWeight={'bold'} />
+            <Spacer space={'0.5vmin'} />
+            <MultiTextarea placeholder={''} setInput={props.setInputData} input={props.inputData} />
+          </StyledInputContainer>
+          <StyledInputContainer>
+            <Body3 children={'정답'} color={colors.Gray[300]} fontWeight={'bold'} />
+            <Spacer space={'0.5vmin'} />
+            <MultiTextarea placeholder={''} setInput={props.setOutputData} input={props.outputData} />
+          </StyledInputContainer>
+        </div>
 
-          <div style={{ display: 'flex', height: '100%' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-              <StyledInputContainer>
-                <Body3 children={'input'} color={colors.Gray[300]} fontWeight={'bold'} />
-                <Spacer space={'0.5vmin'} />
-                <MultiTextarea placeholder={''} setInput={setInputData} input={inputData} />
-              </StyledInputContainer>
-              <StyledInputContainer>
-                <Body3 children={'정답'} color={colors.Gray[300]} fontWeight={'bold'} />
-                <Spacer space={'0.5vmin'} />
-                <MultiTextarea placeholder={''} setInput={setOutputData} input={outputData} />
-              </StyledInputContainer>
+        <StyledInputContainer>
+          <Body3 children={'output'} color={colors.Gray[300]} fontWeight={'bold'} />
+          <Spacer space={'0.5vmin'} />
+          {props.data === null ? (
+            <div style={{ display: 'flex', flexDirection: 'column', height: '100%', alignItems: 'center' }}>
+              <img src='/images/code_odyssey/conch.svg' alt='' style={{ height: '100%', objectFit: 'contain', aspectRatio: 1 / 1 }} />
+              <Body3 children={'마법의 소라고둥님에게 물어보세요!'} color={colors.Gray[300]} />
             </div>
-
-            <StyledInputContainer>
-              <Body3 children={'output'} color={colors.Gray[300]} fontWeight={'bold'} />
-              <Spacer space={'0.5vmin'} />
-              <StyledContentContainer color={props.data.result === 0 ? colors.Naver[300] : props.data.result === 1 ? colors.Red : colors.Kakao[300]}>
-                <Body3 children={props.data.result === 0 ? props.data.myOutput : props.data.result === 1 ? props.data.myOutput : props.data.error} color={colors.Gray[800]} />
-              </StyledContentContainer>
-            </StyledInputContainer>
-          </div>
-        </>
-      )}
+          ) : (
+            <StyledContentContainer color={props.data.result === 0 ? colors.Naver[300] : props.data.result === 1 ? colors.Red : colors.Kakao[300]}>
+              <div style={{ display: 'flex', alignItems: 'flex-end', gap: '1vmin' }}>
+                <Body1 children={props.data.status} color={props.data.result === 0 ? colors.Naver[800] : props.data.result === 1 ? colors.DeepRed : colors.Kakao[800]} fontWeight={'bold'} />
+                <Body3 children={props.data.runtime !== null ? props.data.runtime + 'ms' : ''} color={colors.Gray[300]} />
+              </div>
+              <Spacer space={'1vmin'} />
+              <Body3 children={props.data.result === 0 ? props.data.myOutput : props.data.result === 1 ? props.data.myOutput : props.data.error} color={colors.Gray[800]} />
+            </StyledContentContainer>
+          )}
+        </StyledInputContainer>
+      </div>
     </StyledContainer>
   );
 };

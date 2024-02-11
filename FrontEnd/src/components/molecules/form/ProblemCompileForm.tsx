@@ -8,6 +8,8 @@ import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
 import { Spacer } from '../../atoms/basic/Spacer';
 import CompileResultCard from '../card/ide/ComplieResultCard';
 import VarNameChangeCard from '../card/ide/VarNameChangeCard';
+import { submitOutServer } from '../../../utils/api/ide/submit';
+import { file, language } from '../../../utils/json/submit';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -27,23 +29,17 @@ interface ResultData {
 interface ProblemCompileFormProps {
   isActive: boolean;
   setIsActive: React.Dispatch<React.SetStateAction<boolean>>;
+  activeLanguage: string;
+  input: string;
+  runtime: number;
 }
 
 const ProblemCompileForm = (props: ProblemCompileFormProps) => {
   const [menu, setMenu] = useState('result');
   const [buttonName, setButtonName] = useState('제출하기');
   const [data, setData] = useState<null | ResultData>(null);
-
-  useEffect(() => {
-    setData({
-      result: 2,
-      status: '컴파일 에러',
-      myOutput: null,
-      runtime: null,
-      error:
-        '\n./Main.java:9: error: class Solution is public, should be declared in a file named Solution.java\npublic class Solution {\n       ^\nNote: \n./Main.java uses unchecked or unsafe operations.\nNote: Recompile with -Xlint:unchecked for details.\n1 error\n',
-    });
-  }, []);
+  const [inputData, setInputData] = useState('');
+  const [outputData, setOutputData] = useState('');
 
   const clickMenu = (menu: string) => {
     setMenu(menu);
@@ -51,10 +47,17 @@ const ProblemCompileForm = (props: ProblemCompileFormProps) => {
     props.setIsActive(true);
   };
 
-  const clickButton = () => {
+  const clickButton = async () => {
     props.setIsActive(true);
     if (menu === 'result') {
-      console.log('result');
+      const data = await submitOutServer({
+        sourceCode: new File([props.input], file[props.activeLanguage], { type: 'text/plane' }),
+        input: new File([inputData], 'input.txt', { type: 'text/plane' }),
+        output: new File([inputData], 'output.txt', { type: 'text/plane' }),
+        language: language[props.activeLanguage],
+        timeOut: props.runtime,
+      });
+      setData(data);
     } else if (menu === 'val') {
       console.log('val');
     }
@@ -107,7 +110,7 @@ const ProblemCompileForm = (props: ProblemCompileFormProps) => {
           <Spacer space={'1vmin'} horizontal />
         </div>
       </div>
-      {props.isActive && menu === 'result' && <CompileResultCard data={data} problemData={{ input: '1 2', output: '1 2' }} />}
+      {props.isActive && menu === 'result' && <CompileResultCard data={data} inputData={inputData} setInputData={setInputData} outputData={outputData} setOutputData={setOutputData} />}
       {props.isActive && menu === 'val' && <VarNameChangeCard />}
     </StyledContainer>
   );

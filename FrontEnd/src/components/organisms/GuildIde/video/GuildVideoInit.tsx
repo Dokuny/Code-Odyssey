@@ -19,6 +19,7 @@ const GuildVideoInit = (props: GuildVideoInitProps) => {
 
   const joinSession = () => {
     const OVs = new OpenVidu();
+    OVs.enableProdMode();
     setOV(OVs);
     setSession(OVs.initSession());
   };

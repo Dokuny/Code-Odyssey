@@ -32,7 +32,16 @@ const GuildPerson = (props: GuildPersonProps) => {
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         {data.map((value) => (
           <div style={{ width: '25%' }}>
-            <MemberInfoCard key={value.memberId} member_id={value.memberId} name={value.name} thumbnail={value.thumbnail} difficulty={value.difficulty} join_at={value.joinAt} />
+            <MemberInfoCard
+              key={value.memberId}
+              guild_member_id={value.guildMemberId}
+              name={value.name}
+              thumbnail={value.thumbnail}
+              difficulty={value.difficulty}
+              join_at={value.joinAt}
+              guild_id={props.guild_id}
+              setData={() => {}}
+            />
           </div>
         ))}
       </div>

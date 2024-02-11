@@ -13,6 +13,7 @@ import { Caption1 } from '../../../atoms/basic/Typography';
 import ToggleSwitch from '../../../atoms/select/ToggleSwitch';
 import * as StompJs from '@stomp/stompjs';
 import { CHAT_URL } from '../../../../config/Axios';
+import { parsingRuntime } from '../../../../utils/basic/BasicUtil';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -30,6 +31,7 @@ const StyledMenuContainer = styled.div`
 
 interface GuildIdeProps {
   problem_id: number;
+  problemDetailData: any;
 }
 
 const GuildIde = (props: GuildIdeProps) => {
@@ -39,9 +41,11 @@ const GuildIde = (props: GuildIdeProps) => {
   const [activeLanguage, setActiveLanguage] = useState('java');
   const monaco = useMonaco();
   const [input, setInput] = useState('');
+  const [myInput, setMyInput] = useState<undefined | string>('');
   const [selectedTheme, setSelectedTheme] = useState(true);
 
-  const handleEditorChange = (value: string | undefined, event: editor.IModelContentChangedEvent) => {
+  const handleEditorChange = (value: string | undefined) => {
+    setMyInput(value);
     if (value !== undefined && client !== null) {
       client.publish({
         destination: '/pub/ide/' + guild_problem_id,
@@ -64,8 +68,6 @@ const GuildIde = (props: GuildIdeProps) => {
       try {
         const clientdata = new StompJs.Client({
           brokerURL: CHAT_URL,
-          // brokerURL: 'ws://localhost:8888/ws',
-          //   connectHeaders: { Authorization: '' },
           reconnectDelay: 5000,
           heartbeatIncoming: 4000,
           heartbeatOutgoing: 4000,
@@ -89,6 +91,7 @@ const GuildIde = (props: GuildIdeProps) => {
     const callback = function (message: any) {
       if (message.body) {
         let msg = JSON.parse(message.body);
+        setMyInput(msg.code);
         setInput(msg.code);
       }
     };
@@ -116,6 +119,7 @@ const GuildIde = (props: GuildIdeProps) => {
             width={'auto'}
             event={() => {
               setInput('');
+              setMyInput('');
             }}
             borderColor={'rgba(0, 0, 0, 0)'}
             deepColor={'rgba(255, 80, 80, 0.2)'}
@@ -137,7 +141,13 @@ const GuildIde = (props: GuildIdeProps) => {
         onChange={handleEditorChange}
       />
       <Spacer space={'1vmin'} />
-      <ProblemCompileForm isActive={isActive} setIsActive={setIsActive} />
+      <ProblemCompileForm
+        isActive={isActive}
+        setIsActive={setIsActive}
+        activeLanguage={activeLanguage}
+        input={myInput as string}
+        runtime={parsingRuntime(props.problemDetailData.platform, props.problemDetailData.runtime)}
+      />
     </StyledContainer>
   );
 };

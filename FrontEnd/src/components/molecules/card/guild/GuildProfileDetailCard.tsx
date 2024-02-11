@@ -6,7 +6,7 @@ import { Body1, Body2, Body3 } from '../../../atoms/basic/Typography';
 import { difficulty } from '../../../../utils/json/difficulty';
 import BasicButton from '../../../atoms/button/BasicButton';
 import { IoMdCheckmarkCircle, IoMdExit } from 'react-icons/io';
-import { guildDetail, guildRequest } from '../../../../utils/api/guild/guild';
+import { guildDetail, guildExit, guildRequest } from '../../../../utils/api/guild/guild';
 
 const StyledContainer = styled.div`
   background-color: ${colors.Gray[700]};
@@ -80,6 +80,9 @@ const GuildProfileDetailCard = (props: GuildProfileDetailCardProps) => {
 
   const clickJoinOrExit = async () => {
     if (data && data.in_guild) {
+      await guildExit(props.guild_id);
+      window.location.reload();
+      alert('탈퇴 되었습니다.');
     } else if (data && !data.in_guild) {
       await guildRequest(props.guild_id);
       alert('가입 신청 되었습니다.');
