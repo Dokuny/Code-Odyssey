@@ -19,4 +19,6 @@ public class ProblemInfo {
     private int difficulty;
     private ProblemType type;
 
+    private String href;
+
 }
