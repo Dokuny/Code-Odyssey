@@ -30,4 +30,15 @@ public class GuildMemberController {
 		guildMemberService.withdraw(memberId, guildId);
 		return ResponseEntity.ok().build();
 	}
+
+	@DeleteMapping("/{guildMemberId}/kick")
+	public ResponseEntity<Void> kickGuild(
+		@RequestHeader("X-Authorization-Id") Long memberId,
+		@PathVariable("guildMemberId") Long guildMemberId
+	) {
+		guildMemberService.kick(memberId, guildMemberId);
+		return ResponseEntity.ok().build();
+	}
+
+
 }
