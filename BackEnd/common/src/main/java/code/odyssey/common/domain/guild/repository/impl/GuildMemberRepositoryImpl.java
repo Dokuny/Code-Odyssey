@@ -41,7 +41,7 @@ public class GuildMemberRepositoryImpl implements GuildMemberRepositoryCustom {
 	public List<GuildMemberInfo> getGuildMemberList(Long guildId) {
 		return queryFactory.select(
 				Projections.constructor(GuildMemberInfo.class,
-					guildMember.member.id.as("memberId"),
+					guildMember.id.as("guildMemberId"),
 					guildMember.member.nickname.as("name"),
 					guildMember.member.thumbnail.as("thumbnail"),
 					guildMember.role.as("role"),
