@@ -122,4 +122,8 @@ public class GuildService {
 			.build();
 	}
 
+	public String getGuildIntroduce(Long guildId) {
+		return guildRepository.findIntroduceByGuildId(guildId);
+	}
+
 }

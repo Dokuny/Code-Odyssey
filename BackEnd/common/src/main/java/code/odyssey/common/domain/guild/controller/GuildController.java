@@ -51,5 +51,12 @@ public class GuildController {
         return ResponseEntity.ok(guildService.getGuildDetail(memberId, guildId));
     }
 
+    @GetMapping("/{guildId}/introduce")
+    public ResponseEntity<String> getGuildIntroduce(
+        @PathVariable("guildId") Long guildId
+    ) {
+        return ResponseEntity.ok(guildService.getGuildIntroduce(guildId));
+    }
+
 
 }
