@@ -10,7 +10,8 @@ import static org.springframework.http.HttpStatus.*;
 @AllArgsConstructor
 public enum SubmissionErrorCode {
 
-    ALREADY_SUBMITTED("이미 제출한 코드입니다.", BAD_REQUEST);
+    ALREADY_SUBMITTED("이미 제출한 코드입니다.", BAD_REQUEST),
+    NOT_EXISTS_SUBMISSION("id로 검색한 결과 없는 제출 기록입니다.", BAD_REQUEST);
 
     private final String message;
     private final HttpStatus httpStatus;
