@@ -6,7 +6,7 @@ import { colors } from '../../../../../config/Color';
 import { MyResponsiveRadar } from '../../../../atoms/graph/RadarGraph';
 import MyResponsiveLine from '../../../../atoms/graph/LineGraph';
 import HeatMap from '../../../../atoms/graph/HeatMap';
-import { getGuildStatistic } from '../../../../../utils/api/guild/profile/guildprofile';
+import { getGuildStatistic, getGuildStrict } from '../../../../../utils/api/guild/profile/guildprofile';
 
 const StyledGraphContainer = styled.div`
   display: flex;
@@ -31,7 +31,7 @@ interface GuildInfoProps {
 
 const GuildInfo = (props: GuildInfoProps) => {
   const [statisticData, setStatisticData] = useState([]);
-
+  const [strictData, setStrictData] = useState([]);
   const [rankData, setRankData] = useState([
     {
       id: 'rank',
@@ -52,19 +52,6 @@ const GuildInfo = (props: GuildInfoProps) => {
     },
   ]);
 
-  const [strictData, setStrictData] = useState([
-    { day: '2024-01-04', value: 1 },
-    { day: '2024-01-14', value: 3 },
-    { day: '2024-01-22', value: 1 },
-    { day: '2024-01-23', value: 2 },
-    { day: '2024-01-28', value: 1 },
-    { day: '2024-01-29', value: 3 },
-    { day: '2024-01-30', value: 4 },
-    { day: '2024-01-31', value: 6 },
-    { day: '2024-02-01', value: 2 },
-    { day: '2024-02-02', value: 2 },
-  ]);
-
   useEffect(() => {
     if (statisticData.length === 0) {
       const fetchData = async () => {
@@ -74,6 +61,16 @@ const GuildInfo = (props: GuildInfoProps) => {
       fetchData();
     }
   }, [props.guild_id, statisticData.length]);
+
+  useEffect(() => {
+    if (strictData.length === 0) {
+      const fetchData = async () => {
+        const strictFetchData = await getGuildStrict(props.guild_id);
+        setStrictData(strictFetchData);
+      };
+      fetchData();
+    }
+  }, [props.guild_id, strictData.length]);
 
   return (
     <>

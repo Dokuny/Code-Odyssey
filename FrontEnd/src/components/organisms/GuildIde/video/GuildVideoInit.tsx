@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useState } from 'react';
 import { OpenVidu, Session as OVSession, Publisher, Subscriber } from 'openvidu-browser';
 import Session from './Session';
 import { Spacer } from '../../../atoms/basic/Spacer';
-import { getToken } from '../../../../utils/openVidu/openViduUtil';
+import { getToken } from '../../../../utils/api/guild/chat/chat';
 
 interface GuildVideoInitProps {
   guild_problem_id: number;

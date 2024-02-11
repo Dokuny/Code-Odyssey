@@ -7,6 +7,8 @@ import { IoMdSend } from 'react-icons/io';
 import * as StompJs from '@stomp/stompjs';
 import { CHAT_URL } from '../../../../config/Axios';
 import { getStorage } from '../../../../utils/localstorage/storageUtil';
+import { getChat } from '../../../../utils/api/guild/chat/chat';
+import axios from 'axios';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -42,56 +44,15 @@ interface GuildChattingProps {
 const GuildChatting = (props: GuildChattingProps) => {
   const [input, setInput] = useState('');
   let [client, changeClient] = useState<StompJs.Client>(new StompJs.Client());
-  const [data, setData] = useState([
-    {
-      thumbnail: 'https://picsum.photos/300',
-      nickname: '김범수',
-      message:
-        '안녕하세요 메세지입니다.안녕하세요 메세지입니다.안녕하세요 메세지입니다.안녕하세요\n 메세지입니다.안녕하세요 메세지입니다.안녕하세요 메세지입니다.\n안녕하세요 메세지입니다.안녕하세요 메세지입니다.안녕하세요 메세지입니다.',
-      write_at: '2024.02.07. PM.08:20',
-      is_mine: false,
-    },
-    {
-      thumbnail: 'https://picsum.photos/300',
-      nickname: '김범수',
-      message:
-        '안녕하세요 메세지입니다.안녕하세요 메세지입니다.안녕하세요 메세지입니다.안녕하세요\n 메세지입니다.안녕하세요 메세지입니다.안녕하세요 메세지입니다.\n안녕하세요 메세지입니다.안녕하세요 메세지입니다.안녕하세요 메세지입니다.',
-      write_at: '2024.02.07. PM.08:20',
-      is_mine: true,
-    },
-    {
-      thumbnail: 'https://picsum.photos/300',
-      nickname: '김범수',
-      message:
-        '안녕하세요 메세지입니다.안녕하세요 메세지입니다.안녕하세요 메세지입니다.안녕하세요\n 메세지입니다.안녕하세요 메세지입니다.안녕하세요 메세지입니다.\n안녕하세요 메세지입니다.안녕하세요 메세지입니다.안녕하세요 메세지입니다.',
-      write_at: '2024.02.07. PM.08:20',
-      is_mine: true,
-    },
-    {
-      thumbnail: 'https://picsum.photos/300',
-      nickname: '김범수',
-      message:
-        '안녕하세요 메세지입니다.안녕하세요 메세지입니다.안녕하세요 메세지입니다.안녕하세요\n 메세지입니다.안녕하세요 메세지입니다.안녕하세요 메세지입니다.\n안녕하세요 메세지입니다.안녕하세요 메세지입니다.안녕하세요 메세지입니다.',
-      write_at: '2024.02.07. PM.08:20',
-      is_mine: true,
-    },
-    {
-      thumbnail: 'https://picsum.photos/300',
-      nickname: '김범수',
-      message:
-        '안녕하세요 메세지입니다.안녕하세요 메세지입니다.안녕하세요 메세지입니다.안녕하세요\n 메세지입니다.안녕하세요 메세지입니다.안녕하세요 메세지입니다.\n안녕하세요 메세지입니다.안녕하세요 메세지입니다.안녕하세요 메세지입니다.',
-      write_at: '2024.02.07. PM.08:20',
-      is_mine: true,
-    },
-    {
-      thumbnail: 'https://picsum.photos/300',
-      nickname: '김범수',
-      message:
-        '안녕하세요 메세지입니다.안녕하세요 메세지입니다.안녕하세요 메세지입니다.안녕하세요\n 메세지입니다.안녕하세요 메세지입니다.안녕하세요 메세지입니다.\n안녕하세요 메세지입니다.안녕하세요 메세지입니다.안녕하세요 메세지입니다.',
-      write_at: '2024.02.07. PM.08:20',
-      is_mine: true,
-    },
-  ]);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getChat(props.guild_id);
+      setData(data);
+    };
+    fetchData();
+  }, [props.guild_id]);
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -138,7 +99,7 @@ const GuildChatting = (props: GuildChattingProps) => {
     if (input === '') return;
     client.publish({
       destination: '/pub/chat/' + props.guild_id,
-      body: JSON.stringify({ message: input, guild_id: props.guild_id, token: getStorage('accessToken') }),
+      body: JSON.stringify({ message: input, guildId: props.guild_id, token: getStorage('accessToken') }),
     });
     setInput('');
   };
