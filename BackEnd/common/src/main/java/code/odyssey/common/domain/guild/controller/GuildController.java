@@ -5,6 +5,7 @@ import code.odyssey.common.domain.guild.dto.GuildDetailInfo;
 import code.odyssey.common.domain.guild.dto.GuildInfo;
 import code.odyssey.common.domain.guild.dto.GuildSearchCond;
 import code.odyssey.common.domain.guild.dto.GuildSearchInfo;
+import code.odyssey.common.domain.guild.dto.GuildStreakInfo;
 import code.odyssey.common.domain.guild.dto.ProblemTypeInfo;
 import code.odyssey.common.domain.guild.dto.ProblemTypeStatistics;
 import code.odyssey.common.domain.guild.service.GuildService;
@@ -66,6 +67,14 @@ public class GuildController {
     ) {
         return ResponseEntity.ok(guildService.getGuildTypeStatistics(guildId));
     }
+
+    @GetMapping("/{guildId}/streak")
+    public ResponseEntity<List<GuildStreakInfo>> getGuildStreak(
+        @PathVariable("guildId") Long guildId
+    ) {
+        return ResponseEntity.ok(guildService.getGuildStreak(guildId));
+    }
+
 
 
 }

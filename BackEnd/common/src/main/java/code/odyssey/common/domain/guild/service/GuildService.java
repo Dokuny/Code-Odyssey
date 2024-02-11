@@ -1,10 +1,14 @@
 package code.odyssey.common.domain.guild.service;
 
+import static code.odyssey.common.domain.guild.exception.GuildErrorCode.NOT_EXISTS_GUILD;
+import static code.odyssey.common.domain.member.exception.MemberErrorCode.NOT_EXISTS_MEMBER;
+
 import code.odyssey.common.domain.guild.dto.GuildCreateRequest;
 import code.odyssey.common.domain.guild.dto.GuildDetailInfo;
 import code.odyssey.common.domain.guild.dto.GuildInfo;
 import code.odyssey.common.domain.guild.dto.GuildSearchCond;
 import code.odyssey.common.domain.guild.dto.GuildSearchInfo;
+import code.odyssey.common.domain.guild.dto.GuildStreakInfo;
 import code.odyssey.common.domain.guild.dto.ProblemTypeStatistics;
 import code.odyssey.common.domain.guild.entity.Guild;
 import code.odyssey.common.domain.guild.entity.GuildMember;
@@ -18,17 +22,12 @@ import code.odyssey.common.domain.guild.repository.GuildRepository;
 import code.odyssey.common.domain.guild.repository.GuildScoreRepository;
 import code.odyssey.common.domain.guild.repository.GuildSearchRepository;
 import code.odyssey.common.domain.member.entity.Member;
-import code.odyssey.common.domain.member.exception.MemberErrorCode;
 import code.odyssey.common.domain.member.exception.MemberException;
 import code.odyssey.common.domain.member.repository.MemberRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-
-import static code.odyssey.common.domain.guild.exception.GuildErrorCode.NOT_EXISTS_GUILD;
-import static code.odyssey.common.domain.member.exception.MemberErrorCode.NOT_EXISTS_MEMBER;
 
 
 @RequiredArgsConstructor
@@ -84,6 +83,7 @@ public class GuildService {
 		return guild.getId();
 	}
 
+	@Transactional(readOnly = true)
 	public List<GuildInfo> getGuildListOfMember(Long memberId) {
 		memberRepository.findById(memberId)
 			.filter(m -> m.getResignedAt() == null)
@@ -92,10 +92,12 @@ public class GuildService {
 		return guildMemberRepository.getGuildListOfMember(memberId);
 	}
 
+	@Transactional(readOnly = true)
 	public List<GuildSearchInfo> searchGuilds(GuildSearchCond cond, Long memberId) {
 		return guildSearchRepository.searchGuild(cond, memberId);
 	}
 
+	@Transactional(readOnly = true)
 	public GuildDetailInfo getGuildDetail(Long memberId, Long guildId) {
 		// 길드 회원 정보
 		List<GuildMember> members = guildMemberRepository.findAllByGuildId(guildId);
@@ -125,12 +127,17 @@ public class GuildService {
 			.build();
 	}
 
+	@Transactional(readOnly = true)
 	public String getGuildIntroduce(Long guildId) {
 		return guildRepository.findIntroduceByGuildId(guildId);
 	}
 
+	@Transactional(readOnly = true)
 	public List<ProblemTypeStatistics> getGuildTypeStatistics(Long guildId) {
 		return guildInfoRepository.getGuildProblemTypes(guildId);
 	}
 
+	public List<GuildStreakInfo> getGuildStreak(Long guildId) {
+		return guildInfoRepository.getGuildStreakInfo(guildId);
+	}
 }
