@@ -42,3 +42,9 @@ export const getGuildIntrodution = async (guildId: number) => {
   const data = await tokenInstance.get(`/guilds/${guildId}/introduce`);
   return data && data.data;
 };
+
+// 가입 거절
+export const guildKick = async (guildId: number, guildMemberId: number) => {
+  const data = await tokenInstance.delete(`/guilds/${guildId}/members/${guildMemberId}/kick`);
+  return data && data.data;
+};

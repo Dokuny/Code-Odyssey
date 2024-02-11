@@ -5,6 +5,7 @@ import { difficulty } from '../../../../utils/json/difficulty';
 import { Spacer } from '../../../atoms/basic/Spacer';
 import BasicButton from '../../../atoms/button/BasicButton';
 import { IoMdExit } from 'react-icons/io';
+import { getGuildMembers, guildKick } from '../../../../utils/api/guild/setting/guildsetting';
 
 const StyledContainer = styled.button`
   display: flex;
@@ -40,29 +41,33 @@ const DiffImgageDiv = styled.img`
 `;
 
 interface MemberInfoCardProps {
-  member_id: number;
+  guild_member_id: number;
   name: string;
   thumbnail: string;
   difficulty: number;
   join_at: string;
   in_guild?: boolean;
+  guild_id: number;
+  setData: React.Dispatch<React.SetStateAction<any[]>>;
 }
 
 const MemberInfoCard = (props: MemberInfoCardProps) => {
   return (
     <StyledContainer
       onClick={() => {
-        console.log('o: ', props.member_id);
+        console.log('o: ', props.guild_member_id);
       }}
     >
       <StyledProgressContainer>
-        <img src={props.thumbnail} alt='thumbnail' style={{ borderRadius: '50%', width: '100%', aspectRatio: '1' ,paddingBottom: '0.5vmax', objectFit:'cover' }} />
+        <img src={props.thumbnail} alt='thumbnail' style={{ borderRadius: '50%', width: '100%', aspectRatio: '1', paddingBottom: '0.5vmax', objectFit: 'cover' }} />
         {props.in_guild && (
           <div style={{ position: 'absolute', bottom: 0, right: 0 }}>
             <BasicButton
-              event={(event: { stopPropagation: () => void }) => {
+              event={async (event: { stopPropagation: () => void }) => {
                 event.stopPropagation();
-                console.log('x: ', props.member_id);
+                await guildKick(props.guild_id, props.guild_member_id);
+                const data = await getGuildMembers(props.guild_id);
+                props.setData(data);
               }}
               borderRadius={'50%'}
               width={'auto'}

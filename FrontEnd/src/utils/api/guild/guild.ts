@@ -61,3 +61,8 @@ export const guildRequest = async (guild_id: number) => {
   const data = await tokenInstance.post(`/guilds/${guild_id}/applications`);
   return data && data.data;
 };
+
+export const guildExit = async (guild_id: number) => {
+  const data = await tokenInstance.delete(`/guilds/${guild_id}/members/withdraw`);
+  return data && data.data;
+};

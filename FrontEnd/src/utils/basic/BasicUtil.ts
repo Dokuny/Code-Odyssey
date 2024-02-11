@@ -20,3 +20,8 @@ export const isDateAfterToday = (dateString: string): boolean => {
   today.setHours(0, 0, 0, 0);
   return inputDate > today;
 };
+
+export const parsingRuntime = (platform: string, runtime: string): number => {
+  if (platform === 'SWEA') return 40000;
+  return (runtime.replace('초', '') as unknown as number) * 1000;
+};

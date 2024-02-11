@@ -6,6 +6,7 @@ import BasicInput from '../../../atoms/input/BasicInput';
 import { IoMdSend } from 'react-icons/io';
 import * as StompJs from '@stomp/stompjs';
 import { CHAT_URL } from '../../../../config/Axios';
+import { getStorage } from '../../../../utils/localstorage/storageUtil';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -111,8 +112,6 @@ const GuildChatting = (props: GuildChattingProps) => {
     try {
       const clientdata = new StompJs.Client({
         brokerURL: CHAT_URL,
-        // brokerURL: 'ws://localhost:8888/ws',
-        //   connectHeaders: { Authorization: '' },
         reconnectDelay: 5000,
         heartbeatIncoming: 4000,
         heartbeatOutgoing: 4000,
@@ -139,8 +138,7 @@ const GuildChatting = (props: GuildChattingProps) => {
     if (input === '') return;
     client.publish({
       destination: '/pub/chat/' + props.guild_id,
-      // body: JSON.stringify({ message: input }),
-      body: JSON.stringify({ memberId: 1, nickname: '김수린', thumbnail: 'https://picsum.photos/300', message: input }),
+      body: JSON.stringify({ message: input, guild_id: props.guild_id, token: getStorage('accessToken') }),
     });
     setInput('');
   };
@@ -148,6 +146,7 @@ const GuildChatting = (props: GuildChattingProps) => {
   useEffect(() => {
     connect();
     return () => disConnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

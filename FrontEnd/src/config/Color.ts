@@ -12,6 +12,7 @@ export const colors = {
   LightGray: { 25: '#ececed', 100: '#dad9db', 200: '#c8c7ca', 300: '#b6b4b8', 400: '#a4a2a7', 500: '#918f95', 600: '#7f7c83', 700: '#6d6a72', 800: '#5b5760', 900: '#49454f' },
   Skin: '#fff1c9',
   Red: '#da6e6a',
+  DeepRed: '#C62828',
   Green: '#81BD7D',
   GrayBlack: '#272727',
 };
