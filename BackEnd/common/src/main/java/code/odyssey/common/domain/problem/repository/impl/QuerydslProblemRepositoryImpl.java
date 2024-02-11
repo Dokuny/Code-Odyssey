@@ -60,7 +60,9 @@ public class QuerydslProblemRepositoryImpl  implements QuerydslProblemRepository
                         problem.title,
                         problem.platform,
                         problem.difficulty,
-                        problem.type))
+                        problem.type,
+                        problem.href
+                ))
                 .from(problem)
                 .where(searchOptions)
                 .offset(pageable.getOffset())
