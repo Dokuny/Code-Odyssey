@@ -76,21 +76,22 @@ const SprintProblemCard = (props: SprintProblemCardProps) => {
   useEffect(() => {
     if (reportData) {
       const scoreWithNames = reportData.guild_member.map((value: any) => ({
-        member_id: value.member_id,
+        submission_id: value.submission_id,
         name: value.name,
         is_solved: value.is_solved,
         solved_at: value.solved_at,
         memory: value.memory,
         time: value.time,
       }));
-      setTableData({ totalPages: 0, data: scoreWithNames });
+      setTableData({ total_pages: 0, data: scoreWithNames });
     }
   }, [reportData]);
 
   const navigate = useNavigate();
+
   useEffect(() => {
     if (selectData != null) {
-      window.open(`/review?guild_problem_id=${reportData.guild_problem_id}&member_id=${selectData.member_id}`, '_blank');
+      window.open(`/review?submission_id=${selectData.submission_id}`, '_blank');
     }
   }, [reportData, navigate, selectData]);
 

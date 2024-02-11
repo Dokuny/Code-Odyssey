@@ -76,13 +76,10 @@ const CodeBoxBorder = styled.div`
 const ReviewTemplate = () => {
   const [selectedTheme, setSelectedTheme] = useState(true);
   useEffect(() => {}, [selectedTheme]);
-
   let [query, setQuery] = useSearchParams();
+  const submission_id = query.get('submission_id');
 
-  const quildProblemId = query.get('guild_problem_id');
-  const memberId = query.get('member_id');
-
-  // 페이지 렌더 시 guildProblemId, memberId 보내서 코드 가져옴
+  // 페이지 렌더 시 submission_id 보내서 코드 가져옴
 
   var codeLength = 0;
   // 받아 온 코드 parsing 후 문자열 배열에 추가
