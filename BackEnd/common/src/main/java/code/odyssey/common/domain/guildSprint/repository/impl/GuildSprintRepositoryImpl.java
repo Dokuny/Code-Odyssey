@@ -124,8 +124,7 @@ public class GuildSprintRepositoryImpl implements GuildSprintRepositoryCustom {
 			)
 			.where(guildMember.guild.id.eq(
 					problemInfo.getGuildSprint().getGuild().getId()),
-				guildMember.createdAt.between(
-					LocalDateTime.of(problemInfo.getGuildSprint().getStartedAt(), LocalTime.MIN),
+				guildMember.createdAt.loe(
 					LocalDateTime.of(problemInfo.getGuildSprint().getEndedAt(), LocalTime.MAX)
 				)
 			)
