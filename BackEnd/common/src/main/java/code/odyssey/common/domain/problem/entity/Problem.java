@@ -68,6 +68,7 @@ public class Problem {
                 .output(this.output)
                 .runtime(this.runtime)
                 .platform(this.platform)
+                .href(this.href)
                 .build();
     }
 

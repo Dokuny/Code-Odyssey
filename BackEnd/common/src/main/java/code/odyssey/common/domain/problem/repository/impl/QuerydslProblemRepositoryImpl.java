@@ -60,8 +60,7 @@ public class QuerydslProblemRepositoryImpl  implements QuerydslProblemRepository
                         problem.title,
                         problem.platform,
                         problem.difficulty,
-                        problem.type,
-                        problem.href
+                        problem.type
                 ))
                 .from(problem)
                 .where(searchOptions)
