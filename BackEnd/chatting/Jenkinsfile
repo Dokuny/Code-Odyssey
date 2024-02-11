@@ -11,6 +11,7 @@ pipeline {
         DISCOVERY_SERVER = "${env.DISCOVERY_SERVER}"
         OPENVIDU_URL = "${env.OPENVIDU_URL}"
         OPENVIDU_SECRET = "${env.OPENVIDU_SECRET}"
+        COMMON_SERVER = "${env.COMMON_SERVER}"
     }
 
     agent any
@@ -107,7 +108,7 @@ pipeline {
                             transfers: [
                                 sshTransfer(execCommand: "sudo docker rm -f chatting"),
                                 sshTransfer(execCommand: "sudo docker pull " + repository + ":chatting_$BUILD_NUMBER"),
-                                sshTransfer(execCommand: "sudo docker run -d -p 8888:8888 --name chatting  -e CHATTING_SERVER=\"${CHATTING_SERVER}\" -e MONGODB_USER_NAME=\"${MONGODB_USER_NAME}\" -e MONGODB_USER_PASSWORD=\"${MONGODB_USER_PASSWORD}\" -e RABBIT_MQ_USERNAME=\"${RABBIT_MQ_USERNAME}\" -e RABBIT_MQ_PASSWORD=\"${RABBIT_MQ_PASSWORD}\" -e DISCOVERY_SERVER=\"${DISCOVERY_SERVER}\" -e OPENVIDU_URL=\"${OPENVIDU_URL}\" -e OPENVIDU_SECRET=\"${OPENVIDU_SECRET}\" " + repository + ":chatting_${BUILD_NUMBER}")
+                                sshTransfer(execCommand: "sudo docker run -d -p 8888:8888 --name chatting  -e CHATTING_SERVER=\"${CHATTING_SERVER}\" -e MONGODB_USER_NAME=\"${MONGODB_USER_NAME}\" -e MONGODB_USER_PASSWORD=\"${MONGODB_USER_PASSWORD}\" -e RABBIT_MQ_USERNAME=\"${RABBIT_MQ_USERNAME}\" -e RABBIT_MQ_PASSWORD=\"${RABBIT_MQ_PASSWORD}\" -e DISCOVERY_SERVER=\"${DISCOVERY_SERVER}\" -e OPENVIDU_URL=\"${OPENVIDU_URL}\" -e OPENVIDU_SECRET=\"${OPENVIDU_SECRET}\" -e COMMON_SERVER=\"${COMMON_SERVER}" " + repository + ":chatting_${BUILD_NUMBER}")
                             ]
                         )
                     ]
