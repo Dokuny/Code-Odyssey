@@ -2,6 +2,7 @@ package code.odyssey.common.domain.problem.entity;
 
 import code.odyssey.common.domain.member.entity.Member;
 import code.odyssey.common.domain.problem.entity.enums.LanguageType;
+import code.odyssey.common.domain.review.dto.SourceCodeInfo;
 import code.odyssey.common.global.common.BaseEntity;
 import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.persistence.*;
@@ -48,4 +49,12 @@ public class Submission extends BaseEntity {
     @Enumerated(STRING)
     private LanguageType language;
 
+
+    public SourceCodeInfo toSourceCodeInfo(){
+        return SourceCodeInfo.builder()
+                .submissionId(this.id)
+                .language(this.language)
+                .code(this.code)
+                .build();
+    }
 }

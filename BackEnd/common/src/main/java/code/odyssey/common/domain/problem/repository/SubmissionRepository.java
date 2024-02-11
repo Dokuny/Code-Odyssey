@@ -16,6 +16,12 @@ import java.util.Optional;
 @Repository
 public interface SubmissionRepository extends JpaRepository<Submission, Long> {
 
+
+    Optional<Submission> findById(Long id);
+
+
+
+
     // 제출일자별로 개수 세기
     @Query("SELECT DATE(sub.createdAt) AS day, COUNT(DISTINCT sub.problem.id) AS value " +
             "FROM Submission sub " +
@@ -66,4 +72,6 @@ public interface SubmissionRepository extends JpaRepository<Submission, Long> {
     int countSubmissionByMemberIdAndDate(
             @Param("memberId") Long memberId,
             @Param("date") LocalDate date);
+
+
 }
