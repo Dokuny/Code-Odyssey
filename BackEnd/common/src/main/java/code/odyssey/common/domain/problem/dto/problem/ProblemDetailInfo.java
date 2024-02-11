@@ -13,7 +13,8 @@ public record ProblemDetailInfo(
         String runtime,
         String memory,
         String input,
-        String output
+        String output,
+        String href
 
 ) {
 }
