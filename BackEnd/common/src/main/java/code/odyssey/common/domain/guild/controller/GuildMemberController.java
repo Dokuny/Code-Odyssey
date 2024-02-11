@@ -13,14 +13,21 @@ import java.util.List;
 @RestController
 public class GuildMemberController {
 
-    private final GuildMemberService guildMemberService;
+	private final GuildMemberService guildMemberService;
 
+	@GetMapping
+	public ResponseEntity<List<GuildMemberInfo>> getGuildMemberList(
+		@PathVariable("guildId") Long guildId
+	) {
+		return ResponseEntity.ok(guildMemberService.getGuildMembers(guildId));
+	}
 
-    @GetMapping
-    public ResponseEntity<List<GuildMemberInfo>> getGuildMemberList(
-            @PathVariable("guildId") Long guildId
-    ) {
-        return ResponseEntity.ok(guildMemberService.getGuildMembers(guildId));
-    }
-
+	@DeleteMapping("/withdraw")
+	public ResponseEntity<Void> withdrawGuild(
+		@RequestHeader("X-Authorization-Id") Long memberId,
+		@PathVariable("guildId") Long guildId
+	) {
+		guildMemberService.withdraw(memberId, guildId);
+		return ResponseEntity.ok().build();
+	}
 }
