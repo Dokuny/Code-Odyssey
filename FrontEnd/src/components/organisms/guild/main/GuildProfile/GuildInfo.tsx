@@ -1,11 +1,12 @@
 import { Spacer } from '../../../../atoms/basic/Spacer';
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Header3 } from '../../../../atoms/basic/Typography';
 import { colors } from '../../../../../config/Color';
 import { MyResponsiveRadar } from '../../../../atoms/graph/RadarGraph';
 import MyResponsiveLine from '../../../../atoms/graph/LineGraph';
 import HeatMap from '../../../../atoms/graph/HeatMap';
+import { getGuildStatistic } from '../../../../../utils/api/guild/profile/guildprofile';
 
 const StyledGraphContainer = styled.div`
   display: flex;
@@ -29,20 +30,7 @@ interface GuildInfoProps {
 }
 
 const GuildInfo = (props: GuildInfoProps) => {
-  const [statisticData, setStatisticData] = useState([
-    { type: 'STRING', score: 12 },
-    { type: 'MATH', score: 25 },
-    { type: 'DATA STRUCTURE', score: 5 },
-    { type: 'BRUTE FORCE', score: 19 },
-    { type: 'TREE', score: 12 },
-    { type: 'GRAPH', score: 55 },
-    { type: 'AD HOC', score: 23 },
-    { type: 'DP', score: 42 },
-    { type: 'SHORTEST PATH', score: 42 },
-    { type: 'BINARY SEARCH', score: 42 },
-    { type: 'GREEDY', score: 24 },
-    { type: 'SIMULATION', score: 27 },
-  ]);
+  const [statisticData, setStatisticData] = useState([]);
 
   const [rankData, setRankData] = useState([
     {
@@ -76,6 +64,16 @@ const GuildInfo = (props: GuildInfoProps) => {
     { day: '2024-02-01', value: 2 },
     { day: '2024-02-02', value: 2 },
   ]);
+
+  useEffect(() => {
+    if (statisticData.length === 0) {
+      const fetchData = async () => {
+        const statisticFetchData = await getGuildStatistic(props.guild_id);
+        setStatisticData(statisticFetchData);
+      };
+      fetchData();
+    }
+  }, [props.guild_id, statisticData.length]);
 
   return (
     <>

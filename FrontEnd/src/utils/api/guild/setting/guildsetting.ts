@@ -36,3 +36,9 @@ export const getGuildApplicationsReject = async (guildId: number, applicationId:
   const data = await tokenInstance.get(`/guilds/${guildId}/applications/${applicationId}/reject`);
   return data && data.data;
 };
+
+// 가입 거절
+export const getGuildIntrodution = async (guildId: number) => {
+  const data = await tokenInstance.get(`/guilds/${guildId}/introduce`);
+  return data && data.data;
+};
