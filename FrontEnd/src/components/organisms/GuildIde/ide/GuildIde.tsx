@@ -115,6 +115,20 @@ const GuildIde = (props: GuildIdeProps) => {
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '2vmin' }}>
           <ToggleSwitch setSelectedTheme={setSelectedTheme} />
+
+          <BasicButton
+            width={'auto'}
+            event={() => {
+              window.open(props.problemDetailData.href, '_blank');
+            }}
+            borderColor={'rgba(0, 0, 0, 0)'}
+            deepColor={'rgba(135, 255, 80, 0.2)'}
+            bgColor={'rgba(120, 255, 145, 0.2)'}
+            children={<Caption1 children={'사이트로 이동하기'} color={colors.White} fontWeight={'bold'} />}
+            borderRadius={'2em'}
+            padding={'1vmin'}
+          />
+
           <BasicButton
             width={'auto'}
             event={() => {
