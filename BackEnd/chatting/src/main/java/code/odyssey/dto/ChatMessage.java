@@ -1,5 +1,6 @@
 package code.odyssey.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 @Data
@@ -12,4 +13,5 @@ public class ChatMessage {
 //    private Long memberId;
     private String message;
     private Long guildId;
+
 }
