@@ -161,7 +161,8 @@ public class JudgeServiceByLocal implements JudgeService{
         output = output.replace("\r\n", "\n");
         runtimeResult = runtimeResult.replace("\r\n", "\n");
         runtimeResult = removeLastCharacter(runtimeResult);
-
+        log.info("정답 :{}", output);
+        log.info("런타임 결과 :{}", runtimeResult);
         log.info("{}",output.equals(runtimeResult));
         log.info("output length: {}", output.length());
         log.info("runtimeResult length: {}", runtimeResult.length());
