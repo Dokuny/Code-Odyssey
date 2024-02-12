@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios';
-import { CONTENT_TYPE, SUBMIT_URL, TIMEOUT } from '../../config/Axios';
+import { MULTI_TYPE, SUBMIT_URL, TIMEOUT } from '../../config/Axios';
 
 const submitInstance = axios.create({
   baseURL: SUBMIT_URL,
@@ -7,7 +7,7 @@ const submitInstance = axios.create({
 });
 
 const setCommonHeaders = async (config: any) => {
-  config.headers['Content-Type'] = CONTENT_TYPE;
+  config.headers['Content-Type'] = MULTI_TYPE;
   return config;
 };
 

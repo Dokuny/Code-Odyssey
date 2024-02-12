@@ -27,7 +27,7 @@ interface BasicInputProps {
   placeholder: string;
   fontSize?: string;
   setInput: React.Dispatch<React.SetStateAction<string>>;
-  onKeyDown?: () => void;
+  onKeyUp?: () => void;
   color?: string;
   fontcolor?: string;
   input: string;
@@ -40,9 +40,9 @@ const MultiTextarea = (props: BasicInputProps) => {
     props.setInput(e.target.value);
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+  const handleKeyUp = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === 'Enter') {
-      props.onKeyDown && props.onKeyDown();
+      props.onKeyUp && props.onKeyUp();
     }
   };
 
@@ -52,7 +52,7 @@ const MultiTextarea = (props: BasicInputProps) => {
       fontSize={props.fontSize || '1em'}
       placeholder={props.placeholder}
       onChange={onChangeInput}
-      onKeyDown={handleKeyDown}
+      onKeyUp={handleKeyUp}
       readOnly={props.readOnly}
       value={props.input}
       color={props.color || colors.GrayBlue[200]}

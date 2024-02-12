@@ -37,6 +37,13 @@ const StyledSelect = styled.select`
 `;
 
 const SearchDiv = (props: SearchDivProps) => {
+  const handleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      props.setInput(props.searchInput);
+    }
+  };
+
   return (
     <>
       <StyledBox>
@@ -63,15 +70,7 @@ const SearchDiv = (props: SearchDivProps) => {
         </StyledSelect>
       </StyledBox>
       <div style={{ display: 'flex', alignItems: 'center', gap: '2vmin', width: '100%' }}>
-        <BasicInput
-          placeholder={'문제 찾아보기'}
-          setInput={props.setSearchInput}
-          input={props.searchInput}
-          fontSize='0.8em'
-          onKeyDown={() => {
-            props.setInput(props.searchInput);
-          }}
-        />
+        <BasicInput placeholder={'문제 찾아보기'} setInput={props.setSearchInput} input={props.searchInput} fontSize='0.8em' onKeyUp={handleKeyUp} />
         <IoMdSearch
           size={'1.5em'}
           color={colors.White}

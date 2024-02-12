@@ -53,10 +53,11 @@ const ProblemCompileForm = (props: ProblemCompileFormProps) => {
       const data = await submitOutServer({
         sourceCode: new File([props.input], file[props.activeLanguage], { type: 'text/plane' }),
         input: new File([inputData], 'input.txt', { type: 'text/plane' }),
-        output: new File([inputData], 'output.txt', { type: 'text/plane' }),
+        output: new File([outputData], 'output.txt', { type: 'text/plane' }),
         language: language[props.activeLanguage],
         timeOut: props.runtime,
       });
+      console.log(data);
       setData(data);
     } else if (menu === 'val') {
       console.log('val');

@@ -33,7 +33,7 @@ const ProblemContent = (props: ProblemContentProps) => {
       />
       <Spacer space={'1vmin'} />
       {active === 'problem' && <GuildIdeProblem problemDetailData={props.problemDetailData} />}
-      {active === 'Counterexample' && <GuildIdeCounterExample />}
+      {active === 'Counterexample' && <GuildIdeCounterExample problem_id={props.problem_id} />}
       {active === 'submitLog' && <GuildIdeProblemSolve guild_problem_id={props.problemDetailData.guild_problem_id} problem_id={props.problem_id} />}
     </StyledContainer>
   );

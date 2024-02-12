@@ -12,7 +12,7 @@ import { colors } from '../../../../config/Color';
 import { Caption1 } from '../../../atoms/basic/Typography';
 import ToggleSwitch from '../../../atoms/select/ToggleSwitch';
 import * as StompJs from '@stomp/stompjs';
-import { CHAT_URL } from '../../../../config/Axios';
+import { SOCKET_URL } from '../../../../config/Axios';
 import { parsingRuntime } from '../../../../utils/basic/BasicUtil';
 
 const StyledContainer = styled.div`
@@ -67,7 +67,7 @@ const GuildIde = (props: GuildIdeProps) => {
     const connect = () => {
       try {
         const clientdata = new StompJs.Client({
-          brokerURL: CHAT_URL,
+          brokerURL: SOCKET_URL,
           reconnectDelay: 5000,
           heartbeatIncoming: 4000,
           heartbeatOutgoing: 4000,

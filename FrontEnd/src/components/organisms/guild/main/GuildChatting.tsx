@@ -5,10 +5,9 @@ import { useEffect, useRef, useState } from 'react';
 import BasicInput from '../../../atoms/input/BasicInput';
 import { IoMdSend } from 'react-icons/io';
 import * as StompJs from '@stomp/stompjs';
-import { CHAT_URL } from '../../../../config/Axios';
+import { SOCKET_URL } from '../../../../config/Axios';
 import { getStorage } from '../../../../utils/localstorage/storageUtil';
 import { getChat } from '../../../../utils/api/guild/chat/chat';
-import axios from 'axios';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -44,7 +43,8 @@ interface GuildChattingProps {
 const GuildChatting = (props: GuildChattingProps) => {
   const [input, setInput] = useState('');
   let [client, changeClient] = useState<StompJs.Client>(new StompJs.Client());
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<Array<any>>([]);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,8 +54,6 @@ const GuildChatting = (props: GuildChattingProps) => {
     fetchData();
   }, [props.guild_id]);
 
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
@@ -64,15 +62,14 @@ const GuildChatting = (props: GuildChattingProps) => {
 
   const callback = function (message: any) {
     if (message.body) {
-      let msg = JSON.parse(message.body);
-      console.log(msg);
+      setData((prev) => [...prev, JSON.parse(message.body)]);
     }
   };
 
   const connect = () => {
     try {
       const clientdata = new StompJs.Client({
-        brokerURL: CHAT_URL,
+        brokerURL: SOCKET_URL,
         reconnectDelay: 5000,
         heartbeatIncoming: 4000,
         heartbeatOutgoing: 4000,
@@ -95,11 +92,12 @@ const GuildChatting = (props: GuildChattingProps) => {
     client.deactivate();
   };
 
-  const clickSend = () => {
+  const clickSend = async () => {
     if (input === '') return;
+    const token = await getStorage('accessToken');
     client.publish({
       destination: '/pub/chat/' + props.guild_id,
-      body: JSON.stringify({ message: input, guildId: props.guild_id, token: getStorage('accessToken') }),
+      body: JSON.stringify({ message: input, guildId: props.guild_id, token: token }),
     });
     setInput('');
   };
@@ -110,6 +108,13 @@ const GuildChatting = (props: GuildChattingProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const handleKeyUp = async (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      await clickSend();
+    }
+  };
+
   return (
     <StyledContainer>
       <StyledScrollContainer ref={scrollContainerRef}>
@@ -118,8 +123,8 @@ const GuildChatting = (props: GuildChattingProps) => {
         ))}
       </StyledScrollContainer>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1vmin', marginTop: '1vmin', paddingLeft: '0.5vmin', paddingRight: '0.5vmin' }}>
-        <BasicInput placeholder={''} setInput={setInput} input={input} color={colors.Gray[400]} borderRadius='1em' fontSize='1em' />
-        <IoMdSend size={'1.5em'} color={colors.White} onClick={clickSend} />
+        <BasicInput placeholder={''} setInput={setInput} input={input} color={colors.Gray[400]} borderRadius='1em' fontSize='1em' onKeyUp={handleKeyUp} />
+        <IoMdSend size={'1.5em'} color={colors.White} onClick={clickSend} style={{ cursor: 'pointer' }} />
       </div>
     </StyledContainer>
   );

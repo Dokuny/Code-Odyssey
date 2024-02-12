@@ -22,7 +22,7 @@ interface BasicInputProps {
   placeholder: string;
   fontSize?: string;
   setInput: React.Dispatch<React.SetStateAction<string>>;
-  onKeyDown?: () => void;
+  onKeyUp?: (event: React.KeyboardEvent<HTMLInputElement>) => void | Promise<void>;
   color?: string;
   fontcolor?: string;
   input: string;
@@ -35,19 +35,13 @@ const BasicInput = (props: BasicInputProps) => {
     props.setInput(e.target.value);
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
-      props.onKeyDown && props.onKeyDown();
-    }
-  };
-
   return (
     <StyleInput
       textAlign={props.textAlign || ''}
       fontSize={props.fontSize || '1em'}
       placeholder={props.placeholder}
       onChange={onChangeInput}
-      onKeyDown={handleKeyDown}
+      onKeyUp={props.onKeyUp && props.onKeyUp}
       value={props.input}
       color={props.color || colors.GrayBlue[200]}
       fontcolor={props.fontcolor || colors.Black}
