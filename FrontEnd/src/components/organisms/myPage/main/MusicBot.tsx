@@ -9,6 +9,9 @@ import { MusicBotChatState } from '../../../../utils/recoil/Atoms';
 import { Body1, Body3 } from '../../../atoms/basic/Typography';
 import { colors } from '../../../../config/Color';
 
+import axios from 'axios';
+import { getYoutube } from '../../../../utils/api/chatbot';
+
 const MusicBot = () => {
   const [searchInput, setSearchInput] = useState('');
   const [botChatting, setBotChatting] = useState({});
@@ -16,16 +19,18 @@ const MusicBot = () => {
 
   useEffect(() => {
     if (Object.keys(botChatting).length !== 0) {
-      setChat([...chat, ['bot', botChatting]]);
+      setChat([ ['bot', botChatting] ,...chat]);
       setBotChatting({});
     }
   }, [botChatting, chat, setChat]);
 
-  const getData = () => {
-    setTimeout(() => {
-      setBotChatting({ channel: 'channel Name', video: 'video Name', date: 'Today, 2:02pm', imageUrl: 'https://picsum.photos/300' });
-    }, 1);
+  const getData = async () => {
+    const data = await getYoutube(searchInput)
+    console.log(data)
+    setBotChatting({ data: data.items , date : 'Today, 2:02pm' });
   };
+
+  // channel: 'channel Name', video: 'video Name', date: 'Today, 2:02pm', imageUrl: 'https://picsum.photos/300'
 
   return (
     <>
@@ -40,7 +45,7 @@ const MusicBot = () => {
               placeholder={'유튜브 링크를 입력 후 Enter 키를 눌러주세요'}
               setInput={setSearchInput}
               onKeyDown={() => {
-                setChat([...chat, ['user', { text: searchInput, date: 'Today, 2:02pm' }]]);
+                setChat([['user', { text: searchInput, date: 'Today, 2:02pm' }] , ...chat]);
                 getData();
               }}
             />
@@ -50,11 +55,12 @@ const MusicBot = () => {
       <Spacer space={'2vh'} />
       {chat.map((value, index) =>
         value[0] === 'bot' ? (
-          <SingChatLeftCard key={index} channel={value[1].channel} video={value[1].video} date={value[1].date} imageUrl={value[1].imageUrl} />
+          <SingChatLeftCard key={index} data={value[1].data} date={value[1].date}/>
         ) : (
           <SingChatRightCard key={index} text={value[1].text} date={value[1].date} />
         )
       )}
+
     </>
   );
 };

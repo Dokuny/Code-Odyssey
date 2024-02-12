@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { Body1, Body2, Caption1 } from '../../../atoms/basic/Typography';
 import { colors } from '../../../../config/Color';
 import { Spacer } from '../../../atoms/basic/Spacer';
+import { useEffect, useState } from 'react';
+import YoutubePlayer from '../../../atoms/youtube';
 
 const StyledPolygon = styled.div`
   width: 70%;
@@ -22,44 +24,76 @@ const StyledYoutube = styled.div`
   position: relative;
   padding: 10px;
 `;
-const StyledYoutubeArea = styled.div<{ imageUrl: string }>`
-  width: 100%;
-  background-color: ${colors.Gray[25]};
-  background-image: url(${(props) => props.imageUrl}); /* 이미지 경로를 실제 이미지 파일의 경로로 변경하세요. */
-  background-size: cover; /* 원하는 크기 및 배치 설정에 따라 조절하세요. */
-  background-position: center; /* 원하는 배치 설정에 따라 조절하세요. */
 
-  /* youtube 사이즈 16:9 비율로 임시 박스 */
-  &::before {
-    content: '';
-    display: block;
-    width: 100%;
-    height: 0;
-    padding-top: 56.25%;
-  }
+const StyledText = styled.div`
+  margin-left: 5%;
+  background-color: ${colors.Gray[800]};
+  display: flex;
+  flex-direction: column;
 `;
 
-interface SingChatLeftCardProps {
-  channel: string;
-  video: string;
-  date: string;
-  imageUrl: string;
-}
+const OnclickDiv = styled.div`
+  border:2px solid black;
+  padding: 10px;
+  border-radius: 10px ;
+  cursor: pointer;
+  &:hover {
+    background-color: ${colors.LightGray[600]};
+  }
+`
+const StyledButton = styled.button`
+  width: 40px;
+  margin: 0 auto 1vh 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ff0000;
+  color: #ffffff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
 
-const SingChatLeftCard = (props: SingChatLeftCardProps) => {
+  &:hover {
+    background-color: #cc0000;
+  }
+`;
+const SingChatLeftCard = ({data,date}:any ) => {
+  const [ index, setIndex ] = useState(-1)
+
   return (
     <div>
       <StyledPolygon>
-        <StyledYoutube>
-          <Caption1 children={'YouTube'} color={colors.Gray[25]} />
-          <Body2 children={props.channel} color={colors.Gray[25]} fontWeight={'bold'} />
-          <Spacer space={'1vh'} />
-          <Body1 children={props.video} color={colors.Gray[25]} fontWeight={'bold'} />
-          <Spacer space={'1vh'} />
-          <StyledYoutubeArea imageUrl={props.imageUrl} />
-        </StyledYoutube>
+        { 
+          index !== -1 ?
+          <StyledYoutube>
+            <StyledButton onClick={()=>{setIndex(-1)}}>X</StyledButton>
+            <Body2 children={data[index].snippet.channelTitle} color={colors.Gray[25]} fontWeight={'bold'} />
+            <Spacer space={'1vh'} />
+            <Body1 children={data[index].snippet.title} color={colors.Gray[25]} fontWeight={'bold'} />
+            <Spacer space={'1vh'} />
+            <YoutubePlayer videoId={data[index].id.videoId} />
+          </StyledYoutube>  
+          :
+          <StyledText>
+            <div style={{padding:'10px'}}>
+             <Body2 children={'원하는 음악을 선택해 주세요!'} color={colors.Gray[25]} fontWeight={'bold'} />
+            </div>
+             <Spacer space={'1vh'}/>
+            { data.map((item :any,index :any) =>(
+              <div>
+                <OnclickDiv onClick={() => setIndex(index)}>
+                  <Body2 children={item.snippet.title} color={colors.Gray[25]} fontWeight={'bold'} />
+                </OnclickDiv>
+                <Spacer space={'1vh'}/>
+              </div>
+              )
+            )}
+          </StyledText> 
+        }
       </StyledPolygon>
-      <Caption1 children={props.date} color={colors.Gray[25]} />
+      <Caption1 children={date} color={colors.Gray[25]} />
     </div>
   );
 };

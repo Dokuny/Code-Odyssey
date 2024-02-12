@@ -42,9 +42,6 @@ const ProblemRecommend = () => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    console.log(dayilyData)
-  }, [dayilyData]);
 // // 개인 스프린트 생성
 // interface ScheduleInfo {
 //   day: string;
@@ -67,9 +64,7 @@ const ProblemRecommend = () => {
       return
     }
     // 만약 난이도, 유형이 값이 있다면 
-    await postMySprint({ scheduleInfoList : dayilyData.map((item)=>{ 
-    return {day:item.day , recommendType : item.recommendedType, recommendDifficulty : item.recommendedDifficulty}}
-    ) })
+    await postMySprint({ scheduleInfoList : dayilyData})
     fetchData();
   };
 
