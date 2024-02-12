@@ -17,6 +17,8 @@ import lombok.NoArgsConstructor;
 public class SourceCodeInfo{
 
         private Long submissionId;
+        private ProblemPlatform platform;
+        private String title;
         private LanguageType language;
         private String code;
 
