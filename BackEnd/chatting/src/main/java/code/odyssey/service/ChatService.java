@@ -1,22 +1,15 @@
 package code.odyssey.service;
 
 import code.odyssey.client.MemberInfoClient;
-import code.odyssey.dto.ChatData;
-import code.odyssey.dto.GuildMemberInfo;
-import code.odyssey.dto.MemberInfo;
+import code.odyssey.dto.*;
 import code.odyssey.repository.ChatRepository;
-import code.odyssey.dto.ChatMessage;
 import code.odyssey.entity.Chat;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.boot.json.BasicJsonParser;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
 import java.util.Base64;
@@ -39,14 +32,12 @@ public class ChatService {
         String token = message.getToken();
         Long memberId = parseAccessTokenByBase64(token);
 
-
         // common server에서 멤버 정보 가져오기
         MemberInfo memberInfo = memberInfoClient.getMemberInfo(memberId);
 
         // 멤버가 길드에 속해있는지 체크
         List<GuildMemberInfo> guildMemberInfos =
                 memberInfoClient.getGuildMemberList(message.getGuildId());
-
 
         Chat chat = Chat.builder()
                 .memberId(memberId)
@@ -57,9 +48,19 @@ public class ChatService {
                 .sendTime(LocalDateTime.now())
                 .build();
 
+        ChatShowMessage chatShowMessage = ChatShowMessage.builder()
+                .memberId(memberId)
+                .nickname(memberInfo.nickname())
+                .thumbnail(memberInfo.thumbnail())
+                .guildId(guildId)
+                .message(message.getMessage())
+                .sendTime(LocalDateTime.now())
+                .token(token)
+                .build();
+
         rabbitTemplate.convertAndSend(topicExchange.getName(),
                 "room."+ guildId,
-                chat);  // exchange 이름, routing-key, 전송하고자 하는 것
+                chatShowMessage);  // exchange 이름, routing-key, 전송하고자 하는 것
 
         chatRepository.save(chat);
 //        if (isMemberInGuild(guildMemberInfos, memberId)) {

@@ -25,7 +25,6 @@ public class StompController {
             @DestinationVariable Long guildId,
             ChatMessage chat
     ) {
-//        System.out.println(guildId +" / 컨트롤러 센드");
         chatService.sendChat(chat, guildId);
     }
 
