@@ -38,7 +38,7 @@ public class ChatService {
 
         String token = message.getToken();
         Long memberId = parseAccessTokenByBase64(token);
-        System.out.println("token parsing!!"+memberId);
+
 
         // common server에서 멤버 정보 가져오기
         MemberInfo memberInfo = memberInfoClient.getMemberInfo(memberId);
@@ -46,10 +46,7 @@ public class ChatService {
         // 멤버가 길드에 속해있는지 체크
         List<GuildMemberInfo> guildMemberInfos =
                 memberInfoClient.getGuildMemberList(message.getGuildId());
-        System.out.println("print guild!!!!!!");
-        for (GuildMemberInfo elements: guildMemberInfos) {
-            System.out.println("guild member: " + elements.getMemberId());
-        }
+
 
         Chat chat = Chat.builder()
                 .memberId(memberId)
