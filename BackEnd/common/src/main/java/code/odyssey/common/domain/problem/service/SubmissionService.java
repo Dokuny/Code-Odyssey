@@ -10,6 +10,10 @@ import code.odyssey.common.domain.problem.entity.Submission;
 import code.odyssey.common.domain.problem.entity.enums.LanguageType;
 import code.odyssey.common.domain.problem.entity.enums.ProblemPlatform;
 import code.odyssey.common.domain.problem.entity.enums.ProblemType;
+import code.odyssey.common.domain.problem.exception.SubmissionErrorCode;
+import code.odyssey.common.domain.problem.exception.SubmissionException;
+import code.odyssey.common.domain.problem.exception.problem.ProblemErrorCode;
+import code.odyssey.common.domain.problem.exception.problem.ProblemException;
 import code.odyssey.common.domain.problem.repository.ProblemRepository;
 import code.odyssey.common.domain.problem.repository.SubmissionRepository;
 import code.odyssey.common.domain.score.entity.Score;
@@ -84,11 +88,11 @@ public class SubmissionService {
         Problem problem = problemRepository.findByPlatformAndNo(
                         ProblemPlatform.valueOf(request.getPlatform()),
                         request.getNo())
-                .orElseThrow(() -> new NoSuchElementException("Problem not found"));
+                .orElseThrow(() -> new ProblemException(ProblemErrorCode.NOT_EXIST_PROBLEM));
 
         // 점수
         Score score = scoreRepository.findStatsByMemberId(memberId)
-                .orElseThrow(() -> new NoSuchElementException("Score not found"));
+                .orElseThrow(() -> new SubmissionException(SubmissionErrorCode.NOT_EXISTS_SCORE_TABLE));
         
         // 언어 체크
         String language = request.getLanguage();
