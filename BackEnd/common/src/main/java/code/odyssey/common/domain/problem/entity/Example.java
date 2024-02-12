@@ -1,6 +1,7 @@
 package code.odyssey.common.domain.problem.entity;
 
 import code.odyssey.common.domain.guild.entity.Guild;
+import code.odyssey.common.domain.member.entity.Member;
 import code.odyssey.common.domain.problem.entity.enums.ExampleType;
 import code.odyssey.common.global.common.BaseEntity;
 import jakarta.persistence.*;
@@ -29,6 +30,10 @@ public class Example extends BaseEntity {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "problem_id")
     private Problem problem;
+
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     @Lob
     private String input;
