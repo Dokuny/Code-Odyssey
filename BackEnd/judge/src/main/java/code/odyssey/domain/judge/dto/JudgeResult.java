@@ -11,8 +11,6 @@ public class JudgeResult {
     private Status status;
     private String myOutput;
     private Long runtime;
-    private String runtimeError;
-
-    private String compileError;
+    private String error;
 
 }
