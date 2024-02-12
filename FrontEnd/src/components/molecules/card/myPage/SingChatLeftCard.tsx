@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Body1, Body2, Caption1 } from '../../../atoms/basic/Typography';
 import { colors } from '../../../../config/Color';
 import { Spacer } from '../../../atoms/basic/Spacer';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import YoutubePlayer from '../../../atoms/youtube';
 
 const StyledPolygon = styled.div`
@@ -33,14 +33,14 @@ const StyledText = styled.div`
 `;
 
 const OnclickDiv = styled.div`
-  border:2px solid black;
+  border: 2px solid black;
   padding: 10px;
-  border-radius: 10px ;
+  border-radius: 10px;
   cursor: pointer;
   &:hover {
     background-color: ${colors.LightGray[600]};
   }
-`
+`;
 const StyledButton = styled.button`
   width: 40px;
   margin: 0 auto 1vh 0;
@@ -59,39 +59,43 @@ const StyledButton = styled.button`
     background-color: #cc0000;
   }
 `;
-const SingChatLeftCard = ({data,date}:any ) => {
-  const [ index, setIndex ] = useState(-1)
+const SingChatLeftCard = ({ data, date }: any) => {
+  const [index, setIndex] = useState(-1);
 
   return (
     <div>
       <StyledPolygon>
-        { 
-          index !== -1 ?
+        {index !== -1 ? (
           <StyledYoutube>
-            <StyledButton onClick={()=>{setIndex(-1)}}>X</StyledButton>
+            <StyledButton
+              onClick={() => {
+                setIndex(-1);
+              }}
+            >
+              X
+            </StyledButton>
             <Body2 children={data[index].snippet.channelTitle} color={colors.Gray[25]} fontWeight={'bold'} />
             <Spacer space={'1vh'} />
             <Body1 children={data[index].snippet.title} color={colors.Gray[25]} fontWeight={'bold'} />
             <Spacer space={'1vh'} />
             <YoutubePlayer videoId={data[index].id.videoId} />
-          </StyledYoutube>  
-          :
+          </StyledYoutube>
+        ) : (
           <StyledText>
-            <div style={{padding:'10px'}}>
-             <Body2 children={'원하는 음악을 선택해 주세요!'} color={colors.Gray[25]} fontWeight={'bold'} />
+            <div style={{ padding: '10px' }}>
+              <Body2 children={'원하는 음악을 선택해 주세요!'} color={colors.Gray[25]} fontWeight={'bold'} />
             </div>
-             <Spacer space={'1vh'}/>
-            { data.map((item :any,index :any) =>(
+            <Spacer space={'1vh'} />
+            {data.map((item: any, index: any) => (
               <div>
                 <OnclickDiv onClick={() => setIndex(index)}>
                   <Body2 children={item.snippet.title} color={colors.Gray[25]} fontWeight={'bold'} />
                 </OnclickDiv>
-                <Spacer space={'1vh'}/>
+                <Spacer space={'1vh'} />
               </div>
-              )
-            )}
-          </StyledText> 
-        }
+            ))}
+          </StyledText>
+        )}
       </StyledPolygon>
       <Caption1 children={date} color={colors.Gray[25]} />
     </div>

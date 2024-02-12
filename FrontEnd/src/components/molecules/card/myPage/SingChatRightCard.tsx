@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Body2, Caption1 } from '../../../atoms/basic/Typography';
 import { colors } from '../../../../config/Color';

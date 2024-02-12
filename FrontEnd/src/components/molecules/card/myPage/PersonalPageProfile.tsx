@@ -71,11 +71,11 @@ const DiffImgageDiv = styled.img`
   width: 4%;
 `;
 
-interface PersonalPageProfile {
+interface PersonalPageProfileProps {
   memberId: number;
 }
 
-const PersonalPageProfile = (props: PersonalPageProfile) => {
+const PersonalPageProfile = (props: PersonalPageProfileProps) => {
   const [data, setData] = useState({
     thumbnail: 'https://picsum.photos/300',
     nickname: 'testNickName',
@@ -86,13 +86,12 @@ const PersonalPageProfile = (props: PersonalPageProfile) => {
     penalty: 1,
   });
 
-  const fetchData = async () => {
-    const data = await getPersonalProfile(props.memberId);
-    console.log(data);
-    setData(data);
-  };
-
   useEffect(() => {
+    const fetchData = async () => {
+      const data = await getPersonalProfile(props.memberId);
+      console.log(data);
+      setData(data);
+    };
     fetchData();
     console.log('fetch data!');
   }, [props.memberId]);

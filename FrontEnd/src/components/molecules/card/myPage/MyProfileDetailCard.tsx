@@ -8,8 +8,6 @@ import { IoIcon } from '../../../atoms/icon/Icons';
 import { difficulty } from '../../../../utils/json/difficulty';
 import { getProfile } from '../../../../utils/api/mypage/myprofile/profile';
 import ModalProfile from '../../../organisms/myPage/main/ModalProfile';
-import { getDownloadURL, ref } from '@firebase/storage';
-import { fstorage } from '../../../../firebase';
 
 const StyledContainer = styled.div`
   background-color: ${colors.GrayBlue[200]};
@@ -72,80 +70,76 @@ const StyledMyInfoContentContainer = styled.div`
 `;
 
 const DiffImgageDiv = styled.img`
-
   position: relative;
   width: 4%;
 `;
 
 const MyProfileDetailCard = () => {
-  const [data, setData] = useState({
-    thumbnail: '',
-    nickname: '',
-    email: '',
-    tier: 0,
-    streak: 0,
-    sevenStreak: 0,
-    penalty: 0,
-  });
+  const [data, setData] = useState<any>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const data= await getProfile()
-      console.log(data)
-      setData( data );
-      setInput(data.nickname)
-    };  
+    if (data === null) {
+      const fetchData = async () => {
+        const data = await getProfile();
+        setData(data);
+        setInput(data.nickname);
+      };
 
-    fetchData();
-  }, []);
+      fetchData();
+    }
+  }, [data]);
 
   const [isModalOpen, setModalOpen] = useState(false);
-  const [input,setInput] = useState<string>('')
+  const [input, setInput] = useState<string>('');
 
-  const openModal = () => setModalOpen(true)
-  const closeModal = () => setModalOpen(false)
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
 
   return (
     <StyledContainer>
-      <StyledBackgroundImage>
-        <StyledMyImgContainer>
-          <StyledMyImage src={data.thumbnail} />
-        </StyledMyImgContainer>
-      </StyledBackgroundImage>
-      <Spacer space={'2vh'} />
+      {data !== null && (
+        <>
+          <StyledBackgroundImage>
+            <StyledMyImgContainer>
+              <StyledMyImage src={data.thumbnail} />
+            </StyledMyImgContainer>
+          </StyledBackgroundImage>
+          <Spacer space={'2vh'} />
 
-      <StyledPositionContainer>
-      <div style={{width:'calc(4% + 1vw)'}}></div>
-        <StyledMyInfoContentContainer>
-          <Body1 children={data.nickname} color={colors.Gray[25]} fontWeight={'bold'} />
-          <Body2 children={data.email} color={colors.Gray[500]} />
-        </StyledMyInfoContentContainer>
-        <Spacer space={'1vw'} horizontal />
-        <DiffImgageDiv src={difficulty[data.tier]}></DiffImgageDiv>
-      </StyledPositionContainer>
-      <Spacer space={'1vh'} />
+          <StyledPositionContainer>
+            <div style={{ width: 'calc(4% + 1vw)' }}></div>
+            <StyledMyInfoContentContainer>
+              <Body1 children={data.nickname} color={colors.Gray[25]} fontWeight={'bold'} />
+              <Body2 children={data.email} color={colors.Gray[500]} />
+            </StyledMyInfoContentContainer>
+            <Spacer space={'1vw'} horizontal />
+            <DiffImgageDiv src={difficulty[data.tier]}></DiffImgageDiv>
+          </StyledPositionContainer>
+          <Spacer space={'1vh'} />
 
-      <StyledMyInfoContainer>
-        <StyledMyInfoContentContainer>
-          <Body1 children={data.streak || 0} color={colors.Gray[25]} fontWeight={'bold'} />
-          <Body2 children={'모은 별'} color={colors.Gray[500]} />
-        </StyledMyInfoContentContainer>
-        <Spacer space={'2vw'} horizontal />
-        <StyledMyInfoContentContainer>
-          <Body1 children={data.sevenStreak || 0} color={colors.Gray[25]} fontWeight={'bold'} />
-          <Body2 children={'모은 북두칠성'} color={colors.Gray[500]} />
-        </StyledMyInfoContentContainer>
-        <Spacer space={'2vw'} horizontal />
-        <StyledMyInfoContentContainer>
-          <Body1 children={data.penalty || 0} color={colors.Gray[25]} fontWeight={'bold'} />
-          <Body2 children={'범죄 지수'} color={colors.Gray[500]} />
-        </StyledMyInfoContentContainer>
-        <Spacer space={'2vw'} horizontal />
-        <IconButton event={openModal}>
-          <IoIcon name={'brush'} size={'2vmax'} color={colors.Gray[25]} />
-        </IconButton>
-        <ModalProfile isOpen={isModalOpen} closeModal={closeModal}  data={data} input={input} setInput={setInput}/>
-      </StyledMyInfoContainer>
+          <StyledMyInfoContainer>
+            <StyledMyInfoContentContainer>
+              <Body1 children={data.streak || 0} color={colors.Gray[25]} fontWeight={'bold'} />
+              <Body2 children={'모은 별'} color={colors.Gray[500]} />
+            </StyledMyInfoContentContainer>
+            <Spacer space={'2vw'} horizontal />
+            <StyledMyInfoContentContainer>
+              <Body1 children={data.sevenStreak || 0} color={colors.Gray[25]} fontWeight={'bold'} />
+              <Body2 children={'모은 북두칠성'} color={colors.Gray[500]} />
+            </StyledMyInfoContentContainer>
+            <Spacer space={'2vw'} horizontal />
+            <StyledMyInfoContentContainer>
+              <Body1 children={data.penalty || 0} color={colors.Gray[25]} fontWeight={'bold'} />
+              <Body2 children={'범죄 지수'} color={colors.Gray[500]} />
+            </StyledMyInfoContentContainer>
+            <Spacer space={'2vw'} horizontal />
+            <IconButton event={openModal}>
+              <IoIcon name={'brush'} size={'2vmax'} color={colors.Gray[25]} />
+            </IconButton>
+            <ModalProfile isOpen={isModalOpen} closeModal={closeModal} data={data} input={input} setInput={setInput} />
+          </StyledMyInfoContainer>
+        </>
+      )}
     </StyledContainer>
   );
 };

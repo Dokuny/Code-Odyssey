@@ -1,19 +1,18 @@
 import React from 'react';
-import YouTube from 'react-youtube';
+import YouTube, { Options } from 'react-youtube';
 
 interface YoutubePlayerProps {
-    videoId: string;
-  }
+  videoId: string;
+}
 
-  const YoutubePlayer: React.FC<YoutubePlayerProps> = ({ videoId }) => {
-    
-    const opts = {
-        width: "100%",
-        playerVars: {
-        aspectRatio: '16:9', // 16:9 비율로 설정
-        autoplay: 1,
-        },
-    };
+const YoutubePlayer: React.FC<YoutubePlayerProps> = ({ videoId }) => {
+  const opts = {
+    width: '100%',
+    playerVars: {
+      aspectRatio: '16:9', // 16:9 비율로 설정
+      autoplay: 1,
+    },
+  } as Options;
 
   return <YouTube videoId={videoId} opts={opts} />;
 };
