@@ -1,5 +1,5 @@
 // 유저 id
-var userId = "username!!!!!!";
+var userToken = null;
 
 // 익스텐션 on/off
 var stat = true;
@@ -15,13 +15,13 @@ chrome.runtime.onInstalled.addListener(function (details) {
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   // userId 저장
-  if (request.request === "setUserId") {
-    userId = request.userId;
-    sendResponse({ result: "request successed", userId: userId });
+  if (request.request === "setUserToken") {
+    userToken = request.userToken;
+    sendResponse({ result: "request successed", userToken: userToken });
   }
   // userId 조회
-  else if (request.request === "getUserId") {
-    sendResponse({ result: "request successed", userId: userId });
+  else if (request.request === "getUserToken") {
+    sendResponse({ result: "request successed", userToken: userToken });
   }
   // 익스텐션 실행 상태 조회
   else if (request.request === "getStatus") {

@@ -4,10 +4,28 @@ chrome.runtime.sendMessage({ request: "getStatus" }, function (response) {
   stat = response.stat;
 });
 // user id
-var userId = "";
-chrome.runtime.sendMessage({ request: "getUserId" }, function (response) {
-  userId = response.userId;
+var token = "";
+chrome.runtime.sendMessage({ request: "getUserToken" }, function (response) {
+  token = response.userToken;
+  console.log("usertoken get : ", token);
 });
+
+const setToken = function () {
+  chrome.runtime.sendMessage(
+    {
+      request: "setUserToken",
+      userToken: token,
+    },
+    function (resopnse) {
+      console.log(
+        "result : ",
+        resopnse.result,
+        " userToken : ",
+        resopnse.userToken
+      );
+    }
+  );
+};
 
 let loader;
 const currentUrl = window.location.href;
@@ -239,10 +257,9 @@ async function makeData(origin) {
   const { problemId, language, languages, runtime, memory, code } = origin;
 
   const data = {
-    userId: "username",
     platform: "SWEA",
     no: problemId,
-    code: code,
+    code: JSON.stringify(code),
     memory: memory,
     time: runtime,
     language: languages[language],
@@ -251,10 +268,11 @@ async function makeData(origin) {
   if (stat) {
     // 제출 API
 
-    fetch("http://127.0.0.1:8081/save-data/test/", {
+    fetch("https://code-odyssey.site/submissions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: token,
       },
       body: JSON.stringify(data),
     })
@@ -263,10 +281,12 @@ async function makeData(origin) {
           console.log("데이터를 성공적으로 서버로 보냈습니다.");
         } else {
           console.error("서버로 데이터를 보내는 중 오류가 발생했습니다.");
+          setToken();
         }
       })
       .catch((error) => {
         console.error("서버로 데이터를 보내는 중 오류가 발생했습니다.", error);
+        setToken();
       });
   } else if (!stat) {
     console.log("extension off");
