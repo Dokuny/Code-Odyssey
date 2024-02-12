@@ -117,7 +117,7 @@ public class JudgeServiceByLocal implements JudgeService{
                 boolean isNotTimeOut = process.waitFor(2, TimeUnit.MILLISECONDS);
                 long endTime = System.currentTimeMillis();
                 if(!isNotTimeOut){
-                    return JudgeResult.builder().status(런타임_에러).result(2).runtimeError(error.toString()).build();
+                    return JudgeResult.builder().status(런타임_에러).result(2).error(error.toString()).build();
                 }
 
                 StringBuilder result = getLog(process.getInputStream());
@@ -136,7 +136,7 @@ public class JudgeServiceByLocal implements JudgeService{
                 return JudgeResult.builder()
                         .status(컴파일_에러)
                         .result(2)
-                        .compileError(compileError.toString().replaceAll("./Main.java", "\n./Main.java"))
+                        .error(compileError.toString().replaceAll("./Main.java", "\n./Main.java"))
                         .build();
             }
         }finally{
@@ -183,7 +183,7 @@ public class JudgeServiceByLocal implements JudgeService{
             StringBuilder error = getLog(process.getErrorStream());
             if(!error.isEmpty()){
                 log.error("runtime error : {}", error);
-                return JudgeResult.builder().status(런타임_에러).result(2).runtimeError(error.toString()).build();
+                return JudgeResult.builder().status(런타임_에러).result(2).error(error.toString()).build();
             }
 
             // 프로세스가 종료될 때까지 대기
@@ -239,7 +239,7 @@ public class JudgeServiceByLocal implements JudgeService{
                 StringBuilder error = getLog(process.getErrorStream());
                 if(!error.isEmpty()){
                     log.error("runtime error : {}", error);
-                    return JudgeResult.builder().status(런타임_에러).result(2).runtimeError(error.toString()).build();
+                    return JudgeResult.builder().status(런타임_에러).result(2).error(error.toString()).build();
                 }
 
                 // 프로세스가 종료될 때까지 대기
@@ -254,7 +254,7 @@ public class JudgeServiceByLocal implements JudgeService{
 
                 if(!error.isEmpty()){
                     log.error("runtime error : {}", error);
-                    return JudgeResult.builder().status(런타임_에러).runtimeError(error.toString()).result(2).build();
+                    return JudgeResult.builder().status(런타임_에러).error(error.toString()).result(2).build();
                 }
                 StringBuilder result = getLog(process.getInputStream());
 
@@ -273,7 +273,7 @@ public class JudgeServiceByLocal implements JudgeService{
                 return JudgeResult.builder()
                         .status(컴파일_에러)
                         .result(2)
-                        .compileError(compileError.toString().replaceAll("./Main.java", "\n./Main.java"))
+                        .error(compileError.toString().replaceAll("./Main.java", "\n./Main.java"))
                         .build();
             }
         }finally{
