@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../../../config/Color';
-import { AddComma } from '../../../../utils/basic/BasicUtil';
 import { Spacer } from '../../../atoms/basic/Spacer';
-import { Body1, Body2 } from '../../../atoms/basic/Typography';
+import { Body1 } from '../../../atoms/basic/Typography';
 import { getProfile } from '../../../../utils/api/mypage/myprofile/profile';
 
 const StyledContainer = styled.div`
@@ -37,33 +36,34 @@ const StyledMyInfoContentContainer = styled.div`
 `;
 
 const MyProfileSimpleCard = () => {
-  const [data, setData] = useState({
-    thumbnail: 'https://picsum.photos/300',
-    nickname: 'Dev_1week',
-  });
+  const [data, setData] = useState<any>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await getProfile();
-      setData({ thumbnail: data.thumbnail, nickname: data.nickname });
-      console.log('updated, ', data);
-    };
+    if (data === null) {
+      const fetchData = async () => {
+        const data = await getProfile();
+        setData({ thumbnail: data.thumbnail, nickname: data.nickname });
+      };
 
-    fetchData();
-  }, []);
+      fetchData();
+    }
+  }, [data]);
 
   return (
     <StyledContainer>
-      <StyledMyImgContainer>
-        <StyledMyImage src={data.thumbnail} />
-      </StyledMyImgContainer>
-      <Spacer space={'1vh'} />
+      {data !== null && (
+        <>
+          <StyledMyImgContainer>
+            <StyledMyImage src={data.thumbnail} />
+          </StyledMyImgContainer>
+          <Spacer space={'1vh'} />
 
-      <StyledMyInfoContentContainer>
-        <Body1 children={data.nickname} color={colors.Gray[25]} fontWeight={'bold'} />
-        <Spacer space={'0.5vh'} />
-        {/* <Body2 children={`REWARD $${AddComma(data.reward)}`} color={colors.Gray[25]} fontWeight={'bold'} /> */}
-      </StyledMyInfoContentContainer>
+          <StyledMyInfoContentContainer>
+            <Body1 children={data.nickname} color={colors.Gray[25]} fontWeight={'bold'} />
+            <Spacer space={'0.5vh'} />
+          </StyledMyInfoContentContainer>
+        </>
+      )}
     </StyledContainer>
   );
 };

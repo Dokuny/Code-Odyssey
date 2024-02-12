@@ -3,17 +3,17 @@ import React from 'react';
 import { colors } from '../../../config/Color';
 
 interface SelectDropDownProps {
-    id: string;
-    setSelectValue: React.Dispatch<React.SetStateAction<string>>;
-    values: any;
-    bgColor: string;
-    width?: string | number;
-    borderRadius?: string | number;
-    height: string | number;
-    fontSize?: string;
-    fontcolor: string;
-    selectedValue: string;
-  }
+  id: string;
+  setSelectValue: React.Dispatch<React.SetStateAction<string>>;
+  values: any;
+  bgColor: string;
+  width?: string | number;
+  borderRadius?: string | number;
+  height: string | number;
+  fontSize?: string;
+  fontcolor: string;
+  selectedValue: string;
+}
 
 const SelectDropDown = styled.select<{
   theme: { [key: string]: string };
@@ -42,11 +42,11 @@ const SelectDropDown = styled.select<{
 // event
 
 const DropDown2 = (props: SelectDropDownProps) => {
-    const handler = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const selectedValue = e.target.value;
-        props.setSelectValue(selectedValue);
-      };
-    
+  const handler = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedValue = e.target.value;
+    props.setSelectValue(selectedValue);
+  };
+
   return (
     <SelectDropDown
       id={props.id}
@@ -59,16 +59,17 @@ const DropDown2 = (props: SelectDropDownProps) => {
       fontcolor={props.fontcolor || `${colors.Gray[500]}`}
       value={props.selectedValue}
     >
-      {props.values.map((ele: any, index: number) => (
-        index === 0 ? 
-        <option disabled value={ele[0]} key={index}>
-          {ele[1]}
-        </option>
-        :
-        <option value={ele[0]} key={index}>
-          {ele[1]}
-        </option>
-      ))}
+      {props.values.map((ele: any, index: number) =>
+        index === 0 ? (
+          <option disabled value={ele[0]} key={index}>
+            {ele[1]}
+          </option>
+        ) : (
+          <option value={ele[0]} key={index}>
+            {ele[1]}
+          </option>
+        )
+      )}
     </SelectDropDown>
   );
 };
