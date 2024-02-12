@@ -23,7 +23,23 @@ public class ReviewDetailsInfo{
 
     private String nickname;
     private String content;
+
+
+    private boolean isMine;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDateTime createdAt;
+
+    public ReviewDetailsInfo(Long reviewId, Long memberId, String profile, String nickname, String content, LocalDateTime createdAt) {
+        this.reviewId = reviewId;
+        this.memberId = memberId;
+        this.profile = profile;
+        this.nickname = nickname;
+        this.content = content;
+        this.createdAt = createdAt;
+    }
+
+    public void setIsMine(boolean mine) {
+        isMine = mine;
+    }
 }
 
