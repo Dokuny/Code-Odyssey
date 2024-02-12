@@ -14,6 +14,7 @@ import code.odyssey.common.domain.review.Exception.ReviewException;
 import code.odyssey.common.domain.review.dto.*;
 import code.odyssey.common.domain.review.entity.Review;
 import code.odyssey.common.domain.review.repository.ReviewRepository;
+import code.odyssey.common.domain.review.repository.ReviewRepositoryCustom;
 import code.odyssey.common.domain.review.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +29,7 @@ import java.util.Optional;
 @Slf4j
 public class ReviewServiceImpl implements ReviewService {
 
-
+    private final ReviewRepositoryCustom reviewRepositoryCustom;
     private final SubmissionRepository submissionRepository;
 
     private final ReviewRepository reviewRepository;
@@ -37,10 +38,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public SourceCodeInfo getSourceCode(Long submissionId) {
-        return submissionRepository
-                .findById(submissionId)
-                .orElseThrow(()-> new SubmissionException(SubmissionErrorCode.NOT_EXISTS_SUBMISSION))
-                .toSourceCodeInfo();
+        return submissionRepository.getSourceCodeBySubmissionId(submissionId);
     }
 
 
