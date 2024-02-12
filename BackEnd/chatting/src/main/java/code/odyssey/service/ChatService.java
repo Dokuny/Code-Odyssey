@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -48,19 +47,9 @@ public class ChatService {
                 .sendTime(LocalDateTime.now())
                 .build();
 
-        ChatShowMessage chatShowMessage = ChatShowMessage.builder()
-                .memberId(memberId)
-                .nickname(memberInfo.nickname())
-                .thumbnail(memberInfo.thumbnail())
-                .guildId(guildId)
-                .message(message.getMessage())
-                .sendTime(LocalDateTime.now())
-                .token(token)
-                .build();
-
         rabbitTemplate.convertAndSend(topicExchange.getName(),
                 "room."+ guildId,
-                chatShowMessage);  // exchange 이름, routing-key, 전송하고자 하는 것
+                chat);  // exchange 이름, routing-key, 전송하고자 하는 것
 
         chatRepository.save(chat);
 //        if (isMemberInGuild(guildMemberInfos, memberId)) {
@@ -85,22 +74,8 @@ public class ChatService {
 
     }
 
-    public List<ChatData> getMessages(Long memberId, Long guildId) {
-        List<Chat> chatMessages = chatRepository.findByChatRoomId(guildId);
-
-        return chatMessages.stream()
-                .map(chat -> {
-                    ChatData chatData = new ChatData();
-                    chatData.setMemberId(chat.getMemberId());
-                    chatData.setNickname(chat.getNickname());
-                    chatData.setThumbnail(chat.getThumbnail());
-                    chatData.setChatRoomId(chat.getChatRoomId());
-                    chatData.setMessage(chat.getMessage());
-                    chatData.setSendTime(chat.getSendTime());
-                    chatData.setMine(chat.getMemberId().equals(memberId));
-                    return chatData;
-                })
-                .collect(Collectors.toList());
+    public List<Chat> getMessages(Long guildId) {
+        return chatRepository.findByChatRoomId(guildId);
 
     }
 

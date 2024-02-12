@@ -1,6 +1,5 @@
 package code.odyssey.controller;
 
-import code.odyssey.dto.ChatData;
 import code.odyssey.entity.Chat;
 import code.odyssey.service.ChatService;
 import lombok.RequiredArgsConstructor;
@@ -18,12 +17,12 @@ public class ChatController {
 
     // 길드 메세지 조회
     @GetMapping("/{guildId}")
-    public ResponseEntity<List<ChatData>> getMessages(
+    public ResponseEntity<List<Chat>> getMessages(
             @RequestHeader("X-Authorization-Id") Long memberId,
             @PathVariable Long guildId
 
     ) {
-        List<ChatData> chat = chatService.getMessages(memberId, guildId);
+        List<Chat> chat = chatService.getMessages(guildId);
         return ResponseEntity.ok(chat);
     }
 
