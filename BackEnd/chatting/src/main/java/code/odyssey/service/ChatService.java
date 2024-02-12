@@ -1,6 +1,7 @@
 package code.odyssey.service;
 
 import code.odyssey.client.MemberInfoClient;
+import code.odyssey.dto.ChatData;
 import code.odyssey.dto.GuildMemberInfo;
 import code.odyssey.dto.MemberInfo;
 import code.odyssey.repository.ChatRepository;
@@ -21,6 +22,7 @@ import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -46,25 +48,25 @@ public class ChatService {
                 memberInfoClient.getGuildMemberList(message.getGuildId());
         System.out.println("print guild!!!!!!");
         for (GuildMemberInfo elements: guildMemberInfos) {
-            System.out.println(elements.getMemberId());
+            System.out.println("guild member: " + elements.getMemberId());
         }
-        if (isMemberInGuild(guildMemberInfos, memberId)) {
 
-            Chat chat = Chat.builder()
-                    .memberId(memberId)
-                    .nickname(memberInfo.nickname())
-                    .thumbnail(memberInfo.thumbnail())
-                    .chatRoomId(guildId)
-                    .message(message.getMessage())
-                    .sendTime(LocalDateTime.now())
-                    .build();
+        Chat chat = Chat.builder()
+                .memberId(memberId)
+                .nickname(memberInfo.nickname())
+                .thumbnail(memberInfo.thumbnail())
+                .chatRoomId(guildId)
+                .message(message.getMessage())
+                .sendTime(LocalDateTime.now())
+                .build();
 
-            rabbitTemplate.convertAndSend(topicExchange.getName(),
-                    "room."+ guildId,
-                    chat);  // exchange 이름, routing-key, 전송하고자 하는 것
+        rabbitTemplate.convertAndSend(topicExchange.getName(),
+                "room."+ guildId,
+                chat);  // exchange 이름, routing-key, 전송하고자 하는 것
 
-            chatRepository.save(chat);
-        }
+        chatRepository.save(chat);
+//        if (isMemberInGuild(guildMemberInfos, memberId)) {
+//        }
     }
 
     private boolean isMemberInGuild(List<GuildMemberInfo> guildMemberInfos, Long memberId) {
@@ -85,8 +87,23 @@ public class ChatService {
 
     }
 
-    public List<Chat> getMessages(Long guildId) {
-        return chatRepository.findByChatRoomId(guildId);
+    public List<ChatData> getMessages(Long memberId, Long guildId) {
+        List<Chat> chatMessages = chatRepository.findByChatRoomId(guildId);
+
+        return chatMessages.stream()
+                .map(chat -> {
+                    ChatData chatData = new ChatData();
+                    chatData.setMemberId(chat.getMemberId());
+                    chatData.setNickname(chat.getNickname());
+                    chatData.setThumbnail(chat.getThumbnail());
+                    chatData.setChatRoomId(chat.getChatRoomId());
+                    chatData.setMessage(chat.getMessage());
+                    chatData.setSendTime(chat.getSendTime());
+                    chatData.setMine(chat.getMemberId().equals(memberId));
+                    return chatData;
+                })
+                .collect(Collectors.toList());
+
     }
 
     public void deleteMessages(Long guildId) {
