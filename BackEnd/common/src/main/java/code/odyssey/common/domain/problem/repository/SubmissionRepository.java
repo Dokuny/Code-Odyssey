@@ -3,6 +3,7 @@ package code.odyssey.common.domain.problem.repository;
 import code.odyssey.common.domain.problem.entity.Submission;
 import code.odyssey.common.domain.problem.entity.enums.ProblemType;
 import code.odyssey.common.domain.problem.dto.SolvedStreakInfo;
+import code.odyssey.common.domain.review.dto.SourceCodeInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -73,5 +74,15 @@ public interface SubmissionRepository extends JpaRepository<Submission, Long> {
             @Param("memberId") Long memberId,
             @Param("date") LocalDate date);
 
+    @Query("SELECT new code.odyssey.common.domain.review.dto.SourceCodeInfo(" +
+            "s.id, " +
+            "p.platform, " +
+            "p.title, " +
+            "s.language, " +
+            "s.code) " +
+            "FROM Submission s " +
+            "JOIN s.problem p " +
+            "WHERE s.id = :submissionId")
+    SourceCodeInfo getSourceCodeBySubmissionId(@Param("submissionId") Long submissionId);
 
 }
