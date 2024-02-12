@@ -3,6 +3,7 @@ import { Fa6Icon } from '../../../atoms/icon/Icons';
 import { useEffect, useState } from 'react';
 import { colors } from '../../../../config/Color';
 import ReviewComment from './ReviewComment';
+import { getCodeReviewDetail, deleteCodeReview } from '../../../../utils/api/guild/codeReview/codeReview';
 
 const StyledTitleBox = styled.div`
   box-sizing: border-box;
@@ -32,25 +33,33 @@ const ConmmentDiv = styled.div`
 
 interface ReviewRowProps {
   rowNum: number;
+  submission_id: string;
+  reloadReview: () => void;
 }
 
 const ReviewRow = (props: ReviewRowProps) => {
   const [showComments, setShowComments] = useState({});
-  // 렌더 시 각 행에 대한 리뷰 가져오기
-  const [data, setData] = useState([
-    {
-      profile: 'https://picsum.photos/250/250',
-      nickname: 'username1',
-      content: '코드리뷰/코드리뷰/코드리뷰/코드리뷰/코드리뷰/코드리뷰/코드리뷰/코드리뷰/코드리뷰/코드리뷰/코드리뷰/코드리뷰/코드리뷰/코드리뷰/코드리뷰/코드리뷰/코드리뷰/코드리뷰/코드리뷰/코드리뷰/',
-      created_at: '2024-02-02',
-    },
-    {
-      profile: 'https://picsum.photos/250/250',
-      nickname: 'username2',
-      content: '코드리뷰내용2',
-      created_at: '2024-02-05',
-    },
-  ]);
+  const [data, setData] = useState<
+    Array<{
+      content: string;
+      created_at: string;
+      member_id: number;
+      nickname: string;
+      profile: string;
+      review_id: number;
+      mine: boolean;
+    }>
+  >([]);
+
+  const fetchData = async () => {
+    const data = await getCodeReviewDetail(props.submission_id, props.rowNum);
+    setData(data.reviews);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [props.reloadReview]);
+
   useEffect(() => {}, [showComments]);
 
   return (
@@ -63,7 +72,17 @@ const ReviewRow = (props: ReviewRowProps) => {
       </StyledTitleBox>
       <ConmmentDiv style={{ display: `${showComments ? 'block' : 'none'}` }}>
         {data.map((cmt, idx) => (
-          <ReviewComment key={idx} profile={cmt.profile} nickname={cmt.nickname} content={cmt.content} created={cmt.created_at}></ReviewComment>
+          <ReviewComment
+            reloadReview={props.reloadReview}
+            key={idx}
+            reviewId={cmt.review_id}
+            memberId={cmt.member_id}
+            profile={cmt.profile}
+            nickname={cmt.nickname}
+            content={cmt.content}
+            created={cmt.created_at}
+            mine={cmt.mine}
+          ></ReviewComment>
         ))}
       </ConmmentDiv>
     </>

@@ -32,6 +32,8 @@ const ReviewDiv = styled.div`
 interface CodeReviewProps {
   row: number[];
   codeLen: number;
+  submission_id: string;
+  reloadReview: () => void;
 }
 
 const CodeReview = (props: CodeReviewProps) => {
@@ -39,12 +41,12 @@ const CodeReview = (props: CodeReviewProps) => {
     <StyledContainer>
       <ReviewDiv>
         {props.row.map((num, index) => (
-          <div>
-            <ReviewRow key={index} rowNum={num}></ReviewRow>
+          <div key={index}>
+            <ReviewRow reloadReview={props.reloadReview} rowNum={num} submission_id={props.submission_id}></ReviewRow>
           </div>
         ))}
       </ReviewDiv>
-      <CodeReviewForm codeLen={props.codeLen}></CodeReviewForm>
+      <CodeReviewForm reloadReview={props.reloadReview} codeLen={props.codeLen} submission_id={props.submission_id}></CodeReviewForm>
     </StyledContainer>
   );
 };

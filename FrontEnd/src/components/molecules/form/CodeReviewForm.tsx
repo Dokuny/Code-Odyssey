@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Spacer } from '../../atoms/basic/Spacer';
-import { SyntheticEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { postCodeReview } from '../../../utils/api/guild/codeReview/codeReview';
 
 const ReviewInputForm = styled.form`
   background-color: #4a4458;
@@ -34,6 +35,10 @@ const InputBox1 = styled.input`
     -webkit-appearance: none;
     margin: 0;
   }
+  &:focus {
+    box-shadow: 0 0 1px 1px white;
+    cursor: pointer;
+  }
 `;
 const InputBox2 = styled.textarea`
   background-color: transparent;
@@ -48,6 +53,10 @@ const InputBox2 = styled.textarea`
   border-radius: 8px;
   height: 50%;
   resize: none;
+  &:focus {
+    box-shadow: 0 0 1px 1px white;
+    cursor: pointer;
+  }
 `;
 
 const SubmitButton = styled.button`
@@ -65,40 +74,57 @@ const SubmitButton = styled.button`
   transition: all 100ms ease-in-out;
 
   &:hover {
+    box-shadow: 0 0 2px 1px white;
     cursor: pointer;
   }
 `;
 interface CodeReviewProps {
   codeLen: number;
+  submission_id: string;
+  reloadReview: () => void;
 }
 const CodeReviewForm = (props: CodeReviewProps) => {
   const [line, setLine] = useState(0);
   const [content, setContent] = useState('');
 
   const handleLineChange = (event: any) => {
-    setLine(event.target.value);
-  };
-  const handleContentChange = (event: any) => {
-    setLine(event.target.value);
-  };
-
-  const SubmitReview = (e: any) => {
-    e.preventDefault();
-    console.log('서버에 요청', line, content);
-    // 제츨 API
-  };
-
-  useEffect(() => {
-    if (line > props.codeLen) {
+    const value = parseInt(event.target.value);
+    if (value > props.codeLen) {
       window.alert('현재 코드 최대 길이는 ' + `${props.codeLen}` + '입니다.');
       setLine(props.codeLen);
+    } else {
+      setLine(value);
     }
-    console.log(line, content);
-  }, [line, content]);
+  };
+  const handleContentChange = (event: any) => {
+    setContent(event.target.value);
+  };
+
+  useEffect(() => {}, [line, content]);
+
+  const SubmitReview = async (e: any) => {
+    e.preventDefault();
+    if (!line || line === 0) {
+      window.alert('행을 선택해 주세요');
+    } else if (!content) {
+      window.alert('내용을 입력해 주세요');
+    } else {
+      const review = {
+        submission_id: parseInt(props.submission_id),
+        row: line as number,
+        content: content,
+      };
+
+      await postCodeReview(review);
+      props.reloadReview();
+    }
+  };
+  // 제출 후 제출된 리뷰 조회,..? 나중에 api 나오면 추가
+
   return (
     <ReviewInputForm>
       <div style={{ display: 'flex' }}>
-        <label htmlFor='line' style={{ color: 'white', width: '20%', fontSize: '1.3rem', fontWeight: 'bold' }}>
+        <label htmlFor='line' style={{ color: 'white', width: '20%', fontSize: '1.2rem', fontWeight: 'bold' }}>
           line :
         </label>
         <InputBox1 id='line' type='number' value={line === 0 ? '' : line} placeholder='행을 입력해주세요' onChange={handleLineChange}></InputBox1>
