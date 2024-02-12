@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { counterExample } from '../../../../utils/api/ide/problemcontent';
 import { Spacer } from '../../../atoms/basic/Spacer';
 import CounterExampleCard from '../../../molecules/card/ide/CounterExampleCard';
 import GuildIdeCounterCaseForm from '../../../molecules/form/GuildIdeCounterCaseForm';
@@ -25,22 +26,20 @@ const StyledScrollDiv = styled.div`
   box-sizing: border-box;
 `;
 
-const GuildIdeCounterExample = () => {
-  const [data, setData] = useState<null | Array<any>>([
-    { member_id: 1, thumbnail: 'https://picsum.photos/300', writed_at: '2024-01-24', input: '1 2\n1234\n3567', output: '2', nickname: '김수린' },
-    { member_id: 1, thumbnail: 'https://picsum.photos/300', writed_at: '2024-01-24', input: '1 2\n1234\n3567', output: '2', nickname: '김수린' },
-    { member_id: 1, thumbnail: 'https://picsum.photos/300', writed_at: '2024-01-24', input: '1 2\n1234\n3567', output: '2', nickname: '김수린' },
-    { member_id: 1, thumbnail: 'https://picsum.photos/300', writed_at: '2024-01-24', input: '1 2\n1234\n3567', output: '2', nickname: '김수린' },
-    { member_id: 1, thumbnail: 'https://picsum.photos/300', writed_at: '2024-01-24', input: '1 2\n1234\n3567', output: '2', nickname: '김수린' },
-    { member_id: 1, thumbnail: 'https://picsum.photos/300', writed_at: '2024-01-24', input: '1 2\n1234\n3567', output: '2', nickname: '김수린' },
-    { member_id: 1, thumbnail: 'https://picsum.photos/300', writed_at: '2024-01-24', input: '1 2\n1234\n3567', output: '2', nickname: '김수린' },
-    { member_id: 1, thumbnail: 'https://picsum.photos/300', writed_at: '2024-01-24', input: '1 2\n1234\n3567', output: '2', nickname: '김수린' },
-    { member_id: 1, thumbnail: 'https://picsum.photos/300', writed_at: '2024-01-24', input: '1 2\n1234\n3567', output: '2', nickname: '김수린' },
-    { member_id: 1, thumbnail: 'https://picsum.photos/300', writed_at: '2024-01-24', input: '1 2\n1234\n3567', output: '2', nickname: '김수린' },
-    { member_id: 1, thumbnail: 'https://picsum.photos/300', writed_at: '2024-01-24', input: '1 2\n1234\n3567', output: '2', nickname: '김수린' },
-    { member_id: 1, thumbnail: 'https://picsum.photos/300', writed_at: '2024-01-24', input: '1 2\n1234\n3567', output: '2', nickname: '김수린' },
-    { member_id: 1, thumbnail: 'https://picsum.photos/300', writed_at: '2024-01-24', input: '1 2\n1234\n3567', output: '2', nickname: '김수린' },
-  ]);
+interface GuildIdeCounterExampleProps {
+  problem_id: number;
+}
+
+const GuildIdeCounterExample = (props: GuildIdeCounterExampleProps) => {
+  const [data, setData] = useState<null | Array<any>>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const fetchData = await counterExample(props.problem_id);
+      setData(fetchData.data);
+    };
+    fetchData();
+  }, [props.problem_id]);
 
   return (
     <StyledContainer>
@@ -51,7 +50,7 @@ const GuildIdeCounterExample = () => {
           ))}
       </StyledScrollDiv>
       <Spacer space={'1vmin'} />
-      <GuildIdeCounterCaseForm />
+      <GuildIdeCounterCaseForm problem_id={props.problem_id} setData={setData} />
     </StyledContainer>
   );
 };

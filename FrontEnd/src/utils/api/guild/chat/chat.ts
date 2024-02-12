@@ -1,14 +1,14 @@
 import tokenInstance from '../../../axios/tokenInstance';
 import axios from 'axios';
-import { RTC_URL } from '../../../../config/Axios';
+import { CHAT_URL } from '../../../../config/Axios';
 
 export const createSession = async (inputSessionId: string) => {
-  const response = await axios.post(`${RTC_URL}/openvidu/sessions`, { customSessionId: inputSessionId }, { headers: { 'Content-Type': 'application/json' } });
+  const response = await axios.post(`${CHAT_URL}/openvidu/sessions`, { customSessionId: inputSessionId }, { headers: { 'Content-Type': 'application/json' } });
   return response.data;
 };
 
 export const createToken = async (sessionIds: string) => {
-  const response = await axios.post(`${RTC_URL}/openvidu/sessions/${sessionIds}/connections`, {}, { headers: { 'Content-Type': 'application/json' } });
+  const response = await axios.post(`${CHAT_URL}/openvidu/sessions/${sessionIds}/connections`, {}, { headers: { 'Content-Type': 'application/json' } });
   return response.data;
 };
 
@@ -18,7 +18,7 @@ export const getToken = async (inputSessionId: string) => {
 };
 
 export const getChat = async (guildId: number) => {
-  const data = await axios.get(`${RTC_URL}/chat/${guildId}`);
+  const data = await axios.get(`${CHAT_URL}/chat/${guildId}`);
   return data && data.data;
 };
 

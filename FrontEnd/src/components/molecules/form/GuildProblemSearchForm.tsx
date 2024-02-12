@@ -92,6 +92,13 @@ const GuildProblemSearchForm = (props: GuildProblemSearchFormProps) => {
     }
   }, [state]);
 
+  const handleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      setInput(searchInput);
+    }
+  };
+
   return (
     <StyledContainer>
       <Spacer space={'0.5vmin'} />
@@ -120,15 +127,7 @@ const GuildProblemSearchForm = (props: GuildProblemSearchFormProps) => {
       </StyledBox>
       <Spacer space={'1.5vmin'} />
       <div style={{ display: 'flex', alignItems: 'center', gap: '2vmin' }}>
-        <BasicInput
-          placeholder={'문제 찾아보기'}
-          setInput={setSearchInput}
-          input={searchInput}
-          fontSize='0.8em'
-          onKeyDown={() => {
-            setInput(searchInput);
-          }}
-        />
+        <BasicInput placeholder={'문제 찾아보기'} setInput={setSearchInput} input={searchInput} fontSize='0.8em' onKeyUp={handleKeyUp} />
         <IoMdSearch
           size={'1.5em'}
           color={colors.White}

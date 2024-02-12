@@ -30,7 +30,12 @@ const MusicBot = () => {
     setBotChatting({ data: data.items , date : 'Today, 2:02pm' });
   };
 
-  // channel: 'channel Name', video: 'video Name', date: 'Today, 2:02pm', imageUrl: 'https://picsum.photos/300'
+  const handleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      setChat([...chat, ['user', { text: searchInput, date: 'Today, 2:02pm' }]]);
+      getData();
+    }
+  };
 
   return (
     <>
@@ -40,15 +45,7 @@ const MusicBot = () => {
         subTitle={<Body3 children={'링크를 입력하면 노래를 불러줘요'} color={colors.Gray[100]} fontWeight={'bold'} />}
         content={
           <div style={{ width: '80%' }}>
-            <BasicInput
-              input={searchInput}
-              placeholder={'유튜브 링크를 입력 후 Enter 키를 눌러주세요'}
-              setInput={setSearchInput}
-              onKeyDown={() => {
-                setChat([['user', { text: searchInput, date: 'Today, 2:02pm' }] , ...chat]);
-                getData();
-              }}
-            />
+            <BasicInput input={searchInput} placeholder={'유튜브 링크를 입력 후 Enter 키를 눌러주세요'} setInput={setSearchInput} onKeyUp={handleKeyUp} />
           </div>
         }
       />

@@ -5,6 +5,7 @@ import { Body3 } from '../../atoms/basic/Typography';
 import { Spacer } from '../../atoms/basic/Spacer';
 import MultiTextarea from '../../atoms/input/MultiInput';
 import BasicButton from '../../atoms/button/BasicButton';
+import { counterExample, setCounterExample } from '../../../utils/api/ide/problemcontent';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -34,9 +35,20 @@ const StyledContentContainer = styled.div`
   box-sizing: border-box;
 `;
 
-const GuildIdeCounterCaseForm = () => {
+interface GuildIdeCounterCaseFormProps {
+  problem_id: number;
+  setData: (value: React.SetStateAction<any[] | null>) => void;
+}
+
+const GuildIdeCounterCaseForm = (props: GuildIdeCounterCaseFormProps) => {
   const [inputData, setInputData] = useState('');
   const [outputData, setOutputData] = useState('');
+
+  const clickRegist = async () => {
+    await setCounterExample({ input: inputData, output: outputData, problem_id: props.problem_id });
+    const fetchData = await counterExample(props.problem_id);
+    props.setData(fetchData.data);
+  };
 
   return (
     <StyledContainer>
@@ -52,7 +64,7 @@ const GuildIdeCounterCaseForm = () => {
           <MultiTextarea placeholder={''} setInput={setOutputData} input={outputData} color={colors.Gray[500]} fontcolor={colors.White} />
         </StyledContentContainer>
       </StyledInputContainer>
-      <BasicButton event={() => {}} borderColor={'rgba(0, 0, 0, 0)'} deepColor={colors.Gray[800]} bgColor={colors.Gray[600]} children={<Body3 children={'등록하기'} color={colors.White} />} />
+      <BasicButton event={clickRegist} borderColor={'rgba(0, 0, 0, 0)'} deepColor={colors.Gray[800]} bgColor={colors.Gray[600]} children={<Body3 children={'등록하기'} color={colors.White} />} />
     </StyledContainer>
   );
 };

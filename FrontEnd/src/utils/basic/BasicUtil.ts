@@ -1,3 +1,5 @@
+import { getStorage } from '../localstorage/storageUtil';
+
 /**
  * 혹시 몰라 만들어 놓은 addcomma 함수입니다.
  * 돈이나, 사람의 인원 수에 ,를 포함하고자 할 때 사용합니다.
@@ -24,4 +26,20 @@ export const isDateAfterToday = (dateString: string): boolean => {
 export const parsingRuntime = (platform: string, runtime: string): number => {
   if (platform === 'SWEA') return 40000;
   return (runtime.replace('초', '') as unknown as number) * 1000;
+};
+
+export const parseJwt = async () => {
+  const token = (await getStorage('accessToken')) as string;
+  const base64Url = token.split('.')[1];
+  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  const jsonPayload = decodeURIComponent(
+    atob(base64)
+      .split('')
+      .map(function (c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      })
+      .join('')
+  );
+
+  return JSON.parse(jsonPayload).jti;
 };
