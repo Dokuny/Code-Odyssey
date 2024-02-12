@@ -1,13 +1,32 @@
 // 익스텐션 실행 상태
+
 var stat = false;
 chrome.runtime.sendMessage({ request: "getStatus" }, function (response) {
   stat = response.stat;
+  console.log(stat);
 });
-// user id
-var userId = "";
-chrome.runtime.sendMessage({ request: "getUserId" }, function (response) {
-  userId = response.userId;
+let token = "";
+chrome.runtime.sendMessage({ request: "getUserToken" }, function (response) {
+  token = response.userToken;
+  console.log(token);
 });
+
+const setToken = function () {
+  chrome.runtime.sendMessage(
+    {
+      request: "setUserToken",
+      userToken: token,
+    },
+    function (resopnse) {
+      console.log(
+        "result : ",
+        resopnse.result,
+        " userToken : ",
+        resopnse.userToken
+      );
+    }
+  );
+};
 
 const tr = document.querySelector("#status-table > tbody > tr");
 
@@ -60,7 +79,6 @@ if (isStatusWaiting) {
         .textContent.trim()
         .replace("번", "");
       const data = {
-        userId: userId,
         platform: "BAEKJOON",
         no: num,
         code: window.localStorage.getItem("sourceCode"),
@@ -71,13 +89,17 @@ if (isStatusWaiting) {
 
       if (stat) {
         console.log("extenstion on");
+        if (!token) {
+          window.alert("유저 정보 등록 필요");
+        }
         console.log(data);
         // 제출 API
 
-        fetch("http://127.0.0.1:8081/save-data/test/", {
+        fetch("https://code-odyssey.site/submissions", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: token,
           },
           body: JSON.stringify(data),
         })
@@ -86,6 +108,7 @@ if (isStatusWaiting) {
               console.log("데이터를 성공적으로 서버로 보냈습니다.");
             } else {
               console.error("서버로 데이터를 보내는 중 오류가 발생했습니다.");
+              setToken();
             }
           })
           .catch((error) => {
@@ -93,6 +116,7 @@ if (isStatusWaiting) {
               "서버로 데이터를 보내는 중 오류가 발생했습니다.",
               error
             );
+            setToken();
           });
       } else if (!stat) {
         console.log("extension off");

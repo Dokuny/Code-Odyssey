@@ -1,7 +1,18 @@
+@font-face {
+  font-family: "TheJamsil5Bold";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2")
+    format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+.hidden {
+  display: none;
+}
+
 label {
+  margin-top: 7px;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
   cursor: pointer;
 }
 [type="checkbox"] {
@@ -11,6 +22,7 @@ label {
   border-radius: 1.25em;
   width: 2.25em;
   height: 1.25em;
+  transition: box-shadow 0.3s ease;
 }
 
 [type="checkbox"]::before {
@@ -26,8 +38,8 @@ label {
 }
 
 [type="checkbox"]:checked {
-  background-color: green;
-  border-color: green;
+  background-color: #717bbc;
+  border-color: #717bbc;
 }
 
 [type="checkbox"]:checked::before {
@@ -44,22 +56,29 @@ label {
   background-color: lightgray;
 }
 
-[type="checkbox"]:disabled + span {
+/* [type="checkbox"]:disabled + span {
   opacity: 0.7;
   cursor: not-allowed;
-}
+} */
 
-[type="checkbox"]:focus-visible {
+/* [type="checkbox"]:focus-visible {
   outline-offset: max(2px, 0.1em);
   outline: max(2px, 0.1em) solid tomato;
-}
+} */
 
 [type="checkbox"]:enabled:hover {
-  box-shadow: 0 0 0 max(4px, 0.2em) lightgray;
+  box-shadow: 0 0 2px 2px #c8cce8;
 }
 
 /* Global CSS */
 body {
+  font-family: "TheJamsil5Bold";
+  height: 100px !important;
+  width: 200px !important;
+  background-image: url(back.png);
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+
   display: grid;
   justify-content: center;
   align-items: center;
@@ -77,4 +96,24 @@ fieldset {
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+#loginStatus {
+  white-space: pre-line;
+}
+
+#siteButton {
+  font-family: "TheJamsil5Bold";
+  margin-bottom: 20px;
+  border-radius: 5px;
+  background-color: #717bbc;
+  color: white;
+  width: 80%;
+  height: 30px;
+  border: none;
+  box-shadow: 0 0 0 none;
+  transition: box-shadow 0.3s ease;
+}
+#siteButton:hover {
+  box-shadow: 0 0 2px 2px #c8cce8;
 }
