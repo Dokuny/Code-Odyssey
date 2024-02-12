@@ -42,7 +42,7 @@ public class ReviewController {
             @RequestParam("submission_id")Long submissionId,
             @RequestParam("row")Integer row
     ){
-        return ResponseEntity.ok(reviewService.getReviews(submissionId, row));
+        return ResponseEntity.ok(reviewService.getReviews(submissionId, row, memberId));
     }
 
     @PostMapping

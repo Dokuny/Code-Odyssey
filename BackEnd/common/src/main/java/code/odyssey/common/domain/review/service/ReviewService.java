@@ -11,7 +11,7 @@ public interface ReviewService {
 
     List<Integer> getRows(Long submissionId);
 
-    ReviewListInfo getReviews(Long submissionId, Integer row);
+    ReviewListInfo getReviews(Long submissionId, Integer row, Long memberId);
 
     Long createReview(ReviewPostRequest request, Long memberId);
 

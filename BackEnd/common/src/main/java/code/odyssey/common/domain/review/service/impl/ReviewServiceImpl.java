@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @RequiredArgsConstructor
@@ -48,8 +49,16 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public ReviewListInfo getReviews(Long submissionId, Integer row) {
-        List<ReviewDetailsInfo> result = reviewRepository.getReviewsBySubmissionIdAndRow(submissionId, row);
+    public ReviewListInfo getReviews(Long submissionId, Integer row, Long memberId) {
+        List<ReviewDetailsInfo> result = reviewRepository.getReviewsBySubmissionIdAndRow(submissionId, row)
+                .stream()
+                .map(review -> {
+                    if (review.getMemberId().equals(memberId)) {
+                        review.setIsMine(true);
+                    }
+                    return review;
+                })
+                .collect(Collectors.toList());
         if(result.isEmpty()){
             throw new ReviewException(ReviewErrorCode.NOT_EXISTS_REVIEW);
         }
