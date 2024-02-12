@@ -12,15 +12,10 @@ interface CodeboxProps {
   language: string;
   height?: string | '100%';
   width?: string | '100%';
-  defaultValue: string;
+  code: string;
 }
 
 const CodeBox = (props: CodeboxProps) => {
-  let [query, setQuery] = useSearchParams();
-
-  const quildProblemId = query.get('guild_problem_id');
-  const memberId = query.get('member_id');
-
   const monaco = useMonaco();
   const [editorWidth, setEditorWidth] = useState<string>('65vw'); // 초기 너비를 70vw로 설정합니다.
 
@@ -44,6 +39,7 @@ const CodeBox = (props: CodeboxProps) => {
     return () => window.removeEventListener('resize', handleResize); // 컴포넌트가 언마운트될 때 이벤트 리스너를 제거합니다.
   }, []); // 의존성 배열을 빈 배열로 설정하여 한 번만 실행됩니다.
 
+  useEffect(() => {}, [props.code]);
   return (
     <>
       <Spacer space={'1vh'}></Spacer>
@@ -51,7 +47,7 @@ const CodeBox = (props: CodeboxProps) => {
         height={props.height || '87vh'} // 높이를 props로 받거나 기본값으로 설정합니다.
         width={editorWidth} // 동적으로 계산된 너비를 적용합니다.
         defaultLanguage={props.language}
-        defaultValue={props.defaultValue}
+        value={props.code}
         theme={props.selectedTheme ? 'light' : 'dark'}
         options={{ minimap: { enabled: false }, readOnly: true }}
         className='overflow-guard'
