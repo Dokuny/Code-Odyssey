@@ -5,7 +5,7 @@ server:
 spring:
   data:
     mongodb:
-      host: mongodb://13.209.65.25:27017
+      host: ${CHATTING_SERVER}
       database: code-odyssey
       authentication-database: admin
       username: ${MONGODB_USER_NAME}
