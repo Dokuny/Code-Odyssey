@@ -131,23 +131,45 @@ const GuildProfileDetailCard = (props: GuildProfileDetailCardProps) => {
               <Body1 children={data.total_capacity} color={colors.Gray[25]} fontWeight={'bold'} />
               <Body2 children={'길드 수용 인원'} color={colors.Gray[400]} />
             </StyledMyInfoContentContainer>
-            <Spacer space={'2vw'} horizontal />
-            {data.in_guild && role !== 'MASTER' && (
-              <BasicButton
-                borderRadius={'2em'}
-                width={'auto'}
-                event={clickJoinOrExit}
-                borderColor={'rgba(0, 0, 0, 0)'}
-                deepColor={data.in_guild ? 'rgba(255, 100, 100, 0.3)' : 'rgba(100, 255, 108, 0.3)'}
-                bgColor={data.in_guild ? 'rgba(255, 100, 100, 0.2)' : 'rgba(100, 255, 108, 0.2)'}
-                children={
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingRight: '0.2vmin' }}>
-                    {data.in_guild ? <IoMdExit color={colors.Red} /> : <IoMdCheckmarkCircle color={colors.Naver[300]} />}
-                    <Spacer space={'0.5vmin'} horizontal />
-                    <Body3 children={data.in_guild ? 'EXIT' : 'JOIN'} color={data.in_guild ? colors.White : colors.DarkGray[700]} fontWeight={'bold'} />
-                  </div>
-                }
-              />
+            {data.in_guild && role === 'MEMBER' && (
+              <>
+                <Spacer space={'2vw'} horizontal />
+                <BasicButton
+                  borderRadius={'2em'}
+                  width={'auto'}
+                  event={clickJoinOrExit}
+                  borderColor={'rgba(0, 0, 0, 0)'}
+                  deepColor={'rgba(255, 100, 100, 0.3)'}
+                  bgColor={'rgba(255, 100, 100, 0.2)'}
+                  children={
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingRight: '0.2vmin' }}>
+                      <IoMdExit color={colors.Red} />
+                      <Spacer space={'0.5vmin'} horizontal />
+                      <Body3 children={'EXIT'} color={colors.White} fontWeight={'bold'} />
+                    </div>
+                  }
+                />
+              </>
+            )}
+            {!data.in_guild && (
+              <>
+                <Spacer space={'2vw'} horizontal />
+                <BasicButton
+                  borderRadius={'2em'}
+                  width={'auto'}
+                  event={clickJoinOrExit}
+                  borderColor={'rgba(0, 0, 0, 0)'}
+                  deepColor={'rgba(100, 255, 108, 0.3)'}
+                  bgColor={'rgba(100, 255, 108, 0.2)'}
+                  children={
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingRight: '0.2vmin' }}>
+                      <IoMdCheckmarkCircle color={colors.Naver[300]} />
+                      <Spacer space={'0.5vmin'} horizontal />
+                      <Body3 children={'JOIN'} color={colors.DarkGray[700]} fontWeight={'bold'} />
+                    </div>
+                  }
+                />
+              </>
             )}
           </StyledMyInfoContainer>
         </>
