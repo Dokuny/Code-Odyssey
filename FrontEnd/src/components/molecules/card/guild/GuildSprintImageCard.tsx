@@ -101,7 +101,7 @@ const GuildSprintImageCard = (props: GuildSprintImageCardProps) => {
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-evenly', padding: '0.5vmin', width: '100%' }}>
           {memberData.map((value: any) => (
-            <StyledProfileImg key={value.member_id} is_solved={value.is_solved} src={value.thumbnail} alt='' />
+            <StyledProfileImg key={value.member_id} is_solved={value.solved} src={value.thumbnail} alt='' />
           ))}
         </div>
       </StyledButton>
