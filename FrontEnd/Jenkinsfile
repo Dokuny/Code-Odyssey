@@ -19,6 +19,7 @@ pipeline {
         stage('Build FE Image') {
             steps {
                 script {
+                    sh "echo ${WORKSPACE}"
                     dockerImage = docker.build("${repository}:FE_${BUILD_NUMBER}", "-f FrontEnd/Dockerfile ./FrontEnd")
                 }
             }
@@ -70,7 +71,7 @@ pipeline {
                     continueOnError: true, failOnError: false,
                     publishers: [
                         sshPublisherDesc(
-                            configName: "EC2_1",
+                            configName: "FRONT",
                             verbose: true,
                             transfers: [
                                 sshTransfer(execCommand: "sudo docker kill \$(docker ps | grep ReactApp | tr ' ' '\t' | cut -f1)"),
@@ -88,7 +89,7 @@ pipeline {
                     continueOnError: false, failOnError: true,
                     publishers: [
                         sshPublisherDesc(
-                            configName: "EC2_1",
+                            configName: "FRONT",
                             verbose: true,
                             transfers: [
                                 sshTransfer(execCommand: "sudo docker rm -f ReactApp"),
