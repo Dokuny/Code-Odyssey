@@ -33,12 +33,14 @@ spring:
           uri: ${JUDGE_SERVER}
           predicates:
             - Path=/judge
-        - id: judge-service
+        - id: chat-service
           uri: ${CHATTING_SERVER}
           predicates:
-            - Path=/judge
-          filters:
-            - AuthorizationHeaderFilter
+            - Path=/chat/*
+        - id: webrtc-server
+          uri: ${CHATTING_SERVER}
+          predicates:
+            - Path=/openvidu/*
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
 jwt:
