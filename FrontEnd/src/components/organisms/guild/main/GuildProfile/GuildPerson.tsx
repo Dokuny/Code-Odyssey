@@ -27,7 +27,7 @@ const GuildPerson = (props: GuildPersonProps) => {
   return (
     <>
       <Spacer space={'2vmin'} />
-      <MDEditor.Markdown style={{ padding: 10, borderRadius: '10px', backgroundColor: colors.Gray[800] }} source={introData} />
+      <MDEditor.Markdown style={{ padding: 10, borderRadius: '10px', backgroundColor: colors.Gray[800], color: colors.Gray[200] }} source={introData} />
       <Spacer space={'2vmin'} />
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         {data.map((value) => (

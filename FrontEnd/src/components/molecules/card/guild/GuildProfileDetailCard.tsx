@@ -70,11 +70,16 @@ interface GuildProfileDetailCardProps {
 
 const GuildProfileDetailCard = (props: GuildProfileDetailCardProps) => {
   const [data, setData] = useState<any | null>(null);
+  const [role, setRole] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
       const fetchData = await guildDetail(props.guild_id);
       setData(fetchData);
+      if (fetchData.in_guild) {
+        const role = await guildRole(props.guild_id);
+        setRole(role);
+      }
     };
     fetchData();
   }, [props.guild_id]);
@@ -127,21 +132,23 @@ const GuildProfileDetailCard = (props: GuildProfileDetailCardProps) => {
               <Body2 children={'길드 수용 인원'} color={colors.Gray[400]} />
             </StyledMyInfoContentContainer>
             <Spacer space={'2vw'} horizontal />
-            <BasicButton
-              borderRadius={'2em'}
-              width={'auto'}
-              event={clickJoinOrExit}
-              borderColor={'rgba(0, 0, 0, 0)'}
-              deepColor={data.in_guild ? 'rgba(255, 100, 100, 0.3)' : 'rgba(100, 255, 108, 0.3)'}
-              bgColor={data.in_guild ? 'rgba(255, 100, 100, 0.2)' : 'rgba(100, 255, 108, 0.2)'}
-              children={
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingRight: '0.2vmin' }}>
-                  {data.in_guild ? <IoMdExit color={colors.Red} /> : <IoMdCheckmarkCircle color={colors.Naver[300]} />}
-                  <Spacer space={'0.5vmin'} horizontal />
-                  <Body3 children={data.in_guild ? 'EXIT' : 'JOIN'} color={data.in_guild ? colors.White : colors.DarkGray[700]} fontWeight={'bold'} />
-                </div>
-              }
-            />
+            {data.in_guild && role !== 'MASTER' && (
+              <BasicButton
+                borderRadius={'2em'}
+                width={'auto'}
+                event={clickJoinOrExit}
+                borderColor={'rgba(0, 0, 0, 0)'}
+                deepColor={data.in_guild ? 'rgba(255, 100, 100, 0.3)' : 'rgba(100, 255, 108, 0.3)'}
+                bgColor={data.in_guild ? 'rgba(255, 100, 100, 0.2)' : 'rgba(100, 255, 108, 0.2)'}
+                children={
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingRight: '0.2vmin' }}>
+                    {data.in_guild ? <IoMdExit color={colors.Red} /> : <IoMdCheckmarkCircle color={colors.Naver[300]} />}
+                    <Spacer space={'0.5vmin'} horizontal />
+                    <Body3 children={data.in_guild ? 'EXIT' : 'JOIN'} color={data.in_guild ? colors.White : colors.DarkGray[700]} fontWeight={'bold'} />
+                  </div>
+                }
+              />
+            )}
           </StyledMyInfoContainer>
         </>
       )}
