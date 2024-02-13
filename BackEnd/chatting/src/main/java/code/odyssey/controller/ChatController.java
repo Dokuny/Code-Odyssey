@@ -35,4 +35,10 @@ public class ChatController {
         chatService.deleteMessages(guildId);
         return ResponseEntity.ok("Messages deleted successfully");
     }
+
+
+    @GetMapping("/test")
+    public ResponseEntity<String> test(@RequestHeader("X-Authorization-Id") Long memberId){
+        return ResponseEntity.ok("ok");
+    }
 }
