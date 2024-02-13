@@ -25,12 +25,6 @@ spring:
           uri: ${COMMON_SERVER}
           predicates:
             - Path=/auth/**
-        - id: common-service
-          uri: ${COMMON_SERVER}
-          predicates:
-            - Path=/**
-          filters:
-            - AuthorizationHeaderFilter
 
         - id: judge-service
           uri: ${JUDGE_SERVER}
@@ -50,6 +44,15 @@ spring:
             - Path=/openvidu/*
           filters:
             - AuthorizationHeaderFilter
+
+        - id: common-service
+          uri: ${COMMON_SERVER}
+          predicates:
+            - Path=/**
+          filters:
+            - AuthorizationHeaderFilter
+
+
 
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
