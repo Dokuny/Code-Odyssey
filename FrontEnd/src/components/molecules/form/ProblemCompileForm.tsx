@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import SprintSelectBar from '../buttonBar/SprintSelectBar';
 import styled from 'styled-components';
 import BasicButton from '../../atoms/button/BasicButton';
@@ -10,6 +10,7 @@ import CompileResultCard from '../card/ide/ComplieResultCard';
 import VarNameChangeCard from '../card/ide/VarNameChangeCard';
 import { submitOutServer } from '../../../utils/api/ide/submit';
 import { file, language } from '../../../utils/json/submit';
+import { getVarExam } from '../../../utils/api/ide/problemcontent';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -40,6 +41,17 @@ const ProblemCompileForm = (props: ProblemCompileFormProps) => {
   const [data, setData] = useState<null | ResultData>(null);
   const [inputData, setInputData] = useState('');
   const [outputData, setOutputData] = useState('');
+  const [varInput, setVarInput] = useState('');
+  const [varData, setVarData] = useState({
+    camel: '',
+    snake: '',
+    pascal: '',
+  });
+
+  const clickChange = async () => {
+    const fetchData = await getVarExam({ input: varInput });
+    setVarData(fetchData);
+  };
 
   const clickMenu = (menu: string) => {
     setMenu(menu);
@@ -57,10 +69,9 @@ const ProblemCompileForm = (props: ProblemCompileFormProps) => {
         language: language[props.activeLanguage],
         timeOut: props.runtime,
       });
-      console.log(data);
       setData(data);
     } else if (menu === 'val') {
-      console.log('val');
+      clickChange();
     }
   };
 
@@ -112,7 +123,7 @@ const ProblemCompileForm = (props: ProblemCompileFormProps) => {
         </div>
       </div>
       {props.isActive && menu === 'result' && <CompileResultCard data={data} inputData={inputData} setInputData={setInputData} outputData={outputData} setOutputData={setOutputData} />}
-      {props.isActive && menu === 'val' && <VarNameChangeCard />}
+      {props.isActive && menu === 'val' && <VarNameChangeCard varData={varData} varInput={varInput} setVarInput={setVarInput} />}
     </StyledContainer>
   );
 };

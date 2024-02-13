@@ -6,7 +6,7 @@ import { Body1, Body2, Body3 } from '../../../atoms/basic/Typography';
 import { difficulty } from '../../../../utils/json/difficulty';
 import BasicButton from '../../../atoms/button/BasicButton';
 import { IoMdCheckmarkCircle, IoMdExit } from 'react-icons/io';
-import { guildDetail, guildExit, guildRequest } from '../../../../utils/api/guild/guild';
+import { guildDetail, guildExit, guildRequest, guildRole } from '../../../../utils/api/guild/guild';
 
 const StyledContainer = styled.div`
   background-color: ${colors.Gray[700]};
@@ -70,6 +70,7 @@ interface GuildProfileDetailCardProps {
 
 const GuildProfileDetailCard = (props: GuildProfileDetailCardProps) => {
   const [data, setData] = useState<any | null>(null);
+
   useEffect(() => {
     const fetchData = async () => {
       const fetchData = await guildDetail(props.guild_id);

@@ -3,7 +3,6 @@ import { Body1, Body3, Caption1 } from '../../../atoms/basic/Typography';
 import { colors } from '../../../../config/Color';
 import { Spacer } from '../../../atoms/basic/Spacer';
 import MultiTextarea from '../../../atoms/input/MultiInput';
-import { useState } from 'react';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -73,8 +72,8 @@ const CompileResultCard = (props: CompileResultCardProps) => {
           <Spacer space={'0.5vmin'} />
           {props.data === null ? (
             <div style={{ display: 'flex', flexDirection: 'column', height: '100%', alignItems: 'center' }}>
-              <img src='/images/code_odyssey/conch.svg' alt='' style={{ height: '100%', objectFit: 'contain', aspectRatio: 1 / 1 }} />
-              <Body3 children={'마법의 소라고둥님에게 물어보세요!'} color={colors.Gray[300]} />
+              <img src='/images/code_odyssey/conch.svg' alt='' style={{ height: '80%', objectFit: 'contain', aspectRatio: 1 / 1 }} />
+              <Caption1 children={'마법의 소라고둥님에게 물어보세요!'} color={colors.Gray[300]} />
             </div>
           ) : (
             <StyledContentContainer color={props.data.result === 0 ? colors.Naver[300] : props.data.result === 1 ? colors.Red : colors.Kakao[300]}>
