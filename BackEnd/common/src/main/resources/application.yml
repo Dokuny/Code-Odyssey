@@ -33,7 +33,6 @@ spring:
     redis:
       host: 158.180.80.211
       port: 6379
-
 eureka:
   instance:
     prefer-ip-address: true
@@ -79,3 +78,7 @@ openai:
     key: ${OPEN_AI_KEY}
     url: ${OPEN_AI_URL}
 
+papago:
+  api:
+    key: ${PAPAGO_API_KEY}
+    id: ${PAPAGO_API_ID}
