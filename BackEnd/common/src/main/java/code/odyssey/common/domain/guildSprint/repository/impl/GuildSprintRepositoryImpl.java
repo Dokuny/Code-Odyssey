@@ -7,8 +7,10 @@ import code.odyssey.common.domain.guildSprint.dto.RetrospectGuildProblemInfo.Ret
 import code.odyssey.common.domain.guildSprint.entity.GuildProblem;
 import code.odyssey.common.domain.guildSprint.entity.GuildSprint;
 import code.odyssey.common.domain.guildSprint.repository.GuildSprintRepositoryCustom;
+import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.CaseBuilder;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -19,6 +21,7 @@ import java.time.LocalTime;
 import java.util.Collections;
 import java.util.List;
 
+import static code.odyssey.common.domain.guild.entity.QGuild.guild;
 import static code.odyssey.common.domain.guild.entity.QGuildMember.guildMember;
 import static code.odyssey.common.domain.guildSprint.entity.QGuildProblem.guildProblem;
 import static code.odyssey.common.domain.guildSprint.entity.QGuildSprint.guildSprint;
@@ -236,6 +239,26 @@ public class GuildSprintRepositoryImpl implements GuildSprintRepositoryCustom {
 			)
 			.groupBy(member.id)
 			.fetch();
+	}
+
+	@Override
+	public Integer getGuildProblemPoint(Long guildId) {
+		Tuple tuple = queryFactory.select(problem.difficulty.sum(), problem.count())
+				.from(guildSprint)
+				.join(guildSprint.problems, guildProblem)
+				.join(guildProblem.problem, problem)
+				.where(
+						guildSprint.guild.id.eq(guildId),
+						guildSprint.status.eq(ENDED)
+				)
+				.groupBy(guildSprint.guild.id)
+				.fetchOne();
+
+
+		Integer sum = tuple.get(problem.difficulty.sum());
+		Long count = tuple.get(problem.count());
+
+		return Math.toIntExact(sum / count);
 	}
 
 }

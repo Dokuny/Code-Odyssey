@@ -47,4 +47,8 @@ public class Guild extends BaseEntity {
 
     @Column
     private Integer problemCapacity;
+
+    public void changeTier(Integer tier) {
+        this.difficulty = tier;
+    }
 }
