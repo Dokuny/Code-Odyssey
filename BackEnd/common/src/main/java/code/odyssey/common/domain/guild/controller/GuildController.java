@@ -8,6 +8,7 @@ import code.odyssey.common.domain.guild.dto.GuildSearchInfo;
 import code.odyssey.common.domain.guild.dto.GuildStreakInfo;
 import code.odyssey.common.domain.guild.dto.ProblemTypeInfo;
 import code.odyssey.common.domain.guild.dto.ProblemTypeStatistics;
+import code.odyssey.common.domain.guild.service.GuildMemberService;
 import code.odyssey.common.domain.guild.service.GuildService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ import java.util.List;
 public class GuildController {
 
     private final GuildService guildService;
+    private final GuildMemberService guildMemberService;
 
     @PostMapping
     public ResponseEntity<Long> createGuild(
@@ -73,6 +75,14 @@ public class GuildController {
         @PathVariable("guildId") Long guildId
     ) {
         return ResponseEntity.ok(guildService.getGuildStreak(guildId));
+    }
+
+    @GetMapping("/{guildId}/me/role")
+    public ResponseEntity<String> checkGuildRole(
+            @RequestHeader("X-Authorization-Id") Long memberId,
+            @PathVariable("guildId") Long guildId
+    ) {
+        return ResponseEntity.ok(guildMemberService.checkRole(guildId, memberId));
     }
 
 
