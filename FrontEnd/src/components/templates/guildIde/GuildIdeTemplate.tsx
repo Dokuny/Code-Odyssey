@@ -97,7 +97,7 @@ const GuildIdeTemplate = () => {
                 <ProblemContent problem_id={problem_id} problemDetailData={problemDetailData} />
               </StyledDetailContainer>
               <StyledDetailContainer>
-                <GuildIde problem_id={problem_id} problemDetailData={problemDetailData} />
+                <GuildIde problem_id={problem_id} problemDetailData={problemDetailData} guild_problem_id={guild_problem_id} />
               </StyledDetailContainer>
             </StyledProblemContainer>
             <StyledVideoContainer>

@@ -31,11 +31,12 @@ const StyledMenuContainer = styled.div`
 
 interface GuildIdeProps {
   problem_id: number;
+  guild_problem_id: number;
   problemDetailData: any;
 }
 
 const GuildIde = (props: GuildIdeProps) => {
-  const guild_problem_id = props.problem_id;
+  const guild_problem_id = props.guild_problem_id;
   const [client, setClient] = useState<StompJs.Client | null>(null);
   const [isActive, setIsActive] = useState(true);
   const [activeLanguage, setActiveLanguage] = useState('java');
