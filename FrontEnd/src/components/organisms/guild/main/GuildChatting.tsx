@@ -45,6 +45,7 @@ const GuildChatting = (props: GuildChattingProps) => {
   let [client, changeClient] = useState<StompJs.Client>(new StompJs.Client());
   const [data, setData] = useState<Array<any>>([]);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const scrollEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,13 +56,16 @@ const GuildChatting = (props: GuildChattingProps) => {
   }, [props.guild_id]);
 
   useEffect(() => {
-    console.log(data);
-    console.log('hello1');
-    if (scrollContainerRef.current) {
-      console.log('hello2');
-      scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
-    }
+    scrollToBottom();
   }, [data]);
+
+  const scrollToBottom = () => {
+    setTimeout(() => {
+      if (scrollEndRef.current) {
+        scrollEndRef.current.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 10);
+  };
 
   const callback = function (message: any) {
     if (message.body) {
@@ -107,9 +111,6 @@ const GuildChatting = (props: GuildChattingProps) => {
 
   useEffect(() => {
     connect();
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
-    }
     return () => disConnect();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -123,7 +124,10 @@ const GuildChatting = (props: GuildChattingProps) => {
 
   return (
     <StyledContainer>
-      <StyledScrollContainer ref={scrollContainerRef}>{data.length !== 0 && data.map((value, index) => <GuildChattingCard key={index} data={value} />)}</StyledScrollContainer>
+      <StyledScrollContainer ref={scrollContainerRef}>
+        {data.length !== 0 && data.map((value, index) => <GuildChattingCard key={index} data={value} />)}
+        <div ref={scrollEndRef} />
+      </StyledScrollContainer>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1vmin', marginTop: '1vmin', paddingLeft: '0.5vmin', paddingRight: '0.5vmin' }}>
         <BasicInput placeholder={''} setInput={setInput} input={input} color={colors.Gray[400]} borderRadius='1em' fontSize='1em' onKeyUp={handleKeyUp} />
         <IoMdSend size={'1.5em'} color={colors.White} onClick={clickSend} style={{ cursor: 'pointer' }} />

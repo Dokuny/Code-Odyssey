@@ -46,7 +46,7 @@ public class GuildSearchRepositoryImpl implements GuildSearchRepository {
 				keywordEq(cond.getKeyword())
 			)
 			.groupBy(guild.id)
-			.orderBy(guild.id.desc())
+			.orderBy(guild.id.asc())
 			.limit(8)
 			.fetch();
 	}

@@ -18,7 +18,6 @@ interface LoginRedirectPageProps {
 }
 
 const LoginRedirectPage = ({ oauthProvider }: LoginRedirectPageProps) => {
-  console.log("로그인 리다이렉트 들어옴"); 
   const location = useLocation();
   const navigate = useNavigate();
 
