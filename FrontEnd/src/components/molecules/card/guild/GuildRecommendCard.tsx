@@ -5,6 +5,9 @@ import { Spacer } from '../../../atoms/basic/Spacer';
 import { difficulty } from '../../../../utils/json/difficulty';
 import ModalGuildProfile from '../../../organisms/guild/main/ModalGuildProfile';
 import { useState } from 'react';
+import { IoLogoPython } from 'react-icons/io';
+import { FaJava, FaPython } from 'react-icons/fa';
+import { CgCPlusPlus } from 'react-icons/cg';
 
 const GuildBackDiv = styled.div`
   display: flex;
@@ -46,13 +49,15 @@ const FooterDiv = styled.div`
   display: flex;
   height: 30%;
   padding: 1vmin;
+  padding-right: 2vmin;
+  justify-content: space-between;
   box-sizing: border-box;
 `;
 
 const SeperateLeft = styled.div`
   box-sizing: border-box;
-  width: 60%;
   display: flex;
+  flex: 1;
   flex-direction: column;
   justify-content: center;
 `;
@@ -84,22 +89,10 @@ const StatusCircleOffline = styled.div`
 
 const SeperateRight = styled.div`
   box-sizing: border-box;
-  width: 40%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   box-sizing: border-box;
-`;
-const IconDiv = styled.div`
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-`;
-const LanguageIcon = styled.img`
-  aspect-ratio: 1 / 1;
-  object-fit: contain;
 `;
 
 interface GuildRecommendCardProps {
@@ -120,39 +113,39 @@ const GuildRecommendCard = (props: GuildRecommendCardProps) => {
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
 
-
   return (
     <div>
-
       <GuildBackDiv onClick={openModal}>
-      <HeaderDiv>
-        <DiffImageDiv src={difficulty[data.difficulty]}></DiffImageDiv>
-        <Spacer space={'0.5vmax'} horizontal />
-        <Body1 children={data.guild_name} color={colors.Gray[100]} fontWeight={'bold'} />
-      </HeaderDiv>
-      <ImageStyle src={data.guild_img}></ImageStyle>
-      <FooterDiv>
-        <SeperateLeft>
-          <LineDiv>
-            <StatusCircleOnline />
-            <Caption1 children={data.current_cnt + `명 참여 중`} color={colors.Gray[300]} fontWeight={'bold'} />
-          </LineDiv>
-          <Spacer space={'1vmin'} />
-          <LineDiv>
-            <StatusCircleOffline />
-            <Caption1 children={data.possible_cnt + `명 참여 가능`} color={colors.Gray[300]} fontWeight={'bold'} />
-          </LineDiv>
-        </SeperateLeft>
-        <SeperateRight>
-          <IconDiv>
-              <div style={{ margin: '0.2vmax' }}>
-                <LanguageIcon src={'/images/language/'+data.language+'.svg'} />
-              </div>
-          </IconDiv>
-        </SeperateRight>
-      </FooterDiv>
-    </GuildBackDiv>
-    <ModalGuildProfile isOpen={isModalOpen} closeModal={closeModal} guild_id={data.guild_id} guild_name={data.guild_name}></ModalGuildProfile>
+        <HeaderDiv>
+          <DiffImageDiv src={difficulty[data.difficulty]}></DiffImageDiv>
+          <Spacer space={'0.5vmax'} horizontal />
+          <Body1 children={data.guild_name} color={colors.Gray[100]} fontWeight={'bold'} />
+        </HeaderDiv>
+        <ImageStyle src={data.guild_img}></ImageStyle>
+        <FooterDiv>
+          <SeperateLeft>
+            <LineDiv>
+              <StatusCircleOnline />
+              <Caption1 children={data.current_cnt + `명 참여 중`} color={colors.Gray[300]} fontWeight={'bold'} />
+            </LineDiv>
+            <Spacer space={'1vmin'} />
+            <LineDiv>
+              <StatusCircleOffline />
+              <Caption1 children={data.possible_cnt + `명 참여 가능`} color={colors.Gray[300]} fontWeight={'bold'} />
+            </LineDiv>
+          </SeperateLeft>
+          <SeperateRight>
+            {data.language === 'JAVA' ? (
+              <FaJava color={colors.White} size={'1.5em'} />
+            ) : data.language === 'PYTHON' ? (
+              <FaJava color={colors.White} size={'1.5em'} />
+            ) : (
+              <CgCPlusPlus color={colors.White} size={'1.5em'} />
+            )}
+          </SeperateRight>
+        </FooterDiv>
+      </GuildBackDiv>
+      <ModalGuildProfile isOpen={isModalOpen} closeModal={closeModal} guild_id={data.guild_id} guild_name={data.guild_name}></ModalGuildProfile>
     </div>
   );
 };

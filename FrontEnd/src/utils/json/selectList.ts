@@ -1,11 +1,11 @@
 export const difficultyList = [
   { value: 0, name: '난이도' },
-  { value: 1, name: '브론즈' },
-  { value: 6, name: '실버' },
-  { value: 11, name: '골드' },
-  { value: 16, name: '플레티넘' },
-  { value: 21, name: '다이아' },
-  { value: 26, name: '루비' },
+  { value: 5, name: '브론즈' },
+  { value: 10, name: '실버' },
+  { value: 15, name: '골드' },
+  { value: 20, name: '플레티넘' },
+  { value: 25, name: '다이아' },
+  { value: 30, name: '루비' },
 ];
 
 export const platformList = [

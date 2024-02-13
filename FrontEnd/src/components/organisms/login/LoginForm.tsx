@@ -33,7 +33,7 @@ const StyledLoginContent = styled.div`
 
 const LoginForm = () => {
   const clickLoginBtn = async (oauthprovider: string) => {
-    window.location.replace(`https://odyssey-code.site/auth/${oauthprovider}`);
+    window.location.href = `https://odyssey-code.site/auth/${oauthprovider}`;
   };
 
   return (
