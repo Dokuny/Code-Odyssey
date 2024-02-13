@@ -44,7 +44,7 @@ public class QuerydslProblemRepositoryImpl  implements QuerydslProblemRepository
 
         if(request.difficulty() != null ){
 
-            searchOptions.and(problem.difficulty.between(request.difficulty()-5, request.difficulty()+5));
+            searchOptions.and(problem.difficulty.between(request.difficulty()-4, request.difficulty()));
         }
 
         return searchOptions;
