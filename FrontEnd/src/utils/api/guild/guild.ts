@@ -1,4 +1,3 @@
-import instance from '../../axios/basicInstance';
 import tokenInstance from '../../axios/tokenInstance';
 
 interface CreateGuild {
@@ -64,5 +63,10 @@ export const guildRequest = async (guild_id: number) => {
 
 export const guildExit = async (guild_id: number) => {
   const data = await tokenInstance.delete(`/guilds/${guild_id}/members/withdraw`);
+  return data && data.data;
+};
+
+export const guildRole = async (guild_id: number) => {
+  const data = await tokenInstance.get(`/guilds/${guild_id}/me/role`);
   return data && data.data;
 };
