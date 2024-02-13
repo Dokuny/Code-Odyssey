@@ -15,4 +15,6 @@ public interface GuildSprintRepositoryCustom {
 	InProgressGuildSprintInfo findInProgressGuildSprint(Long guildId);
 
 	List<InProgressGuildProblemMemberInfo> findInProgressGuildProblemInfo(Long guildProblemId);
+
+	Integer getGuildProblemPoint(Long guildId);
 }

@@ -83,7 +83,7 @@ public class GuildSprint extends BaseEntity {
 	}
 
 	public void end() {
-		if (!this.status.equals(IN_PROGRESS) || this.endedAt.isAfter(LocalDate.now())) {
+		if (!this.status.equals(IN_PROGRESS) || !this.endedAt.isBefore(LocalDate.now())) {
 			throw new GuildSprintException(CANNOT_END_SPRINT);
 		}
 
