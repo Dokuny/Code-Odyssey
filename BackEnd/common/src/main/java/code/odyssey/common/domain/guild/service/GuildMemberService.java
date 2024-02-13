@@ -2,6 +2,7 @@ package code.odyssey.common.domain.guild.service;
 
 import static code.odyssey.common.domain.guild.enums.GuildRole.MASTER;
 import static code.odyssey.common.domain.guild.enums.GuildRole.MEMBER;
+import static code.odyssey.common.domain.guild.exception.GuildErrorCode.NOT_EXISTS_GUILD_MEMBER;
 import static code.odyssey.common.domain.guild.exception.GuildErrorCode.NO_AUTHENTICATION;
 
 import code.odyssey.common.domain.guild.dto.GuildMemberInfo;
@@ -47,6 +48,13 @@ public class GuildMemberService {
             .orElseThrow(() -> new GuildException(NO_AUTHENTICATION));
 
         guildMemberRepository.delete(kickMember);
+    }
+
+    public String checkRole(Long guildId, Long memberId) {
+        GuildMember guildMember = guildMemberRepository.findByMemberInGuild(guildId, memberId)
+                .orElseThrow(() -> new GuildException(NOT_EXISTS_GUILD_MEMBER));
+
+        return guildMember.getRole().name();
     }
 
 
