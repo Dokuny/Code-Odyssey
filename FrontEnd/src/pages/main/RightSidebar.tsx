@@ -8,6 +8,7 @@ import { Header3 } from '../../components/atoms/basic/Typography';
 import { colors } from '../../config/Color';
 import FindFriendModal from '../../components/molecules/modal/FindFriendModal';
 import PersonalPageModal from '../../components/molecules/modal/PersonalPageModal';
+import MusicBot from '../../components/organisms/myPage/main/MusicBot';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -68,29 +69,13 @@ const RightSidebar = () => {
       <Spacer space={'4vh'} />
 
       <StyledFriendContainer>
-        <Header3 children={'My Friends'} color={colors.White} fontWeight={'bold'} />
+        <Header3 children={'Music Bot'} color={colors.White} fontWeight={'bold'} />
       </StyledFriendContainer>
       <Spacer space={'0.5vh'} />
 
       <StyledFriendListContainer>
-        <MyFriendListCard src={'/images/code_odyssey/plus.svg'} name={''} state={'친구 추가하기'} time={''} key={0} active={activeFriend === 0} event={() => openModal()} />
-        {data.map((value) => (
-          <MyFriendListCard
-            src={value.src}
-            name={value.name}
-            state={value.state}
-            time={value.time}
-            key={value.member_id}
-            active={activeFriend === value.member_id}
-            event={() => {
-              setActiveFriend(value.member_id);
-              openPersonalModal();
-            }}
-          />
-        ))}
+        <MusicBot/>
       </StyledFriendListContainer>
-      <FindFriendModal isOpen={isModalOpen} closeModal={closeModal}></FindFriendModal>
-      <PersonalPageModal isOpen={isPersonalModalOpen} closeModal={closePersonalModal} memberId={activeFriend || 1}></PersonalPageModal>
     </StyledContainer>
   );
 };

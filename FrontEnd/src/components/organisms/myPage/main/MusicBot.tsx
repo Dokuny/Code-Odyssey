@@ -12,17 +12,14 @@ import { colors } from '../../../../config/Color';
 import axios from 'axios';
 import { getYoutube } from '../../../../utils/api/chatbot';
 
+interface BotChatting {
+  data?: any[]; // 실제 데이터 타입에 따라 수정
+  date?: string;
+}
+
 const MusicBot = () => {
   const [searchInput, setSearchInput] = useState('');
-  const [botChatting, setBotChatting] = useState({});
-  const [chat, setChat] = useRecoilState(MusicBotChatState);
-
-  useEffect(() => {
-    if (Object.keys(botChatting).length !== 0) {
-      setChat([ ['bot', botChatting] ,...chat]);
-      setBotChatting({});
-    }
-  }, [botChatting, chat, setChat]);
+  const [botChatting, setBotChatting] = useState<BotChatting>({});
 
   const getData = async () => {
     const data = await getYoutube(searchInput)
@@ -32,32 +29,20 @@ const MusicBot = () => {
 
   const handleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      setChat([...chat, ['user', { text: searchInput, date: 'Today, 2:02pm' }]]);
-      getData();
+      const fetchdata = async () => {
+        getData();
+      }
+      fetchdata()
     }
   };
 
   return (
     <>
-      <MainTopCard
-        src={'/images/code_odyssey/MusicBotBg.svg'}
-        title={<Body1 children={'세이렌에게 노래 부탁하기'} color={colors.Gray[100]} fontWeight={'bold'} />}
-        subTitle={<Body3 children={'링크를 입력하면 노래를 불러줘요'} color={colors.Gray[100]} fontWeight={'bold'} />}
-        content={
-          <div style={{ width: '80%' }}>
-            <BasicInput input={searchInput} placeholder={'유튜브 링크를 입력 후 Enter 키를 눌러주세요'} setInput={setSearchInput} onKeyUp={handleKeyUp} />
-          </div>
-        }
-      />
+      <div style={{ width: '100%' }}>
+        <BasicInput input={searchInput} placeholder={'유튜브 링크를 입력 후 Enter 키를 눌러주세요'} setInput={setSearchInput} onKeyUp={handleKeyUp} />
+      </div>
       <Spacer space={'2vh'} />
-      {chat.map((value, index) =>
-        value[0] === 'bot' ? (
-          <SingChatLeftCard key={index} data={value[1].data} date={value[1].date}/>
-        ) : (
-          <SingChatRightCard key={index} text={value[1].text} date={value[1].date} />
-        )
-      )}
-
+      { botChatting.data && <SingChatLeftCard data={botChatting.data} date={botChatting.date}/>}
     </>
   );
 };
