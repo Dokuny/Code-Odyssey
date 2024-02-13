@@ -34,14 +34,14 @@ spring:
         - id: chat-service
           uri: ${CHATTING_SERVER}
           predicates:
-            - Path=/chat/*
+            - Path=/chat/**
           filters:
             - AuthorizationHeaderFilter
 
         - id: webrtc-server
           uri: ${CHATTING_SERVER}
           predicates:
-            - Path=/openvidu/*
+            - Path=/openvidu/**
           filters:
             - AuthorizationHeaderFilter
 
