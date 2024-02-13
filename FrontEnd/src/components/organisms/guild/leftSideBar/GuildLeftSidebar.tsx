@@ -57,7 +57,7 @@ const GuildLeftSidebar = (props: MyPageLeftSidebarProps) => {
         {props.guild_id === -2 ? (
           <GuildMenu activeIndex={MyMenuProps.activeIndex} setActiveIndex={MyMenuProps.setActiveIndex} />
         ) : (
-          <GuildDetailMenu activeIndex={MyMenuProps.activeIndex} setActiveIndex={MyMenuProps.setActiveIndex} guild_name={props.guild_name} />
+          <GuildDetailMenu activeIndex={MyMenuProps.activeIndex} setActiveIndex={MyMenuProps.setActiveIndex} guild_name={props.guild_name} guild_id={props.guild_id} />
         )}
       </StyledImage>
     </>

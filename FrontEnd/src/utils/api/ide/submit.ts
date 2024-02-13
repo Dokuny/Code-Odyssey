@@ -1,7 +1,6 @@
-import submitInstance from '../../axios/submitInstance';
-import tokenInstance from '../../axios/tokenInstance';
+import multiInstance from '../../axios/multiInstance';
 
 export const submitOutServer = async (params: { sourceCode: File; input: File; output: File; language: string; timeOut: number }) => {
-  const data = await submitInstance.post(`/judge`, params);
+  const data = await multiInstance.post(`/judge`, params);
   return data && data.data;
 };

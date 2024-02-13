@@ -6,11 +6,6 @@ import SolveProblem from '../../organisms/myPage/main/SolveProblem';
 import SettingSprint from '../../organisms/myPage/main/SettingSprint';
 import MypageLeftSidebar from '../../organisms/myPage/leftSideBar/MypageLeftSidebar';
 import MyPageMain from '../../organisms/myPage/main/MyPageMain';
-import MyPageRightSidebar from '../../organisms/myPage/rightSideBar/MyPageRightSidebar';
-
-const StyledContainer = styled.div`
-  display: flex;
-`;
 
 const StyledLeftSidebar = styled.div`
   display: flex;
@@ -36,15 +31,6 @@ const StyledMain = styled.div`
     display: none; /* 크롬, 사파리, 오페라, 엣지 */
   }
 `;
-
-const StyledRightSidebar = styled.div`
-  display: flex;
-  width: 18%;
-  box-sizing: border-box;
-  border-left: 1px solid ${colors.Gray[800]};
-  background-color: ${colors.Gray[900]};
-`;
-
 interface MyPageTemplateProps {
   GuildSelectProps: { guildListIndex: number; setGuildListIndex: Dispatch<SetStateAction<number>>; setGuildName: Dispatch<SetStateAction<string>> };
 }
@@ -54,7 +40,7 @@ const MyPageTemplate = (props: MyPageTemplateProps) => {
   const GuildSelectProps = props.GuildSelectProps;
 
   return (
-    <StyledContainer>
+    <>
       <StyledLeftSidebar>
         <MypageLeftSidebar MyMenuProps={{ activeIndex: activeMenuIndex, setActiveIndex: setActiveMenuIndex }} MyGuildListProps={GuildSelectProps} />
       </StyledLeftSidebar>
@@ -64,10 +50,7 @@ const MyPageTemplate = (props: MyPageTemplateProps) => {
         {activeMenuIndex === 2 && <SolveProblem />}
         {activeMenuIndex === 3 && <SettingSprint />}
       </StyledMain>
-      <StyledRightSidebar>
-        <MyPageRightSidebar />
-      </StyledRightSidebar>
-    </StyledContainer>
+    </>
   );
 };
 

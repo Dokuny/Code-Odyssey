@@ -1,13 +1,13 @@
 import styled from 'styled-components';
-import { Spacer } from '../../../atoms/basic/Spacer';
-import RightSidebarLogo from '../../../atoms/image/RightSidebarLogo';
-import MyProfileSimpleCard from '../../../molecules/card/myPage/MyProfileSimpleCard';
-import MyFriendListCard from '../../../molecules/card/basic/MyFriendListCard';
+import { Spacer } from '../../components/atoms/basic/Spacer';
+import RightSidebarLogo from '../../components/atoms/image/RightSidebarLogo';
+import MyProfileSimpleCard from '../../components/molecules/card/myPage/MyProfileSimpleCard';
+import MyFriendListCard from '../../components/molecules/card/basic/MyFriendListCard';
 import { useEffect, useState } from 'react';
-import { Header3 } from '../../../atoms/basic/Typography';
-import { colors } from '../../../../config/Color';
-import FindFriendModal from '../../../molecules/modal/FindFriendModal';
-import PersonalPageModal from '../../../molecules/modal/PersonalPageModal';
+import { Header3 } from '../../components/atoms/basic/Typography';
+import { colors } from '../../config/Color';
+import FindFriendModal from '../../components/molecules/modal/FindFriendModal';
+import PersonalPageModal from '../../components/molecules/modal/PersonalPageModal';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -32,7 +32,7 @@ const StyledFriendListContainer = styled.div`
   }
 `;
 
-const MyPageRightSidebar = () => {
+const RightSidebar = () => {
   const [activeFriend, setActiveFriend] = useState<number | null>(null);
   const [data, setData] = useState([
     { src: 'https://picsum.photos/300', member_id: 1, name: 'FriendName1', state: 'started', time: '20 min ago' },
@@ -95,4 +95,4 @@ const MyPageRightSidebar = () => {
   );
 };
 
-export default MyPageRightSidebar;
+export default RightSidebar;

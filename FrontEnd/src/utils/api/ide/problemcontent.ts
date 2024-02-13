@@ -9,3 +9,8 @@ export const setCounterExample = async (params: { input: string; output: string;
   const data = await tokenInstance.post(`/examples`, params);
   return data && data.data;
 };
+
+export const getVarExam = async (params: { input: string }) => {
+  const data = await tokenInstance.post(`/variables`, params);
+  return data && data.data;
+};
