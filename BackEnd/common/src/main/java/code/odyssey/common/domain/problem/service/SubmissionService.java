@@ -169,13 +169,12 @@ public class SubmissionService {
     }
 
     public List<SolvedStreakInfo> getSubmissionByDate(Long memberId, String date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-        LocalDate targetDate = LocalDate.parse(date + "-01", formatter);
-
-        LocalDateTime startDate = targetDate.atStartOfDay();
-        LocalDateTime endDate = targetDate.atTime(23, 59, 59);
-
+        // date = 2024-02 -> LocalDateTime 2024-02-01 00:00:00
+        LocalDate localDate = LocalDate.parse(date + "-01", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        LocalDateTime startDate = localDate.atStartOfDay();
+//        System.out.println(startDate);
+        LocalDateTime endDate = localDate.withDayOfMonth(localDate.lengthOfMonth()).atTime(23, 59, 59);
+//        System.out.println(endDate);
         return submissionRepository.findByMemberIdAndDate(memberId, startDate, endDate);
 
     }
