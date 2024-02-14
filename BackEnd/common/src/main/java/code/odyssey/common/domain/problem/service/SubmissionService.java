@@ -53,8 +53,8 @@ public class SubmissionService {
 
         return results.stream()
                 .map(row -> SubmissionNumInfo.builder()
-                        .createdAt(((Date) row[0]).toLocalDate().atStartOfDay())
-                        .solvedNum(((Number) row[1]).intValue())
+                        .day(((Date) row[0]).toLocalDate().atStartOfDay())
+                        .value(((Number) row[1]).intValue())
                         .build())
                 .collect(Collectors.toList());
     }
@@ -94,18 +94,12 @@ public class SubmissionService {
         
         // 언어 체크
         String language = request.getLanguage();
-        LanguageType langType = null;
-        switch (language){
-            case "python":
-                langType = LanguageType.PYTHON;
-                break;
-            case "java":
-                langType = LanguageType.JAVA;
-                break;
-            case "cpp":
-                langType = LanguageType.CPP;
-                break;
-        }
+        LanguageType langType = switch (language) {
+            case "python" -> LanguageType.PYTHON;
+            case "java" -> LanguageType.JAVA;
+            case "cpp" -> LanguageType.CPP;
+            default -> null;
+        };
 
         // 오늘 날짜에 문제가 제출된 적이 있는지 확인하고, 없으면 스트릭 업데이트.
         if (submissionRepository.countSubmissionByTodayDate(memberId) == 0) {
