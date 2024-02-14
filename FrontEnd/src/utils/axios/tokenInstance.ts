@@ -72,7 +72,7 @@ const handleResponseError = async (error: AxiosError) => {
 };
 
 const handleResponseSuccess = (response: any) => {
-  console.log('Success response');
+  console.log('Success response', response.request.responseURL);
   return response;
 };
 

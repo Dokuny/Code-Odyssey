@@ -121,7 +121,7 @@ const GuildRecommendCard = (props: GuildRecommendCardProps) => {
           <DiffImageDiv src={difficulty[data.difficulty]}></DiffImageDiv>
           <Spacer space={'0.5vmax'} horizontal />
           {/* body에 문제있음 영어랑 한글 호환 x */}
-          <Body1 children={data.guild_name} color={colors.Gray[100]} fontWeight={'bold'} /> 
+          <Body1 children={data.guild_name} color={colors.Gray[100]} fontWeight={'bold'} />
         </HeaderDiv>
         <ImageStyle src={data.guild_img}></ImageStyle>
         <FooterDiv>
@@ -147,7 +147,7 @@ const GuildRecommendCard = (props: GuildRecommendCardProps) => {
           </SeperateRight>
         </FooterDiv>
       </GuildBackDiv>
-      <ModalGuildProfile isOpen={isModalOpen} closeModal={closeModal} guild_id={data.guild_id} guild_name={data.guild_name}></ModalGuildProfile>
+      {isModalOpen && <ModalGuildProfile isOpen={isModalOpen} closeModal={closeModal} guild_id={data.guild_id} guild_name={data.guild_name}></ModalGuildProfile>}
     </div>
   );
 };
