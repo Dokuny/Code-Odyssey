@@ -16,7 +16,7 @@ interface Data {
   platform: string;
   type: string;
   no: number;
-  createdAt: string;
+  createdAt: Date;
 }
 
 interface SprintDropDownProps {

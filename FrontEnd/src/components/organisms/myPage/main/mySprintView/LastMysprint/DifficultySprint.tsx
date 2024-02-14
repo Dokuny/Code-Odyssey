@@ -2,9 +2,20 @@ import React, { useEffect, useState } from 'react';
 import SprintDropDown from '../../../../../molecules/dropdown/SprintDropDown';
 import { getDifficultySprint } from '../../../../../../utils/api/mypage/sprint/mysprint';
 
+interface Data {
+  title: string;
+  content: string;
+  hrefr: string;
+  difficulty: number;
+  platform: string;
+  type: string;
+  no: number;
+  createdAt: Date;
+}
+
 const DifficultySprint = () => {
   const [selectedValue, setSelectedValue] = useState('select');
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<Data[]>([]);
 
   const OPTIONS = [
     { value: '1', name: '브론즈 1' },

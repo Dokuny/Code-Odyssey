@@ -3,9 +3,20 @@ import SprintDropDown from '../../../../../molecules/dropdown/SprintDropDown';
 import { getTypeBySprint } from '../../../../../../utils/api/mypage/sprint/mysprint';
 
 
+interface Data {
+  title: string;
+  content: string;
+  hrefr: string;
+  difficulty: number;
+  platform: string;
+  type: string;
+  no: number;
+  createdAt: Date;
+}
+
 const TypeBySprint = () => {
   const [selectedValue, setSelectedValue] = useState('select');
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<Data[]>([]);
   
   const OPTIONS = [
     { value: 'STRING', name: '문자열' },
