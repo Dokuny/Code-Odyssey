@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import CheckCard from '../card/basic/CheckCard';
 import styled from 'styled-components';
 import { colors } from '../../../config/Color';
-import { Body1, Body2 } from '../../atoms/basic/Typography';
 
 interface Option {
   value: string;
@@ -17,7 +16,7 @@ interface Data {
   platform: string;
   type: string;
   no: number;
-  createdAt: Date;
+  createdAt: string;
 }
 
 interface SprintDropDownProps {
@@ -28,13 +27,8 @@ interface SprintDropDownProps {
   setSelectedValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
-
 const StyledContainer = styled.div`
   margin-top: 10px;
-`;
-const Div2 = styled.div`
-  display: flex;
-  cursor: pointer;
 `;
 
 const Div1 = styled.div`
@@ -72,38 +66,42 @@ const StyledSelect = styled.select`
   }
 `;
 
-const SprintDropDown: React.FC<SprintDropDownProps> = ({ option, data, type, selectedValue, setSelectedValue}) => {
+const SprintDropDown: React.FC<SprintDropDownProps> = ({ option, data, type, selectedValue, setSelectedValue }) => {
   return (
     <StyledContainer>
       <Div1>
         <Circle />
-        <StyledSelect value={selectedValue} onChange={(e) => setSelectedValue(e.target.value)}>
-          { type === 'difficulty' &&           
+        <StyledSelect value={selectedValue} onChange={(e: any) => setSelectedValue(e.target.value)}>
+          {type === 'difficulty' && (
             <option value='select' disabled>
               난이도
-          </option>}
+            </option>
+          )}
 
-          { type === 'typeby' &&           
+          {type === 'typeby' && (
             <option value='select' disabled>
               문제유형
-          </option>}
+            </option>
+          )}
 
           {option.map((opt) => (
             <option key={opt.value} value={opt.value}>
-              {opt.name} 
+              {opt.name}
             </option>
           ))}
-          
         </StyledSelect>
       </Div1>
-      { type === 'difficulty' ?
-          data.map(data =>  // difficulty 일때,
-            data.difficulty.toString() === selectedValue && <CheckCard {...data}/> )
-        :
-          data.map(data =>  // TypeBy 일때,
-            data.type === selectedValue && <CheckCard {...data}/> )
-          }
-
+      {type === 'difficulty'
+        ? data.map(
+            (
+              data // difficulty 일때,
+            ) => data.difficulty.toString() === selectedValue && <CheckCard {...data} />
+          )
+        : data.map(
+            (
+              data // TypeBy 일때,
+            ) => data.type === selectedValue && <CheckCard {...data} />
+          )}
     </StyledContainer>
   );
 };
