@@ -100,7 +100,6 @@ const data = {
   // sampleInputs, // 입력예시 (html 전체)
   // sampleOutputs, // 출력예시 (html 전체)
 };
-console.log(data);
 
 fetch("http://127.0.0.1:8081/save-data/save/", {
   method: "POST",

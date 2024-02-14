@@ -7,7 +7,6 @@ chrome.runtime.sendMessage({ request: "getStatus" }, function (response) {
 var token = "";
 chrome.runtime.sendMessage({ request: "getUserToken" }, function (response) {
   token = response.userToken;
-  console.log("usertoken get : ", token);
 });
 
 const setToken = function () {
@@ -50,7 +49,6 @@ else if (
 function parseAndUpload() {
   (async () => {
     const bojData = await parseData();
-    console.log(bojData);
   })();
 }
 
@@ -130,7 +128,6 @@ async function parseCode() {
       codes.push(temp);
     }
   }
-  console.log(codes);
   await updateProblemData(problemId, { codes, contestProbId });
   codes = [];
   return { problemId, contestProbId };
@@ -201,7 +198,7 @@ async function parseData() {
   if (getNickname() !== nickname) return;
   if (isNull(document.querySelector("#problemForm div.info"))) return;
 
-  console.log("결과 데이터 파싱 시작");
+  // 결과 데이터 파싱 시작
 
   // 문제번호
   const problemId = document
@@ -268,7 +265,7 @@ async function makeData(origin) {
   if (stat) {
     // 제출 API
 
-    fetch("https://code-odyssey.site/submissions", {
+    fetch("https://odyssey-code.site/submissions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

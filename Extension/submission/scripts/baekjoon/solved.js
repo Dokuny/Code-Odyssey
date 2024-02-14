@@ -60,42 +60,41 @@ if (isStatusWaiting) {
 
   waitForStatusChange().then(() => {
     if (resultProcess === "맞았습니다!!") {
-      const col = tr.children;
-      var language = col[6].textContent
-        .replace(/\s+/g, "")
-        .split("/")[0]
-        .substring(0, 3);
-      if (language.match("Py")) {
-        language = "python";
-      } else if (language.match("C+")) {
-        language = "cpp";
-      } else if (language.match("Ja")) {
-        language = "java";
-      }
-      const num = document
-        .querySelector(
-          "body > div.wrapper > div.container.content > div.row > div:nth-child(2) > ul > li:nth-child(1) > a"
-        )
-        .textContent.trim()
-        .replace("번", "");
-      const data = {
-        platform: "BAEKJOON",
-        no: num,
-        code: window.localStorage.getItem("sourceCode"),
-        memory: col[4].textContent.trim(),
-        time: col[5].textContent.trim(),
-        language: language,
-      };
-
       if (stat) {
-        console.log("extenstion on");
+        const col = tr.children;
+        var language = col[6].textContent
+          .replace(/\s+/g, "")
+          .split("/")[0]
+          .substring(0, 3);
+        if (language.match("Py")) {
+          language = "python";
+        } else if (language.match("C+")) {
+          language = "cpp";
+        } else if (language.match("Ja")) {
+          language = "java";
+        }
+        const num = document
+          .querySelector(
+            "body > div.wrapper > div.container.content > div.row > div:nth-child(2) > ul > li:nth-child(1) > a"
+          )
+          .textContent.trim()
+          .replace("번", "");
+        const data = {
+          platform: "BAEKJOON",
+          no: num,
+          code: window.localStorage.getItem("sourceCode"),
+          memory: col[4].textContent.trim(),
+          time: col[5].textContent.trim(),
+          language: language,
+        };
+
         if (!token) {
           window.alert("유저 정보 등록 필요");
         }
         console.log(data);
         // 제출 API
 
-        fetch("https://code-odyssey.site/submissions", {
+        fetch("https://odyssey-code.site/submissions", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -121,8 +120,6 @@ if (isStatusWaiting) {
       } else if (!stat) {
         console.log("extension off");
       }
-    } else if (resultProcess === "틀렸습니다") {
-      // console.log(resultProcess);
     }
   });
 }

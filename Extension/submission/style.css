@@ -5,8 +5,21 @@
   font-weight: 500;
   font-style: normal;
 }
-.hidden {
+
+#loginStatus {
+  display: inline;
+  text-align: center;
+  align-items: center;
+}
+#siteButton {
   display: none;
+  text-align: center;
+  align-items: center;
+  color: white;
+}
+#userDataText {
+  display: none;
+  color: white;
 }
 
 label {
