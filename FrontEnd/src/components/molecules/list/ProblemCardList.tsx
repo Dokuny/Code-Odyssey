@@ -16,7 +16,7 @@ const HorizenDiv = styled.div`
 
 interface ProblemCardListProps {
   data: {
-    problem_id: string;
+    id: string;
     title: string;
     platform: string;
     difficulty: string;
@@ -26,6 +26,7 @@ interface ProblemCardListProps {
 }
 
 const ProblemCardList = (props: ProblemCardListProps) => {
+  console.log(props);
   return (
     <>
       <div style={{ display: 'flex', alignItems: 'center', padding: '1vmin' }}>
@@ -45,7 +46,7 @@ const ProblemCardList = (props: ProblemCardListProps) => {
       <ProblemDiv>
         {props.data.map((value) => (
           <div style={{ width: '25%' }}>
-            <ProblemCard data={value} key={value.problem_id} />
+            <ProblemCard key={value.id} data={value} />
           </div>
         ))}
       </ProblemDiv>

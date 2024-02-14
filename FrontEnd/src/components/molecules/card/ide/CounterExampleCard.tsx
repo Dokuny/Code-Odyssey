@@ -38,7 +38,7 @@ const StyledBasicDetailContainer = styled.div`
 `;
 
 const StyledImage = styled.img`
-  width: 10%;
+  width: 6%;
 `;
 
 const StyledExampleAllContainer = styled.div`

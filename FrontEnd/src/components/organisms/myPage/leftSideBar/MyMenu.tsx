@@ -4,6 +4,8 @@ import { Body1, Body2, Header3 } from '../../../atoms/basic/Typography';
 import MenuButton from '../../../atoms/button/MenuButton';
 import { Spacer } from '../../../atoms/basic/Spacer';
 import { IoIcon } from '../../../atoms/icon/Icons';
+import { useEffect, useState } from 'react';
+import { getProfile } from '../../../../utils/api/mypage/myprofile/profile';
 
 const StyledContainer = styled.div`
   position: relative;
@@ -39,11 +41,20 @@ const MyMenu = (props: MyMenuProps) => {
     { content: '문제 풀기', event: () => props.setActiveIndex(2), active: props.activeIndex === 2, icon: 'game' },
     { content: '스프린트 관리', event: () => props.setActiveIndex(3), active: props.activeIndex === 3, icon: 'map' },
   ];
+  const [data, setData] = useState('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getProfile();
+      setData(data.nickname);
+    };
+    fetchData();
+  }, [data]);
 
   return (
     <StyledContainer>
       <StyledContentContainer>
-        <Header3 children={"Dokuny's"} color={colors.Gray[200]} fontWeight={'bold'} />
+        <Header3 children={`${data}'s`} color={colors.Gray[200]} fontWeight={'bold'} />
         <Body1 children={'항해일지'} color={colors.Gray[300]} />
       </StyledContentContainer>
       <StyledContentContainer>
