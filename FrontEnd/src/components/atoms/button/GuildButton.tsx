@@ -23,7 +23,7 @@ const StyledButton = styled.button<{ theme: { [key: string]: string }; src: stri
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 2em;
+  border-radius: 50%;
   width: 100%;
   padding: 0;
   margin: 0;
@@ -37,7 +37,7 @@ const StyledButton = styled.button<{ theme: { [key: string]: string }; src: stri
   background-color: rgba(0, 0, 0, 0);
 
   &:hover {
-    border-radius: 1em;
+    border-radius: 12px;
     background-color: rgba(0, 0, 0, 0);
     box-shadow: 0px 0px 0.5em ${colors.Indigo[400]};
     cursor: pointer;
@@ -46,7 +46,7 @@ const StyledButton = styled.button<{ theme: { [key: string]: string }; src: stri
   ${(props) =>
     props.active &&
     css`
-      border-radius: 1em;
+      border-radius: 12px;
       background-color: rgba(0, 0, 0, 0);
       box-shadow: 0px 0px 0.5em ${colors.Indigo[400]};
       cursor: pointer;

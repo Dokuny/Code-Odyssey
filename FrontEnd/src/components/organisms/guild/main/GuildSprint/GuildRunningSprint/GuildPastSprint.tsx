@@ -22,7 +22,7 @@ interface GuildPastSprintProps {
 
 const GuildPastSprint = (props: GuildPastSprintProps) => {
   const onClick = (guild_problem_id: number, problem_id: number) => {
-    window.open(`/ide?guild_problem_id=${guild_problem_id}&problem_id=${problem_id}`, '_blank');
+    window.open(`/guild/ide?guild_problem_id=${guild_problem_id}&problem_id=${problem_id}`, '_blank');
   };
 
   const clickFinish = async () => {

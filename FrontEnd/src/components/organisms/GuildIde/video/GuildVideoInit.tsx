@@ -4,6 +4,7 @@ import { OpenVidu, Session as OVSession, Publisher, Subscriber } from 'openvidu-
 import Session from './Session';
 import { Spacer } from '../../../atoms/basic/Spacer';
 import { getToken } from '../../../../utils/api/guild/chat/chat';
+import { getProfile } from '../../../../utils/api/mypage/myprofile/profile';
 
 interface GuildVideoInitProps {
   guild_problem_id: number;
@@ -16,9 +17,12 @@ const GuildVideoInit = (props: GuildVideoInitProps) => {
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
   const [publisher, setPublisher] = useState<Publisher | null>(null);
   const [OV, setOV] = useState<OpenVidu | null>(null);
+  const [myNick, setMyNick] = useState('');
 
-  const joinSession = () => {
+  const joinSession = async () => {
     const OVs = new OpenVidu();
+    const data = await getProfile();
+    setMyNick(data.nickname);
     OVs.enableProdMode();
     setOV(OVs);
     setSession(OVs.initSession());
@@ -58,6 +62,7 @@ const GuildVideoInit = (props: GuildVideoInitProps) => {
   }, [session]);
 
   useEffect(() => {
+    if (myNick === '') return;
     if (inputSessionId === '') return;
     if (session === '') return;
 
@@ -69,7 +74,7 @@ const GuildVideoInit = (props: GuildVideoInitProps) => {
     getToken(inputSessionId)
       .then((token) => {
         session
-          .connect(token, { clientData: 'test' + Math.floor(Math.random() * 100) })
+          .connect(token, { clientData: myNick })
           .then(() => {
             if (OV) {
               const newPublisher = OV.initPublisher(undefined, {
@@ -90,7 +95,7 @@ const GuildVideoInit = (props: GuildVideoInitProps) => {
           .catch(() => {});
       })
       .catch(() => {});
-  }, [session, OV, inputSessionId]);
+  }, [session, OV, inputSessionId, myNick]);
 
   return (
     <>
