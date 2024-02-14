@@ -6,7 +6,7 @@ import { getMySprint, getRecommendSprint, postMySprint } from '../../../../../ut
 
 const ProblemRecommend = () => {
   const [dayilyData, setDailyData] = useState([
-    { day: 'MON', recommendedDifficulty: 'SIVER', recommendedType: '유형' },
+    { day: 'MON', recommendedDifficulty: '난이도', recommendedType: '유형' },
     { day: 'TUE', recommendedDifficulty: '난이도', recommendedType: '유형' },
     { day: 'WED', recommendedDifficulty: '난이도', recommendedType: '유형' },
     { day: 'THU', recommendedDifficulty: '난이도', recommendedType: '유형' },
