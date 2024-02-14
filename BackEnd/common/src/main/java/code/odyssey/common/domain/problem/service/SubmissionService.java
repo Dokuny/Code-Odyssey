@@ -77,8 +77,6 @@ public class SubmissionService {
     // 개인 코드 제출
     @Transactional
     public Long postSubmissionResult(ProblemSubmitRequest request, Long memberId){
-        log.info("request : {}", request);
-//        Long memberId = request.getMemberId();
         // 회원 확인
         Member member = memberRepository.findById(memberId)
                 .filter(m -> m.getResignedAt() == null)  // 탈퇴한 회원인지 체크
