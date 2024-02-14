@@ -1,5 +1,8 @@
 package code.odyssey.common.domain.problem.controller;
 
+import code.odyssey.common.domain.problem.dto.SubmissionInfo;
+import code.odyssey.common.domain.problem.dto.SubmissionListInfo;
+import code.odyssey.common.domain.problem.dto.SubmissionPageInfo;
 import code.odyssey.common.domain.problem.dto.problem.ProblemDetailInfo;
 import code.odyssey.common.domain.problem.dto.problem.ProblemInfo;
 import code.odyssey.common.domain.problem.dto.problem.ProblemRequestDto;
@@ -29,10 +32,10 @@ public class ProblemController {
             @RequestHeader("X-Authorization-Id") Long memberId,
             @ModelAttribute ProblemRequestDto request,
             @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "1") int page
+            @RequestParam(defaultValue = "0") int page
     ){
-        Pageable pageable = PageRequest.of(page, size);
-        return ResponseEntity.ok(problemService.getProblems(request, pageable));
+
+        return ResponseEntity.ok(problemService.getProblems(request, PageRequest.of(page, size)));
     }
 
     @GetMapping("{problem_id}")
@@ -41,6 +44,16 @@ public class ProblemController {
             @PathVariable("problem_id") Long problemId
     ){
         return ResponseEntity.ok(problemService.getProblem(problemId));
+    }
+
+    @GetMapping("{problem_id}/submissions")
+    public ResponseEntity<SubmissionPageInfo> getProblemSubmissions(
+            @RequestHeader("X-Authorization-Id")Long memberId,
+            @PathVariable("problem_id")Long problemId,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "0") int page
+    ){
+        return ResponseEntity.ok(problemService.getSubmissions(problemId, PageRequest.of(page, size)));
     }
 
 

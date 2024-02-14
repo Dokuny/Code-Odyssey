@@ -3,6 +3,7 @@ import SprintDropDown from '../../../../../molecules/dropdown/SprintDropDown';
 import { getTypeBySprint } from '../../../../../../utils/api/mypage/sprint/mysprint';
 
 
+
 const TypeBySprint = () => {
   const [selectedValue, setSelectedValue] = useState('select');
   const [data, setData] = useState([]);
@@ -24,8 +25,7 @@ const TypeBySprint = () => {
     const fetchData = async () => {
       if (selectedValue !== 'select') {
           const result = await getTypeBySprint(selectedValue);
-          console.log(result)
-          setData(result || []); // result가 falsy일 경우 빈 배열로 설정
+          setData(result); // result가 falsy일 경우 빈 배열로 설정
       }
     };
     

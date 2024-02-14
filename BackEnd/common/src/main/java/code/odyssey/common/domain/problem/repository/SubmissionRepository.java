@@ -1,9 +1,13 @@
 package code.odyssey.common.domain.problem.repository;
 
+import code.odyssey.common.domain.problem.dto.SubmissionInfo;
+import code.odyssey.common.domain.problem.dto.SubmissionListInfo;
 import code.odyssey.common.domain.problem.entity.Submission;
 import code.odyssey.common.domain.problem.entity.enums.ProblemType;
 import code.odyssey.common.domain.problem.dto.SolvedStreakInfo;
 import code.odyssey.common.domain.review.dto.SourceCodeInfo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -66,6 +70,8 @@ public interface SubmissionRepository extends JpaRepository<Submission, Long> {
                                                  @Param("endDate") LocalDateTime endDate);
 
 
+
+
     @Query("SELECT COUNT(sub.id) " +
             "FROM Submission sub " +
             "WHERE sub.member.id = :memberId " +
@@ -74,6 +80,7 @@ public interface SubmissionRepository extends JpaRepository<Submission, Long> {
             @Param("memberId") Long memberId,
             @Param("date") LocalDate date);
 
+    //제출된 소스코드 조회하기
     @Query("SELECT new code.odyssey.common.domain.review.dto.SourceCodeInfo(" +
             "s.id, " +
             "p.platform, " +
@@ -84,5 +91,21 @@ public interface SubmissionRepository extends JpaRepository<Submission, Long> {
             "JOIN s.problem p " +
             "WHERE s.id = :submissionId")
     SourceCodeInfo getSourceCodeBySubmissionId(@Param("submissionId") Long submissionId);
+
+
+    //제출내역 가져오기
+    @Query("SELECT new code.odyssey.common.domain.problem.dto.SubmissionListInfo(" +
+            "m.id, " +
+            "m.thumbnail, " +
+            "m.nickname, " +
+            "s.createdAt, " +
+            "s.time, " +
+            "s.memory) " +
+            "FROM Submission s " +
+            "JOIN s.member m " +
+            "WHERE s.problem.id = :problemId")
+    Page<SubmissionListInfo> getSubmissionListByProblemId(@Param("problemId")Long problemId, Pageable pageable);
+
+
 
 }

@@ -6,13 +6,13 @@ import { getMySprint, getRecommendSprint, postMySprint } from '../../../../../ut
 
 const ProblemRecommend = () => {
   const [dayilyData, setDailyData] = useState([
-    { day: 'MON', recommendedDifficulty: '난이도', recommendedType: '유형' },
-    { day: 'TUE', recommendedDifficulty: '난이도', recommendedType: '유형' },
-    { day: 'WED', recommendedDifficulty: '난이도', recommendedType: '유형' },
-    { day: 'THU', recommendedDifficulty: '난이도', recommendedType: '유형' },
-    { day: 'FRI', recommendedDifficulty: '난이도', recommendedType: '유형' },
-    { day: 'SAT', recommendedDifficulty: '난이도', recommendedType: '유형' },
-    { day: 'SUN', recommendedDifficulty: '난이도', recommendedType: '유형' },
+    { day: 'MONDAY', recommendedDifficulty: '난이도', recommendedType: '유형' },
+    { day: 'TUEDAY', recommendedDifficulty: '난이도', recommendedType: '유형' },
+    { day: 'WEDDAY', recommendedDifficulty: '난이도', recommendedType: '유형' },
+    { day: 'THUDAY', recommendedDifficulty: '난이도', recommendedType: '유형' },
+    { day: 'FRIDAY', recommendedDifficulty: '난이도', recommendedType: '유형' },
+    { day: 'SATDAY', recommendedDifficulty: '난이도', recommendedType: '유형' },
+    { day: 'SUNDAY', recommendedDifficulty: '난이도', recommendedType: '유형' },
   ]);
 
   const [problemData, setProblemData] = useState([]);
@@ -24,8 +24,6 @@ const ProblemRecommend = () => {
     if (MySprint.length !== 0) {
       setDailyData(MySprint);
       setProblemData(RecommendSprint);
-      console.log(MySprint);
-      console.log(RecommendSprint);
     } else {
       setProblemData(RecommendSprint);
     }

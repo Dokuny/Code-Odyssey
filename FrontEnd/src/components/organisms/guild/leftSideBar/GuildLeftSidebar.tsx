@@ -9,7 +9,7 @@ const StyledImage = styled.div`
   position: relative;
   width: 100%;
   height: 100vh;
-  background-image: url('/images/code_odyssey/SidebarGuild.svg');
+  background-image: url('/images/code_odyssey/SidebarGuild.gif');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;

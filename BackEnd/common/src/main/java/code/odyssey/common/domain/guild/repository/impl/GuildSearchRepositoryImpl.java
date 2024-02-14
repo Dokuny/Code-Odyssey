@@ -7,7 +7,9 @@ import static code.odyssey.common.domain.guildSprint.entity.enums.GuildSprintSta
 
 import code.odyssey.common.domain.guild.dto.GuildSearchCond;
 import code.odyssey.common.domain.guild.dto.GuildSearchInfo;
+import code.odyssey.common.domain.guild.entity.enums.LanguageType;
 import code.odyssey.common.domain.guild.repository.GuildSearchRepository;
+import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
@@ -25,17 +27,16 @@ public class GuildSearchRepositoryImpl implements GuildSearchRepository {
 
 	@Override
 	public List<GuildSearchInfo> searchGuild(GuildSearchCond cond, Long memberId) {
-		return queryFactory.select(
-				Projections.fields(
-					GuildSearchInfo.class,
-					guild.id.as("guildId"),
-					guild.difficulty.as("difficulty"),
-					guild.name.as("guildName"),
-					guild.image.as("guildImg"),
-					guild.language.as("language"),
-					guildMember.id.count().intValue().as("currentCnt"),
-					guild.capacity.subtract(guildMember.id.count().intValue()).as("possibleCnt")
-				))
+		List<Tuple> fetch = queryFactory.select(
+				guild.id.as("guildId"),
+				guild.difficulty.as("difficulty"),
+				guild.name.as("guildName"),
+				guild.image.as("guildImg"),
+				guild.language.as("language"),
+				guildMember.id.count().intValue().as("currentCnt"),
+				guild.capacity.subtract(guildMember.id.count().intValue()).as("possibleCnt"),
+				guild.capacity.as("capacity")
+			)
 			.from(guild)
 			.join(guildMember).on(guild.id.eq(guildMember.guild.id))
 			.where(guild.id.gt(cond.getGuildId()),
@@ -46,9 +47,23 @@ public class GuildSearchRepositoryImpl implements GuildSearchRepository {
 				keywordEq(cond.getKeyword())
 			)
 			.groupBy(guild.id)
+			.having(guild.capacity.subtract(guildMember.id.count().intValue())
+				.gt(0))
 			.orderBy(guild.id.asc())
 			.limit(8)
 			.fetch();
+
+		return fetch.stream().map(tuple -> {
+			return GuildSearchInfo.builder()
+				.guildId(tuple.get(0, Long.class))
+				.difficulty(tuple.get(1, Integer.class))
+				.guildName(tuple.get(2, String.class))
+				.guildImg(tuple.get(3, String.class))
+				.language(tuple.get(4, LanguageType.class))
+				.currentCnt(tuple.get(5, Integer.class))
+				.possibleCnt(tuple.get(6, Integer.class))
+				.build();
+		}).toList();
 	}
 
 	private BooleanExpression keywordEq(String keyword) {

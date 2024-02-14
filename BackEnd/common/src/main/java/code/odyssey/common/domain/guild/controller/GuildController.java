@@ -6,6 +6,7 @@ import code.odyssey.common.domain.guild.dto.GuildInfo;
 import code.odyssey.common.domain.guild.dto.GuildSearchCond;
 import code.odyssey.common.domain.guild.dto.GuildSearchInfo;
 import code.odyssey.common.domain.guild.dto.GuildStreakInfo;
+import code.odyssey.common.domain.guild.dto.ProblemTypeCountInfo;
 import code.odyssey.common.domain.guild.dto.ProblemTypeInfo;
 import code.odyssey.common.domain.guild.dto.ProblemTypeStatistics;
 import code.odyssey.common.domain.guild.service.GuildMemberService;
@@ -83,6 +84,13 @@ public class GuildController {
             @PathVariable("guildId") Long guildId
     ) {
         return ResponseEntity.ok(guildMemberService.checkRole(guildId, memberId));
+    }
+
+    @GetMapping("/{guildId}/type-count")
+    public ResponseEntity<List<ProblemTypeCountInfo>> getTypeCount(
+        @PathVariable("guildId") Long guildId
+    ) {
+        return ResponseEntity.ok(guildService.getProblemTypeCount(guildId));
     }
 
 

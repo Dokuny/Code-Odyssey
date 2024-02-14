@@ -9,6 +9,7 @@ import code.odyssey.common.domain.guild.dto.GuildInfo;
 import code.odyssey.common.domain.guild.dto.GuildSearchCond;
 import code.odyssey.common.domain.guild.dto.GuildSearchInfo;
 import code.odyssey.common.domain.guild.dto.GuildStreakInfo;
+import code.odyssey.common.domain.guild.dto.ProblemTypeCountInfo;
 import code.odyssey.common.domain.guild.dto.ProblemTypeStatistics;
 import code.odyssey.common.domain.guild.entity.Guild;
 import code.odyssey.common.domain.guild.entity.GuildMember;
@@ -139,5 +140,9 @@ public class GuildService {
 
 	public List<GuildStreakInfo> getGuildStreak(Long guildId) {
 		return guildInfoRepository.getGuildStreakInfo(guildId);
+	}
+
+	public List<ProblemTypeCountInfo> getProblemTypeCount(Long guildId) {
+		return guildInfoRepository.getGuildProblemCount(guildId);
 	}
 }
