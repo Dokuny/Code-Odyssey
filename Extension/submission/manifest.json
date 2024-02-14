@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Code Odessey Code Submission Extension",
+  "name": "Code Odyssey Code Submission Extension",
   "version": "1.0",
   "description": "Code Odessey 문제 제출용 익스텐션",
   "icons": {
@@ -37,6 +37,10 @@
     },
     {
       "matches": ["http://localhost:3000/main*"],
+      "js": ["scripts/user.js"]
+    },
+    {
+      "matches": ["http://code-odyssey.site/main*"],
       "js": ["scripts/user.js"]
     }
   ]
