@@ -70,6 +70,8 @@ public interface SubmissionRepository extends JpaRepository<Submission, Long> {
                                                  @Param("endDate") LocalDateTime endDate);
 
 
+
+
     @Query("SELECT COUNT(sub.id) " +
             "FROM Submission sub " +
             "WHERE sub.member.id = :memberId " +
