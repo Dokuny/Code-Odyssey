@@ -39,7 +39,7 @@ const MusicBot = () => {
   return (
     <>
       <div style={{ width: '100%' }}>
-        <BasicInput input={searchInput} placeholder={'유튜브 링크를 입력 후 Enter 키를 눌러주세요'} setInput={setSearchInput} onKeyUp={handleKeyUp} />
+        <BasicInput input={searchInput} placeholder={'세이렌에게 노래 부탁하기'} setInput={setSearchInput} onKeyUp={handleKeyUp} />
       </div>
       <Spacer space={'2vh'} />
       { botChatting.data && <SingChatLeftCard data={botChatting.data} date={botChatting.date}/>}
