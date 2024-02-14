@@ -7,7 +7,7 @@ chrome.runtime.onInstalled.addListener(function (details) {
 });
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  // token 저장
+  // token 저장조회
   if (request.request === "setUserToken") {
     userToken = request.userToken;
     chrome.storage.local.set({ token: userToken }, function () {});
@@ -16,7 +16,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   // userId 조회
   else if (request.request === "getUserToken") {
     chrome.storage.local.get("token", function (data) {
-      if (data.token !== undefined) {
+      if (data.token) {
         sendResponse({ result: "successed", userToken: data.token });
       } else {
         sendResponse({ result: "failed" });
@@ -27,7 +27,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   else if (request.request === "getStatus") {
     chrome.storage.local.get("switchState", function (data) {
       if (data) {
-        sendResponse({ result: "successed", stat: data.switchState });
+        sendResponse({ result: "successed", switchState: data.switchState });
       } else {
         sendResponse({ result: "failed" });
       }
@@ -35,8 +35,14 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   }
   // 익스텐션 실행 상태 설정
   else if (request.request === "setStatus") {
-    chrome.storage.local.set({ switchState: stat }, function () {});
-    sendResponse({ result: "request successed", stat: data.switchState });
+    chrome.storage.local.set(
+      { switchState: request.switchState },
+      function () {}
+    );
+    sendResponse({
+      result: "request successed",
+      switchState: request.switchState,
+    });
   }
   // 에러
   else {
