@@ -36,7 +36,6 @@ interface MyMenuProps {
 const MyMenu = (props: MyMenuProps) => {
   const MenuList = [
     { content: '내 프로필', event: () => props.setActiveIndex(0), active: props.activeIndex === 0, icon: 'compass' },
-    { content: '노래봇', event: () => props.setActiveIndex(1), active: props.activeIndex === 1, icon: 'music' },
     { content: '문제 풀기', event: () => props.setActiveIndex(2), active: props.activeIndex === 2, icon: 'game' },
     { content: '스프린트 관리', event: () => props.setActiveIndex(3), active: props.activeIndex === 3, icon: 'map' },
   ];

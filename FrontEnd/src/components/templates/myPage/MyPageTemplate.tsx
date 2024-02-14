@@ -46,7 +46,6 @@ const MyPageTemplate = (props: MyPageTemplateProps) => {
       </StyledLeftSidebar>
       <StyledMain>
         {activeMenuIndex === 0 && <MyPageMain />}
-        {activeMenuIndex === 1 && <MusicBot />}
         {activeMenuIndex === 2 && <SolveProblem />}
         {activeMenuIndex === 3 && <SettingSprint />}
       </StyledMain>
