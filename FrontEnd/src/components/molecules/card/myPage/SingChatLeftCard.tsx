@@ -6,18 +6,15 @@ import { useState } from 'react';
 import YoutubePlayer from '../../../atoms/youtube';
 
 const StyledPolygon = styled.div`
-  width: 70%;
+  width: 100%;
   background-color: ${colors.Gray[800]};
   border: 10px solid ${colors.Gray[800]};
-  clip-path: polygon(100% 0, 100% 100%, 0 100%, 5% 60%, 5% 0);
   box-sizing: border-box;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-radius: 10px;
 `;
 
 const StyledYoutube = styled.div`
   background-color: ${colors.Gray[800]};
-  margin-left: 5%;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -26,7 +23,6 @@ const StyledYoutube = styled.div`
 `;
 
 const StyledText = styled.div`
-  margin-left: 5%;
   background-color: ${colors.Gray[800]};
   display: flex;
   flex-direction: column;
@@ -59,6 +55,20 @@ const StyledButton = styled.button`
     background-color: #cc0000;
   }
 `;
+
+
+const StyledContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+  &::-webkit-scrollbar {
+    display: none; /* 크롬, 사파리, 오페라, 엣지 */
+  }
+`;
+
+
 const SingChatLeftCard = ({ data, date }: any) => {
   const [index, setIndex] = useState(-1);
 
