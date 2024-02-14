@@ -11,7 +11,7 @@ const YoutubePlayer: React.FC<YoutubePlayerProps> = ({ videoId }) => {
     height: '',
     playerVars: {
       aspectRatio: '16:9', // 16:9 비율로 설정
-      autoplay: 1,
+      autoplay: 0,
     },
   };
 

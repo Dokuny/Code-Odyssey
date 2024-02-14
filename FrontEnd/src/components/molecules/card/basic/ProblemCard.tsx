@@ -100,19 +100,19 @@ const SeperateDiv = styled.div`
 const Div1 = styled.div`
   display: flex;
   flex-direction: column;
-  
-`
+`;
 
 interface ProblemCardProps {
-  data: { problem_id: string; title: string; platform: string; difficulty: string; type: string; no: string };
+  data: { id: string; title: string; platform: string; difficulty: string; type: string; no: string };
 }
 
 const imageSrc = '/images/code_odyssey/algo_pics/algoPic1.png';
 
 const ProblemCard = (props: ProblemCardProps) => {
-  const problemPage = () => {
-    console.log('problem page move ', props.data.problem_id);
+  const clickSolve = () => {
+    window.open(`/my/ide?problem_id=${props.data.id}`, '_blank');
   };
+
   return (
     <ProblemCardDiv>
       <HeaderDiv>
@@ -128,12 +128,12 @@ const ProblemCard = (props: ProblemCardProps) => {
       <FooterDiv>
         <Div1>
           <Spacer space={'1vh'}></Spacer>
-          <Body3 children={props.data.title.length > 10 ? `${props.data.title.slice(0, 10)}...`: props.data.title} color={colors.White} />
+          <Body3 children={props.data.title.length > 10 ? `${props.data.title.slice(0, 10)}...` : props.data.title} color={colors.White} />
           <Spacer space={'5px'}></Spacer>
           <Caption1 children={props.data.type} color={colors.White} />
         </Div1>
         <SeperateDiv>
-          <DetailButton onClick={problemPage}>풀러가기</DetailButton>
+          <DetailButton onClick={clickSolve}>풀러가기</DetailButton>
         </SeperateDiv>
       </FooterDiv>
     </ProblemCardDiv>

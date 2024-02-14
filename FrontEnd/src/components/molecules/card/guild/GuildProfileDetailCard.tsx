@@ -90,8 +90,11 @@ const GuildProfileDetailCard = (props: GuildProfileDetailCardProps) => {
       window.location.reload();
       alert('탈퇴 되었습니다.');
     } else if (data && !data.in_guild) {
-      await guildRequest(props.guild_id);
-      alert('가입 신청 되었습니다.');
+      const result = await guildRequest(props.guild_id);
+      if (result) {
+        console.log(result);
+        alert('가입 신청 되었습니다.');
+      }
     }
   };
 

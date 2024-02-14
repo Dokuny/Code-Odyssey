@@ -1,32 +1,3 @@
-// 익스텐션 실행 상태
-var stat = false;
-chrome.runtime.sendMessage({ request: "getStatus" }, function (response) {
-  stat = response.stat;
-});
-// user id
-var token = "";
-chrome.runtime.sendMessage({ request: "getUserToken" }, function (response) {
-  token = response.userToken;
-  console.log("usertoken get : ", token);
-});
-
-const setToken = function () {
-  chrome.runtime.sendMessage(
-    {
-      request: "setUserToken",
-      userToken: token,
-    },
-    function (resopnse) {
-      console.log(
-        "result : ",
-        resopnse.result,
-        " userToken : ",
-        resopnse.userToken
-      );
-    }
-  );
-};
-
 let loader;
 const currentUrl = window.location.href;
 // 로컬스토리지 만들어주기
@@ -50,7 +21,6 @@ else if (
 function parseAndUpload() {
   (async () => {
     const bojData = await parseData();
-    console.log(bojData);
   })();
 }
 
@@ -130,7 +100,6 @@ async function parseCode() {
       codes.push(temp);
     }
   }
-  console.log(codes);
   await updateProblemData(problemId, { codes, contestProbId });
   codes = [];
   return { problemId, contestProbId };
@@ -201,7 +170,7 @@ async function parseData() {
   if (getNickname() !== nickname) return;
   if (isNull(document.querySelector("#problemForm div.info"))) return;
 
-  console.log("결과 데이터 파싱 시작");
+  // 결과 데이터 파싱 시작
 
   // 문제번호
   const problemId = document
@@ -265,32 +234,42 @@ async function makeData(origin) {
     language: languages[language],
   };
 
-  if (stat) {
-    // 제출 API
+  console.log(data);
+  // 토큰 가져옴
+  var token = "";
+  chrome.storage.local.get("token", function (data) {
+    token = data.token;
+    console.log(token);
+  });
+  // 상태 업데이트
+  chrome.storage.local.get("switchState", function (stat) {
+    console.log("extension : ", stat.switchState);
 
-    fetch("https://code-odyssey.site/submissions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token,
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => {
-        if (response.ok) {
-          console.log("데이터를 성공적으로 서버로 보냈습니다.");
-        } else {
-          console.error("서버로 데이터를 보내는 중 오류가 발생했습니다.");
-          setToken();
-        }
+    if (stat.switchState) {
+      // 제출 API
+
+      fetch("https://odyssey-code.site/submissions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+        body: JSON.stringify(data),
       })
-      .catch((error) => {
-        console.error("서버로 데이터를 보내는 중 오류가 발생했습니다.", error);
-        setToken();
-      });
-  } else if (!stat) {
-    console.log("extension off");
-  }
+        .then((response) => {
+          if (response.ok) {
+            console.log("데이터를 성공적으로 서버로 보냈습니다.");
+          } else {
+            console.log("서버로 데이터를 보내는 중 오류가 발생했습니다.");
+          }
+        })
+        .catch((error) => {
+          console.log("서버로 데이터를 보내는 중 오류가 발생했습니다.", error);
+        });
+    } else {
+      console.log("extension off");
+    }
+  });
 
   return { data };
 }

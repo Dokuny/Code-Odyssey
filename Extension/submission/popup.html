@@ -20,19 +20,9 @@
         <input id="toggleSwitch" role="switch" type="checkbox" />
       </label>
     </div>
-    <div
-      style="
-        display: flex;
-        flex-direction: column;
-        text-align: center;
-        align-items: center;
-      "
-    >
-      <h4 id="loginStatus" style="color: white"></h4>
-      <button id="siteButton" onclick="openSite()" class="hidden">
-        로그인 하러 가기
-      </button>
-    </div>
+    <div id="loginStatus">
+      <button id="siteButton">로그인하기</button>
+      <h4 id="userDataText">""</h4>
     <script src="popup.js" type="module"></script>
   </body>
 </html>

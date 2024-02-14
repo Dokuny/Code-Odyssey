@@ -4,6 +4,7 @@ import Main from '../pages/main/Main';
 import LoginRedirectPage from '../pages/login/LoginRedirectPage';
 import Review from '../pages/review/Review';
 import GuildProblemSolve from '../pages/guildProblemSolve/GuildProblemSolve';
+import MyProblemSolve from '../pages/myProblemSolve/MyProblemSolve';
 
 const RoutesSetup = () => {
   return (
@@ -14,7 +15,8 @@ const RoutesSetup = () => {
       <Route path='/oauth/redirected/naver' element={<LoginRedirectPage oauthProvider={'naver'} />} />
       <Route path='/oauth/redirected/google' element={<LoginRedirectPage oauthProvider={'google'} />} />
       <Route path='/review' element={<Review />} />
-      <Route path='/ide' element={<GuildProblemSolve />} />
+      <Route path='/guild/ide' element={<GuildProblemSolve />} />
+      <Route path='/my/ide' element={<MyProblemSolve />} />
       <Route path='*' element={<Login />} />
     </Routes>
   );

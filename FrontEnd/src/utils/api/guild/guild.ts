@@ -30,7 +30,7 @@ interface FindGuild {
 }
 
 export const findGuild = async (Params: FindGuild) => {
-  const data = await tokenInstance.get(`/guilds`, { params: Params });
+  const data : any = await tokenInstance.get(`/guilds`, { params: Params });
   return data && data.data;
 };
 

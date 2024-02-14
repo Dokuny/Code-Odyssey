@@ -1,6 +1,6 @@
 import MainTopCard from '../../../molecules/card/basic/MainTopCard';
 import BasicInput from '../../../atoms/input/BasicInput';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Spacer } from '../../../atoms/basic/Spacer';
 import GuildSearch from './GuildFind/GuildSearch';
 import GuildRecomment from './GuildFind/GuildRecomment';
@@ -11,19 +11,36 @@ import { findGuild } from '../../../../utils/api/guild/guild';
 const GuildFind = () => {
   const [searchInput, setSearchInput] = useState('');
   const [resultInput, setResultInput] = useState('');
-  const [data, setData] = useState([]);
-
-  const fetchData = async () => {
-    const data = await findGuild({ keyword: searchInput }); //guild id
-    setData(data);
-  };
+  const [data, setData] = useState<any>([]);
 
   const handleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       setResultInput(searchInput);
+
+      const fetchData = async () => {
+        const fetchdata = await findGuild({ keyword: searchInput }); //guild id
+        setData(fetchdata);
+      };
+
       fetchData();
     }
   };
+
+  const onClick = () => {
+    if (data[7]) {
+      const fetchData = async () => {
+        const fetchdata = await findGuild({ keyword: searchInput, guildId: data[7].guild_id }); //guild id
+        setData(fetchdata);
+      };
+      fetchData();
+    }
+  };
+
+  useEffect(() => {
+    if (searchInput === '') {
+      setResultInput('');
+    }
+  }, [searchInput]);
 
   return (
     <>
@@ -43,7 +60,7 @@ const GuildFind = () => {
         }
       />
       <Spacer space={'6vmin'} />
-      {resultInput !== '' ? <GuildSearch searchInput={resultInput} data={data} /> : <GuildRecomment />}
+      {resultInput === '' || searchInput === '' ? <GuildRecomment /> : <GuildSearch searchInput={resultInput} data={data} onClick={onClick} />}
     </>
   );
 };

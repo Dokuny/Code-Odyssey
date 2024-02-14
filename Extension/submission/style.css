@@ -5,8 +5,23 @@
   font-weight: 500;
   font-style: normal;
 }
-.hidden {
+
+#loginStatus {
+  display: inline;
+  margin-top: 20px;
+  text-align: center;
+  align-items: center;
+  min-height: 50px;
+}
+#siteButton {
+  display: inline;
+  text-align: center;
+  align-items: center;
+  color: white;
+}
+#userDataText {
   display: none;
+  color: white;
 }
 
 label {
@@ -56,16 +71,6 @@ label {
   background-color: lightgray;
 }
 
-/* [type="checkbox"]:disabled + span {
-  opacity: 0.7;
-  cursor: not-allowed;
-} */
-
-/* [type="checkbox"]:focus-visible {
-  outline-offset: max(2px, 0.1em);
-  outline: max(2px, 0.1em) solid tomato;
-} */
-
 [type="checkbox"]:enabled:hover {
   box-shadow: 0 0 2px 2px #c8cce8;
 }
@@ -96,10 +101,6 @@ fieldset {
 *::before,
 *::after {
   box-sizing: border-box;
-}
-
-#loginStatus {
-  white-space: pre-line;
 }
 
 #siteButton {

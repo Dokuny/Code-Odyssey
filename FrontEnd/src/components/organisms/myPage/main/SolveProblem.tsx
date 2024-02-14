@@ -26,6 +26,13 @@ const SolveProblem = () => {
     fetchData();
   }, [input, selectedCategory, selectedDifficulty, selectedPlatform, state]);
 
+  useEffect(() => {
+    if (selectProblem !== null) {
+      window.open(`/my/ide?problem_id=${selectProblem.problem_id}`, '_blank');
+      setSelectProblem(null);
+    }
+  }, [selectProblem]);
+
   return (
     <>
       <MainTopCard

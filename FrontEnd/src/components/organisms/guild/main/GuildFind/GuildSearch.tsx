@@ -1,107 +1,53 @@
-import { useEffect, useState } from 'react';
 import { colors } from '../../../../../config/Color';
 import Divider from '../../../../atoms/basic/Divider';
 import { Spacer } from '../../../../atoms/basic/Spacer';
-import { Body2, Header4 } from '../../../../atoms/basic/Typography';
+import { Body1, Body2, Header4 } from '../../../../atoms/basic/Typography';
 import GuildFindList from '../../../../molecules/list/GuildFindList';
-import { findGuild } from '../../../../../utils/api/guild/guild';
+import styled from 'styled-components';
 
 interface GuildSearchProps {
   searchInput: string;
-  data : any;
+  data: any;
+  onClick: () => void;
 }
 
-const GuildSearch = (props: GuildSearchProps) => {
+const StyledButton = styled.button`
+  background-color: ${colors.GrayBlack};
+  margin: 0 auto;
+  margin-top: 1rem;
+  width: 5%;
+  aspect-ratio: 1;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  return (
-    <>
-      <div style={{ display: 'flex', alignItems: 'center', padding: '1vmin' }}>
-        <Header4 children={props.searchInput} color={colors.Gray[100]} fontWeight={'bold'} />
-        <Spacer space={'1vmax'} horizontal />
-        <Body2 children={': 검색된 길드'} color={colors.Gray[300]} fontWeight={'bold'} />
-      </div>
-      <Divider />
-      <Spacer space={'1vmin'} />
+  &:hover {
+    background-color: ${colors.Gray[600]};
+  }
+`;
 
-      <GuildFindList data={props.data} />
-    </>
-  );
-};
+const GuildSearch = (props: GuildSearchProps) => (
+  <>
+    <div style={{ display: 'flex', alignItems: 'center', padding: '1vmin' }}>
+      <Header4 children={props.searchInput} color={colors.Gray[100]} fontWeight={'bold'} />
+      <Spacer space={'1vmax'} horizontal />
+      <Body2 children={': 검색된 길드'} color={colors.Gray[300]} fontWeight={'bold'} />
+    </div>
+    <Divider />
+    <Spacer space={'1vmin'} />
+
+    <GuildFindList data={props.data} />
+
+    {props.data[-7] && (
+      <StyledButton onClick={props.onClick}>
+        <Body1 children={'+'} color={colors.White} />
+      </StyledButton>
+    )}
+  </>
+);
 
 export default GuildSearch;
-
-
-    // setData([
-    //   {
-    //     guild_id: 1,
-    //     difficulty: 14,
-    //     guildName: '길드명' + (1 + Math.floor(Math.random() * 10)),
-    //     guildImg: 'https://picsum.photos/300',
-    //     current_cnt: 1,
-    //     possible_cnt: 5,
-    //     langIcons: ['/images/language/java.svg', '/images/language/javascript.svg', '/images/language/python.svg'],
-    //   },
-    //   {
-    //     guild_id: 2,
-    //     difficulty: 18,
-    //     guildName: '길드명2',
-    //     guildImg: 'https://picsum.photos/300',
-    //     current_cnt: 3,
-    //     possible_cnt: 2,
-    //     langIcons: ['/images/language/java.svg', '/images/language/javascript.svg'],
-    //   },
-    //   {
-    //     guild_id: 3,
-    //     difficulty: 20,
-    //     guildName: '길드명3',
-    //     guildImg: 'https://picsum.photos/300',
-    //     current_cnt: 2,
-    //     possible_cnt: 4,
-    //     langIcons: ['/images/language/java.svg', '/images/language/javascript.svg'],
-    //   },
-    //   {
-    //     guild_id: 4,
-    //     difficulty: 25,
-    //     guildName: '길드명4',
-    //     guildImg: 'https://picsum.photos/300',
-    //     current_cnt: 4,
-    //     possible_cnt: 2,
-    //     langIcons: ['/images/language/java.svg', '/images/language/javascript.svg'],
-    //   },
-    //   {
-    //     guild_id: 5,
-    //     difficulty: 1,
-    //     guildName: '길드명5',
-    //     guildImg: 'https://picsum.photos/300',
-    //     current_cnt: 4,
-    //     possible_cnt: 2,
-    //     langIcons: ['/images/language/java.svg', '/images/language/javascript.svg'],
-    //   },
-    //   {
-    //     guild_id: 6,
-    //     difficulty: 4,
-    //     guildName: '길드명6',
-    //     guildImg: 'https://picsum.photos/300',
-    //     current_cnt: 4,
-    //     possible_cnt: 2,
-    //     langIcons: ['/images/language/java.svg', '/images/language/javascript.svg'],
-    //   },
-    //   {
-    //     guild_id: 7,
-    //     difficulty: 27,
-    //     guildName: '길드명7',
-    //     guildImg: 'https://picsum.photos/300',
-    //     current_cnt: 4,
-    //     possible_cnt: 2,
-    //     langIcons: ['/images/language/java.svg', '/images/language/javascript.svg'],
-    //   },
-    //   {
-    //     guild_id: 8,
-    //     difficulty: 22,
-    //     guildName: '길드명8',
-    //     guildImg: 'https://picsum.photos/300',
-    //     current_cnt: 4,
-    //     possible_cnt: 2,
-    //     langIcons: ['/images/language/java.svg', '/images/language/javascript.svg'],
-    //   },
-    // ]);
