@@ -1,5 +1,5 @@
 import React from 'react';
-import YouTube, { Options } from 'react-youtube';
+import YouTube from 'react-youtube';
 
 interface YoutubePlayerProps {
   videoId: string;
@@ -14,7 +14,7 @@ const YoutubePlayer: React.FC<YoutubePlayerProps> = ({ videoId }) => {
     },
   };
 
-  return <YouTube videoId={videoId} opts={opts as Options} />;
+  return <YouTube videoId={videoId} opts={opts} />;
 };
 
 export default YoutubePlayer;
