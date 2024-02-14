@@ -56,7 +56,7 @@ const MyCalender = () => {
     const fetchData = async () => {
         const result = await getCalenderSprint(format(currentMonth,'yyyy-MM'));
         console.log(result)
-        setData(result || []); // result가 falsy일 경우 빈 배열로 설정
+        setData(result ); // result가 falsy일 경우 빈 배열로 설정
     };
 
     useEffect(() => {
