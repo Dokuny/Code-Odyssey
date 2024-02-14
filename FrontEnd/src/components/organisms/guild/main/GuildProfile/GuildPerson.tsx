@@ -17,7 +17,10 @@ const GuildPerson = (props: GuildPersonProps) => {
     const fetchData = async () => {
       const data = await getGuildMembers(props.guild_id);
       setData(data);
-      const introFetchData = await getGuildIntrodution(props.guild_id);
+      let introFetchData = await getGuildIntrodution(props.guild_id);
+      if (typeof(introFetchData) == "number"){
+        introFetchData = introFetchData.toString();
+      }
       setIntroData(introFetchData);
     };
 
