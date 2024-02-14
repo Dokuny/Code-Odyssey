@@ -74,7 +74,9 @@ chrome.storage.local.get("token", function (data) {
 
 // user.js에 이벤트 알림
 const clicked = function () {
+  siteButton.textContent = "잠시만 기다려 주세용";
   // 그냥 냅다 리로드 때려버리기..
+
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     var currentTabId = tabs[0].id;
     chrome.tabs.reload(currentTabId, function () {
