@@ -5,6 +5,7 @@ import LoginRedirectPage from '../pages/login/LoginRedirectPage';
 import Review from '../pages/review/Review';
 import GuildProblemSolve from '../pages/guildProblemSolve/GuildProblemSolve';
 import MyProblemSolve from '../pages/myProblemSolve/MyProblemSolve';
+import PersonalPolicy from '../pages/personalPolicy/PersonalPolicy';
 
 const RoutesSetup = () => {
   return (
@@ -17,6 +18,7 @@ const RoutesSetup = () => {
       <Route path='/review' element={<Review />} />
       <Route path='/guild/ide' element={<GuildProblemSolve />} />
       <Route path='/my/ide' element={<MyProblemSolve />} />
+      <Route path='/personal-policy' element={<PersonalPolicy />} />
       <Route path='*' element={<Login />} />
     </Routes>
   );
