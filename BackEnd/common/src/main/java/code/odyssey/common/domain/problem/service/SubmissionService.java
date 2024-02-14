@@ -107,6 +107,11 @@ public class SubmissionService {
                 break;
         }
 
+        // 오늘 날짜에 문제가 제출된 적이 있는지 확인하고, 없으면 스트릭 업데이트.
+        if (submissionRepository.countSubmissionByTodayDate(memberId) == 0) {
+            scoreRepository.addStreak(memberId);
+        }
+
         // db에 저장
         Submission submission = Submission.builder()
                 .member(member)
@@ -129,11 +134,6 @@ public class SubmissionService {
         int submissionTotal = submissionRepository.countByMemberId(memberId);
         int tierScore = scoreTypeTotal / submissionTotal;
         scoreRepository.updateTier(tierScore, memberId);
-
-        // 오늘 날짜에 문제가 제출된 적이 있는지 확인하고, 없으면 스트릭 업데이트.
-        if (submissionRepository.countSubmissionByTodayDate(memberId) == 0) {
-            scoreRepository.addStreak(memberId);
-        }
 
         // 랭킹을 위한 점수 업데이트
         int rankingScore = (int) (50 * (1 - Math.pow(0.9, score.getStreak()))
