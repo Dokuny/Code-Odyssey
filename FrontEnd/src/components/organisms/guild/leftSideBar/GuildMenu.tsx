@@ -35,8 +35,8 @@ interface MyMenuProps {
 
 const GuildMenu = (props: MyMenuProps) => {
   const MenuList = [
-    { content: '길드 찾기', event: () => props.setActiveIndex(0), active: props.activeIndex === 0, icon: 'sail' },
-    { content: '길드 추가', event: () => props.setActiveIndex(1), active: props.activeIndex === 1, icon: 'anchor' },
+    { content: '길드 검색', event: () => props.setActiveIndex(0), active: props.activeIndex === 0, icon: 'sail' },
+    { content: '길드 생성', event: () => props.setActiveIndex(1), active: props.activeIndex === 1, icon: 'anchor' },
   ];
 
   return (
