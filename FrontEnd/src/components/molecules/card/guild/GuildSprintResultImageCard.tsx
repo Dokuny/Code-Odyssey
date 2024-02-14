@@ -2,7 +2,7 @@ import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-pro
 import styled from 'styled-components';
 import { colors } from '../../../../config/Color';
 import { sprintContent, sprintImage, sprintName } from '../../../../utils/json/sprint';
-import { Body2, Caption1, Caption2 } from '../../../atoms/basic/Typography';
+import { Body1, Caption1, Caption2 } from '../../../atoms/basic/Typography';
 import { Spacer } from '../../../atoms/basic/Spacer';
 
 const StyledSprintContainer = styled.div<{ isFin: boolean }>`
@@ -39,7 +39,7 @@ const GuildSprintResultImageCard = (props: GuildSprintResultImageCardProps) => {
         </CircularProgressbarWithChildren>
       </StyledSprintContainer>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <Body2 children={'#' + props.type} color={props.value === 100 ? colors.Kakao[300] : colors.Gray[400]} fontWeight={'bold'} fontStyle='Eagle Lake' />
+        <Body1 children={'#' + props.type} color={props.value === 100 ? colors.Kakao[300] : colors.Gray[400]} fontWeight={'bold'} fontStyle='Eagle Lake' />
         <Spacer space={'0.5vmin'} />
         <Caption1
           children={`${sprintName[props.type]}${props.value === 100 ? ' 획득에 성공하였습니다' : ' 획득에 실패하였습니다'}`}
