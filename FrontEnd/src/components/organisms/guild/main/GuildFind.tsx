@@ -13,11 +13,10 @@ const GuildFind = () => {
   const [resultInput, setResultInput] = useState('');
   const [data, setData] = useState<any>([]);
 
-
   const handleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       setResultInput(searchInput);
-      
+
       const fetchData = async () => {
         const fetchdata = await findGuild({ keyword: searchInput }); //guild id
         setData(fetchdata);
@@ -28,22 +27,20 @@ const GuildFind = () => {
   };
 
   const onClick = () => {
-    // 7로 바꿔야됌 data[7]로
-    if (data[0]) {
+    if (data[7]) {
       const fetchData = async () => {
-        // 7로 바꿔야됌 data[7]로
-        const fetchdata = await findGuild({ keyword: searchInput, guildId: data[0].guild_id }); //guild id
+        const fetchdata = await findGuild({ keyword: searchInput, guildId: data[7].guild_id }); //guild id
         setData(fetchdata);
       };
       fetchData();
     }
-  }
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     if (searchInput === '') {
       setResultInput('');
     }
-  },[searchInput])
+  }, [searchInput]);
 
   return (
     <>
@@ -63,7 +60,7 @@ const GuildFind = () => {
         }
       />
       <Spacer space={'6vmin'} />
-      {resultInput === '' || searchInput==='' ?  <GuildRecomment/> : <GuildSearch searchInput={resultInput} data={data} onClick={onClick}/>} 
+      {resultInput === '' || searchInput === '' ? <GuildRecomment /> : <GuildSearch searchInput={resultInput} data={data} onClick={onClick} />}
     </>
   );
 };
