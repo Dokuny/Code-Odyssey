@@ -11,8 +11,6 @@ import BasicButton from '../../../atoms/button/BasicButton';
 import { colors } from '../../../../config/Color';
 import { Caption1 } from '../../../atoms/basic/Typography';
 import ToggleSwitch from '../../../atoms/select/ToggleSwitch';
-import * as StompJs from '@stomp/stompjs';
-import { SOCKET_URL } from '../../../../config/Axios';
 import { parsingRuntime } from '../../../../utils/basic/BasicUtil';
 
 const StyledContainer = styled.div`
@@ -29,29 +27,20 @@ const StyledMenuContainer = styled.div`
   justify-content: space-between;
 `;
 
-interface GuildIdeProps {
+interface MyIdeProps {
   problem_id: number;
   problemDetailData: any;
 }
 
-const GuildIde = (props: GuildIdeProps) => {
-  const guild_problem_id = props.problem_id;
-  const [client, setClient] = useState<StompJs.Client | null>(null);
+const MyIde = (props: MyIdeProps) => {
   const [isActive, setIsActive] = useState(true);
   const [activeLanguage, setActiveLanguage] = useState('java');
   const monaco = useMonaco();
-  const [input, setInput] = useState('');
   const [myInput, setMyInput] = useState<undefined | string>('');
   const [selectedTheme, setSelectedTheme] = useState(true);
 
   const handleEditorChange = (value: string | undefined) => {
     setMyInput(value);
-    if (value !== undefined && client !== null) {
-      client.publish({
-        destination: '/pub/ide/' + guild_problem_id,
-        body: JSON.stringify({ code: value, guildProblemId: guild_problem_id }),
-      });
-    }
   };
 
   useEffect(() => {
@@ -62,44 +51,6 @@ const GuildIde = (props: GuildIdeProps) => {
 
     monaco.editor.setTheme(selectedTheme ? 'light' : 'dark');
   }, [monaco, selectedTheme]);
-
-  useEffect(() => {
-    const connect = () => {
-      try {
-        const clientdata = new StompJs.Client({
-          brokerURL: SOCKET_URL,
-          reconnectDelay: 5000,
-          heartbeatIncoming: 4000,
-          heartbeatOutgoing: 4000,
-        });
-        clientdata.onConnect = function () {
-          clientdata.subscribe(`/topic/ide.${guild_problem_id}`, callback);
-        };
-        clientdata.activate();
-        setClient(clientdata);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    const disConnect = () => {
-      if (client !== null) {
-        client.deactivate();
-      }
-    };
-
-    const callback = function (message: any) {
-      if (message.body) {
-        let msg = JSON.parse(message.body);
-        setMyInput(msg.code);
-        setInput(msg.code);
-      }
-    };
-
-    if (client === null) connect();
-
-    return () => disConnect();
-  }, [client, guild_problem_id]);
 
   return (
     <StyledContainer>
@@ -132,7 +83,6 @@ const GuildIde = (props: GuildIdeProps) => {
           <BasicButton
             width={'auto'}
             event={() => {
-              setInput('');
               setMyInput('');
             }}
             borderColor={'rgba(0, 0, 0, 0)'}
@@ -149,7 +99,7 @@ const GuildIde = (props: GuildIdeProps) => {
         language={activeLanguage}
         defaultValue={''}
         theme={'true'}
-        value={input}
+        value={myInput}
         width={'100%'}
         options={{ minimap: { enabled: false } }}
         onChange={handleEditorChange}
@@ -166,4 +116,4 @@ const GuildIde = (props: GuildIdeProps) => {
   );
 };
 
-export default GuildIde;
+export default MyIde;
