@@ -59,6 +59,12 @@ public class GuildApplyService {
 			throw new GuildException(ALREADY_APPLY_GUILD);
 		}
 
+		Long curCapacity = guildMemberRepository.countGuildMembers(guildId);
+
+		if (guild.getCapacity() <= curCapacity) {
+			throw new GuildException(ALREADY_FULL_GUILD);
+		}
+
 		return guildApplicationRepository.save(GuildApplication.builder()
 			.guild(guild)
 			.member(member)
@@ -73,6 +79,16 @@ public class GuildApplyService {
 		guildMemberRepository.findByMemberInGuild(application.getGuild().getId(), memberId)
 			.filter(gm -> MASTER.equals(gm.getRole()))
 			.orElseThrow(() -> new GuildException(NO_AUTHENTICATION));
+
+		// 길드가 가득 찼는지 확인
+		Guild guild = guildRepository.findById(application.getGuild().getId())
+			.orElseThrow();
+
+		Long curCapacity = guildMemberRepository.countGuildMembers(guild.getId());
+
+		if (guild.getCapacity() <= curCapacity) {
+			throw new GuildException(ALREADY_FULL_GUILD);
+		}
 
 		// 길드원으로 등록
 		guildMemberRepository.save(GuildMember.builder()
