@@ -228,7 +228,7 @@ async function makeData(origin) {
   const data = {
     platform: "SWEA",
     no: problemId,
-    code: "",
+    code: JSON.stringify(code),
     memory: memory,
     time: runtime,
     language: languages[language],
@@ -242,10 +242,10 @@ async function makeData(origin) {
     console.log(token);
   });
   // 상태 업데이트
-  chrome.storage.local.get("switchState", function (data) {
-    console.log("extension : ", data.switchState);
+  chrome.storage.local.get("switchState", function (stat) {
+    console.log("extension : ", stat.switchState);
 
-    if (data.switchState) {
+    if (stat.switchState) {
       // 제출 API
 
       fetch("https://odyssey-code.site/submissions", {
