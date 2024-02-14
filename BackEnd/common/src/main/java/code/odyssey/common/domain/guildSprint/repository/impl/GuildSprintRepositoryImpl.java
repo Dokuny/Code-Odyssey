@@ -36,229 +36,230 @@ import static com.querydsl.core.group.GroupBy.list;
 @Repository
 public class GuildSprintRepositoryImpl implements GuildSprintRepositoryCustom {
 
-	private final JPAQueryFactory queryFactory;
+    private final JPAQueryFactory queryFactory;
 
-	@Override
-	public List<WaitingGuildSprintInfo> findWaitingGuildSprints(Long guildId) {
+    @Override
+    public List<WaitingGuildSprintInfo> findWaitingGuildSprints(Long guildId) {
 
-		return queryFactory.selectFrom(guildSprint)
-			.leftJoin(guildSprint.problems, guildProblem)
-			.leftJoin(guildProblem.problem, problem)
-			.where(guildSprint.guild.id.eq(guildId), guildSprint.status.eq(WAITING))
-			.transform(groupBy(guildSprint.id).list(
-				Projections.fields(
-					WaitingGuildSprintInfo.class,
-					guildSprint.id.as("sprintId"),
-					guildSprint.title.as("sprintName"),
-					guildSprint.period.as("sprintDay"),
-					list(Projections.fields(
-							GuildProblemInfo.class,
-							guildProblem.id.as("guildProblemId"),
-							problem.id.as("problemId"),
-							problem.difficulty.as("difficulty"),
-							problem.title.as("title"),
-							problem.platform.as("platform")
-						).skipNulls()
-					).as("problemList")
-				)
-			));
+        return queryFactory.selectFrom(guildSprint)
+                .leftJoin(guildSprint.problems, guildProblem)
+                .leftJoin(guildProblem.problem, problem)
+                .where(guildSprint.guild.id.eq(guildId), guildSprint.status.eq(WAITING))
+                .transform(groupBy(guildSprint.id).list(
+                        Projections.fields(
+                                WaitingGuildSprintInfo.class,
+                                guildSprint.id.as("sprintId"),
+                                guildSprint.title.as("sprintName"),
+                                guildSprint.period.as("sprintDay"),
+                                list(Projections.fields(
+                                                GuildProblemInfo.class,
+                                                guildProblem.id.as("guildProblemId"),
+                                                problem.id.as("problemId"),
+                                                problem.difficulty.as("difficulty"),
+                                                problem.title.as("title"),
+                                                problem.platform.as("platform")
+                                        ).skipNulls()
+                                ).as("problemList")
+                        )
+                ));
 
-	}
+    }
 
-	@Override
-	public List<EndGuildSprintInfo> findEndedGuildSprintInfo(Long guildId) {
-		List<EndGuildSprintInfo> result = queryFactory.selectFrom(guildSprint)
-			.leftJoin(guildSprint.problems, guildProblem)
-			.leftJoin(guildProblem.problem, problem)
-			.where(guildSprint.guild.id.eq(guildId), guildSprint.status.eq(ENDED))
-			.transform(groupBy(guildSprint.id).list(
-				Projections.fields(
-					EndGuildSprintInfo.class,
-					guildSprint.id.as("sprintId"),
-					guildSprint.title.as("sprintName"),
-					guildSprint.startedAt.as("startAt"),
-					guildSprint.endedAt.as("endedAt"),
-					list(Projections.fields(
-							EndGuildProblemInfo.class,
-							guildProblem.id.as("guildProblemId"),
-							problem.id.as("problemId"),
-							problem.difficulty.as("difficulty"),
-							problem.title.as("title"),
-							problem.platform.as("platform")
-						).skipNulls()
-					).as("problemList")
-				)
-			));
-		return result;
-	}
+    @Override
+    public List<EndGuildSprintInfo> findEndedGuildSprintInfo(Long guildId) {
+        List<EndGuildSprintInfo> result = queryFactory.selectFrom(guildSprint)
+                .leftJoin(guildSprint.problems, guildProblem)
+                .leftJoin(guildProblem.problem, problem)
+                .where(guildSprint.guild.id.eq(guildId), guildSprint.status.eq(ENDED))
+                .transform(groupBy(guildSprint.id).list(
+                        Projections.fields(
+                                EndGuildSprintInfo.class,
+                                guildSprint.id.as("sprintId"),
+                                guildSprint.title.as("sprintName"),
+                                guildSprint.startedAt.as("startAt"),
+                                guildSprint.endedAt.as("endedAt"),
+                                list(Projections.fields(
+                                                EndGuildProblemInfo.class,
+                                                guildProblem.id.as("guildProblemId"),
+                                                problem.id.as("problemId"),
+                                                problem.difficulty.as("difficulty"),
+                                                problem.title.as("title"),
+                                                problem.platform.as("platform")
+                                        ).skipNulls()
+                                ).as("problemList")
+                        )
+                ));
+        return result;
+    }
 
-	@Override
-	public RetrospectGuildProblemInfo findRetrospectiveGuildProblemInfo(Long guildProblemId) {
+    @Override
+    public RetrospectGuildProblemInfo findRetrospectiveGuildProblemInfo(Long guildProblemId) {
 
-		// 문제 정보 가져오기
-		GuildProblem problemInfo = queryFactory.selectFrom(guildProblem)
-			.join(guildProblem.problem, problem)
-			.fetchJoin()
-			.join(guildProblem.guildSprint, guildSprint)
-			.fetchJoin()
-			.where(guildProblem.id.eq(guildProblemId))
-			.fetchOne();
+        // 문제 정보 가져오기
+        GuildProblem problemInfo = queryFactory.selectFrom(guildProblem)
+                .join(guildProblem.problem, problem)
+                .fetchJoin()
+                .join(guildProblem.guildSprint, guildSprint)
+                .fetchJoin()
+                .where(guildProblem.id.eq(guildProblemId))
+                .fetchOne();
 
-		// 푼 문제 / 회원 가져오기
-		List<RetrospectiveGuildMemberInfo> guildMembers = queryFactory.select(
-				Projections.constructor(
-					RetrospectiveGuildMemberInfo.class,
-					member.id.as("memberId"),
-					member.thumbnail.as("thumbnail"),
-					new CaseBuilder().when(submission.createdAt.isNull()).then(false)
-						.otherwise(true).as("isSolved"),
-					member.nickname.as("name"),
-					submission.createdAt.as("solvedAt"),
-					submission.memory.as("memory"),
-					submission.time.as("time"),
-					submission.id.as("submissionId")
-				)).from(guildMember)
-			.innerJoin(guildMember.member, member)
-			.leftJoin(submission).on(submission.member.id.eq(guildMember.member.id),
-				submission.problem.id.eq(problemInfo.getProblem().getId()),
-				submission.createdAt.between(
-					LocalDateTime.of(problemInfo.getGuildSprint().getStartedAt(), LocalTime.MIN),
-					LocalDateTime.of(problemInfo.getGuildSprint().getEndedAt(), LocalTime.MAX))
-			)
-			.where(guildMember.guild.id.eq(
-					problemInfo.getGuildSprint().getGuild().getId()),
-				guildMember.createdAt.loe(
-					LocalDateTime.of(problemInfo.getGuildSprint().getEndedAt(), LocalTime.MAX)
-				)
-			)
-			.groupBy(member.id)
-			.fetch();
+        // 푼 문제 / 회원 가져오기
+        List<RetrospectiveGuildMemberInfo> guildMembers = queryFactory.select(
+                        Projections.constructor(
+                                RetrospectiveGuildMemberInfo.class,
+                                member.id.as("memberId"),
+                                member.thumbnail.as("thumbnail"),
+                                new CaseBuilder().when(submission.createdAt.isNull()).then(false)
+                                        .otherwise(true).as("isSolved"),
+                                member.nickname.as("name"),
+                                submission.createdAt.as("solvedAt"),
+                                submission.memory.as("memory"),
+                                submission.time.as("time"),
+                                submission.id.as("submissionId")
+                        )).from(guildMember)
+                .innerJoin(guildMember.member, member)
+                .leftJoin(submission).on(submission.member.id.eq(guildMember.member.id),
+                        submission.problem.id.eq(problemInfo.getProblem().getId()),
+                        submission.createdAt.between(
+                                LocalDateTime.of(problemInfo.getGuildSprint().getStartedAt(), LocalTime.MIN),
+                                LocalDateTime.of(problemInfo.getGuildSprint().getEndedAt(), LocalTime.MAX))
+                )
+                .where(guildMember.guild.id.eq(
+                                problemInfo.getGuildSprint().getGuild().getId()),
+                        guildMember.createdAt.loe(
+                                LocalDateTime.of(problemInfo.getGuildSprint().getEndedAt(), LocalTime.MAX)
+                        )
+                )
+                .groupBy(member.id)
+                .fetch();
 
-		long solvedCnt = guildMembers.stream().filter(RetrospectiveGuildMemberInfo::getIsSolved)
-			.count();
+        long solvedCnt = guildMembers.stream().filter(RetrospectiveGuildMemberInfo::getIsSolved)
+                .count();
 
-		return RetrospectGuildProblemInfo.builder()
-			.guildProblemId(guildProblemId)
-			.title(problemInfo.getProblem().getTitle())
-			.type(problemInfo.getProblem().getType().name().replace("_", " "))
-			.percent((int) solvedCnt * 100 / guildMembers.size())
-			.guildMember(guildMembers)
-			.build();
-	}
+        return RetrospectGuildProblemInfo.builder()
+                .guildProblemId(guildProblemId)
+                .problemId(problemInfo.getProblem().getId())
+                .title(problemInfo.getProblem().getTitle())
+                .type(problemInfo.getProblem().getType().name().replace("_", " "))
+                .percent((int) solvedCnt * 100 / guildMembers.size())
+                .guildMember(guildMembers)
+                .build();
+    }
 
-	@Override
-	public InProgressGuildSprintInfo findInProgressGuildSprint(Long guildId) {
+    @Override
+    public InProgressGuildSprintInfo findInProgressGuildSprint(Long guildId) {
 
-		GuildSprint inProgressGuildSprint = queryFactory.selectFrom(guildSprint)
-			.leftJoin(guildSprint.problems, guildProblem)
-			.fetchJoin()
-			.leftJoin(guildProblem.problem, problem)
-			.fetchJoin()
-			.where(guildSprint.guild.id.eq(guildId), guildSprint.status.eq(IN_PROGRESS)).distinct()
-			.fetchOne();
+        GuildSprint inProgressGuildSprint = queryFactory.selectFrom(guildSprint)
+                .leftJoin(guildSprint.problems, guildProblem)
+                .fetchJoin()
+                .leftJoin(guildProblem.problem, problem)
+                .fetchJoin()
+                .where(guildSprint.guild.id.eq(guildId), guildSprint.status.eq(IN_PROGRESS)).distinct()
+                .fetchOne();
 
-		if (inProgressGuildSprint == null) {
-			return null;
-		}
+        if (inProgressGuildSprint == null) {
+            return null;
+        }
 
-		// 길드 멤버 가져오기
-		List<GuildMember> members = queryFactory.selectFrom(guildMember)
-			.innerJoin(guildMember.member, member)
-			.where(guildMember.guild.id.eq(guildId))
-			.fetch();
+        // 길드 멤버 가져오기
+        List<GuildMember> members = queryFactory.selectFrom(guildMember)
+                .innerJoin(guildMember.member, member)
+                .where(guildMember.guild.id.eq(guildId))
+                .fetch();
 
-		List<Long> membersIds = members.stream().map(gm -> gm.getMember().getId())
-			.toList();
+        List<Long> membersIds = members.stream().map(gm -> gm.getMember().getId())
+                .toList();
 
-		InProgressGuildSprintInfo sprintInfo = InProgressGuildSprintInfo.builder()
-			.sprintId(inProgressGuildSprint.getId())
-			.sprintName(inProgressGuildSprint.getTitle())
-			.startedAt(inProgressGuildSprint.getStartedAt())
-			.endedAt(inProgressGuildSprint.getEndedAt())
-			.build();
+        InProgressGuildSprintInfo sprintInfo = InProgressGuildSprintInfo.builder()
+                .sprintId(inProgressGuildSprint.getId())
+                .sprintName(inProgressGuildSprint.getTitle())
+                .startedAt(inProgressGuildSprint.getStartedAt())
+                .endedAt(inProgressGuildSprint.getEndedAt())
+                .build();
 
-		// 문제별로 길드 멤버들이 풀었는지 확인하기
-		inProgressGuildSprint.getProblems().forEach(gp -> {
-			InProgressGuildSprintInfo.InProgressGuildProblemInfo problemInfo = InProgressGuildSprintInfo.InProgressGuildProblemInfo.builder()
-				.type(gp.getProblem().getType().name().replace("_", " "))
-				.guildProblemId(gp.getId())
-				.problemId(gp.getProblem().getId())
-				.difficulty(gp.getProblem().getDifficulty())
-				.title(gp.getProblem().getTitle())
-				.build();
+        // 문제별로 길드 멤버들이 풀었는지 확인하기
+        inProgressGuildSprint.getProblems().forEach(gp -> {
+            InProgressGuildSprintInfo.InProgressGuildProblemInfo problemInfo = InProgressGuildSprintInfo.InProgressGuildProblemInfo.builder()
+                    .type(gp.getProblem().getType().name().replace("_", " "))
+                    .guildProblemId(gp.getId())
+                    .problemId(gp.getProblem().getId())
+                    .difficulty(gp.getProblem().getDifficulty())
+                    .title(gp.getProblem().getTitle())
+                    .build();
 
-			long solvedCount = queryFactory.select(submission.member.id)
-				.from(submission)
-				.where(submission.problem.id.eq(gp.getProblem().getId()),
-					submission.member.id.in(membersIds),
-					submission.createdAt.between(
-						LocalDateTime.of(sprintInfo.getStartedAt(), LocalTime.MIN),
-						LocalDateTime.of(sprintInfo.getEndedAt(), LocalTime.MAX)
-					)
-				)
-				.groupBy(submission.member.id)
-				.fetch().size();
+            long solvedCount = queryFactory.select(submission.member.id)
+                    .from(submission)
+                    .where(submission.problem.id.eq(gp.getProblem().getId()),
+                            submission.member.id.in(membersIds),
+                            submission.createdAt.between(
+                                    LocalDateTime.of(sprintInfo.getStartedAt(), LocalTime.MIN),
+                                    LocalDateTime.of(sprintInfo.getEndedAt(), LocalTime.MAX)
+                            )
+                    )
+                    .groupBy(submission.member.id)
+                    .fetch().size();
 
-			problemInfo.setPercent((int) solvedCount * 100 / members.size());
+            problemInfo.setPercent((int) solvedCount * 100 / members.size());
 
-			sprintInfo.addProblemInfo(problemInfo);
-		});
+            sprintInfo.addProblemInfo(problemInfo);
+        });
 
-		return sprintInfo;
-	}
+        return sprintInfo;
+    }
 
-	@Override
-	public List<InProgressGuildProblemMemberInfo> findInProgressGuildProblemInfo(
-		Long guildProblemId) {
-		// 문제 정보 가져오기
-		GuildProblem problemInfo = queryFactory.selectFrom(guildProblem)
-			.join(guildProblem.problem, problem)
-			.fetchJoin()
-			.join(guildProblem.guildSprint, guildSprint)
-			.fetchJoin()
-			.where(guildProblem.id.eq(guildProblemId))
-			.fetchOne();
+    @Override
+    public List<InProgressGuildProblemMemberInfo> findInProgressGuildProblemInfo(
+            Long guildProblemId) {
+        // 문제 정보 가져오기
+        GuildProblem problemInfo = queryFactory.selectFrom(guildProblem)
+                .join(guildProblem.problem, problem)
+                .fetchJoin()
+                .join(guildProblem.guildSprint, guildSprint)
+                .fetchJoin()
+                .where(guildProblem.id.eq(guildProblemId))
+                .fetchOne();
 
-		// 푼 문제 / 회원 가져오기
-		return queryFactory.select(Projections.constructor(
-				InProgressGuildProblemMemberInfo.class,
-				member.id.as("memberId"),
-				member.thumbnail.as("thumbnail"),
-				new CaseBuilder().when(submission.createdAt.isNull()).then(false)
-					.otherwise(true).as("isSolved")
-			)).from(guildMember)
-			.innerJoin(guildMember.member, member)
-			.leftJoin(submission).on(submission.member.id.eq(guildMember.member.id),
-				submission.problem.id.eq(problemInfo.getProblem().getId()),
-				submission.createdAt.between(
-					LocalDateTime.of(problemInfo.getGuildSprint().getStartedAt(), LocalTime.MIN),
-					LocalDateTime.of(problemInfo.getGuildSprint().getEndedAt(), LocalTime.MAX))
-			)
-			.where(guildMember.guild.id.eq(
-				problemInfo.getGuildSprint().getGuild().getId())
-			)
-			.groupBy(member.id)
-			.fetch();
-	}
+        // 푼 문제 / 회원 가져오기
+        return queryFactory.select(Projections.constructor(
+                        InProgressGuildProblemMemberInfo.class,
+                        member.id.as("memberId"),
+                        member.thumbnail.as("thumbnail"),
+                        new CaseBuilder().when(submission.createdAt.isNull()).then(false)
+                                .otherwise(true).as("isSolved")
+                )).from(guildMember)
+                .innerJoin(guildMember.member, member)
+                .leftJoin(submission).on(submission.member.id.eq(guildMember.member.id),
+                        submission.problem.id.eq(problemInfo.getProblem().getId()),
+                        submission.createdAt.between(
+                                LocalDateTime.of(problemInfo.getGuildSprint().getStartedAt(), LocalTime.MIN),
+                                LocalDateTime.of(problemInfo.getGuildSprint().getEndedAt(), LocalTime.MAX))
+                )
+                .where(guildMember.guild.id.eq(
+                        problemInfo.getGuildSprint().getGuild().getId())
+                )
+                .groupBy(member.id)
+                .fetch();
+    }
 
-	@Override
-	public Integer getGuildProblemPoint(Long guildId) {
-		Tuple tuple = queryFactory.select(problem.difficulty.sum(), problem.count())
-				.from(guildSprint)
-				.join(guildSprint.problems, guildProblem)
-				.join(guildProblem.problem, problem)
-				.where(
-						guildSprint.guild.id.eq(guildId),
-						guildSprint.status.eq(ENDED)
-				)
-				.groupBy(guildSprint.guild.id)
-				.fetchOne();
+    @Override
+    public Integer getGuildProblemPoint(Long guildId) {
+        Tuple tuple = queryFactory.select(problem.difficulty.sum(), problem.count())
+                .from(guildSprint)
+                .join(guildSprint.problems, guildProblem)
+                .join(guildProblem.problem, problem)
+                .where(
+                        guildSprint.guild.id.eq(guildId),
+                        guildSprint.status.eq(ENDED)
+                )
+                .groupBy(guildSprint.guild.id)
+                .fetchOne();
 
 
-		Integer sum = tuple.get(problem.difficulty.sum());
-		Long count = tuple.get(problem.count());
+        Integer sum = tuple.get(problem.difficulty.sum());
+        Long count = tuple.get(problem.count());
 
-		return Math.toIntExact(sum / count);
-	}
+        return Math.toIntExact(sum / count);
+    }
 
 }

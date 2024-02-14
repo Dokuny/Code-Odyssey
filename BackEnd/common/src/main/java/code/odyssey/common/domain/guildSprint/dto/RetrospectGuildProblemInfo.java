@@ -18,6 +18,7 @@ import lombok.Builder.Default;
 public class RetrospectGuildProblemInfo {
 
 	private Long guildProblemId;
+	private Long problemId;
 	private String title;
 	private String type;
 	private int percent;
