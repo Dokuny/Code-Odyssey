@@ -24,8 +24,6 @@ const ProblemRecommend = () => {
     if (MySprint.length !== 0) {
       setDailyData(MySprint);
       setProblemData(RecommendSprint);
-      console.log(MySprint);
-      console.log(RecommendSprint);
     } else {
       setProblemData(RecommendSprint);
     }

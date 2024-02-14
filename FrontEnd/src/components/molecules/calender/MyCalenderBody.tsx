@@ -19,7 +19,7 @@ interface Data {
   platform: string;
   type: string;
   no: number;
-  createdAt: Date;
+  createdAt: string;
 }
 
 const BodyContainer = styled.div``;

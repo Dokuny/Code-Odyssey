@@ -12,7 +12,7 @@ interface item {
   platform: string;
   type: string;
   no: number;
-  createdAt: Date;
+  createdAt: string;
 }
 
 const StyledContainer = styled.div`
@@ -64,7 +64,7 @@ const CheckCard: React.FC<item> = ({ title, difficulty, createdAt }) => {
       </Div1>
       <Div2>
         <Body2 children={title} color={colors.White} />
-        <Body2 children={createdAt.toLocaleDateString()} color={colors.White} />
+        <Body2 children={createdAt.slice(0, 10)} color={colors.White} />
       </Div2>
     </StyledContainer>
   );
