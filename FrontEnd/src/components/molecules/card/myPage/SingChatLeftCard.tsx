@@ -107,7 +107,6 @@ const SingChatLeftCard = ({ data, date }: any) => {
           </StyledText>
         )}
       </StyledPolygon>
-      <Caption1 children={date} color={colors.Gray[25]} />
     </div>
   );
 };
