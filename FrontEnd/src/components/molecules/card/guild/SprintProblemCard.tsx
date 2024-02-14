@@ -122,7 +122,7 @@ const SprintProblemCard = (props: SprintProblemCardProps) => {
               />
             </div>
           </StyledButton>
-          {isOpen && (
+          {isOpen && tableData && (
             <>
               <Divider color={colors.DarkGray[100]} borderWidth='2px' />
               <div style={{ display: 'flex', width: '100%', flexDirection: 'column', padding: '2vmax', boxSizing: 'border-box' }}>

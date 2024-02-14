@@ -43,7 +43,7 @@ const StyledProfileImg = styled.img<{ is_solved: boolean }>`
   border-radius: 50%;
   margin-bottom: 0.2vmin;
   margin-top: 0.2vmin;
-  border: ${(props) => (props.is_solved ? `1px solid ${colors.Kakao[300]}` : 'none')};
+  border: ${(props) => (props.is_solved ? `2px solid ${colors.Kakao[500]}` : 'none')};
   filter: ${(props) => (props.is_solved ? 'none' : 'grayscale(100%)')};
   box-sizing: border-box;
 `;

@@ -1,16 +1,14 @@
-import { useEffect, useState } from 'react';
 import { colors } from '../../../../../config/Color';
 import Divider from '../../../../atoms/basic/Divider';
 import { Spacer } from '../../../../atoms/basic/Spacer';
-import { Body1, Body2, Body3, Header4 } from '../../../../atoms/basic/Typography';
+import { Body1, Body2, Header4 } from '../../../../atoms/basic/Typography';
 import GuildFindList from '../../../../molecules/list/GuildFindList';
-import { findGuild } from '../../../../../utils/api/guild/guild';
 import styled from 'styled-components';
 
 interface GuildSearchProps {
   searchInput: string;
-  data : any;
-  onClick : ()=>void;
+  data: any;
+  onClick: () => void;
 }
 
 const StyledButton = styled.button`
@@ -44,20 +42,12 @@ const GuildSearch = (props: GuildSearchProps) => (
 
     <GuildFindList data={props.data} />
 
-    { 
-    props.data[-7] && 
-    <StyledButton onClick={props.onClick}>
-      <Body1 children={'+'} color={colors.White}/> 
-    </StyledButton>
-    }
-
-    {/* 테스트 용 나중에 지워야함 */}
-    <StyledButton onClick={props.onClick}>
-        <Body1 children={'+'} color={colors.White}/> 
-    </StyledButton>
-  
+    {props.data[-7] && (
+      <StyledButton onClick={props.onClick}>
+        <Body1 children={'+'} color={colors.White} />
+      </StyledButton>
+    )}
   </>
 );
 
 export default GuildSearch;
-
