@@ -36,7 +36,7 @@
       "js": ["scripts/baekjoon/submit.js"]
     },
     {
-      "matches": ["http://localhost:3000/*"],
+      "matches": ["http://localhost:3000/main*"],
       "js": ["scripts/user.js"]
     }
   ]
