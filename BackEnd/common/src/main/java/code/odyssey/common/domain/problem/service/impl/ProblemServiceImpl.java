@@ -2,6 +2,7 @@ package code.odyssey.common.domain.problem.service.impl;
 
 import code.odyssey.common.domain.problem.dto.SubmissionInfo;
 import code.odyssey.common.domain.problem.dto.SubmissionListInfo;
+import code.odyssey.common.domain.problem.dto.SubmissionPageInfo;
 import code.odyssey.common.domain.problem.dto.problem.ProblemDetailInfo;
 import code.odyssey.common.domain.problem.dto.problem.ProblemRequestDto;
 import code.odyssey.common.domain.problem.dto.problem.SearchResultInfo;
@@ -12,6 +13,8 @@ import code.odyssey.common.domain.problem.repository.SubmissionRepository;
 import code.odyssey.common.domain.problem.service.ProblemService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +48,9 @@ public class ProblemServiceImpl implements ProblemService {
     }
 
     @Override
-    public List<SubmissionListInfo> getSubmissions(Long problemId) {
-        return submissionRepository.getSubmissionListByProblemId(problemId);
+    public SubmissionPageInfo getSubmissions(Long problemId, Pageable pageable) {
+        Page<SubmissionListInfo> submissionPage = submissionRepository.getSubmissionListByProblemId(problemId, pageable);
+        int totalPage = submissionPage.getTotalPages();
+        return SubmissionPageInfo.builder().totalPage(totalPage).data(submissionPage.getContent()).build();
     }
 }

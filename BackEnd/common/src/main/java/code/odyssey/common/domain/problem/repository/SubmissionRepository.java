@@ -6,6 +6,8 @@ import code.odyssey.common.domain.problem.entity.Submission;
 import code.odyssey.common.domain.problem.entity.enums.ProblemType;
 import code.odyssey.common.domain.problem.dto.SolvedStreakInfo;
 import code.odyssey.common.domain.review.dto.SourceCodeInfo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -100,7 +102,7 @@ public interface SubmissionRepository extends JpaRepository<Submission, Long> {
             "FROM Submission s " +
             "JOIN s.member m " +
             "WHERE s.problem.id = :problemId")
-    List<SubmissionListInfo> getSubmissionListByProblemId(@Param("problemId")Long problemId);
+    Page<SubmissionListInfo> getSubmissionListByProblemId(@Param("problemId")Long problemId, Pageable pageable);
 
 
 
