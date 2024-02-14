@@ -1,5 +1,7 @@
 package code.odyssey.common.domain.problem.controller;
 
+import code.odyssey.common.domain.problem.dto.SubmissionInfo;
+import code.odyssey.common.domain.problem.dto.SubmissionListInfo;
 import code.odyssey.common.domain.problem.dto.problem.ProblemDetailInfo;
 import code.odyssey.common.domain.problem.dto.problem.ProblemInfo;
 import code.odyssey.common.domain.problem.dto.problem.ProblemRequestDto;
@@ -41,6 +43,16 @@ public class ProblemController {
             @PathVariable("problem_id") Long problemId
     ){
         return ResponseEntity.ok(problemService.getProblem(problemId));
+    }
+
+    @GetMapping("{problem_id}/submissions")
+    public ResponseEntity<List<SubmissionListInfo>> getProblemSubmissions(
+            @RequestHeader("X-Authorization-Id")Long memberId,
+            @PathVariable("problem_id")Long problemId
+    ){
+        return ResponseEntity.ok(problemService.getSubmissions(problemId));
+
+
     }
 
 

@@ -1,5 +1,7 @@
 package code.odyssey.common.domain.problem.service;
 
+import code.odyssey.common.domain.problem.dto.SubmissionInfo;
+import code.odyssey.common.domain.problem.dto.SubmissionListInfo;
 import code.odyssey.common.domain.problem.dto.problem.ProblemDetailInfo;
 import code.odyssey.common.domain.problem.dto.problem.ProblemInfo;
 import code.odyssey.common.domain.problem.dto.problem.ProblemRequestDto;
@@ -13,4 +15,6 @@ public interface ProblemService {
                                  Pageable pageable);
 
     ProblemDetailInfo getProblem(Long problemId);
+
+    List<SubmissionListInfo> getSubmissions(Long problemId);
 }
