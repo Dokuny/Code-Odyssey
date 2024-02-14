@@ -9,6 +9,7 @@ import DropDown from '../../atoms/select/Dropdown';
 import { createGuild } from '../../../utils/api/guild/guild';
 import { fstorage } from '../../../firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import DropDown2 from '../../atoms/select/Dropdown2';
 
 const StyledContainer = styled.form`
   display: flex;
@@ -128,7 +129,13 @@ const MakeGuildForm = () => {
   const [imgFile, setImgFile] = useState('');
   const imgRef = useRef<HTMLInputElement>(null);
 
-  const Difficulty = Array.from({ length: 30 }, (_, index) => index + 1);
+  const Difficulty = [['난이도','난이도'],
+                      [1,'브론즈'],
+                      [6,'실버'],
+                      [11,'골드'],
+                      [16,'플레티넘'],
+                      [21,'다이아몬드'],
+                      [26,'루비']];
   const Capacity = Array.from({ length: 10 }, (_, index) => index + 1);
 
   const onClickEvent = async () => {
@@ -198,7 +205,7 @@ const MakeGuildForm = () => {
         <Div2>
           <Body1 children={'평균 난이도'} color={colors.White} />
           <Spacer space={'1vh'}></Spacer>
-          <DropDown
+          <DropDown2
             id={'1'}
             borderRadius={'5px'}
             setSelectValue={setSelecDifficulty}
@@ -207,7 +214,7 @@ const MakeGuildForm = () => {
             bgColor={colors.White}
             fontcolor={colors.Black}
             selectedValue={selectDifficulty}
-          ></DropDown>
+          ></DropDown2>
           <Spacer space={'1vh'}></Spacer>
 
           <Body1 children={'수용인원'} color={colors.White} />
