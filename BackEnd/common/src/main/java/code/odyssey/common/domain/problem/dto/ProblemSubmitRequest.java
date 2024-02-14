@@ -10,7 +10,7 @@ import java.util.Map;
 @Getter
 public class ProblemSubmitRequest {
 
-    private ProblemPlatform platform;
+    private String platform;
     private Integer no;
     private String code;
     private Integer time;
