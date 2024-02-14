@@ -12,8 +12,10 @@ const GuildRecomment = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
+    console.log('이거니?')
     const fetchData = async () => {
       if (activeIndex === 0) {
+        console.log('이거야')
         const data = await getRecommendWeak();
         setData(data);
       } else if (activeIndex === 1) {

@@ -11,6 +11,7 @@ import { CgCPlusPlus } from 'react-icons/cg';
 
 const GuildBackDiv = styled.div`
   display: flex;
+  width: 90%;
   aspect-ratio: 14/18;
   flex-direction: column;
   justify-content: space-between;
@@ -119,7 +120,8 @@ const GuildRecommendCard = (props: GuildRecommendCardProps) => {
         <HeaderDiv>
           <DiffImageDiv src={difficulty[data.difficulty]}></DiffImageDiv>
           <Spacer space={'0.5vmax'} horizontal />
-          <Body1 children={data.guild_name} color={colors.Gray[100]} fontWeight={'bold'} />
+          {/* body에 문제있음 영어랑 한글 호환 x */}
+          <Body1 children={data.guild_name} color={colors.Gray[100]} fontWeight={'bold'} /> 
         </HeaderDiv>
         <ImageStyle src={data.guild_img}></ImageStyle>
         <FooterDiv>
