@@ -126,11 +126,8 @@ const SprintProblemCard = (props: SprintProblemCardProps) => {
             <>
               <Divider color={colors.DarkGray[100]} borderWidth='2px' />
               <div style={{ display: 'flex', width: '100%', flexDirection: 'column', padding: '2vmax', boxSizing: 'border-box' }}>
-                <div style={{ display: 'flex', width: '100%' }}>
+                <div style={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
                   <div style={{ width: '40%' }}>
-                    <GuildSprintResultImageCard value={reportData.percent} type={reportData.type} problem_id={reportData.problem_id} />
-                  </div>
-                  <div style={{ width: '60%' }}>
                     <GuildSprintResultImageCard value={reportData.percent} type={reportData.type} problem_id={reportData.problem_id} />
                   </div>
                 </div>
