@@ -26,6 +26,7 @@ import org.springframework.stereotype.Service;
 import code.odyssey.common.global.utils.DateUtils; // DateUtil 패키지
 
 import java.sql.Date;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -104,7 +105,27 @@ public class SubmissionService {
         // 오늘 날짜에 문제가 제출된 적이 있는지 확인하고, 없으면 스트릭 업데이트.
         if (submissionRepository.countSubmissionByTodayDate(memberId) == 0) {
             scoreRepository.addStreak(memberId);
+
+            // 북두칠성 로직
+            // 만약에 오늘이 일요일이라면 월 - 토요일을 확인한다.
+            // 확인했을 때 count > 0이면, streakCount++
+            // streakCount == 6 이면, 북두칠성 1 증가
+            int streakCount = 0;
+            if (LocalDate.now().getDayOfWeek() == DayOfWeek.SUNDAY) {
+                List<LocalDate> dateList = DateUtils.getWeeklyDates(); // 이번 주의 날짜를 가져옴
+                for (LocalDate date : dateList) {
+                    int count = submissionRepository.countSubmissionByMemberIdAndDate(memberId, date);
+
+                    if (count > 0) streakCount++;
+                }
+
+                if (streakCount == 6) {
+                    scoreRepository.addSevenStreak(memberId);
+                }
+            }
+
         }
+
 
         // db에 저장
         Submission submission = Submission.builder()
@@ -148,13 +169,12 @@ public class SubmissionService {
     }
 
     public List<SolvedStreakInfo> getSubmissionByDate(Long memberId, String date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-        LocalDate targetDate = LocalDate.parse(date + "-01", formatter);
-
-        LocalDateTime startDate = targetDate.atStartOfDay();
-        LocalDateTime endDate = targetDate.atTime(23, 59, 59);
-
+        // date = 2024-02 -> LocalDateTime 2024-02-01 00:00:00
+        LocalDate localDate = LocalDate.parse(date + "-01", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        LocalDateTime startDate = localDate.atStartOfDay();
+//        System.out.println(startDate);
+        LocalDateTime endDate = localDate.withDayOfMonth(localDate.lengthOfMonth()).atTime(23, 59, 59);
+//        System.out.println(endDate);
         return submissionRepository.findByMemberIdAndDate(memberId, startDate, endDate);
 
     }
@@ -162,7 +182,7 @@ public class SubmissionService {
 
     public List<StreakInfo> getStreakInfo(Long memberId) {
 
-        List<LocalDate> dateList = DateUtils.getWeeklyDates();
+        List<LocalDate> dateList = DateUtils.getWeeklyDates(); // 이번 주의 날짜를 가져옴
         List<StreakInfo> streakInfoList = new ArrayList<>();
 
         for (LocalDate date : dateList) {
