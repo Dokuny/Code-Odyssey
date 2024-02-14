@@ -27,6 +27,11 @@ public interface ScoreRepository extends JpaRepository<Score, Long> {
     @Query("UPDATE Score s SET s.streak = s.streak + 1 WHERE s.member.id = :memberId")
     void addStreak(@Param("memberId") Long memberId);
 
+    // 북두칠성 + 1
+    @Modifying
+    @Query("UPDATE Score s SET s.sevenStreak = s.sevenStreak + 1 WHERE s.member.id = :memberId")
+    void addSevenStreak(@Param("memberId") Long memberId);
+
     // 티어 업데이트
     @Modifying
     @Query("UPDATE Score s SET s.tier = :tierScore WHERE s.member.id = :memberId")
