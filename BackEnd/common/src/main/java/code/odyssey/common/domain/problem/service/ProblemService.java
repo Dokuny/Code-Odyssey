@@ -19,4 +19,6 @@ public interface ProblemService {
     ProblemDetailInfo getProblem(Long problemId);
 
     SubmissionPageInfo getSubmissions(Long problemId, Pageable pageable);
+
+    SearchResultInfo getRecommendProblem(Long guildId);
 }

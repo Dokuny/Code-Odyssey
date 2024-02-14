@@ -1,6 +1,8 @@
 package code.odyssey.common.domain.problem.service.impl;
 
-import code.odyssey.common.domain.problem.dto.SubmissionInfo;
+import code.odyssey.common.domain.guild.dto.ProblemTypeCountInfo;
+import code.odyssey.common.domain.guild.dto.ProblemTypeInfo;
+import code.odyssey.common.domain.guild.repository.GuildScoreRepository;
 import code.odyssey.common.domain.problem.dto.SubmissionListInfo;
 import code.odyssey.common.domain.problem.dto.SubmissionPageInfo;
 import code.odyssey.common.domain.problem.dto.problem.ProblemDetailInfo;
@@ -15,10 +17,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static code.odyssey.common.domain.problem.exception.problem.ProblemErrorCode.NOT_EXIST_PROBLEM;
 
@@ -31,6 +35,8 @@ public class ProblemServiceImpl implements ProblemService {
     private final ProblemRepository problemRepository;
 
     private final SubmissionRepository submissionRepository;
+
+    private final GuildScoreRepository guildScoreRepository;
 
     @Override
     public SearchResultInfo getProblems(ProblemRequestDto request,
@@ -52,5 +58,35 @@ public class ProblemServiceImpl implements ProblemService {
         Page<SubmissionListInfo> submissionPage = submissionRepository.getSubmissionListByProblemId(problemId, pageable);
         int totalPage = submissionPage.getTotalPages();
         return SubmissionPageInfo.builder().totalPage(totalPage).data(submissionPage.getContent()).build();
+    }
+
+
+    @Override
+    public SearchResultInfo getRecommendProblem(Long guildId){
+        Map<CharSequence, Integer> problemTypeDifficultyTotalInfo = guildScoreRepository.getGuildMembersProblemTypeCount(guildId).toMap();
+        List<ProblemTypeCountInfo> problemTypeCountInfo= guildScoreRepository.getGuildMembersProblemCount(guildId);
+
+        log.info("Problem Type Difficulty : {}", problemTypeDifficultyTotalInfo);
+        log.info("Problem Type Count : {}", problemTypeCountInfo);
+
+
+        List<ProblemTypeCountInfo> averageDifficultyList = problemTypeCountInfo.stream()
+                .map(info -> {
+                    String key = info.getX();
+                    Integer count = info.getY();
+                    Integer totalDifficulty = problemTypeDifficultyTotalInfo.get(key); // 0으로 나누는 경우를 방지하기 위해 기본값으로 1 설정
+                    Integer averageDifficulty = totalDifficulty / count;
+                    return new ProblemTypeCountInfo(key, averageDifficulty);
+                })
+                .collect(Collectors.toList());
+        Collections.sort(averageDifficultyList);
+
+        log.info("Problem Average : {}", problemTypeCountInfo);
+
+        return dslRepository.getProblems(ProblemRequestDto.builder().build(), PageRequest.of(0,10));
+
+
+
+
     }
 }
