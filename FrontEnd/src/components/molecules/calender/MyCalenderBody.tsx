@@ -65,11 +65,11 @@ const MyCalenderBody: React.FC<MyCalenderBodyProps> = ({ currentMonth, selectedD
 
       let cellColor = '';
       if (filteredDataCount === 1) {
-        cellColor = colors.Gray[800]; // Set to yellow if there is 1 filtered date
+        cellColor = colors.Gray[800]; 
       } else if (filteredDataCount === 2) {
-        cellColor = colors.Gray[700]; // Set to green if there are 3 filtered dates
+        cellColor = colors.Gray[700]; 
       } else if (filteredDataCount >= 3) {
-        cellColor = colors.Gray[600]; // Set to blue if there are 5 or more filtered dates
+        cellColor = colors.Gray[600]; 
       }
 
       days.push(
