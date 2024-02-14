@@ -90,7 +90,7 @@ const SprintProblemCard = (props: SprintProblemCardProps) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (selectData != null) {
+    if (selectData != null && selectData.submission_id != null) {
       window.open(`/review?submission_id=${selectData.submission_id}`, '_blank');
     }
   }, [reportData, navigate, selectData]);
