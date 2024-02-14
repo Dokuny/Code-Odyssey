@@ -5,28 +5,7 @@ import { getTypeBySprint } from '../../../../../../utils/api/mypage/sprint/myspr
 
 const TypeBySprint = () => {
   const [selectedValue, setSelectedValue] = useState('select');
-  const [data, setData] = useState([
-    {
-      title: "Random Title 1",
-      content: "Random Content 1",
-      hrefr: "https://example.com/1",
-      difficulty: 4,
-      platform: "BAEKJOON",
-      type: "SIMULATION",
-      no: 789,
-      createdAt: new Date("2024-02-01T22:38:48")
-    },
-    {
-      title: "Random Title 2",
-      content: "Random Content 2",
-      hrefr: "https://example.com/2",
-      difficulty: 4,
-      platform: "BAEKJOON",
-      type: "SIMULATION",
-      no: 809,
-      createdAt: new Date("2024-02-02T22:38:48")
-    }
-  ]);
+  const [data, setData] = useState([]);
   
   const OPTIONS = [
     { value: 'STRING', name: '문자열' },
@@ -45,6 +24,7 @@ const TypeBySprint = () => {
     const fetchData = async () => {
       if (selectedValue !== 'select') {
           const result = await getTypeBySprint(selectedValue);
+          console.log(result)
           setData(result || []); // result가 falsy일 경우 빈 배열로 설정
       }
     };
