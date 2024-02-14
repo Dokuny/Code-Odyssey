@@ -3,9 +3,20 @@ import SprintDropDown from '../../../../../molecules/dropdown/SprintDropDown';
 import { getTypeBySprint } from '../../../../../../utils/api/mypage/sprint/mysprint';
 
 
+interface Data {
+  title: string;
+  content: string;
+  hrefr: string;
+  difficulty: number;
+  platform: string;
+  type: string;
+  no: number;
+  createdAt: Date;
+}
+
 const TypeBySprint = () => {
   const [selectedValue, setSelectedValue] = useState('select');
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<Data[]>([]);
   
   const OPTIONS = [
     { value: 'STRING', name: '문자열' },
@@ -25,7 +36,7 @@ const TypeBySprint = () => {
       if (selectedValue !== 'select') {
           const result = await getTypeBySprint(selectedValue);
           console.log(result)
-          setData(result || []); // result가 falsy일 경우 빈 배열로 설정
+          setData(result); // result가 falsy일 경우 빈 배열로 설정
       }
     };
     

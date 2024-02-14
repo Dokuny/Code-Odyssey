@@ -12,7 +12,7 @@ interface item {
   platform: string;
   type: string;
   no: number;
-  createdAt: string;
+  createdAt: Date;
 }
 
 const StyledContainer = styled.div`
@@ -45,9 +45,15 @@ const Div2 = styled.div`
   align-items: center;
   margin-right: 10px;
 `;
+const Div3 = styled.div`
+  width: 50px;
+  flex-shrink: 0;
+  background-color: ${colors.Puple[25]};
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+`;
 
 const CheckCard: React.FC<item> = ({ title, difficulty, createdAt }) => {
-  console.log(createdAt);
   return (
     <StyledContainer>
       <Div1>
@@ -58,7 +64,7 @@ const CheckCard: React.FC<item> = ({ title, difficulty, createdAt }) => {
       </Div1>
       <Div2>
         <Body2 children={title} color={colors.White} />
-        <Body2 children={createdAt} color={colors.White} />
+        <Body2 children={createdAt.toLocaleDateString()} color={colors.White} />
       </Div2>
     </StyledContainer>
   );
