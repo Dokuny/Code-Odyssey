@@ -44,6 +44,7 @@ const ProblemRecommend = () => {
       alert('스프린트 값이 올바르지 않습니다');
       return;
     }
+    console.log('보내는 값입니다.',dayilyData)
     // 만약 난이도, 유형이 값이 있다면
     await postMySprint({ scheduleInfoList: dayilyData });
     fetchData();

@@ -88,6 +88,7 @@ const MyPageMain = () => {
       setStatisticData(resultStatistic);
       setRankData(resultRank);
       setStrictData(Strict);
+      console.log(typeof(Strict[0].createdAt))
     };
 
     fetchData();
