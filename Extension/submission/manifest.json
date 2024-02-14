@@ -40,7 +40,7 @@
       "js": ["scripts/user.js"]
     },
     {
-      "matches": ["http://code-odyssey.site/main*"],
+      "matches": ["https://code-odyssey.site/main*"],
       "js": ["scripts/user.js"]
     }
   ]

@@ -67,8 +67,6 @@ if (isStatusWaiting()) {
             time: col[5].textContent.trim(),
             language: language,
           };
-          console.log(data);
-          console.log(token);
           // 제출 API
           fetch("https://odyssey-code.site/submissions", {
             method: "POST",
