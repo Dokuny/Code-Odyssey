@@ -11,6 +11,12 @@ const StyledPolygon = styled.div`
   border: 10px solid ${colors.Gray[800]};
   box-sizing: border-box;
   border-radius: 10px;
+  overflow: scroll;
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+  &::-webkit-scrollbar {
+    display: none; /* 크롬, 사파리, 오페라, 엣지 */
+  }
 `;
 
 const StyledYoutube = styled.div`
@@ -39,7 +45,6 @@ const OnclickDiv = styled.div`
 `;
 const StyledButton = styled.button`
   width: 40px;
-  margin: 0 auto 1vh 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -57,17 +62,6 @@ const StyledButton = styled.button`
 `;
 
 
-const StyledContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  overflow: scroll;
-  -ms-overflow-style: none; /* 인터넷 익스플로러 */
-  scrollbar-width: none; /* 파이어폭스 */
-  &::-webkit-scrollbar {
-    display: none; /* 크롬, 사파리, 오페라, 엣지 */
-  }
-`;
-
 
 const SingChatLeftCard = ({ data, date }: any) => {
   const [index, setIndex] = useState(-1);
@@ -77,14 +71,16 @@ const SingChatLeftCard = ({ data, date }: any) => {
       <StyledPolygon>
         {index !== -1 ? (
           <StyledYoutube>
-            <StyledButton
-              onClick={() => {
-                setIndex(-1);
-              }}
-            >
-              X
-            </StyledButton>
-            <Body2 children={data[index].snippet.channelTitle} color={colors.Gray[25]} fontWeight={'bold'} />
+            <div style={{display : 'flex', justifyContent: "space-between", alignItems:"end", width :'100%',}}>
+              <Body2 children={data[index].snippet.channelTitle} color={colors.Gray[25]} fontWeight={'bold'} />
+              <StyledButton
+                onClick={() => {
+                  setIndex(-1);
+                }}
+              >
+                X
+              </StyledButton>
+            </div>
             <Spacer space={'1vh'} />
             <Body1 children={data[index].snippet.title} color={colors.Gray[25]} fontWeight={'bold'} />
             <Spacer space={'1vh'} />
