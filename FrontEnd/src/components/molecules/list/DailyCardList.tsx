@@ -41,7 +41,7 @@ interface DailyCardlistProps {
     recommendedType: string;
   }[];
   setDailyData: React.Dispatch<React.SetStateAction<{ day: string; recommendedDifficulty: string; recommendedType: string }[]>>;
-  submit : () => void;
+  submit: () => void;
 }
 
 const DailyCardList = (props: DailyCardlistProps) => {
@@ -64,7 +64,7 @@ const DailyCardList = (props: DailyCardlistProps) => {
       <Spacer space={'2vmin'} />
       <DailyCardDiv>
         {props.data.map((value, index) => (
-          <DailyCard key={index} day={value.day} recommendedDifficulty={value.recommendedDifficulty} recommendedType={value.recommendedType} setData={props.setDailyData} ></DailyCard>
+          <DailyCard key={index} day={value.day} recommendedDifficulty={value.recommendedDifficulty} recommendedType={value.recommendedType} setData={props.setDailyData}></DailyCard>
         ))}
       </DailyCardDiv>
     </>
