@@ -22,8 +22,7 @@ const MusicBot = () => {
   const [botChatting, setBotChatting] = useState<BotChatting>({});
 
   const getData = async () => {
-    const data = await getYoutube(searchInput)
-    console.log(data)
+    const data = await getYoutube(searchInput);
     setBotChatting({ data: data.items });
   };
 
@@ -31,8 +30,8 @@ const MusicBot = () => {
     if (event.key === 'Enter') {
       const fetchdata = async () => {
         getData();
-      }
-      fetchdata()
+      };
+      fetchdata();
     }
   };
 
@@ -42,7 +41,7 @@ const MusicBot = () => {
         <BasicInput input={searchInput} placeholder={'세이렌에게 노래 부탁하기'} setInput={setSearchInput} onKeyUp={handleKeyUp} />
       </div>
       <Spacer space={'2vh'} />
-      { botChatting.data && <SingChatLeftCard data={botChatting.data}/>}
+      {botChatting.data && <SingChatLeftCard data={botChatting.data} />}
     </>
   );
 };

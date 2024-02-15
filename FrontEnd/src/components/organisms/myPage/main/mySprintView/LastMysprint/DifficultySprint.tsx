@@ -53,9 +53,8 @@ const DifficultySprint = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-        const result = await getDifficultySprint(selectedValue);
-        console.log(result);
-        setData(result || [{}]);
+      const result = await getDifficultySprint(selectedValue);
+      setData(result || [{}]);
     };
     fetchData();
   }, [selectedValue]);

@@ -38,25 +38,24 @@ const StyledContainer = styled.div`
 const RunningSprintGraph = () => {
   const [myData, setMyData] = useState<{
     email?: string | null;
-    nickname? : string | null;
-    penalty? : number | null;
-    sevenStreak? : number | null;
-    streak? : number | null;
-    thumbnail? : string | null;
-    tier? : string | null;
+    nickname?: string | null;
+    penalty?: number | null;
+    sevenStreak?: number | null;
+    streak?: number | null;
+    thumbnail?: string | null;
+    tier?: string | null;
   }>({});
 
   const fetchData = async () => {
     const data = await getProfile();
-    setMyData( data )
-    console.log(myData)
+    setMyData(data);
 
     // setData(result || []); // result가 falsy일 경우 빈 배열로 설정
   };
 
   useEffect(() => {
-      fetchData();
-    }, []);
+    fetchData();
+  }, []);
 
   return (
     <>

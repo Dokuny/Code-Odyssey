@@ -3,6 +3,7 @@ import { colors } from '../../../config/Color';
 import { ChangeEvent } from 'react';
 
 const StyleInput = styled.input<{ fontSize: string; color: string; fontcolor: string; textAlign: string; borderRadius: string }>`
+  font-family: 'SBAggroM';
   display: flex;
   font-size: ${(props) => props.fontSize};
   width: 100%;

@@ -7,6 +7,7 @@ import { FaIcon } from '../icon/Icons';
 import { difficulty } from '../../../utils/json/difficulty';
 
 const StyledContainer = styled.div<{ color: string }>`
+  font-family: 'SBAggroM';
   display: flex;
   padding: 2vmin;
   background-color: ${(props) => props.color};

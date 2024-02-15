@@ -13,7 +13,6 @@ const GuildPersonSetting = (props: GuildPersonSettingProps) => {
   useEffect(() => {
     const fetchData = async () => {
       const data = await getGuildMembers(props.guild_id);
-      console.log(data);
       setData(data);
     };
 

@@ -6,9 +6,7 @@ for (let i = 0; i < table.length; i++) {
   async function openWindows() {
     try {
       window.open(table[i].getAttribute("href"));
-    } catch (err) {
-      console.log(err.message);
-    }
+    } catch (err) {}
   }
   openWindows();
 }

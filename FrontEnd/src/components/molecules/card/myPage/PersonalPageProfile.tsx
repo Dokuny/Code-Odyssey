@@ -89,11 +89,9 @@ const PersonalPageProfile = (props: PersonalPageProfileProps) => {
   useEffect(() => {
     const fetchData = async () => {
       const data = await getPersonalProfile(props.memberId);
-      console.log(data);
       setData(data);
     };
     fetchData();
-    console.log('fetch data!');
   }, [props.memberId]);
 
   return (
