@@ -9,7 +9,7 @@ const TypeBySprint = () => {
   const [data, setData] = useState([]);
   
   const OPTIONS = [
-    { value: 'ALL', name: '문제 유형' },
+    { value: 'RANDOM', name: '문제 유형' },
     { value: 'STRING', name: '문자열' },
     { value: 'MATH', name: '수학' },
     { value: 'DATA_STRUCTURE', name: '자료구조' },

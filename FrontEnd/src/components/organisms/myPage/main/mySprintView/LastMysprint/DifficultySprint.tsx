@@ -18,7 +18,7 @@ const DifficultySprint = () => {
   const [data, setData] = useState<Data[]>([]);
 
   const OPTIONS = [
-    { value: 'ALL', name: '난이도' },
+    { value: '0', name: '난이도' },
     { value: '1', name: '브론즈 5' },
     { value: '2', name: '브론즈 4' },
     { value: '3', name: '브론즈 3' },
