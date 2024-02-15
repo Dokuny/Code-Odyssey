@@ -38,7 +38,7 @@ public interface GuildScoreRepository extends JpaRepository<GuildScore, Long> {
 			"CAST(SUM(s.adhoc) AS INTEGER), " +
 			"CAST(SUM(s.dp) AS INTEGER), " +
 			"CAST(SUM(s.shortestPath) AS INTEGER), " +
-			"0, " +
+			"CAST(SUM(s.twoPointer) AS INTEGER), " +
 			"CAST(SUM(s.greedy) AS INTEGER), " +
 			"CAST(SUM(s.math) AS INTEGER)) " +
 			"FROM Guild g " +

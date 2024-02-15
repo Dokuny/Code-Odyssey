@@ -1,22 +1,12 @@
 package code.odyssey.common.domain.guild.dto;
 
-import static code.odyssey.common.domain.problem.entity.enums.ProblemType.AD_HOC;
-import static code.odyssey.common.domain.problem.entity.enums.ProblemType.BRUTE_FORCE;
-import static code.odyssey.common.domain.problem.entity.enums.ProblemType.DATA_STRUCTURE;
-import static code.odyssey.common.domain.problem.entity.enums.ProblemType.DP;
-import static code.odyssey.common.domain.problem.entity.enums.ProblemType.GRAPH;
-import static code.odyssey.common.domain.problem.entity.enums.ProblemType.GREEDY;
-import static code.odyssey.common.domain.problem.entity.enums.ProblemType.MATH;
-import static code.odyssey.common.domain.problem.entity.enums.ProblemType.SHORTEST_PATH;
-import static code.odyssey.common.domain.problem.entity.enums.ProblemType.SIMULATION;
-import static code.odyssey.common.domain.problem.entity.enums.ProblemType.STRING;
-import static code.odyssey.common.domain.problem.entity.enums.ProblemType.TREE;
-
 import java.util.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import static code.odyssey.common.domain.problem.entity.enums.ProblemType.*;
 
 @NoArgsConstructor
 @Getter @AllArgsConstructor
@@ -48,6 +38,7 @@ public class ProblemTypeInfo {
 		map.put(TREE.name(), this.tree);
 		map.put(AD_HOC.name(), this.adHoc);
 		map.put(DP.name(), this.dp);
+		map.put(BINARY_SEARCH.name(), this.binarySearch);
 		map.put(SHORTEST_PATH.name(), this.shortestPath);
 		map.put(GREEDY.name(), this.greedy);
 		map.put(MATH.name(), this.math);
