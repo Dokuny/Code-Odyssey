@@ -11,7 +11,6 @@ import code.odyssey.common.domain.memberSprint.entity.enums.DifficultyLevel;
 import code.odyssey.common.domain.memberSprint.repository.MemberSprintRepository;
 import code.odyssey.common.domain.problem.entity.Problem;
 import code.odyssey.common.domain.problem.entity.enums.ProblemType;
-import code.odyssey.common.domain.score.dto.ScoreInfo;
 import code.odyssey.common.domain.score.entity.Score;
 import code.odyssey.common.domain.score.exception.ScoreErrorCode;
 import code.odyssey.common.domain.score.exception.ScoreException;
@@ -51,15 +50,15 @@ public class MemberSprintService {
         }
 
         List<MemberSprint> sprintSchedules = request.getScheduleInfoList().stream()
-                .map(scheduleInfo -> {
-                    return MemberSprint.builder()
-                            .member(member)
-                            .day(scheduleInfo.getDay())
-                            .recommendType(scheduleInfo.getRecommendedType())
-                            .recommendDifficulty(convertLevelToInteger(scheduleInfo.getRecommendedDifficulty()))
-                            .build();
-                })
-                .toList();
+            .map(scheduleInfo -> {
+                return MemberSprint.builder()
+                    .member(member)
+                    .day(scheduleInfo.getDay())
+                    .recommendType(scheduleInfo.getRecommendedType())
+                    .recommendDifficulty(convertLevelToInteger(scheduleInfo.getRecommendedDifficulty()))
+                    .build();
+            })
+            .toList();
 
         memberSprintRepository.saveAll(sprintSchedules);
     }
@@ -73,6 +72,7 @@ public class MemberSprintService {
             case PLATINUM -> difficulty = 16;
             case DIAMOND -> difficulty = 21;
             case RUBY -> difficulty = 26;
+            case RANDOM -> difficulty = 0;
         }
         return difficulty;
     }
@@ -88,7 +88,7 @@ public class MemberSprintService {
 
             Integer tier = score.getTier();
 
-            return memberSprintRepository.getRandomProblems(
+            return memberSprintRepository.getRandomProblemsByTier(
                     memberId,
                     tier,
                     PageRequest.of(0, 4)
@@ -102,13 +102,40 @@ public class MemberSprintService {
             ProblemType ptype = memberSprint.getRecommendType();
             Integer difficulty = memberSprint.getRecommendDifficulty();
 
-            if (difficulty == 26) {
+            if (difficulty == 26) { // 루비 문제
+                if (ptype == ProblemType.RANDOM) {
+                    return memberSprintRepository.getRecommendedRubyProblemsRandom(
+                            memberId,
+                            difficulty,
+                            PageRequest.of(0, 4));
+                }
                 return memberSprintRepository.getRecommendedRubyProblems(
                         memberId,
                         ptype,
                         difficulty,
                         PageRequest.of(0, 4));
-            } else {
+            } else if (difficulty == 0) { // 랜덤 난이도
+                if (ptype == ProblemType.RANDOM) { // 랜덤 유형 -> 사용자 티어로 추천
+                    Score score = scoreRepository.findStatsByMemberId(memberId)
+                            .orElseThrow(() -> new ScoreException(ScoreErrorCode.NO_AVAILABLE_SCORES));
+                    Integer tier = score.getTier();
+                    return memberSprintRepository.getRandomProblemsByTier(
+                            memberId,
+                            tier,
+                            PageRequest.of(0, 4));
+                }
+                return memberSprintRepository.getRecommendedProblemsByProblemType(
+                        memberId,
+                        ptype,
+                        PageRequest.of(0, 4));
+
+            } else { // 실버, 브론즈, 등의 난이도
+                if (ptype == ProblemType.RANDOM) { // 문제 유형이 랜덤
+                    return memberSprintRepository.getRecommendedProblemsRandom(
+                            memberId,
+                            difficulty,
+                            PageRequest.of(0, 4));
+                }
 
                 return memberSprintRepository.getRecommendedProblems(
                         memberId,
@@ -118,8 +145,8 @@ public class MemberSprintService {
             }
 
         }
-
     }
+
 
     public List<MemberSprintInfo> getSprint(Long memberId) {
         List<MemberSprint> memberSprints = memberSprintRepository.findByMemberId(memberId);
@@ -135,7 +162,9 @@ public class MemberSprintService {
 
     public DifficultyLevel matchDifficulty(int difficulty) {
         DifficultyLevel level = null;
-        if (1 <= difficulty && difficulty <= 5) {
+        if (difficulty == 0) {
+            level = DifficultyLevel.RANDOM;
+        } else if (1 <= difficulty && difficulty <= 5) {
             level = DifficultyLevel.BRONZE;
         } else if (6 <= difficulty && difficulty <= 10) {
             level = DifficultyLevel.SILVER;
@@ -151,4 +180,5 @@ public class MemberSprintService {
 
         return level;
     }
+
 }
