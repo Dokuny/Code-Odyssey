@@ -29,40 +29,73 @@ const StyledHeatMapContentContainer = styled.div`
 
 const MyPageMain = () => {
   const [statisticData, setStatisticData] = useState([
-    { type: 'dp', score: 12 },
-    { type: 'string', score: 25 },
-    { type: 'bruteforce', score: 5 },
-    { type: 'graphs', score: 19 },
-    { type: 'math', score: 12 },
-    { type: 'greedy', score: 55 },
-    { type: 'geometry', score: 23 },
-    { type: 'implementation', score: 42 },
-    { type: 'implementation2', score: 42 },
-    { type: 'implementation3', score: 42 },
+    { type: 'dp', score: 0 },
+    { type: 'string', score: 0 },
+    { type: 'bruteforce', score: 0 },
+    { type: 'graphs', score: 0 },
+    { type: 'math', score: 0 },
+    { type: 'greedy', score: 0 },
+    { type: 'geometry', score: 0 },
+    { type: 'implementation', score: 0 },
+    { type: 'implementation2', score: 0 },
+    { type: 'implementation3', score: 0 },
   ]);
-
   const [rankData, setRankData] = useState([
     {
       id: 'rank',
-      data: [
-        { x: 'DP', y: 2 },
-        { x: 'Feb', y: 4 },
-        { x: 'Mar', y: 5 },
-        { x: 'Apr', y: 7 },
-        { x: 'May', y: 9 },
-        { x: 'Jun', y: 12 },
-        { x: 'July', y: 14 },
-        { x: 'Aug', y: 16 },
-        { x: 'Sep', y: 19 },
-        { x: 'Oct', y: 22 },
-        { x: 'Nov', y: 24 },
-        { x: 'Dec', y: 27 },
-      ],
-    },
-  ]);
-
+      data: []
+    }]);
   const [strictData, setStrictData] = useState([]);
 
+  const initdata =  [
+    {
+      x: "SIMULATION",
+        y: 0
+    },
+    {
+      x: "DATA_STRUCTURE",
+        y: 0
+    },
+    {
+      x: "GRAPH",
+        y: 0
+    },
+    {
+      x: "STRING",
+        y: 0
+    },
+    {
+      x: "BRUTE_FORCE",
+        y: 0
+    },
+    {
+      x: "TREE",
+        y: 0
+    },
+    {
+      x: "AD_HOC",
+        y: 0
+    },
+    {
+      x: "DP",
+        y: 0
+    },
+    {
+      x: "SHORTEST_PATH",
+        y: 0
+    },
+    {
+      x: "BINARY_SEARCH",
+        y: 0
+    },
+    {
+      x: "GREEDY",
+        y: 0
+    },
+    {
+      x: "MATH",
+        y: 0
+    }]
   useEffect(() => {
     const fetchData = async () => {
       const MyStatistic = await getMyStatistic();
@@ -75,13 +108,20 @@ const MyPageMain = () => {
         score: typeof score === 'number' ? score : parseInt(score as string, 10),
       }));
 
+      const newData = initdata.map((item)=> {
+        const exist = MyRank.filter((problemNum: any)=> problemNum.x === item.x )
+        if (exist[0]) {
+          return { x : exist[0].x.slice(0,2), y: exist[0].y }
+        } else {
+          return { x : item.x.slice(0,2), y: item.y }
+        }
+      }) 
+
       // 이것도 바꿔주세요..
-      const resultRank = [
+      const resultRank : any = [
         {
           id: 'rank',
-          data: MyRank.map((item: { type: string; score: number }) => {
-            return { x: item.type.slice(0, 3), y: item.score };
-          }),
+          data: newData
         },
       ];
 

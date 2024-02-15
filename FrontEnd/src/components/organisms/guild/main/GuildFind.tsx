@@ -21,7 +21,7 @@ const GuildFind = () => {
       const fetchData = async () => {
         const fetchdata = await findGuild({ keyword: searchInput }); //guild id
         setData(fetchdata);
-        setStack((prev: any) => [...prev, ...fetchdata]);
+        setStack(fetchdata);
       };
 
       fetchData();

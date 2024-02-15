@@ -22,7 +22,7 @@ export const getMyStrict = async () => {
 };
 
 export const getMyRank = async () => {
-  const data = await tokenInstance.get(`scores/rank/type`);
+  const data = await tokenInstance.get(`submissions/solved-nums/type`);
   return data && data.data;
 };
 
