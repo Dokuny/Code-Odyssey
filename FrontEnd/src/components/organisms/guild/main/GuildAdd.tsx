@@ -1,7 +1,7 @@
 import MainTopCard from '../../../molecules/card/basic/MainTopCard';
 import MakeGuildForm from '../../../molecules/form/MakeGuildForm';
 import { Spacer } from '../../../atoms/basic/Spacer';
-import { Body1, Body3 } from '../../../atoms/basic/Typography';
+import { Body1, Body2, Body3 } from '../../../atoms/basic/Typography';
 import { colors } from '../../../../config/Color';
 
 const GuildAdd = () => {
@@ -11,7 +11,7 @@ const GuildAdd = () => {
         src={'/images/code_odyssey/GuildAddBg.svg'}
         title={
           <div style={{ display: 'flex' }}>
-            <Body1 children={'Code Odyssey'} color={colors.Gray[100]} fontWeight={'bold'} fontStyle='Eagle Lake' />
+            <Body2 children={'Code Odyssey'} color={colors.Gray[100]} fontWeight={'bold'} fontStyle='Eagle Lake' />
             <Body1 children={'에서 길드 만들기'} color={colors.Gray[100]} fontWeight={'bold'} />
           </div>
         }

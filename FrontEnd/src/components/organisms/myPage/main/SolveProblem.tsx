@@ -4,7 +4,7 @@ import MainTopCard from '../../../molecules/card/basic/MainTopCard';
 import BasicTable from '../../../atoms/table/BasicTable';
 import { PaginationState } from '@tanstack/react-table';
 import SearchDiv from '../../../atoms/select/SearchDiv';
-import { Body1, Body3 } from '../../../atoms/basic/Typography';
+import { Body1, Body2, Body3 } from '../../../atoms/basic/Typography';
 import { colors } from '../../../../config/Color';
 import { sprintProblemSearch } from '../../../../utils/api/guild/sprint/guildsprint';
 
@@ -24,7 +24,18 @@ const SolveProblem = () => {
       setTableData(fetchData);
     };
     fetchData();
-  }, [input, selectedCategory, selectedDifficulty, selectedPlatform, state]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setState({ pageIndex: 0, pageSize: 10 });
+      const fetchData = await sprintProblemSearch(input, selectedCategory, selectedDifficulty as unknown as number, selectedPlatform, state.pageIndex, state.pageSize);
+      setTableData(fetchData);
+    };
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [input, selectedCategory, selectedDifficulty, selectedPlatform]);
 
   useEffect(() => {
     if (selectProblem !== null) {
@@ -39,7 +50,7 @@ const SolveProblem = () => {
         src={'/images/code_odyssey/ProblemSolveBg.svg'}
         title={
           <div style={{ display: 'flex' }}>
-            <Body1 children={'Code Odyssey'} color={colors.Gray[100]} fontWeight={'bold'} fontStyle='Eagle Lake' />
+            <Body2 children={'Code Odyssey'} color={colors.Gray[100]} fontWeight={'bold'} fontStyle='Eagle Lake' />
             <Body1 children={'에서 항해하기'} color={colors.Gray[100]} fontWeight={'bold'} />
           </div>
         }
