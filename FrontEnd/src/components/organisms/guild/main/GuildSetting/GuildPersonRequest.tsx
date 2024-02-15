@@ -11,12 +11,13 @@ const GuildPersonRequest = (props: GuildPersonRequestProps) => {
   const [data, setData] = useState<Array<any>>([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await getGuildApplications(props.guild_id);
-      setData(data);
-    };
-
-    fetchData();
+    if (props.guild_id !== -2) {
+        const fetchData = async () => {
+        const data = await getGuildApplications(props.guild_id);
+        setData(data);
+      }; 
+      fetchData();
+    }
   }, [props.guild_id]);
 
   return (

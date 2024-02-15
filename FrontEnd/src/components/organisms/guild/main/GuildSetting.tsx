@@ -18,11 +18,13 @@ const GuildSetting = (props: GuildSettingProps) => {
   const [role, setRole] = useState('MEMBER');
 
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await guildRole(props.guild_id);
-      setRole(data);
+    if (props.guild_id !== -2) {
+      const fetchData = async () => {
+        const data = await guildRole(props.guild_id);
+        setRole(data);
+      }
+      fetchData();
     };
-    fetchData();
   }, [props.guild_id]);
 
   return (

@@ -9,6 +9,7 @@ import DropDown from '../../atoms/select/Dropdown';
 import { ref, getDownloadURL, uploadBytes } from 'firebase/storage'
 import { fstorage } from '../../../firebase';
 import DropDown2 from '../../atoms/select/Dropdown2';
+import { getGuildInfo, putGuildInfo } from '../../../utils/api/guild/guild';
 
 interface props{
   guild_id : number;
@@ -17,43 +18,24 @@ interface props{
 const ModifyGuildForm = (props:props) => {
   const [value, setValue] = useState('');
   const [GuildName, setGuildName] = useState('');
-  const [selectDifficulty, setSelecDifficulty] = useState('1');
   const [selectCapacity, setSelectCapacity] = useState('1');
-  const [selectProblemCapacity, setSelectProblemCapacity] = useState('1');
+  // const [selectProblemCapacity, setSelectProblemCapacity] = useState('1');
   const [selectLanguage, setSelectLanguage] = useState('PYTHON');
   const [imgFile, setImgFile] = useState("");
   const imgRef = useRef<HTMLInputElement>(null);
 
+  const [ Capacity,setCapacity] = useState(Array.from({ length: 10 }, (_, index) => index + 1)) 
 
-  const Difficulty = [['난이도','난이도'],
-                      [1,'브론즈'],
-                      [6,'실버'],
-                      [11,'골드'],
-                      [16,'플레티넘'],
-                      [21,'다이아몬드'],
-                      [26,'루비']];
-  const Capacity = Array.from({ length: 10 }, (_, index) => index + 1);
   useEffect(() => {
     const fetchData = async () => {
-    //   const data = await getGuildInfo(props.guild_id)
-    const data = {
-        name: '오디세이',
-        image: '', // '' 으로 저장되면..? -> 기본값 출력하기로
-        introduction: 'ㄱㄱㄱ',
-        capacity: 2,
-        language: 'PYTHON',
-        difficulty: 1,
-        problemCapacity: 1,
-      };
-    
-      setGuildName(data.name)
-      setImgFile(data.image)
-      setValue(data.introduction)
-      setSelectCapacity(String(data.capacity))
-      setSelectLanguage(data.language)
-      setSelecDifficulty(String(data.difficulty))
-      setSelectProblemCapacity(String(data.problemCapacity))
-    
+      const data = await getGuildInfo(props.guild_id)
+      const n : number = data.current_capacity
+      setCapacity(Array.from({ length: 10 - n + 1 }, (_, index) => index + n))
+      setGuildName(data.guild_name)
+      setImgFile(data.thumbnail)
+      setValue(data.introduce)
+      setSelectCapacity(String(data.total_capacity))
+      setSelectLanguage(data.language_type)
     };  
 
     fetchData();
@@ -62,13 +44,11 @@ const ModifyGuildForm = (props:props) => {
 
   const onClickEvent = async () => {
     let data = {
-      name: GuildName,
-      image: imgFile,
-      introduction: value,
+      guildName: GuildName,
+      thumbnail : imgFile,
+      introduce: value,
       capacity: parseInt(selectCapacity, 10),
-      language: selectLanguage,
-      difficulty: parseInt(selectDifficulty, 10),
-      problemCapacity: parseInt(selectProblemCapacity, 10),
+      languageType: selectLanguage,
     };
 
     const fileInput = imgRef.current;
@@ -79,11 +59,11 @@ const ModifyGuildForm = (props:props) => {
       const url = await getDownloadURL(ref(fstorage, `firebase/${file.name}`));
       data = {
         ...data,
-        image: url,
+        thumbnail: url,
       };
     }
 
-    // await createGuild(data);
+    await putGuildInfo(props.guild_id,data);
     window.location.reload();
   };
 
@@ -128,18 +108,6 @@ const ModifyGuildForm = (props:props) => {
         </Name>
         <hr />
         <Div2>
-          <Body1 children={'평균 난이도'} color={colors.White} />
-          <Spacer space={'1vh'}></Spacer>
-          <DropDown2
-            id={'1'}
-            borderRadius={'5px'}
-            setSelectValue={setSelecDifficulty}
-            height={'30px'}
-            values={Difficulty}
-            bgColor={colors.White}
-            fontcolor={colors.Black}
-            selectedValue={selectDifficulty}
-          ></DropDown2>
           <Spacer space={'1vh'}></Spacer>
 
           <Body1 children={'수용인원'} color={colors.White} />
@@ -156,19 +124,6 @@ const ModifyGuildForm = (props:props) => {
           ></DropDown>
           <Spacer space={'1vh'}></Spacer>
 
-          <Body1 children={'예상 할당 문제수'} color={colors.White} />
-          <Spacer space={'1vh'}></Spacer>
-          <DropDown
-            id={'1'}
-            borderRadius={'5px'}
-            setSelectValue={setSelectProblemCapacity}
-            height={'30px'}
-            values={[1, 2, 3]}
-            bgColor={colors.White}
-            fontcolor={colors.Black}
-            selectedValue={selectProblemCapacity}
-          ></DropDown>
-
           <Spacer space={'1vh'}></Spacer>
 
           <Body1 children={'사용언어'} color={colors.White} />
@@ -178,7 +133,7 @@ const ModifyGuildForm = (props:props) => {
             borderRadius={'5px'}
             setSelectValue={setSelectLanguage}
             height={'30px'}
-            values={['python', 'Java', 'C++']}
+            values={['PYTHON', 'JAVA', 'CPP']}
             bgColor={colors.White}
             fontcolor={colors.Black}
             selectedValue={selectLanguage}

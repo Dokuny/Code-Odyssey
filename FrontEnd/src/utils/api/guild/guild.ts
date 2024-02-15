@@ -70,3 +70,13 @@ export const guildRole = async (guild_id: number) => {
   const data = await tokenInstance.get(`/guilds/${guild_id}/me/role`);
   return data && data.data;
 };
+
+export const getGuildInfo = async (guild_id: number) => {
+  const data = await tokenInstance.get(`/guilds/${guild_id}/edit`);
+  return data && data.data;
+};
+
+export const putGuildInfo = async (guild_id: number, value:any) => {
+  const data = await tokenInstance.put(`/guilds/${guild_id}`, value);
+  return data && data.data;
+};
