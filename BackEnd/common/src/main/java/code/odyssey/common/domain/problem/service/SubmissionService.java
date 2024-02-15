@@ -204,4 +204,8 @@ public class SubmissionService {
         return streakInfoList;
     }
 
+    // 개인 유형별 푼 문제 수 조회
+    public List<SolvedNumsByType> getSolvedNumsByType(Long memberId) {
+        return submissionRepository.getSolvedNumsByType(memberId);
+    }
 }

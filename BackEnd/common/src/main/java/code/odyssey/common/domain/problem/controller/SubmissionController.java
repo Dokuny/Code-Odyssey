@@ -101,4 +101,15 @@ public class SubmissionController {
 
     }
 
+    // 개인 유형별 푼 문제 수 조회
+    @GetMapping("/solved-nums/type")
+    public ResponseEntity<List<SolvedNumsByType>> getSolvedNumsByType(
+            @RequestHeader("X-Authorization-Id") Long memberId
+
+    ) {
+        List<SolvedNumsByType> submissionNumsByType = submissionService.getSolvedNumsByType(memberId);
+        return ResponseEntity.ok(submissionNumsByType);
+
+    }
+
 }
