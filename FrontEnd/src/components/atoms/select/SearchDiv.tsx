@@ -18,6 +18,7 @@ interface SearchDivProps {
 }
 
 const StyledBox = styled.div`
+  width: 50%;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -25,15 +26,16 @@ const StyledBox = styled.div`
 
 const StyledSelect = styled.select`
   border: none;
-  background-color: ${colors.DarkGray[100]};
+  background-color: ${colors.GrayBlue[200]};
   font-size: 0.8em;
-  color: ${colors.White};
+  color: ${colors.Black};
   width: 25%;
+  height: 100%;
   padding: 0.6vmin;
-  border-radius: 0.5em;
+  border-radius: 1em;
   text-align: center;
-  box-shadow: 1px 3px 1px ${colors.DarkGray[600]};
   box-sizing: border-box;
+  /* font-weight: bold; */
 `;
 
 const SearchDiv = (props: SearchDivProps) => {
@@ -60,8 +62,8 @@ const SearchDiv = (props: SearchDivProps) => {
               {option.name}
             </option>
           ))}
-        </StyledSelect>
-        <StyledSelect value={props.selectedCategory} onChange={(e: { target: { value: SetStateAction<string> } }) => props.setSelectedCategory(e.target.value)}>
+        </StyledSelect >
+        <StyledSelect style={{width:"35%"}} value={props.selectedCategory} onChange={(e: { target: { value: SetStateAction<string> } }) => props.setSelectedCategory(e.target.value)}>
           {categoryList.map((option) => (
             <option key={option.value} value={option.value === '' ? '' : option.value} disabled={option.value === '' && true}>
               {option.name}
@@ -69,15 +71,15 @@ const SearchDiv = (props: SearchDivProps) => {
           ))}
         </StyledSelect>
       </StyledBox>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '2vmin', width: '100%' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '2vmin', width: '50%', position:"relative" }}>
         <BasicInput placeholder={'문제 찾아보기'} setInput={props.setSearchInput} input={props.searchInput} fontSize='0.8em' onKeyUp={handleKeyUp} />
         <IoMdSearch
           size={'1.5em'}
-          color={colors.White}
+          color={colors.Black}
           onClick={() => {
             props.setInput(props.searchInput);
           }}
-          style={{ cursor: 'pointer' }}
+          style={{ cursor: 'pointer', position:'absolute', right:'5px' }}
         />
       </div>
     </>
