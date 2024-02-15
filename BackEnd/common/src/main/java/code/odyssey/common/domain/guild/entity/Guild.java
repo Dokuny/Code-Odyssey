@@ -9,46 +9,57 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import org.apache.commons.codec.language.bm.Lang;
 
 import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder @Getter
+@Builder
+@Getter
 @Entity
 public class Guild extends BaseEntity {
 
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "guild_id")
-    @Id
-    private Long id;
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "guild_id")
+	@Id
+	private Long id;
 
-    @Column(nullable = false)
-    private String name;
+	@Column(nullable = false)
+	private String name;
 
-    @Column
-    private String image;
+	@Column
+	private String image;
 
-    @Lob
-    private String introduction;
+	@Lob
+	private String introduction;
 
-    @Column
-    private Integer capacity;
+	@Column
+	private Integer capacity;
 
-    @Column
-    private LocalDateTime disbandedAt;
+	@Column
+	private LocalDateTime disbandedAt;
 
-    @Enumerated(STRING)
-    private LanguageType language;
+	@Enumerated(STRING)
+	private LanguageType language;
 
-    @Column
-    private Integer difficulty;
+	@Column
+	private Integer difficulty;
 
-    @Column
-    private Integer problemCapacity;
+	@Column
+	private Integer problemCapacity;
 
-    public void changeTier(Integer tier) {
-        this.difficulty = tier;
-    }
+	public void changeTier(Integer tier) {
+		this.difficulty = tier;
+	}
+
+	public void editInfo(String name, String introduction, String image, Integer capacity,
+		LanguageType language) {
+		this.name = name;
+		this.introduction = introduction;
+		this.image = image;
+		this.capacity = capacity;
+		this.language = language;
+	}
 }
