@@ -1,5 +1,6 @@
 package code.odyssey.common.domain.problem.repository;
 
+import code.odyssey.common.domain.problem.dto.SolvedNumsByType;
 import code.odyssey.common.domain.problem.dto.SubmissionListInfo;
 import code.odyssey.common.domain.problem.entity.Submission;
 import code.odyssey.common.domain.problem.entity.enums.ProblemType;
@@ -105,6 +106,18 @@ public interface SubmissionRepository extends JpaRepository<Submission, Long> {
             "JOIN s.member m " +
             "WHERE s.problem.id = :problemId")
     Page<SubmissionListInfo> getSubmissionListByProblemId(@Param("problemId")Long problemId, Pageable pageable);
+
+
+    // 개인 유형별 푼 문제 수 조회
+    @Query("SELECT NEW code.odyssey.common.domain.problem.dto.SolvedNumsByType(" +
+            "p.type, COUNT(s.id)) " +
+            "FROM Submission s " +
+            "JOIN s.problem p " +
+            "WHERE s.member.id = :memberId " +
+            "AND p.type != 'RANDOM' " +
+            "GROUP BY p.type")
+    public List<SolvedNumsByType> getSolvedNumsByType(@Param("memberId") Long memberId);
+
 
 
 }

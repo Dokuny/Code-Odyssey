@@ -1,10 +1,15 @@
 package code.odyssey.common.domain.guild.service;
 
 import static code.odyssey.common.domain.guild.exception.GuildErrorCode.NOT_EXISTS_GUILD;
+import static code.odyssey.common.domain.guild.exception.GuildErrorCode.NOT_EXISTS_GUILD_MEMBER;
+import static code.odyssey.common.domain.guild.exception.GuildErrorCode.NO_AUTHENTICATION;
+import static code.odyssey.common.domain.guild.exception.GuildErrorCode.NO_UNDER_CAPACITY;
 import static code.odyssey.common.domain.member.exception.MemberErrorCode.NOT_EXISTS_MEMBER;
 
 import code.odyssey.common.domain.guild.dto.GuildCreateRequest;
 import code.odyssey.common.domain.guild.dto.GuildDetailInfo;
+import code.odyssey.common.domain.guild.dto.GuildEditInfo;
+import code.odyssey.common.domain.guild.dto.GuildEditRequest;
 import code.odyssey.common.domain.guild.dto.GuildInfo;
 import code.odyssey.common.domain.guild.dto.GuildSearchCond;
 import code.odyssey.common.domain.guild.dto.GuildSearchInfo;
@@ -138,11 +143,50 @@ public class GuildService {
 		return guildInfoRepository.getGuildProblemTypes(guildId);
 	}
 
+	@Transactional(readOnly = true)
 	public List<GuildStreakInfo> getGuildStreak(Long guildId) {
 		return guildInfoRepository.getGuildStreakInfo(guildId);
 	}
 
+	@Transactional(readOnly = true)
 	public List<ProblemTypeCountInfo> getProblemTypeCount(Long guildId) {
 		return guildInfoRepository.getGuildProblemCount(guildId);
+	}
+
+	@Transactional(readOnly = true)
+	public GuildEditInfo getGuildEditInfo(Long guildId) {
+		Guild guild = guildRepository.findById(guildId)
+			.orElseThrow(() -> new GuildException(NOT_EXISTS_GUILD));
+
+		Long curCapacity = guildMemberRepository.countGuildMembers(guildId);
+
+		return GuildEditInfo.builder()
+			.guildId(guild.getId())
+			.introduce(guild.getIntroduction())
+			.currentCapacity(curCapacity.intValue())
+			.totalCapacity(guild.getCapacity())
+			.thumbnail(guild.getImage())
+			.guildName(guild.getName())
+			.languageType(guild.getLanguage())
+			.build();
+	}
+
+	public void editGuildInfo(Long memberId, Long guildId, GuildEditRequest request) {
+		GuildMember master = guildMemberRepository.findByMemberInGuild(guildId, memberId)
+			.filter(guildMember -> guildMember.getRole().equals(GuildRole.MASTER))
+			.orElseThrow(() -> new GuildException(NO_AUTHENTICATION));
+
+		Guild guild = guildRepository.findById(guildId)
+			.orElseThrow(() -> new GuildException(NOT_EXISTS_GUILD));
+
+		Long curCapacity = guildMemberRepository.countGuildMembers(guildId);
+
+		if (request.getCapacity() < curCapacity.intValue()) {
+			throw new GuildException(NO_UNDER_CAPACITY);
+		}
+
+		guild.editInfo(request.getGuildName(), request.getIntroduce(), request.getThumbnail(),
+			request.getCapacity(), request.getLanguageType());
+
 	}
 }
