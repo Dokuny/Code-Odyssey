@@ -16,11 +16,10 @@ const ProblemRecommend = () => {
   ]);
 
   const [problemData, setProblemData] = useState([]);
-
+  const [openImg,setOpenImg] = useState(false);
   const fetchData = async () => {
     const MySprint = await getMySprint(); // 가져오기
     const RecommendSprint = await getRecommendSprint(); // 스프린트 추천
-
     if (MySprint.length !== 0) {
       setDailyData(MySprint);
       setProblemData(RecommendSprint);
@@ -31,6 +30,7 @@ const ProblemRecommend = () => {
 
   useEffect(() => {
     fetchData();
+    setOpenImg(true);
   }, []);
 
   const submit = async () => {
@@ -43,7 +43,7 @@ const ProblemRecommend = () => {
     <>
       <DailyCardList data={dayilyData} setDailyData={setDailyData} submit={submit} />
       <Spacer space={'2vmin'} />
-      <ProblemCardList data={problemData} />
+      <ProblemCardList data={problemData} openImg={openImg}/>
     </>
   );
 };
