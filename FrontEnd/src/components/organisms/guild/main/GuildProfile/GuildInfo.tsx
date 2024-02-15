@@ -30,38 +30,31 @@ interface GuildInfoProps {
 }
 
 const GuildInfo = (props: GuildInfoProps) => {
-  const [statisticData, setStatisticData] = useState([]);
+  const [statisticData, setStatisticData] = useState([
+    { type: 'dp', score: 0 },
+    { type: 'string', score: 0 },
+    { type: 'bruteforce', score: 0 },
+    { type: 'graphs', score: 0 },
+    { type: 'math', score: 0 },
+    { type: 'greedy', score: 0 },
+    { type: 'geometry', score: 0 },
+    { type: 'implementation', score: 0 },
+    { type: 'implementation2', score: 0 },
+    { type: 'implementation3', score: 0 },
+  ]);
   const [strictData, setStrictData] = useState([]);
-  const [rankData, setRankData] = useState<Array<any>>([]);
+  const [rankData, setRankData] = useState<Array<any>>([{ id: 'rank', data: [] }]);
 
   useEffect(() => {
-    if (statisticData.length === 0) {
-      const fetchData = async () => {
-        const statisticFetchData = await getGuildStatistic(props.guild_id);
-        setStatisticData(statisticFetchData);
-      };
-      fetchData();
-    }
-  }, [props.guild_id, statisticData.length]);
-
-  useEffect(() => {
-    if (strictData.length === 0) {
-      const fetchData = async () => {
-        const strictFetchData = await getGuildStrict(props.guild_id);
-        setStrictData(strictFetchData);
-      };
-      fetchData();
-    }
-  }, [props.guild_id, strictData.length]);
-
-  useEffect(() => {
-    if (rankData.length === 0) {
-      const fetchData = async () => {
-        const typeCountFetchData = await getGuildTypeCnt(props.guild_id);
-        setRankData([{ id: 'solved', data: typeCountFetchData }]);
-      };
-      fetchData();
-    }
+    const fetchData = async () => {
+      const statisticFetchData = await getGuildStatistic(props.guild_id);
+      setStatisticData(statisticFetchData);
+      const typeCountFetchData = await getGuildTypeCnt(props.guild_id);
+      setRankData([{ id: 'solved', data: typeCountFetchData }]);
+      const strictFetchData = await getGuildStrict(props.guild_id);
+      setStrictData(strictFetchData);
+    };
+    fetchData();
   }, [props.guild_id, rankData.length]);
 
   return (
@@ -73,7 +66,7 @@ const GuildInfo = (props: GuildInfoProps) => {
           <MyResponsiveRadar data={statisticData} />
         </StyledGraphContentContainer>
         <StyledGraphContentContainer>
-          <Header3 children={'Guild Rank'} color={colors.Gray[300]} fontWeight={'bold'} />
+          <Header3 children={'Solved Count'} color={colors.Gray[300]} fontWeight={'bold'} />
           <MyResponsiveLine data={rankData} />
         </StyledGraphContentContainer>
       </StyledGraphContainer>
