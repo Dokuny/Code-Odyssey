@@ -13,6 +13,7 @@ import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 
@@ -32,6 +33,7 @@ import static code.odyssey.common.domain.problem.entity.QSubmission.submission;
 import static com.querydsl.core.group.GroupBy.groupBy;
 import static com.querydsl.core.group.GroupBy.list;
 
+@Slf4j
 @RequiredArgsConstructor
 @Repository
 public class GuildSprintRepositoryImpl implements GuildSprintRepositoryCustom {
@@ -134,15 +136,21 @@ public class GuildSprintRepositoryImpl implements GuildSprintRepositoryCustom {
                 .groupBy(member.id)
                 .fetch();
 
-        long solvedCnt = guildMembers.stream().filter(RetrospectiveGuildMemberInfo::getIsSolved)
-                .count();
+        int percent = 0;
 
+        long solvedCnt = guildMembers.stream().filter(RetrospectiveGuildMemberInfo::getIsSolved)
+            .count();
+
+        if (!guildMembers.isEmpty()) {
+            percent = (int) solvedCnt * 100 / guildMembers.size();
+        }
+        
         return RetrospectGuildProblemInfo.builder()
                 .guildProblemId(guildProblemId)
                 .problemId(problemInfo.getProblem().getId())
                 .title(problemInfo.getProblem().getTitle())
                 .type(problemInfo.getProblem().getType().name().replace("_", " "))
-                .percent((int) solvedCnt * 100 / guildMembers.size())
+                .percent(percent)
                 .guildMember(guildMembers)
                 .build();
     }
