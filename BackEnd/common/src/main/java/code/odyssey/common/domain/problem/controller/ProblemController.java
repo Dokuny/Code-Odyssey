@@ -57,4 +57,13 @@ public class ProblemController {
     }
 
 
+    @GetMapping("/recommend")
+    public ResponseEntity<SearchResultInfo> getProblemList(
+            @RequestHeader("X-Authorization-Id") Long memberId,
+            @RequestParam("guild_id")Long guildId
+    ){
+
+        return ResponseEntity.ok(problemService.getRecommendProblem(guildId));
+    }
+
 }
