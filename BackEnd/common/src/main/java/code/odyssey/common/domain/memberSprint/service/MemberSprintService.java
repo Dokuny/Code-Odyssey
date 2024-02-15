@@ -54,13 +54,20 @@ public class MemberSprintService {
                 return MemberSprint.builder()
                     .member(member)
                     .day(scheduleInfo.getDay())
-                    .recommendType(scheduleInfo.getRecommendedType())
+                    .recommendType(convertToProblemType(scheduleInfo.getRecommendedType()))
                     .recommendDifficulty(convertLevelToInteger(scheduleInfo.getRecommendedDifficulty()))
                     .build();
             })
             .toList();
 
         memberSprintRepository.saveAll(sprintSchedules);
+    }
+
+    private ProblemType convertToProblemType(ProblemType type) {
+        if (type == ProblemType.RANDOM) {
+            return null;
+        }
+        return type;
     }
 
     private Integer convertLevelToInteger(DifficultyLevel recommendDifficulty) {
@@ -115,7 +122,7 @@ public class MemberSprintService {
                         difficulty,
                         PageRequest.of(0, 4));
             } else if (difficulty == 0) { // 랜덤 난이도
-                if (ptype == ProblemType.RANDOM) { // 랜덤 유형 -> 사용자 티어로 추천
+                if (ptype == null) { // 랜덤 유형 -> 사용자 티어로 추천
                     Score score = scoreRepository.findStatsByMemberId(memberId)
                             .orElseThrow(() -> new ScoreException(ScoreErrorCode.NO_AVAILABLE_SCORES));
                     Integer tier = score.getTier();
