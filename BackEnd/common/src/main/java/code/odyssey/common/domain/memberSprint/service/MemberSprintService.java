@@ -122,7 +122,7 @@ public class MemberSprintService {
                         difficulty,
                         PageRequest.of(0, 4));
             } else if (difficulty == 0) { // 랜덤 난이도
-                if (ptype == null) { // 랜덤 유형 -> 사용자 티어로 추천
+                if (ptype == null || ptype == ProblemType.RANDOM) { // 랜덤 유형 -> 사용자 티어로 추천
                     Score score = scoreRepository.findStatsByMemberId(memberId)
                             .orElseThrow(() -> new ScoreException(ScoreErrorCode.NO_AVAILABLE_SCORES));
                     Integer tier = score.getTier();
@@ -137,7 +137,7 @@ public class MemberSprintService {
                         PageRequest.of(0, 4));
 
             } else { // 실버, 브론즈, 등의 난이도
-                if (ptype == ProblemType.RANDOM) { // 문제 유형이 랜덤
+                if (ptype == null || ptype == ProblemType.RANDOM) { // 문제 유형이 랜덤
                     return memberSprintRepository.getRecommendedProblemsRandom(
                             memberId,
                             difficulty,
