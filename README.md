@@ -33,7 +33,7 @@
 2. 백준, SWEA 여러 플랫폼에 **분산되어 있는 문제들😫! 코드 오디세이가 통합**시켜 놓았어요. 또한 내가 공략하고 싶은 유형들과 난이도를 자유롭게 선택해 문제를 풀 수 있어요. <br>
 3. 스터디를 할 때 문제 고르는 데 시간을 많이 빼앗기지 않으셨나요? 저희는 여러분의 고민을 해결하기 위해 **문제 자동 추천 기능**을 넣었어요😮! <br>
 4. 나의 성실함을 확인하기 위한 **개인 스프린트 관리 기능** 제공! 일요일에 마음이 흔들려도 북두칠성으로 동기부여를 시켜드립니다. 문제를 풀고 스프린트를 채우며 얻는 별자리✨와 함께 능률 up! <br>
-5. 다른 멋쟁이와 하고 싶다면? 간편하게 **길드 생성과 길드 가입**이 가능해요! 또한 스프린트가 끝나면 길드 탈퇴를 하고 다른 길드를 찾아 떠날 수 있어요🏹. <br>
+5. 다른 동료들과 함께 하고 싶다면? 간편하게 **길드 생성과 길드 가입**이 가능해요! 또한 스프린트가 끝나면 길드 탈퇴를 하고 다른 길드를 찾아 떠날 수 있어요🏹. <br>
 6. 길드원들이 편리하게 코드 리뷰를 할 수 있도록 **코드 동시 편집이 가능한 IDE, 화상채팅, 텍스트 채팅창**이 제공됩니다! <br>
 7. 하얀색 배경이 눈이 아픈 분들을 위해 **다크 모드🌙**도 제공되요. <br>
 8. 스프린트 회고를 통한 **코드리뷰** 기능 제공📘! <br>
@@ -113,4 +113,4 @@
 - 길드 IDE: 화상 채팅 / 공동 ide 작업 <br>
   ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/3ee35e12-4e66-4f42-a366-d73e2f10acdd/%EA%B8%B8%EB%93%9CIDE.gif?id=4c8a9188-062b-41c7-8f4d-a3dcc4f0e2d6&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708099200000&signature=iQz47Po5fSEg-i3M2pFrnmLkqNEkia9LRT2Wkh-V87U)
 - 제출: 익스텐션을 활용한 제출 <br>
-  ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/815165a1-06a6-4bdc-a941-96327b389369/%EC%A0%9C%EC%B6%9C.gif?id=027d6292-57ea-44e2-9384-8bd766a10d0b&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708099200000&signature=pZCT7yU91cTdlygn1-bSrD9y9bs7lfwTH3DQ_qygXnc)
+  ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/82cb3ffa-914e-4e1c-aaaf-e29d0c5b1407/%EC%A0%9C%EC%B6%9C.gif?id=90631ad9-30a0-4407-8f3f-9c64d5aa56c5&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708106400000&signature=qrE23f2V6uGN1Xg-8A2a4t2_DMIxXJsDyqCP1PoQ4mU)
