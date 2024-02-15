@@ -89,18 +89,7 @@ const SprintDropDown: React.FC<SprintDropDownProps> = ({ option, data, type, sel
         </StyledSelect>
       </Div1>
       <StyledScroll>
-      {type === 'difficulty'
-        ? data.map(
-          (
-            data // difficulty 일때,
-            ) => data.difficulty.toString() === selectedValue && <CheckCard {...data} />
-            )
-            : 
-          data.map(
-          (
-            data // TypeBy 일때,
-            ) => data.type === selectedValue && <CheckCard {...data} />
-            )}
+        {data.map((data) => <CheckCard {...data} /> )}
       </StyledScroll>
     </StyledContainer>
   );
