@@ -88,7 +88,7 @@ const DailyCard = (props: DailyCardProps) => {
   };
 
   const changeLevels: any = [
-    ['난이도', '난이도'],
+    ['RANDOM', 'RANDOM'],
     ['BRONZE', '브론즈'],
     ['SILVER', '실버'],
     ['GOLD', '골드'],
@@ -98,7 +98,7 @@ const DailyCard = (props: DailyCardProps) => {
   ];
 
   const changeAlgocate: [string, string][] = [
-    ['유형', '유형'],
+    ['RANDOM', 'RANDOM'],
     ['STRING', '문자열'],
     ['MATH', '수학'],
     ['DATA_STRUCTURE', '자료구조'],

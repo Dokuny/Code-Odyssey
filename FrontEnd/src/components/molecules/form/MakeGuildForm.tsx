@@ -129,8 +129,7 @@ const MakeGuildForm = () => {
   const [imgFile, setImgFile] = useState('');
   const imgRef = useRef<HTMLInputElement>(null);
 
-  const Difficulty = [['난이도','난이도'],
-                      [1,'브론즈'],
+  const Difficulty = [[1,'브론즈'],
                       [6,'실버'],
                       [11,'골드'],
                       [16,'플레티넘'],
