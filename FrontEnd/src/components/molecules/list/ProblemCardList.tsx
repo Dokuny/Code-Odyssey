@@ -29,7 +29,8 @@ interface ProblemCardListProps {
     difficulty: string;
     type: string;
     no: string;
-  }[];
+  }[],
+  openImg : boolean;
 }
 
 const ProblemCardList = (props: ProblemCardListProps) => {
@@ -56,7 +57,7 @@ const ProblemCardList = (props: ProblemCardListProps) => {
           </div>
         ))}
       </ProblemDiv>
-      <NoProblemsImg style={{ display: props.data.length === 0 ? 'inline' : 'none' }} src='/images/algorithm/noProblems.png'></NoProblemsImg>
+      { props.openImg ===true && <NoProblemsImg style={{ display: props.data.length === 0 ? 'inline' : 'none' }} src='/images/algorithm/noProblems.png'></NoProblemsImg>}
     </>
   );
 };
