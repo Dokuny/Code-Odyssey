@@ -9,7 +9,6 @@
 
 - [**배포 URL**](https://code-odyssey.site)
 - [**Figma**](https://www.figma.com/file/gJTep9xJ6uxj917nVChNYN/Code-Odyssey?type=design&node-id=887-10799&mode=design&t=0hpjIXHhOmR3zUKm-0)
-- [**Notion**](https://uhyeon19.notion.site/Code-Odyssey-176a90bb75564a2980c44128225a21f8?pvs=4)
 - [**Miro**](https://miro.com/welcomeonboard/OVlkbWlxVm5jOFFVVmFPVmFzQTJHNXVxUmw0dmZaam5UYnp5MFl2SmJkTEpucTV4c084ZjFBNUpJanlsalEwTXwzNDU4NzY0NTYxNzcxNzYzMTE0fDI=?share_link_id=338933870121)
 - [**ERD**](https://aquerytool.com/aquerymain/index/?rurl=bb21a37d-a7a5-4e28-bafb-0ede78d3e284&) (pw: jj0gl5)
 
