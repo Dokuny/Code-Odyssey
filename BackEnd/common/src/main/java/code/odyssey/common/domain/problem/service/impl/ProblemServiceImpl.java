@@ -83,6 +83,11 @@ public class ProblemServiceImpl implements ProblemService {
         Collections.sort(averageDifficultyList);
 
         log.info("Problem Average : {}", averageDifficultyList);
+
+        if(averageDifficultyList.size()==0){
+            throw new ProblemException(NOT_EXIST_PROBLEM);
+        }
+
         ProblemTypeCountInfo min = averageDifficultyList.get(0);
         return dslRepository.getRandomProblems(ProblemRequestDto.builder().difficulty(min.getY()).type(ProblemType.valueOf(min.getX())).build(), PageRequest.of(0,10));
 
