@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 import { colors } from '../../../../config/Color';
-import { Body2, Header1, Header2, Header3 } from '../../../atoms/basic/Typography';
-import { SetStateAction, useEffect, useState } from 'react';
-import DropDown from '../../../atoms/select/Dropdown';
+import { Body2 } from '../../../atoms/basic/Typography';
+import { useEffect, useState } from 'react';
 import { Spacer } from '../../../atoms/basic/Spacer';
 import DropDown2 from '../../../atoms/select/Dropdown2';
 
@@ -70,58 +69,65 @@ interface DailyCardProps {
   setData: React.Dispatch<React.SetStateAction<{ day: string; recommendedDifficulty: string; recommendedType: string }[]>>;
 }
 
-interface AlgoDataProps {
-  key: string;
-  value: string;
-}
-
 // const DailyCard = (props: DailyCardProps) => {
 const DailyCard = (props: DailyCardProps) => {
-  const AlgoData: AlgoDataProps[] = [
-    { key: 'math', value: '/images/code_odyssey/algo_pics/algoPic1.png' },
-    { key: 'DP', value: '/images/code_odyssey/algo_pics/algoPic2.png' },
-    { key: 'Brute-Force', value: '/images/code_odyssey/algo_pics/algoPic3.png' },
+  const AlgoData: any = {
+    AD_HOC: '/images/algorithm/AD_HOC.png',
+    BINARY_SEARCH: '/images/algorithm/BINARY_SEARCH.png',
+    BRUTE_FORCE: '/images/algorithm/BRUTE_FORCE.png',
+    DATA_STRUCTURE: '/images/algorithm/DATA_STRUCTURE.png',
+    DP: '/images/algorithm/DP.png',
+    GRAPH: '/images/algorithm/GRAPH.png',
+    GREEDY: '/images/algorithm/GREEDY.png',
+    MATH: '/images/algorithm/MATH.png',
+    SHORTEST_PATH: '/images/algorithm/SHORTEST_PATH.png',
+    SIMULATION: '/images/algorithm/SIMULATION.png',
+    STRING: '/images/algorithm/STRING.png',
+    TREE: '/images/algorithm/TREE.png',
+    RANDOM: '/images/algorithm/RANDOM.png',
+  };
+
+  const changeLevels: any = [
+    ['난이도', '난이도'],
+    ['BRONZE', '브론즈'],
+    ['SILVER', '실버'],
+    ['GOLD', '골드'],
+    ['PLATINUM', '플레티넘'],
+    ['DIAMOND', '다이아'],
+    ['RUBY', '루비'],
   ];
 
-  const Levels = ['난이도', '브론즈', '실버', '골드', '플레티넘', '다이아', '루비'];
-  const algoCate = ['유형', '문자열', '수학', '자료구조', '브루트포스', '트리', '그래프', '애드훅', 'DP', 'BFS/DFS', '이진탐색', '그리디', '시뮬레이션'];
+  const changeAlgocate: [string, string][] = [
+    ['유형', '유형'],
+    ['STRING', '문자열'],
+    ['MATH', '수학'],
+    ['DATA_STRUCTURE', '자료구조'],
+    ['BRUTE_FORCE', '브루트포스'],
+    ['TREE', '트리'],
+    ['GRAPH', '그래프'],
+    ['AD_HOC', '애드훅'],
+    ['DP', 'DP'],
+    ['SHORTEST_PATH', 'BFS/DFS'],
+    ['BINARY_SEARCH', '이진탐색'],
+    ['GREEDY', '그리디'],
+    ['SIMULATION', '시뮬레이션'],
+  ];
 
-  const changeLevels:any = [['난이도' , '난이도'], 
-                        ['BRONZE','브론즈'], 
-                        ['SILVER' , '실버'], 
-                        ['GOLD' ,'골드'] ,
-                        ['PLATINUM' , '플레티넘'] ,
-                        ['DIAMOND' , '다이아'] ,
-                        ['RUBY' ,'루비' ]];
-
-
-const changeAlgocate: [string, string][] = [
-                          ['유형', '유형'],
-                          ["STRING", '문자열'],
-                          ['MATH', '수학'],
-                          ['DATA_STRUCTURE', '자료구조'],
-                          ['BRUTE_FORCE', '브루트포스'],
-                          ['TREE', '트리'],
-                          ['GRAPH', '그래프'],
-                          ['AD_HOC', '애드훅'],
-                          ['DP', 'DP'],
-                          ['SHORTEST_PATH', 'BFS/DFS'],
-                          ['BINARY_SEARCH', '이진탐색'],
-                          ['GREEDY', '그리디'],
-                          ['SIMULATION', '시뮬레이션']
-                        ];
-  
-
-
-  const [srcData, setSrcData] = useState('/images/code_odyssey/algo_pics/algoPic1.png');
+  const [srcData, setSrcData] = useState('/images/algorithm/RANDOM.png');
   const [selectValueDifficulty, setSelectValueDifficulty] = useState(props.recommendedDifficulty);
   const [selectValueCategory, setSelectValueCategory] = useState(props.recommendedType);
 
-  useEffect(()=>{
-    setSelectValueDifficulty(props.recommendedDifficulty)
-    setSelectValueCategory(props.recommendedType)
-  },[props.recommendedDifficulty, props.recommendedType])
+  useEffect(() => {
+    setSelectValueDifficulty(props.recommendedDifficulty);
+    setSelectValueCategory(props.recommendedType);
+  }, [props.recommendedDifficulty, props.recommendedType]);
 
+  const categoryChanged = function (event: any) {
+    if (event.target.id === 'category') {
+      const selectedCategory = event.target.value;
+      setSrcData(AlgoData[selectedCategory]);
+    }
+  };
 
   useEffect(() => {
     props.setData((prevData) => {
@@ -137,14 +143,14 @@ const changeAlgocate: [string, string][] = [
   return (
     <DailyCardDiv>
       <HeaderDiv>
-        <Body2 children={props.day.slice(0,3)} color={'white'} />
+        <Body2 children={props.day.slice(0, 3)} color={'white'} />
       </HeaderDiv>
-      <ImageStyle src={srcData}></ImageStyle>
+      <ImageStyle src={props.recommendedType !== 'RANDOM' ? AlgoData[props.recommendedType] : srcData}></ImageStyle>
       <FooterDiv>
         <Wrapper
           id='problem'
           onChange={(event) => {
-            // categoryChanged(event);
+            categoryChanged(event);
           }}
         >
           <DropDown2

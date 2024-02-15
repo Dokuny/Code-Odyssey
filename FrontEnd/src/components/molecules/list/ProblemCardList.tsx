@@ -44,8 +44,8 @@ const ProblemCardList = (props: ProblemCardListProps) => {
       </HorizenDiv>
       <Spacer space={'2vmin'} />
       <ProblemDiv>
-        {props.data.map((value) => (
-          <div style={{ width: '25%' }}>
+        {props.data.map((value, idx) => (
+          <div style={{ width: '25%' }} key={idx}>
             <ProblemCard key={value.id} data={value} />
           </div>
         ))}

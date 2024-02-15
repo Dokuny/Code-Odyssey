@@ -106,9 +106,21 @@ interface ProblemCardProps {
   data: { id: string; title: string; platform: string; difficulty: string; type: string; no: string };
 }
 
-const imageSrc = '/images/code_odyssey/algo_pics/algoPic1.png';
-
 const ProblemCard = (props: ProblemCardProps) => {
+  const AlgoData: any = {
+    AD_HOC: '/images/algorithm/AD_HOC.png',
+    BINARY_SEARCH: '/images/algorithm/BINARY_SEARCH.png',
+    BRUTE_FORCE: '/images/algorithm/BRUTE_FORCE.png',
+    DATA_STRUCTURE: '/images/algorithm/DATA_STRUCTURE.png',
+    DP: '/images/algorithm/DP.png',
+    GRAPH: '/images/algorithm/GRAPH.png',
+    GREEDY: '/images/algorithm/GREEDY.png',
+    MATH: '/images/algorithm/MATH.png',
+    SHORTEST_PATH: '/images/algorithm/SHORTEST_PATH.png',
+    SIMULATION: '/images/algorithm/SIMULATION.png',
+    STRING: '/images/algorithm/STRING.png',
+    TREE: '/images/algorithm/TREE.png',
+  };
   const clickSolve = () => {
     window.open(`/my/ide?problem_id=${props.data.id}`, '_blank');
   };
@@ -124,7 +136,7 @@ const ProblemCard = (props: ProblemCardProps) => {
           <Caption1 children={props.data.no} color={colors.White} />
         </TextDiv>
       </HeaderDiv>
-      <ImageStyle src={imageSrc} />
+      <ImageStyle src={AlgoData[props.data.type]} />
       <FooterDiv>
         <Div1>
           <Spacer space={'1vh'}></Spacer>
