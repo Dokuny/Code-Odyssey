@@ -12,6 +12,7 @@ const StyledContainer = styled.div`
 const StyledScrollDiv = styled.div`
   display: flex;
   height: 67vh;
+  padding: 1vmin;
   flex-direction: column;
   overflow: scroll;
   -ms-overflow-style: none; /* 인터넷 익스플로러 */
