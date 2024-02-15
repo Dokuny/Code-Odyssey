@@ -1,4 +1,4 @@
-import { Body1, Body3 } from '../../../atoms/basic/Typography';
+import { Body1, Body2, Body3 } from '../../../atoms/basic/Typography';
 import { colors } from '../../../../config/Color';
 import MainTopCard from '../../../molecules/card/basic/MainTopCard';
 import SelectBar from '../../../molecules/buttonBar/SelectBar';
@@ -22,7 +22,7 @@ const GuildSprint = (props: GuildSprintProps) => {
         src={'/images/code_odyssey/GuildSprintBg.svg'}
         title={
           <div style={{ display: 'flex' }}>
-            <Body1 children={'Code Odyssey'} color={colors.Gray[100]} fontWeight={'bold'} fontStyle='Eagle Lake' />
+            <Body2 children={'Code Odyssey'} color={colors.Gray[100]} fontWeight={'bold'} fontStyle='Eagle Lake' />
             <Body1 children={'에서 항해하기'} color={colors.Gray[100]} fontWeight={'bold'} />
           </div>
         }

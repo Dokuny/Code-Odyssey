@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Spacer } from '../../../atoms/basic/Spacer';
 import GuildSearch from './GuildFind/GuildSearch';
 import GuildRecommend from './GuildFind/GuildRecommend';
-import { Body1, Body3 } from '../../../atoms/basic/Typography';
+import { Body1, Body2, Body3 } from '../../../atoms/basic/Typography';
 import { colors } from '../../../../config/Color';
 import { findGuild } from '../../../../utils/api/guild/guild';
 
@@ -50,7 +50,7 @@ const GuildFind = () => {
         src={'/images/code_odyssey/WaitingBg.svg'}
         title={
           <div style={{ display: 'flex' }}>
-            <Body1 children={'Code Odyssey'} color={colors.Gray[100]} fontWeight={'bold'} fontStyle='Eagle Lake' />
+            <Body2 children={'Code Odyssey'} color={colors.Gray[100]} fontWeight={'bold'} fontStyle='Eagle Lake' />
             <Body1 children={'에서 길드 찾기'} color={colors.Gray[100]} fontWeight={'bold'} />
           </div>
         }
