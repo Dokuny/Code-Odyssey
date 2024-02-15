@@ -7,15 +7,13 @@ import GuildFindList from '../../../../molecules/list/GuildFindList';
 import SelectBar from '../../../../molecules/buttonBar/SelectBar';
 import { getRecommendDifficult, getRecommendSimilar, getRecommendWeak } from '../../../../../utils/api/guild/guild';
 
-const GuildRecomment = () => {
+const GuildRecommend = () => {
   const [data, setData] = useState<Array<any>>([]);
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
-    console.log('이거니?')
     const fetchData = async () => {
       if (activeIndex === 0) {
-        console.log('이거야')
         const data = await getRecommendWeak();
         setData(data);
       } else if (activeIndex === 1) {
@@ -57,4 +55,4 @@ const GuildRecomment = () => {
   );
 };
 
-export default GuildRecomment;
+export default GuildRecommend;

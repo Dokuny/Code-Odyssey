@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Spacer } from '../../atoms/basic/Spacer';
 import SelectProblemButton from '../../atoms/button/SelectProblemButton';
+import { sprintProblemRecommend } from '../../../utils/api/guild/sprint/guildsprint';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -28,20 +29,19 @@ interface GuildProblemRecommentFormProps {
   rightListData: Array<any>;
   setRightListData: React.Dispatch<React.SetStateAction<any[]>>;
   setProblemId: React.Dispatch<React.SetStateAction<number>>;
+  guild_id: number;
 }
 
-const GuildProblemRecommentForm = (props: GuildProblemRecommentFormProps) => {
+const GuildProblemRecommendForm = (props: GuildProblemRecommentFormProps) => {
   const [data, setData] = useState<Array<any>>([]);
 
   useEffect(() => {
-    setData([
-      { difficulty: 6, problem_id: 1, title: 'test1', platform: 'BOJ' },
-      { difficulty: 2, problem_id: 2, title: 'test2', platform: 'BOJ' },
-      { difficulty: 4, problem_id: 3, title: 'test3', platform: 'BOJ' },
-      { difficulty: 3, problem_id: 4, title: 'test4', platform: 'BOJ' },
-      { difficulty: 5, problem_id: 5, title: 'test5', platform: 'BOJ' },
-    ]);
-  }, []);
+    const fetchData = async () => {
+      const fetchData = await sprintProblemRecommend(props.guild_id);
+      setData(fetchData.data);
+    };
+    fetchData();
+  }, [props.guild_id]);
 
   return (
     <StyledContainer>
@@ -66,4 +66,4 @@ const GuildProblemRecommentForm = (props: GuildProblemRecommentFormProps) => {
   );
 };
 
-export default GuildProblemRecommentForm;
+export default GuildProblemRecommendForm;
