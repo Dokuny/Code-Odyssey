@@ -8,7 +8,7 @@ const StyledImage = styled.div`
   position: relative;
   width: 100%;
   height: 100vh;
-  background-image: url('/images/code_odyssey/SidebarMyPage.svg');
+  background-image: url('/images/code_odyssey/SidebarMyPage.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
