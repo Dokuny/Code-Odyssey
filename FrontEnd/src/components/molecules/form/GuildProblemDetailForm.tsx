@@ -63,7 +63,7 @@ const GuildProblemDetailForm = (props: GuildProblemDetailFormProps) => {
         {detailProblemData && (
           <>
             <HtmlTypography htmlContent={detailProblemData.detail} fontSize={'0.8em'} />
-            <Body3 children={'[제한]'} color={colors.Black} fontWeight={'bold'} />
+            {/* <Body3 children={'[제한]'} color={colors.Black} fontWeight={'bold'} />
             <Spacer space={'1vmin'} />
             <Caption1 children={detailProblemData.memory} color={colors.Black} />
             <Spacer space={'1vmin'} />
@@ -77,7 +77,7 @@ const GuildProblemDetailForm = (props: GuildProblemDetailFormProps) => {
             <Spacer space={'1vmin'} />
             <Body3 children={'[예시 출력]'} color={colors.Black} fontWeight={'bold'} />
             <Spacer space={'1vmin'} />
-            <Caption1 children={detailProblemData.output} color={colors.Black} />
+            <Caption1 children={detailProblemData.output} color={colors.Black} /> */}
           </>
         )}
       </StyledScrollDiv>
