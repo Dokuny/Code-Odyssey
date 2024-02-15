@@ -14,6 +14,13 @@ const HorizenDiv = styled.div`
   background-color: ${colors.Gray[500]};
 `;
 
+const NoProblemsImg = styled.img`
+  display: none;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+`;
+
 interface ProblemCardListProps {
   data: {
     id: string;
@@ -50,6 +57,7 @@ const ProblemCardList = (props: ProblemCardListProps) => {
           </div>
         ))}
       </ProblemDiv>
+      <NoProblemsImg style={{ display: props.data.length === 0 ? 'inline' : 'none' }} src='/images/algorithm/noProblems.png'></NoProblemsImg>
     </>
   );
 };
