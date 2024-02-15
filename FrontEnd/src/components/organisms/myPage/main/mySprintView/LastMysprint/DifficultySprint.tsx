@@ -14,10 +14,11 @@ interface Data {
 }
 
 const DifficultySprint = () => {
-  const [selectedValue, setSelectedValue] = useState('select');
+  const [selectedValue, setSelectedValue] = useState('ALL');
   const [data, setData] = useState<Data[]>([]);
 
   const OPTIONS = [
+    { value: '0', name: '난이도' },
     { value: '1', name: '브론즈 5' },
     { value: '2', name: '브론즈 4' },
     { value: '3', name: '브론즈 3' },
@@ -52,12 +53,9 @@ const DifficultySprint = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (selectedValue !== 'select') {
         const result = await getDifficultySprint(selectedValue);
         console.log(result);
-        setData(result || [{}]); // result가 falsy일 경우 빈 배열로 설정
-      }
-      return;
+        setData(result || [{}]);
     };
     fetchData();
   }, [selectedValue]);

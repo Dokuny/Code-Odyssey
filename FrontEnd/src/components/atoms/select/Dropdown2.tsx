@@ -60,15 +60,9 @@ const DropDown2 = (props: SelectDropDownProps) => {
       value={props.selectedValue}
     >
       {props.values.map((ele: any, index: number) =>
-        index === 0 ? (
-          <option disabled value={ele[0]} key={index}>
-            {ele[1]}
-          </option>
-        ) : (
           <option value={ele[0]} key={index}>
             {ele[1]}
           </option>
-        )
       )}
     </SelectDropDown>
   );

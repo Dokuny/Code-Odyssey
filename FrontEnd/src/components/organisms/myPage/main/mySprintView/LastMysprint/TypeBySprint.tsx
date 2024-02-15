@@ -5,10 +5,11 @@ import { getTypeBySprint } from '../../../../../../utils/api/mypage/sprint/myspr
 
 
 const TypeBySprint = () => {
-  const [selectedValue, setSelectedValue] = useState('select');
+  const [selectedValue, setSelectedValue] = useState('ALL');
   const [data, setData] = useState([]);
   
   const OPTIONS = [
+    { value: 'RANDOM', name: '문제 유형' },
     { value: 'STRING', name: '문자열' },
     { value: 'MATH', name: '수학' },
     { value: 'DATA_STRUCTURE', name: '자료구조' },
@@ -23,10 +24,8 @@ const TypeBySprint = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (selectedValue !== 'select') {
-          const result = await getTypeBySprint(selectedValue);
-          setData(result); // result가 falsy일 경우 빈 배열로 설정
-      }
+        const result = await getTypeBySprint(selectedValue);
+        setData(result); // result가 falsy일 경우 빈 배열로 설정
     };
     
     fetchData();

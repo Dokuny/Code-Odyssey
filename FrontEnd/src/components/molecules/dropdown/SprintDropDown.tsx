@@ -81,18 +81,6 @@ const SprintDropDown: React.FC<SprintDropDownProps> = ({ option, data, type, sel
       <Div1>
         <Circle />
         <StyledSelect value={selectedValue} onChange={(e: any) => setSelectedValue(e.target.value)}>
-          {type === 'difficulty' && (
-            <option value='select' disabled>
-              난이도
-            </option>
-          )}
-
-          {type === 'typeby' && (
-            <option value='select' disabled>
-              문제유형
-            </option>
-          )}
-
           {option.map((opt) => (
             <option key={opt.value} value={opt.value}>
               {opt.name}
