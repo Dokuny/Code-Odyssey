@@ -73,15 +73,17 @@ const GuildProfileDetailCard = (props: GuildProfileDetailCardProps) => {
   const [role, setRole] = useState('');
 
   useEffect(() => {
-    const fetchData = async () => {
-      const fetchData = await guildDetail(props.guild_id);
-      setData(fetchData);
-      if (fetchData.in_guild) {
-        const role = await guildRole(props.guild_id);
-        setRole(role);
-      }
-    };
-    fetchData();
+    if (props.guild_id !==2) {
+      const fetchData = async () => {
+        const fetchData = await guildDetail(props.guild_id);
+        setData(fetchData);
+        if (fetchData.in_guild) {
+          const role = await guildRole(props.guild_id);
+          setRole(role);
+        }
+      };
+      fetchData();
+    }
   }, [props.guild_id]);
 
   const clickJoinOrExit = async () => {
