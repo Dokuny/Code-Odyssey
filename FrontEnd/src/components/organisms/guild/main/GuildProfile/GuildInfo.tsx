@@ -58,7 +58,6 @@ const GuildInfo = (props: GuildInfoProps) => {
     if (rankData.length === 0) {
       const fetchData = async () => {
         const typeCountFetchData = await getGuildTypeCnt(props.guild_id);
-        console.log(typeCountFetchData);
         setRankData([{ id: 'solved', data: typeCountFetchData }]);
       };
       fetchData();

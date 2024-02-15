@@ -92,7 +92,6 @@ const GuildProfileDetailCard = (props: GuildProfileDetailCardProps) => {
     } else if (data && !data.in_guild) {
       const result = await guildRequest(props.guild_id);
       if (result) {
-        console.log(result);
         alert('가입 신청 되었습니다.');
       }
     }

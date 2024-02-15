@@ -33,7 +33,6 @@ interface ProblemCardListProps {
 }
 
 const ProblemCardList = (props: ProblemCardListProps) => {
-  console.log(props);
   return (
     <>
       <div style={{ display: 'flex', alignItems: 'center', padding: '1vmin' }}>

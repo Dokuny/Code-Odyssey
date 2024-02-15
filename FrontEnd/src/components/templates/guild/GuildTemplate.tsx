@@ -45,7 +45,6 @@ const GuildTemplate = (props: GuildTemplateProps) => {
   const GuildSelectProps = props.GuildSelectProps;
 
   useEffect(() => {
-    console.log(props.guild_id);
     if (props.guild_id > 0) setActiveMenuIndex(2);
     else setActiveMenuIndex(0);
   }, [props.guild_id]);

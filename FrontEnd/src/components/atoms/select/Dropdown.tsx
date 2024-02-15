@@ -23,6 +23,7 @@ const SelectDropDown = styled.select<{
   fontSize: string;
   fontcolor: string;
 }>`
+  font-family: 'SBAggroM';
   display: inline-block;
   text-align: center;
   margin: 0;

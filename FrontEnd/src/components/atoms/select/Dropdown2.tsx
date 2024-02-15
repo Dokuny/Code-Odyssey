@@ -23,6 +23,7 @@ const SelectDropDown = styled.select<{
   fontSize: string;
   fontcolor: string;
 }>`
+  font-family: 'SBAggroM';
   display: inline-block;
   text-align: center;
   margin: 0;
@@ -59,11 +60,11 @@ const DropDown2 = (props: SelectDropDownProps) => {
       fontcolor={props.fontcolor || `${colors.Gray[500]}`}
       value={props.selectedValue}
     >
-      {props.values.map((ele: any, index: number) =>
-          <option value={ele[0]} key={index}>
-            {ele[1]}
-          </option>
-      )}
+      {props.values.map((ele: any, index: number) => (
+        <option value={ele[0]} key={index}>
+          {ele[1]}
+        </option>
+      ))}
     </SelectDropDown>
   );
 };

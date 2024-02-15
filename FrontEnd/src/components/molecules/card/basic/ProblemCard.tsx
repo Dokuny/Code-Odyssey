@@ -63,7 +63,6 @@ const ImageStyle = styled.img`
 `;
 
 const FooterDiv = styled.div`
-  /* background-color: ${colors.Gray[700]}; */
   padding-left: 1.5vmin;
   padding-right: 1.5vmin;
   box-sizing: border-box;
@@ -74,6 +73,7 @@ const FooterDiv = styled.div`
 `;
 
 const DetailButton = styled.button`
+  font-family: 'SBAggroM';
   color: ${colors.GrayBlue[400]};
   width: 100%;
   height: 30px;
@@ -81,7 +81,7 @@ const DetailButton = styled.button`
   background-color: ${colors.Gray[700]};
   border: 1px solid ${colors.Gray[300]};
   transition: box-shadow 0.3s ease-in-out;
-  font-size: 0.6rem;
+  font-size: 0.8rem;
 
   &:hover {
     box-shadow: 0 0 0 1px ${colors.Gray[300]};
@@ -142,7 +142,7 @@ const ProblemCard = (props: ProblemCardProps) => {
           <Spacer space={'1vh'}></Spacer>
           <Body3 children={props.data.title.length > 10 ? `${props.data.title.slice(0, 10)}...` : props.data.title} color={colors.White} />
           <Spacer space={'5px'}></Spacer>
-          <Caption1 children={props.data.type} color={colors.White} />
+          <Caption1 children={'# ' + props.data.type} color={colors.White} />
         </Div1>
         <SeperateDiv>
           <DetailButton onClick={clickSolve}>풀러가기</DetailButton>

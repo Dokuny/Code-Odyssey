@@ -36,10 +36,6 @@ const StyledFriendListContainer = styled.div`
 const RightSidebar = () => {
   const [activeFriend, setActiveFriend] = useState<number | null>(null);
 
-  useEffect(() => {
-    console.log(activeFriend);
-  }, [activeFriend]);
-
   return (
     <StyledContainer>
       <RightSidebarLogo />
@@ -54,7 +50,7 @@ const RightSidebar = () => {
       <Spacer space={'0.5vh'} />
 
       <StyledFriendListContainer>
-        <MusicBot/>
+        <MusicBot />
       </StyledFriendListContainer>
     </StyledContainer>
   );
