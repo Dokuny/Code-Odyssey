@@ -33,6 +33,15 @@ const StyledContainer = styled.div`
 
   padding: 0 10px 10px 10px;
 `;
+
+const StyledScroll = styled.div`
+  overflow: scroll;
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+  &::-webkit-scrollbar {
+    display: none; /* 크롬, 사파리, 오페라, 엣지 */
+  }
+`
 const MyCalender = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState('');
@@ -85,7 +94,9 @@ const MyCalender = () => {
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <Body1 children={selectedDate} color={colors.White} fontWeight={'bold'} fontStyle='Eagle Lake'></Body1>
           </div>
-          {data.map((data) => format(data.createdAt, 'yyyy.MM.d') === selectedDate && <CheckCard {...data} />)}
+          <StyledScroll>
+            {data.map((data) => format(data.createdAt, 'yyyy.MM.d') === selectedDate && <CheckCard {...data} />)}
+          </StyledScroll>
           <Spacer space={'1vw'}></Spacer>
           <BasicButton
             event={() => setIsTodaySprintOpen(!isTodaySprintOpen)}
