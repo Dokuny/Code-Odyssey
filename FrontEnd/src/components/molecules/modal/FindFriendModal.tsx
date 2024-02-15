@@ -106,17 +106,11 @@ const FindFriendModal: React.FC<Props> = ({ isOpen, closeModal }) => {
     { src: 'https://picsum.photos/300', member_id: 10, name: 'FriendName10', state: 'started', time: '20 min ago' },
   ]);
 
-  useEffect(() => {
-    console.log(input);
-  }, [input]);
-
   const Close = () => {
     closeModal();
   };
 
-  const AddFriend = (memberId: any) => {
-    console.log(memberId);
-  };
+  const AddFriend = (memberId: any) => {};
 
   return (
     <StyledDiv isOpen={isOpen}>

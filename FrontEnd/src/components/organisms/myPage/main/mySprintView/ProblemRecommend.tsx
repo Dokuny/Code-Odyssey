@@ -6,13 +6,13 @@ import { getMySprint, getRecommendSprint, postMySprint } from '../../../../../ut
 
 const ProblemRecommend = () => {
   const [dayilyData, setDailyData] = useState([
-    { day: 'MONDAY', recommendedDifficulty: '난이도', recommendedType: '유형' },
-    { day: 'TUEDAY', recommendedDifficulty: '난이도', recommendedType: '유형' },
-    { day: 'WEDDAY', recommendedDifficulty: '난이도', recommendedType: '유형' },
-    { day: 'THUDAY', recommendedDifficulty: '난이도', recommendedType: '유형' },
-    { day: 'FRIDAY', recommendedDifficulty: '난이도', recommendedType: '유형' },
-    { day: 'SATDAY', recommendedDifficulty: '난이도', recommendedType: '유형' },
-    { day: 'SUNDAY', recommendedDifficulty: '난이도', recommendedType: '유형' },
+    { day: 'MONDAY', recommendedDifficulty: 'RANDOM', recommendedType: 'RANDOM' },
+    { day: 'TUESDAY', recommendedDifficulty: 'RANDOM', recommendedType: 'RANDOM' },
+    { day: 'WEDNESDAY', recommendedDifficulty: 'RANDOM', recommendedType: 'RANDOM' },
+    { day: 'THURSDAY', recommendedDifficulty: 'RANDOM', recommendedType: 'RANDOM' },
+    { day: 'FRIDAY', recommendedDifficulty: 'RANDOM', recommendedType: 'RANDOM' },
+    { day: 'SATURDAY', recommendedDifficulty: 'RANDOM', recommendedType: 'RANDOM' },
+    { day: 'SUNDAY', recommendedDifficulty: 'RANDOM', recommendedType: 'RANDOM' },
   ]);
 
   const [problemData, setProblemData] = useState([]);
@@ -34,14 +34,6 @@ const ProblemRecommend = () => {
   }, []);
 
   const submit = async () => {
-    const filteredData = dayilyData.filter((item) => {
-      return item.recommendedDifficulty === '난이도' && item.recommendedType === '유형';
-    });
-
-    if (filteredData.length) {
-      alert('스프린트 값이 올바르지 않습니다');
-      return;
-    }
     // 만약 난이도, 유형이 값이 있다면
     await postMySprint({ scheduleInfoList: dayilyData });
     fetchData();

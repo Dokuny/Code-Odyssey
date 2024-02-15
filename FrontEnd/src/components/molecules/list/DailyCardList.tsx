@@ -18,6 +18,7 @@ const HorizenDiv = styled.div`
 `;
 
 const DetailButton = styled.button`
+  font-family: 'SBAggroB';
   margin-top: 10px;
   color: ${colors.GrayBlue[400]};
   width: 10%;
@@ -26,7 +27,7 @@ const DetailButton = styled.button`
   background-color: ${colors.Gray[700]};
   border: 1px solid ${colors.Gray[300]};
   transition: box-shadow 0.3s ease-in-out;
-  font-size: 0.7rem;
+  font-size: 0.9rem;
   margin-left: auto;
 
   &:hover {
@@ -41,7 +42,7 @@ interface DailyCardlistProps {
     recommendedType: string;
   }[];
   setDailyData: React.Dispatch<React.SetStateAction<{ day: string; recommendedDifficulty: string; recommendedType: string }[]>>;
-  submit : () => void;
+  submit: () => void;
 }
 
 const DailyCardList = (props: DailyCardlistProps) => {
@@ -64,7 +65,7 @@ const DailyCardList = (props: DailyCardlistProps) => {
       <Spacer space={'2vmin'} />
       <DailyCardDiv>
         {props.data.map((value, index) => (
-          <DailyCard key={index} day={value.day} recommendedDifficulty={value.recommendedDifficulty} recommendedType={value.recommendedType} setData={props.setDailyData} ></DailyCard>
+          <DailyCard key={index} day={value.day} recommendedDifficulty={value.recommendedDifficulty} recommendedType={value.recommendedType} setData={props.setDailyData}></DailyCard>
         ))}
       </DailyCardDiv>
     </>

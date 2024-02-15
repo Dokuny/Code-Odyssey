@@ -14,10 +14,7 @@ function startLoader() {
       stopLoader();
       try {
         const bojData = await parseData();
-        // console.log(bojData);
-      } catch (error) {
-        // console.log(error);
-      }
+      } catch (error) {}
     }
   }, 2000);
 }

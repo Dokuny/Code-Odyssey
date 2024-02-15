@@ -3,12 +3,13 @@ import BasicInput from '../../../atoms/input/BasicInput';
 import { useEffect, useState } from 'react';
 import { Spacer } from '../../../atoms/basic/Spacer';
 import GuildSearch from './GuildFind/GuildSearch';
-import GuildRecomment from './GuildFind/GuildRecomment';
+import GuildRecommend from './GuildFind/GuildRecommend';
 import { Body1, Body3 } from '../../../atoms/basic/Typography';
 import { colors } from '../../../../config/Color';
 import { findGuild } from '../../../../utils/api/guild/guild';
 
 const GuildFind = () => {
+  const [stack, setStack] = useState<any>([]);
   const [searchInput, setSearchInput] = useState('');
   const [resultInput, setResultInput] = useState('');
   const [data, setData] = useState<any>([]);
@@ -20,6 +21,7 @@ const GuildFind = () => {
       const fetchData = async () => {
         const fetchdata = await findGuild({ keyword: searchInput }); //guild id
         setData(fetchdata);
+        setStack((prev: any) => [...prev, ...fetchdata]);
       };
 
       fetchData();
@@ -27,18 +29,18 @@ const GuildFind = () => {
   };
 
   const onClick = () => {
-    if (data[7]) {
-      const fetchData = async () => {
-        const fetchdata = await findGuild({ keyword: searchInput, guildId: data[7].guild_id }); //guild id
-        setData(fetchdata);
-      };
-      fetchData();
-    }
+    const fetchData = async () => {
+      const fetchdata = await findGuild({ keyword: searchInput, guildId: data[7].guild_id }); //guild id
+      setData(fetchdata);
+      setStack((prev: any) => [...prev, ...fetchdata]);
+    };
+    fetchData();
   };
 
   useEffect(() => {
     if (searchInput === '') {
       setResultInput('');
+      setStack([]);
     }
   }, [searchInput]);
 
@@ -60,7 +62,7 @@ const GuildFind = () => {
         }
       />
       <Spacer space={'6vmin'} />
-      {resultInput === '' || searchInput === '' ? <GuildRecomment /> : <GuildSearch searchInput={resultInput} data={data} onClick={onClick} />}
+      {resultInput === '' || searchInput === '' ? <GuildRecommend /> : <GuildSearch searchInput={resultInput} data={data} stack={stack} onClick={onClick} />}
     </>
   );
 };

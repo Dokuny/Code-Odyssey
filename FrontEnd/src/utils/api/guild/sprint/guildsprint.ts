@@ -59,3 +59,8 @@ export const sprintProblemSearch = async (keyword: string, type: string | null, 
   const data = await tokenInstance.get(`/problems?keyword=${keyword}&type=${type}&difficulty=${difficulty}&platform=${platform}&page=${page}&size=${size}`);
   return data && data.data;
 };
+
+export const sprintProblemRecommend = async (guild_id: number) => {
+  const data = await tokenInstance.get(`/problems/recommend?guild_id=${guild_id}`);
+  return data && data.data;
+};

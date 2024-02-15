@@ -12,8 +12,7 @@ import static code.odyssey.common.domain.problem.entity.enums.ProblemType.SIMULA
 import static code.odyssey.common.domain.problem.entity.enums.ProblemType.STRING;
 import static code.odyssey.common.domain.problem.entity.enums.ProblemType.TREE;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -56,7 +55,27 @@ public class ProblemTypeInfo {
 		return map;
 	}
 
+
+	public Set<ProblemTypeCountInfo> toComparableMap(){
+
+		Set<ProblemTypeCountInfo> map = new HashSet<>();
+		map.add(new ProblemTypeCountInfo(SIMULATION.name(), this.simulation));
+		map.add(new ProblemTypeCountInfo(DATA_STRUCTURE.name(), this.dataStructure));
+		map.add(new ProblemTypeCountInfo(GRAPH.name(), this.graph));
+		map.add(new ProblemTypeCountInfo(STRING.name(), this.string));
+		map.add(new ProblemTypeCountInfo(BRUTE_FORCE.name(), this.bruteForce));
+		map.add(new ProblemTypeCountInfo(SIMULATION.name(), this.simulation));
+		map.add(new ProblemTypeCountInfo(TREE.name(), this.tree));
+		map.add(new ProblemTypeCountInfo(AD_HOC.name(), this.adHoc));
+		map.add(new ProblemTypeCountInfo(DP.name(), this.dp));
+		map.add(new ProblemTypeCountInfo(SHORTEST_PATH.name(), this.shortestPath));
+		map.add(new ProblemTypeCountInfo(GREEDY.name(), this.greedy));
+		map.add(new ProblemTypeCountInfo(MATH.name(), this.math));
+
+		return map;
+	}
+
 	public static ProblemTypeInfo empty() {
-		return new ProblemTypeInfo(0L, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		return new ProblemTypeInfo(0L, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0);
 	}
 }

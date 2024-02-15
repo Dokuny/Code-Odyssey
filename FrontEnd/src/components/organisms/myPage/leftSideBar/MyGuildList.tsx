@@ -13,7 +13,7 @@ const StyledGuildContainer = styled.div`
   padding-bottom: 1.5em;
   padding-top: 1.5em;
   background-color: rgba(60, 60, 60, 0.1);
-  box-shadow: ${colors.Gray[800]} -2em -0.5em 2em -0.5em, ${colors.Gray[700]} -0.5em 2em 2em -0.5em;
+  box-shadow: ${colors.Gray[700]} -2em -0.5em 2em -0.5em, ${colors.Gray[600]} -0.5em 2em 2em -0.5em;
   overflow: scroll;
   -ms-overflow-style: none; /* 인터넷 익스플로러 */
   scrollbar-width: none; /* 파이어폭스 */

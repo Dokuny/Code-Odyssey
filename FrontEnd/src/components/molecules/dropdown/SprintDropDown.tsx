@@ -52,6 +52,7 @@ const Circle = styled.div`
 `;
 
 const StyledSelect = styled.select`
+  font-family: 'SBAggroM';
   border: none;
   background-color: #4a4458;
   font-size: 16px;
@@ -66,24 +67,21 @@ const StyledSelect = styled.select`
   }
 `;
 
+const StyledScroll = styled.div`
+  overflow: scroll;
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+  &::-webkit-scrollbar {
+    display: none; /* 크롬, 사파리, 오페라, 엣지 */
+  }
+`;
+
 const SprintDropDown: React.FC<SprintDropDownProps> = ({ option, data, type, selectedValue, setSelectedValue }) => {
   return (
     <StyledContainer>
       <Div1>
         <Circle />
         <StyledSelect value={selectedValue} onChange={(e: any) => setSelectedValue(e.target.value)}>
-          {type === 'difficulty' && (
-            <option value='select' disabled>
-              난이도
-            </option>
-          )}
-
-          {type === 'typeby' && (
-            <option value='select' disabled>
-              문제유형
-            </option>
-          )}
-
           {option.map((opt) => (
             <option key={opt.value} value={opt.value}>
               {opt.name}
@@ -91,17 +89,9 @@ const SprintDropDown: React.FC<SprintDropDownProps> = ({ option, data, type, sel
           ))}
         </StyledSelect>
       </Div1>
-      {type === 'difficulty'
-        ? data.map(
-            (
-              data // difficulty 일때,
-            ) => data.difficulty.toString() === selectedValue && <CheckCard {...data} />
-          )
-        : data.map(
-            (
-              data // TypeBy 일때,
-            ) => data.type === selectedValue && <CheckCard {...data} />
-          )}
+      <StyledScroll>
+        {data.map((data) => <CheckCard {...data} /> )}
+      </StyledScroll>
     </StyledContainer>
   );
 };

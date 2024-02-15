@@ -11,7 +11,24 @@ const StyledTypography = styled.span<{ color: string; fontSize: number; fontWeig
   color: ${(props) => props.color};
   font-weight: ${(props) => props.fontWeight};
   font-size: ${(props) => props.fontSize}px;
-  font-family: ${(props) => props.fontStyle || 'PyeongChangPeace-Bold'}, cursive;
+  font-family: ${(props) => props.fontStyle || 'SBAggroB'}, cursive;
+  white-space: pre-line;
+  ${(props) => css`
+    @media (max-width: 1368px) {
+      font-size: ${(props.fontSize - 4) / 12}rem;
+    }
+
+    @media (max-width: 1180px) {
+      font-size: ${(props.fontSize - 4) / 16}rem;
+    }
+  `}
+`;
+
+const StyledBasicTypography = styled.span<{ color: string; fontSize: number; fontWeight: string | number; fontStyle: string | undefined }>`
+  color: ${(props) => props.color};
+  font-weight: ${(props) => props.fontWeight};
+  font-size: ${(props) => props.fontSize}px;
+  font-family: ${(props) => props.fontStyle || ''}, cursive;
   white-space: pre-line;
   ${(props) => css`
     @media (max-width: 1368px) {
@@ -62,4 +79,44 @@ export const Caption2 = (props: TypographyProps) => {
 
 export const Caption3 = (props: TypographyProps) => {
   return <StyledTypography color={props.color} fontSize={8} fontWeight={props.fontWeight || ''} children={props.children} fontStyle={props.fontStyle} />;
+};
+
+export const BasicHeader1 = (props: TypographyProps) => {
+  return <StyledBasicTypography color={props.color} fontSize={44} fontWeight={props.fontWeight || ''} children={props.children} fontStyle={props.fontStyle} />;
+};
+
+export const BasicHeader2 = (props: TypographyProps) => {
+  return <StyledBasicTypography color={props.color} fontSize={36} fontWeight={props.fontWeight || ''} children={props.children} fontStyle={props.fontStyle} />;
+};
+
+export const BasicHeader3 = (props: TypographyProps) => {
+  return <StyledBasicTypography color={props.color} fontSize={28} fontWeight={props.fontWeight || ''} children={props.children} fontStyle={props.fontStyle} />;
+};
+
+export const BasicHeader4 = (props: TypographyProps) => {
+  return <StyledBasicTypography color={props.color} fontSize={24} fontWeight={props.fontWeight || ''} children={props.children} fontStyle={props.fontStyle} />;
+};
+
+export const BasicBody1 = (props: TypographyProps) => {
+  return <StyledBasicTypography color={props.color} fontSize={20} fontWeight={props.fontWeight || ''} children={props.children} fontStyle={props.fontStyle} />;
+};
+
+export const BasicBody2 = (props: TypographyProps) => {
+  return <StyledBasicTypography color={props.color} fontSize={16} fontWeight={props.fontWeight || ''} children={props.children} fontStyle={props.fontStyle} />;
+};
+
+export const BasicBody3 = (props: TypographyProps) => {
+  return <StyledBasicTypography color={props.color} fontSize={14} fontWeight={props.fontWeight || ''} children={props.children} fontStyle={props.fontStyle} />;
+};
+
+export const BasicCaption1 = (props: TypographyProps) => {
+  return <StyledBasicTypography color={props.color} fontSize={12} fontWeight={props.fontWeight || ''} children={props.children} fontStyle={props.fontStyle} />;
+};
+
+export const BasicCaption2 = (props: TypographyProps) => {
+  return <StyledBasicTypography color={props.color} fontSize={10} fontWeight={props.fontWeight || ''} children={props.children} fontStyle={props.fontStyle} />;
+};
+
+export const BasicCaption3 = (props: TypographyProps) => {
+  return <StyledBasicTypography color={props.color} fontSize={8} fontWeight={props.fontWeight || ''} children={props.children} fontStyle={props.fontStyle} />;
 };

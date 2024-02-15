@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../../config/Color';
 import { Body1, Body2} from '../../atoms/basic/Typography';
@@ -6,9 +6,9 @@ import BasicInput from '../../atoms/input/BasicInput';
 import { Spacer } from '../../atoms/basic/Spacer';
 import MDEditor from '@uiw/react-md-editor';
 import DropDown from '../../atoms/select/Dropdown';
-import { ref, getDownloadURL, deleteObject, uploadBytes } from 'firebase/storage'
+import { ref, getDownloadURL, uploadBytes } from 'firebase/storage'
 import { fstorage } from '../../../firebase';
-import { createGuild } from '../../../utils/api/guild/guild';
+import DropDown2 from '../../atoms/select/Dropdown2';
 
 interface props{
   guild_id : number;
@@ -20,13 +20,19 @@ const ModifyGuildForm = (props:props) => {
   const [selectDifficulty, setSelecDifficulty] = useState('1');
   const [selectCapacity, setSelectCapacity] = useState('1');
   const [selectProblemCapacity, setSelectProblemCapacity] = useState('1');
-  const [selectLanguage, setSelectLanguage] = useState('python');
+  const [selectLanguage, setSelectLanguage] = useState('PYTHON');
   const [imgFile, setImgFile] = useState("");
   const imgRef = useRef<HTMLInputElement>(null);
 
-  const Difficulty = Array.from({ length: 30 }, (_, index) => index + 1);
+
+  const Difficulty = [['난이도','난이도'],
+                      [1,'브론즈'],
+                      [6,'실버'],
+                      [11,'골드'],
+                      [16,'플레티넘'],
+                      [21,'다이아몬드'],
+                      [26,'루비']];
   const Capacity = Array.from({ length: 10 }, (_, index) => index + 1);
-  
   useEffect(() => {
     const fetchData = async () => {
     //   const data = await getGuildInfo(props.guild_id)
@@ -55,29 +61,9 @@ const ModifyGuildForm = (props:props) => {
 
 
   const onClickEvent = async () => {
-    // 만약 길드 이미지가 있었다면 삭제후 업로드
-    if (imgFile) {
-    }
-    // 만약 길드 이미지가 없었다면 바로 업로드
-    const fileInput = imgRef.current;
-    if (fileInput?.files?.length) {
-        const file: File = fileInput.files[0]
-        try {        
-          //이미지 업로드
-          const storageRef = ref(fstorage, `images/${file.name}`);
-          await uploadBytes( storageRef, file );
-
-          //이미지 가져오기
-          const url = await getDownloadURL(storageRef);       
-          setImgFile(url);
-        } catch (error) {
-          console.error("Error uploading image:", error);
-        }
-        }   
-
-    const data = {
+    let data = {
       name: GuildName,
-      image: imgFile, // '' 으로 저장되면..? -> 기본값 출력하기로
+      image: imgFile,
       introduction: value,
       capacity: parseInt(selectCapacity, 10),
       language: selectLanguage,
@@ -85,9 +71,21 @@ const ModifyGuildForm = (props:props) => {
       problemCapacity: parseInt(selectProblemCapacity, 10),
     };
 
-    // changeGuild()
-    console.log(data)
-  }
+    const fileInput = imgRef.current;
+    if (fileInput?.files?.length) {
+      const file: File = fileInput.files[0];
+      const storageRef = ref(fstorage, `firebase/${file.name}`);
+      await uploadBytes(storageRef, file);
+      const url = await getDownloadURL(ref(fstorage, `firebase/${file.name}`));
+      data = {
+        ...data,
+        image: url,
+      };
+    }
+
+    // await createGuild(data);
+    window.location.reload();
+  };
 
 
   // 이미지 업로드 input의 onChange
@@ -132,7 +130,7 @@ const ModifyGuildForm = (props:props) => {
         <Div2>
           <Body1 children={'평균 난이도'} color={colors.White} />
           <Spacer space={'1vh'}></Spacer>
-          <DropDown
+          <DropDown2
             id={'1'}
             borderRadius={'5px'}
             setSelectValue={setSelecDifficulty}
@@ -141,7 +139,7 @@ const ModifyGuildForm = (props:props) => {
             bgColor={colors.White}
             fontcolor={colors.Black}
             selectedValue={selectDifficulty}
-          ></DropDown>
+          ></DropDown2>
           <Spacer space={'1vh'}></Spacer>
 
           <Body1 children={'수용인원'} color={colors.White} />

@@ -8,7 +8,7 @@ import Divider from '../../../../../atoms/basic/Divider';
 import BasicButton from '../../../../../atoms/button/BasicButton';
 import GuildProblemDetailForm from '../../../../../molecules/form/GuildProblemDetailForm';
 import GuildProblemSelectForm from '../../../../../molecules/form/GuildProblemSelectForm';
-import GuildProblemRecommentForm from '../../../../../molecules/form/GuildProblemRecommentForm';
+import GuildProblemRecommendForm from '../../../../../molecules/form/GuildProblemRecommendForm';
 import { sprintProblemAdd, sprintWaiting } from '../../../../../../utils/api/guild/sprint/guildsprint';
 
 const StyledContainer = styled.div`
@@ -96,7 +96,8 @@ const GuildFutureMakeProblem = (props: GuildFutureMakeProblemProps) => {
             />
           )}
           {activeIndex === 1 && (
-            <GuildProblemRecommentForm
+            <GuildProblemRecommendForm
+              guild_id={props.guild_id}
               setSelectedProblem={setSelectedProblem}
               selectedProblem={selectedProblem}
               rightListData={rightListData}

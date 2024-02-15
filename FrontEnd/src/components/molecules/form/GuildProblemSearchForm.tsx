@@ -21,21 +21,22 @@ const StyledContainer = styled.div`
 `;
 
 const StyledBox = styled.div`
+  width: 100%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
 `;
 
 const StyledSelect = styled.select`
   border: none;
-  background-color: ${colors.DarkGray[100]};
+  background-color: ${colors.GrayBlue[200]};
   font-size: 0.8em;
-  color: ${colors.White};
-  width: 25%;
-  padding: 0.6vmin;
-  border-radius: 0.5em;
+  color: ${colors.Black};
+  width: 30%;
+  height: 100%;
+  padding: 1.5vmin 0;
+  border-radius: 1em;
   text-align: center;
-  box-shadow: 1px 3px 1px ${colors.DarkGray[600]};
   box-sizing: border-box;
 `;
 
@@ -117,7 +118,7 @@ const GuildProblemSearchForm = (props: GuildProblemSearchFormProps) => {
             </option>
           ))}
         </StyledSelect>
-        <StyledSelect value={selectedCategory} onChange={(e: { target: { value: SetStateAction<string> } }) => setSelectedCategory(e.target.value)}>
+        <StyledSelect style={{width:"35%"}} value={selectedCategory} onChange={(e: { target: { value: SetStateAction<string> } }) => setSelectedCategory(e.target.value)}>
           {categoryList.map((option) => (
             <option key={option.value} value={option.value === '' ? '' : option.value} disabled={option.value === '' && true}>
               {option.name}
@@ -126,15 +127,15 @@ const GuildProblemSearchForm = (props: GuildProblemSearchFormProps) => {
         </StyledSelect>
       </StyledBox>
       <Spacer space={'1.5vmin'} />
-      <div style={{ display: 'flex', alignItems: 'center', gap: '2vmin' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '2vmin', position:"relative" }}>
         <BasicInput placeholder={'문제 찾아보기'} setInput={setSearchInput} input={searchInput} fontSize='0.8em' onKeyUp={handleKeyUp} />
         <IoMdSearch
           size={'1.5em'}
-          color={colors.White}
+          color={colors.Black}
           onClick={() => {
             setInput(searchInput);
           }}
-          style={{ cursor: 'pointer' }}
+          style={{ cursor: 'pointer', position:'absolute', right:'5px' }}
         />
       </div>
       <Spacer space={'1.5vmin'} />

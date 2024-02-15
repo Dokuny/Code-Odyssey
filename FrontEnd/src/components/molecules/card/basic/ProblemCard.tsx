@@ -63,7 +63,6 @@ const ImageStyle = styled.img`
 `;
 
 const FooterDiv = styled.div`
-  /* background-color: ${colors.Gray[700]}; */
   padding-left: 1.5vmin;
   padding-right: 1.5vmin;
   box-sizing: border-box;
@@ -74,6 +73,7 @@ const FooterDiv = styled.div`
 `;
 
 const DetailButton = styled.button`
+  font-family: 'SBAggroM';
   color: ${colors.GrayBlue[400]};
   width: 100%;
   height: 30px;
@@ -81,7 +81,7 @@ const DetailButton = styled.button`
   background-color: ${colors.Gray[700]};
   border: 1px solid ${colors.Gray[300]};
   transition: box-shadow 0.3s ease-in-out;
-  font-size: 0.6rem;
+  font-size: 0.8rem;
 
   &:hover {
     box-shadow: 0 0 0 1px ${colors.Gray[300]};
@@ -106,9 +106,21 @@ interface ProblemCardProps {
   data: { id: string; title: string; platform: string; difficulty: string; type: string; no: string };
 }
 
-const imageSrc = '/images/code_odyssey/algo_pics/algoPic1.png';
-
 const ProblemCard = (props: ProblemCardProps) => {
+  const AlgoData: any = {
+    AD_HOC: '/images/algorithm/AD_HOC.png',
+    BINARY_SEARCH: '/images/algorithm/BINARY_SEARCH.png',
+    BRUTE_FORCE: '/images/algorithm/BRUTE_FORCE.png',
+    DATA_STRUCTURE: '/images/algorithm/DATA_STRUCTURE.png',
+    DP: '/images/algorithm/DP.png',
+    GRAPH: '/images/algorithm/GRAPH.png',
+    GREEDY: '/images/algorithm/GREEDY.png',
+    MATH: '/images/algorithm/MATH.png',
+    SHORTEST_PATH: '/images/algorithm/SHORTEST_PATH.png',
+    SIMULATION: '/images/algorithm/SIMULATION.png',
+    STRING: '/images/algorithm/STRING.png',
+    TREE: '/images/algorithm/TREE.png',
+  };
   const clickSolve = () => {
     window.open(`/my/ide?problem_id=${props.data.id}`, '_blank');
   };
@@ -124,13 +136,13 @@ const ProblemCard = (props: ProblemCardProps) => {
           <Caption1 children={props.data.no} color={colors.White} />
         </TextDiv>
       </HeaderDiv>
-      <ImageStyle src={imageSrc} />
+      <ImageStyle src={AlgoData[props.data.type]} />
       <FooterDiv>
         <Div1>
           <Spacer space={'1vh'}></Spacer>
           <Body3 children={props.data.title.length > 10 ? `${props.data.title.slice(0, 10)}...` : props.data.title} color={colors.White} />
           <Spacer space={'5px'}></Spacer>
-          <Caption1 children={props.data.type} color={colors.White} />
+          <Caption1 children={'# ' + props.data.type} color={colors.White} />
         </Div1>
         <SeperateDiv>
           <DetailButton onClick={clickSolve}>풀러가기</DetailButton>

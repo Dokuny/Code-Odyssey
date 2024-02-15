@@ -8,6 +8,7 @@ import styled from 'styled-components';
 interface GuildSearchProps {
   searchInput: string;
   data: any;
+  stack: any;
   onClick: () => void;
 }
 
@@ -15,8 +16,9 @@ const StyledButton = styled.button`
   background-color: ${colors.GrayBlack};
   margin: 0 auto;
   margin-top: 1rem;
-  width: 5%;
-  aspect-ratio: 1;
+  padding: 10px;
+  width: 35px;
+  height: 35px;
   color: #fff;
   border: none;
   border-radius: 50%;
@@ -40,9 +42,9 @@ const GuildSearch = (props: GuildSearchProps) => (
     <Divider />
     <Spacer space={'1vmin'} />
 
-    <GuildFindList data={props.data} />
+    <GuildFindList data={props.stack} />
 
-    {props.data[-7] && (
+    {props.data[7] && (
       <StyledButton onClick={props.onClick}>
         <Body1 children={'+'} color={colors.White} />
       </StyledButton>

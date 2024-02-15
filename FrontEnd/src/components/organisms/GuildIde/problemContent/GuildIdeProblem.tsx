@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { colors } from '../../../../config/Color';
 import HtmlTypography from '../../../atoms/basic/HtmlTypography';
 import { Spacer } from '../../../atoms/basic/Spacer';
-import { Body3, Caption1 } from '../../../atoms/basic/Typography';
+import { BasicBody3, BasicCaption1 } from '../../../atoms/basic/Typography';
 
 const StyledScrollDiv = styled.div`
   display: flex;
@@ -28,21 +28,21 @@ const GuildIdeProblem = (props: GuildIdeProblemProps) => {
   return (
     <StyledScrollDiv>
       <HtmlTypography htmlContent={props.problemDetailData && props.problemDetailData.detail} fontSize={'0.8em'} />
-      <Body3 children={'[제한]'} color={colors.Black} fontWeight={'bold'} />
+      <BasicBody3 children={'[제한]'} color={colors.Black} fontWeight={'bold'} />
       <Spacer space={'1vmin'} />
-      <Caption1 children={props.problemDetailData.memory} color={colors.Black} />
+      <BasicCaption1 children={props.problemDetailData.memory} color={colors.Black} />
       <Spacer space={'1vmin'} />
-      <Caption1 children={props.problemDetailData.runtime} color={colors.Black} />
+      <BasicCaption1 children={props.problemDetailData.runtime} color={colors.Black} />
 
       <Spacer space={'1vmin'} />
-      <Body3 children={'[예시 입력]'} color={colors.Black} fontWeight={'bold'} />
+      <BasicBody3 children={'[예시 입력]'} color={colors.Black} fontWeight={'bold'} />
       <Spacer space={'1vmin'} />
-      <Caption1 children={props.problemDetailData.input} color={colors.Black} />
+      <BasicCaption1 children={props.problemDetailData.input} color={colors.Black} />
 
       <Spacer space={'1vmin'} />
-      <Body3 children={'[예시 출력]'} color={colors.Black} fontWeight={'bold'} />
+      <BasicBody3 children={'[예시 출력]'} color={colors.Black} fontWeight={'bold'} />
       <Spacer space={'1vmin'} />
-      <Caption1 children={props.problemDetailData.output} color={colors.Black} />
+      <BasicCaption1 children={props.problemDetailData.output} color={colors.Black} />
     </StyledScrollDiv>
   );
 };

@@ -34,11 +34,9 @@ if (isStatusWaiting()) {
       var token = "";
       chrome.storage.local.get("token", function (data) {
         token = data.token;
-        console.log(token);
       });
       // 상태 업데이트
       chrome.storage.local.get("switchState", function (data) {
-        console.log("extension : ", data.switchState);
         // 켜져있을 경우
         if (data.switchState) {
           const col = tr.children;
@@ -80,15 +78,9 @@ if (isStatusWaiting()) {
               if (response.ok) {
                 console.log("데이터를 성공적으로 서버로 보냈습니다.");
               } else {
-                console.log("서버로 데이터를 보내는 중 오류가 발생했습니다.");
               }
             })
-            .catch((error) => {
-              console.log(
-                "서버로 데이터를 보내는 중 오류가 발생했습니다.",
-                error
-              );
-            });
+            .catch((error) => {});
         }
         // 꺼져있을 경우
         else {

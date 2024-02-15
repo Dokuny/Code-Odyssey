@@ -31,7 +31,6 @@ function startLoader() {
     // 결과 페이지로 안내한다.
 
     if (getSolvedResult().includes("pass입니다")) {
-      console.log("정답이 나왔습니다. 코드를 파싱합니다");
       stopLoader();
       try {
         const { contestProbId } = await parseCode();
@@ -42,9 +41,7 @@ function startLoader() {
           + `contestProbId=${contestProbId}&`
           + `nickName=${getNickname()}&`
           + `extension=BaekjoonHub`);
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     }
   }, 2000);
 }
@@ -112,7 +109,6 @@ async function parseCode() {
  */
 async function updateProblemData(problemId, obj) {
   return getObjectFromLocalStorage("swea").then((data) => {
-    console.log(data);
     if (isNull(data[problemId])) data[problemId] = {};
     data[problemId] = { ...data[problemId], ...obj, save_date: Date.now() };
 
@@ -234,17 +230,13 @@ async function makeData(origin) {
     language: languages[language],
   };
 
-  console.log(data);
   // 토큰 가져옴
   var token = "";
   chrome.storage.local.get("token", function (data) {
     token = data.token;
-    console.log(token);
   });
   // 상태 업데이트
   chrome.storage.local.get("switchState", function (stat) {
-    console.log("extension : ", stat.switchState);
-
     if (stat.switchState) {
       // 제출 API
 
@@ -260,12 +252,9 @@ async function makeData(origin) {
           if (response.ok) {
             console.log("데이터를 성공적으로 서버로 보냈습니다.");
           } else {
-            console.log("서버로 데이터를 보내는 중 오류가 발생했습니다.");
           }
         })
-        .catch((error) => {
-          console.log("서버로 데이터를 보내는 중 오류가 발생했습니다.", error);
-        });
+        .catch((error) => {});
     } else {
       console.log("extension off");
     }

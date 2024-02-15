@@ -14,6 +14,13 @@ const HorizenDiv = styled.div`
   background-color: ${colors.Gray[500]};
 `;
 
+const NoProblemsImg = styled.img`
+  display: none;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+`;
+
 interface ProblemCardListProps {
   data: {
     id: string;
@@ -26,7 +33,6 @@ interface ProblemCardListProps {
 }
 
 const ProblemCardList = (props: ProblemCardListProps) => {
-  console.log(props);
   return (
     <>
       <div style={{ display: 'flex', alignItems: 'center', padding: '1vmin' }}>
@@ -44,12 +50,13 @@ const ProblemCardList = (props: ProblemCardListProps) => {
       </HorizenDiv>
       <Spacer space={'2vmin'} />
       <ProblemDiv>
-        {props.data.map((value) => (
-          <div style={{ width: '25%' }}>
+        {props.data.map((value, idx) => (
+          <div style={{ width: '25%' }} key={idx}>
             <ProblemCard key={value.id} data={value} />
           </div>
         ))}
       </ProblemDiv>
+      <NoProblemsImg style={{ display: props.data.length === 0 ? 'inline' : 'none' }} src='/images/algorithm/noProblems.png'></NoProblemsImg>
     </>
   );
 };
