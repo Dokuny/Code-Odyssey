@@ -12,5 +12,6 @@ public enum ProblemType {
     SHORTEST_PATH,
     BINARY_SEARCH,
     GREEDY,
-    MATH
+    MATH,
+    RANDOM
 }

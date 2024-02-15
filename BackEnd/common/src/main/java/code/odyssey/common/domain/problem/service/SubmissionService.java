@@ -161,10 +161,16 @@ public class SubmissionService {
     }
 
     public List<SolvedStreakInfo> getSubmissionsByType(Long memberId, ProblemType type) {
+        if (type == ProblemType.RANDOM) { // 모든 문제를 보고 싶을 때
+            return submissionRepository.findAllByMemberId(memberId);
+        }
         return submissionRepository.findByMemberIdAndProblemType(memberId, type);
     }
 
     public List<SolvedStreakInfo> getSubmissionByDifficulty(Long memberId, Integer difficulty) {
+        if (difficulty == 0) { // 모든 문제를 보고 싶을 때
+            return submissionRepository.findAllByMemberId(memberId);
+        }
         return submissionRepository.findByMemberIdAndDifficulty(memberId, difficulty);
     }
 

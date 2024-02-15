@@ -1,6 +1,5 @@
 package code.odyssey.common.domain.problem.repository;
 
-import code.odyssey.common.domain.problem.dto.SubmissionInfo;
 import code.odyssey.common.domain.problem.dto.SubmissionListInfo;
 import code.odyssey.common.domain.problem.entity.Submission;
 import code.odyssey.common.domain.problem.entity.enums.ProblemType;
@@ -23,9 +22,6 @@ public interface SubmissionRepository extends JpaRepository<Submission, Long> {
 
 
     Optional<Submission> findById(Long id);
-
-
-
 
     // 제출일자별로 개수 세기
     @Query("SELECT DATE(sub.createdAt) AS day, COUNT(DISTINCT sub.problem.id) AS value " +
@@ -50,6 +46,12 @@ public interface SubmissionRepository extends JpaRepository<Submission, Long> {
     @Query("SELECT new code.odyssey.common.domain.problem.dto.SolvedStreakInfo(" +
             "p.title, p.content, p.href, p.difficulty, p.platform, p.type, p.no, s.createdAt) " +
             "FROM Submission s JOIN s.problem p " +
+            "WHERE s.member.id = :memberId")
+    List<SolvedStreakInfo> findAllByMemberId(@Param("memberId") Long memberId);
+
+    @Query("SELECT new code.odyssey.common.domain.problem.dto.SolvedStreakInfo(" +
+            "p.title, p.content, p.href, p.difficulty, p.platform, p.type, p.no, s.createdAt) " +
+            "FROM Submission s JOIN s.problem p " +
             "WHERE s.member.id = :memberId AND p.type = :type")
     List<SolvedStreakInfo> findByMemberIdAndProblemType(Long memberId, ProblemType type);
 
@@ -68,8 +70,6 @@ public interface SubmissionRepository extends JpaRepository<Submission, Long> {
     List<SolvedStreakInfo> findByMemberIdAndDate(@Param("memberId") Long memberId,
                                                  @Param("startDate") LocalDateTime startDate,
                                                  @Param("endDate") LocalDateTime endDate);
-
-
 
 
     @Query("SELECT COUNT(sub.id) " +
@@ -105,7 +105,6 @@ public interface SubmissionRepository extends JpaRepository<Submission, Long> {
             "JOIN s.member m " +
             "WHERE s.problem.id = :problemId")
     Page<SubmissionListInfo> getSubmissionListByProblemId(@Param("problemId")Long problemId, Pageable pageable);
-
 
 
 }
