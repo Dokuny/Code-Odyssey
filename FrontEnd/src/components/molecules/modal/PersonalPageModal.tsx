@@ -71,18 +71,17 @@ const PersonalPageModal: React.FC<PersonalPageModalProps> = (props) => {
   const Close = () => {
     props.closeModal();
   };
-  console.log(props.memberId);
   return (
     <StyledDiv isOpen={props.isOpen}>
-      <Outline >
-          <StyledMain>
-            <div style={{display:"flex",justifyContent:"center",alignItems:'center' }}>
-              <Body1 children={"친구 페이지"} color={colors.White}/>
-              <StyledButton onClick={Close}>X</StyledButton>
-            </div>
-            <Spacer space={'2vh'}></Spacer>
-            <PersonalPage memberId={props.memberId as number} isOpen={props.isOpen}></PersonalPage>
-          </StyledMain>
+      <Outline>
+        <StyledMain>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Body1 children={'친구 페이지'} color={colors.White} />
+            <StyledButton onClick={Close}>X</StyledButton>
+          </div>
+          <Spacer space={'2vh'}></Spacer>
+          <PersonalPage memberId={props.memberId as number} isOpen={props.isOpen}></PersonalPage>
+        </StyledMain>
       </Outline>
     </StyledDiv>
   );

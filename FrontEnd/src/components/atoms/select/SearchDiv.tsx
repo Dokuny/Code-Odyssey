@@ -25,6 +25,7 @@ const StyledBox = styled.div`
 `;
 
 const StyledSelect = styled.select`
+  font-family: 'SBAggroM';
   border: none;
   background-color: ${colors.GrayBlue[200]};
   font-size: 0.8em;
@@ -62,8 +63,8 @@ const SearchDiv = (props: SearchDivProps) => {
               {option.name}
             </option>
           ))}
-        </StyledSelect >
-        <StyledSelect style={{width:"35%"}} value={props.selectedCategory} onChange={(e: { target: { value: SetStateAction<string> } }) => props.setSelectedCategory(e.target.value)}>
+        </StyledSelect>
+        <StyledSelect style={{ width: '35%' }} value={props.selectedCategory} onChange={(e: { target: { value: SetStateAction<string> } }) => props.setSelectedCategory(e.target.value)}>
           {categoryList.map((option) => (
             <option key={option.value} value={option.value === '' ? '' : option.value} disabled={option.value === '' && true}>
               {option.name}
@@ -71,7 +72,7 @@ const SearchDiv = (props: SearchDivProps) => {
           ))}
         </StyledSelect>
       </StyledBox>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '2vmin', width: '50%', position:"relative" }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '2vmin', width: '50%', position: 'relative' }}>
         <BasicInput placeholder={'문제 찾아보기'} setInput={props.setSearchInput} input={props.searchInput} fontSize='0.8em' onKeyUp={handleKeyUp} />
         <IoMdSearch
           size={'1.5em'}
@@ -79,7 +80,7 @@ const SearchDiv = (props: SearchDivProps) => {
           onClick={() => {
             props.setInput(props.searchInput);
           }}
-          style={{ cursor: 'pointer', position:'absolute', right:'5px' }}
+          style={{ cursor: 'pointer', position: 'absolute', right: '5px' }}
         />
       </div>
     </>

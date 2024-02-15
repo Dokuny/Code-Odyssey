@@ -28,7 +28,6 @@ const GuildPastSprint = (props: GuildPastSprintProps) => {
   const clickFinish = async () => {
     await sprintFin(props.guild_id, props.data.sprint_id);
     const data = await sprintRunning(props.guild_id);
-    console.log(data);
     props.setSprintData(data);
   };
 

@@ -37,7 +37,6 @@ if (isStatusWaiting()) {
       });
       // 상태 업데이트
       chrome.storage.local.get("switchState", function (data) {
-        console.log("extension : ", data.switchState);
         // 켜져있을 경우
         if (data.switchState) {
           const col = tr.children;

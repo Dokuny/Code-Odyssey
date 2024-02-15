@@ -9,7 +9,7 @@ import { colors } from '../../../../config/Color';
 import { findGuild } from '../../../../utils/api/guild/guild';
 
 const GuildFind = () => {
-  const [ stack, setStack ] =useState<any>([]);
+  const [stack, setStack] = useState<any>([]);
   const [searchInput, setSearchInput] = useState('');
   const [resultInput, setResultInput] = useState('');
   const [data, setData] = useState<any>([]);
@@ -20,30 +20,27 @@ const GuildFind = () => {
 
       const fetchData = async () => {
         const fetchdata = await findGuild({ keyword: searchInput }); //guild id
-        console.log(fetchdata)
-        setData(fetchdata)
-        setStack((prev:any) => [ ...prev, ...fetchdata ]);
+        setData(fetchdata);
+        setStack((prev: any) => [...prev, ...fetchdata]);
       };
 
       fetchData();
-      console.log(stack , data)
     }
   };
 
   const onClick = () => {
     const fetchData = async () => {
       const fetchdata = await findGuild({ keyword: searchInput, guildId: data[7].guild_id }); //guild id
-      setData(fetchdata)
-      setStack((prev:any) => [ ...prev, ...fetchdata ]);
+      setData(fetchdata);
+      setStack((prev: any) => [...prev, ...fetchdata]);
     };
     fetchData();
-    console.log(stack , data)
   };
 
   useEffect(() => {
     if (searchInput === '') {
       setResultInput('');
-      setStack([])
+      setStack([]);
     }
   }, [searchInput]);
 

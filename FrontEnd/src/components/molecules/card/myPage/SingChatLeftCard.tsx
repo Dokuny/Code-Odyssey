@@ -61,8 +61,6 @@ const StyledButton = styled.button`
   }
 `;
 
-
-
 const SingChatLeftCard = ({ data, date }: any) => {
   const [index, setIndex] = useState(-1);
 
@@ -71,7 +69,7 @@ const SingChatLeftCard = ({ data, date }: any) => {
       <StyledPolygon>
         {index !== -1 ? (
           <StyledYoutube>
-            <div style={{display : 'flex', justifyContent: "space-between", alignItems:"end", width :'100%',}}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'end', width: '100%' }}>
               <Body2 children={data[index].snippet.channelTitle} color={colors.Gray[25]} fontWeight={'bold'} />
               <StyledButton
                 onClick={() => {
@@ -95,7 +93,7 @@ const SingChatLeftCard = ({ data, date }: any) => {
             {data.map((item: any, index: any) => (
               <div>
                 <OnclickDiv onClick={() => setIndex(index)}>
-                  <Body2 children={item.snippet.title} color={colors.Gray[25]} fontWeight={'bold'} />
+                  <Body2 children={item.snippet.title} color={colors.Gray[25]} fontWeight={'normal'} />
                 </OnclickDiv>
                 <Spacer space={'1vh'} />
               </div>

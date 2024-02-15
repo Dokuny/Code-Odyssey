@@ -1,4 +1,3 @@
-
 import instance from '../../../axios/basicInstance';
 import tokenInstance from '../../../axios/tokenInstance';
 
@@ -8,7 +7,6 @@ export const getMyStreak = async () => {
   return data && data.data;
 };
 
-
 // 개인 스프린트 생성
 interface ScheduleInfo {
   day: string;
@@ -17,9 +15,8 @@ interface ScheduleInfo {
 }
 
 export const postMySprint = async (value: any): Promise<any> => {
-    console.log(value)
-    const data = await tokenInstance.post(`sprints`, value);
-    return data && data.data;
+  const data = await tokenInstance.post(`sprints`, value);
+  return data && data.data;
 };
 
 // 개인 스프린트 조회
@@ -34,7 +31,7 @@ export const getRecommendSprint = async () => {
   return data && data.data;
 };
 
-// 지난 유형별 스프린트 
+// 지난 유형별 스프린트
 export const getTypeBySprint = async (type: string) => {
   const data = await tokenInstance.get(`submissions/type/${type}`);
   return data && data.data;
@@ -51,5 +48,3 @@ export const getCalenderSprint = async (date: string) => {
   const data = await tokenInstance.get(`submissions/date/${date}`);
   return data && data.data;
 };
-
-

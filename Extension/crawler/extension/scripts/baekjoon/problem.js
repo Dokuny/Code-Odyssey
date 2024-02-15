@@ -208,9 +208,6 @@ fetch("http://127.0.0.1:8081/save-data/save/", {
       console.log("데이터를 성공적으로 서버로 보냈습니다.");
       window.close();
     } else {
-      console.error("서버로 데이터를 보내는 중 오류가 발생했습니다.");
     }
   })
-  .catch((error) => {
-    console.error("서버로 데이터를 보내는 중 오류가 발생했습니다.", error);
-  });
+  .catch((error) => {});

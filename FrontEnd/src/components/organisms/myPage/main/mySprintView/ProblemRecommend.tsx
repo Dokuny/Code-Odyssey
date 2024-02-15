@@ -34,7 +34,6 @@ const ProblemRecommend = () => {
   }, []);
 
   const submit = async () => {
-    console.log('보내는 값입니다.',dayilyData)
     // 만약 난이도, 유형이 값이 있다면
     await postMySprint({ scheduleInfoList: dayilyData });
     fetchData();

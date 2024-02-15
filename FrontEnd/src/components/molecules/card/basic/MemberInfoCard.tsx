@@ -53,11 +53,7 @@ interface MemberInfoCardProps {
 
 const MemberInfoCard = (props: MemberInfoCardProps) => {
   return (
-    <StyledContainer
-      onClick={() => {
-        console.log('o: ', props.guild_member_id);
-      }}
-    >
+    <StyledContainer>
       <StyledProgressContainer>
         <img src={props.thumbnail} alt='thumbnail' style={{ borderRadius: '50%', width: '100%', aspectRatio: '1', paddingBottom: '0.5vmax', objectFit: 'cover' }} />
         {props.in_guild && (

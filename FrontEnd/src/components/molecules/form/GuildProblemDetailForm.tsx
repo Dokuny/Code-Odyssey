@@ -35,7 +35,6 @@ const GuildProblemDetailForm = (props: GuildProblemDetailFormProps) => {
   const [detailProblemData, setDetailProblemData] = useState<any>(null);
 
   useEffect(() => {
-    console.log(props.problem_id);
     if (props.problem_id !== 0) {
       const fetchData = async () => {
         const data = await sprintProblemDetail(props.problem_id);

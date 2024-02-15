@@ -12,7 +12,6 @@ interface ChangeData {
 }
 
 export const changeMyProfile = async (props: any) => {
-  console.log(props);
   const data = await tokenInstance.patch(`members/me`, props);
   return data && data.data;
 };
@@ -34,7 +33,6 @@ export const getMyStatistic = async () => {
 
 // 친구 프로필 조회
 export const getPersonalProfile = async (memberId: number) => {
-  console.log(`scores/friend/${memberId}`);
   const data = await tokenInstance.get(`scores/friend/${memberId}`);
   return data && data.data;
 };
