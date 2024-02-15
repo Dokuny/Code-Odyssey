@@ -57,7 +57,7 @@ const ProblemCardList = (props: ProblemCardListProps) => {
           </div>
         ))}
       </ProblemDiv>
-      { props.openImg ===true && <NoProblemsImg src='/images/algorithm/noProblems.png'></NoProblemsImg> } 
+      { props.openImg ===true && <NoProblemsImg style={{ display: props.data.length === 0 ? 'inline' : 'none' }} src='/images/algorithm/noProblems.png'></NoProblemsImg>}
     </>
   );
 };
