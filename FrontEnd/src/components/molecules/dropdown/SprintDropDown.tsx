@@ -66,6 +66,15 @@ const StyledSelect = styled.select`
   }
 `;
 
+const StyledScroll = styled.div`
+  overflow: scroll;
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+  &::-webkit-scrollbar {
+    display: none; /* 크롬, 사파리, 오페라, 엣지 */
+  }
+`
+
 const SprintDropDown: React.FC<SprintDropDownProps> = ({ option, data, type, selectedValue, setSelectedValue }) => {
   return (
     <StyledContainer>
@@ -91,17 +100,20 @@ const SprintDropDown: React.FC<SprintDropDownProps> = ({ option, data, type, sel
           ))}
         </StyledSelect>
       </Div1>
+      <StyledScroll>
       {type === 'difficulty'
         ? data.map(
-            (
-              data // difficulty 일때,
+          (
+            data // difficulty 일때,
             ) => data.difficulty.toString() === selectedValue && <CheckCard {...data} />
-          )
-        : data.map(
-            (
-              data // TypeBy 일때,
+            )
+            : 
+          data.map(
+          (
+            data // TypeBy 일때,
             ) => data.type === selectedValue && <CheckCard {...data} />
-          )}
+            )}
+      </StyledScroll>
     </StyledContainer>
   );
 };

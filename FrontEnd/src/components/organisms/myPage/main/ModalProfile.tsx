@@ -154,7 +154,7 @@ const ModalProfile: React.FC<Props> = ({ isOpen, closeModal, data, input, setInp
     <StyledDiv isOpen={isOpen}>
       <Outline onClick={Close}>
         <InItem
-          onClick={(e) => {
+          onClick={(e: { stopPropagation: () => void }) => {
             e.stopPropagation();
           }}
         >
