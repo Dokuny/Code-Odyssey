@@ -14,7 +14,7 @@ interface Data {
 }
 
 const DifficultySprint = () => {
-  const [selectedValue, setSelectedValue] = useState('ALL');
+  const [selectedValue, setSelectedValue] = useState('0');
   const [data, setData] = useState<Data[]>([]);
 
   const OPTIONS = [

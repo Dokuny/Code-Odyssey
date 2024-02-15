@@ -5,7 +5,7 @@ import { getTypeBySprint } from '../../../../../../utils/api/mypage/sprint/myspr
 
 
 const TypeBySprint = () => {
-  const [selectedValue, setSelectedValue] = useState('ALL');
+  const [selectedValue, setSelectedValue] = useState('RANDOM');
   const [data, setData] = useState([]);
   
   const OPTIONS = [
