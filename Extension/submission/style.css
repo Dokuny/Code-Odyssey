@@ -13,11 +13,43 @@
   align-items: center;
   min-height: 50px;
 }
+
 #siteButton {
+  font-family: "TheJamsil5Bold";
   display: inline;
+  margin-bottom: 20px;
   text-align: center;
   align-items: center;
+  border-radius: 5px;
+  background-color: #717bbc;
   color: white;
+  width: 80%;
+  height: 30px;
+  border: none;
+  box-shadow: 0 0 0 none;
+  transition: box-shadow 0.3s ease;
+}
+#siteButton:hover {
+  box-shadow: 0 0 2px 2px #c8cce8;
+}
+
+#logoutButton {
+  font-family: "TheJamsil5Bold";
+  display: inline;
+  margin-bottom: 20px;
+  text-align: center;
+  align-items: center;
+  border-radius: 5px;
+  background-color: #717bbc;
+  color: white;
+  width: 80%;
+  height: 30px;
+  border: none;
+  box-shadow: 0 0 0 none;
+  transition: box-shadow 0.3s ease;
+}
+#logoutButton:hover {
+  box-shadow: 0 0 2px 2px #c8cce8;
 }
 #userDataText {
   display: none;
@@ -101,20 +133,4 @@ fieldset {
 *::before,
 *::after {
   box-sizing: border-box;
-}
-
-#siteButton {
-  font-family: "TheJamsil5Bold";
-  margin-bottom: 20px;
-  border-radius: 5px;
-  background-color: #717bbc;
-  color: white;
-  width: 80%;
-  height: 30px;
-  border: none;
-  box-shadow: 0 0 0 none;
-  transition: box-shadow 0.3s ease;
-}
-#siteButton:hover {
-  box-shadow: 0 0 2px 2px #c8cce8;
 }
