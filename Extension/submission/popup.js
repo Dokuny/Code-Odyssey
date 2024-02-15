@@ -2,40 +2,21 @@ var toggleSwitch = document.getElementById("toggleSwitch");
 var loginStatusDiv = document.getElementById("loginStatus");
 var siteButton = document.getElementById("siteButton");
 var userDataText = document.getElementById("userDataText");
+var logoutButton = document.getElementById("logoutButton");
 
 userDataText.textContent = "";
-// function removeStoredValue(key) {
-//   chrome.storage.local.remove(key, function () {});
-// }
 
-// removeStoredValue("token");
 // 스위치 초기 값 받음
 chrome.storage.local.get("switchState", function (data) {
   toggleSwitch.checked = data.switchState;
-  console.log(
-    "data.switchState : ",
-    data.switchState,
-    " toggleSwitch.checked : ",
-    toggleSwitch.checked
-  );
 });
 
 // 토글 스위치 상태 업데이트 함수
 const changeBackground = function () {
-  chrome.runtime.sendMessage(
-    {
-      request: "setStatus",
-      switchState: toggleSwitch.checked,
-    },
-    function (response) {
-      console.log(
-        "result : ",
-        response.result,
-        "switchState : ",
-        response.switchState
-      );
-    }
-  );
+  chrome.runtime.sendMessage({
+    request: "setStatus",
+    switchState: toggleSwitch.checked,
+  });
 };
 
 // 토글 스위치 클릭되었을 때 백그라운드에 상태 저장
@@ -50,12 +31,10 @@ chrome.storage.local.get("token", function (data) {
     // 토큰 o
     if (data.token) {
       siteButton.style.display = "none";
-      userDataText.textContent = "로그인 되었습니다";
-      userDataText.style.display = "inline";
     }
     // token이 없을 경우
     else if (!data.token) {
-      // 서비스 url
+      logoutButton.style.display = "none";
       if (url.match(/(localhost:3000\/main)|(code-odyssey.site\/main)/)) {
         userDataText.style.display = "none";
         siteButton.style.display = "inline";
@@ -71,6 +50,42 @@ chrome.storage.local.get("token", function (data) {
 });
 
 ///////////////////////////
+// 유저 정보 삭제
+
+const logout = function () {
+  logoutButton.textContent = "잠시만 기다려 주세용";
+  function removeStoredValue(key) {
+    chrome.storage.local.remove(key, function () {});
+  }
+  removeStoredValue("token");
+  const logOutInterval = setInterval(() => {
+    chrome.storage.local.get("token", function (data) {
+      if (!data.token) {
+        clearInterval(logOutInterval);
+        // 인터벌 종료
+        chrome.tabs.query(
+          { active: true, currentWindow: true },
+          function (tabs) {
+            var url = tabs[0].url;
+            if (url.match(/(localhost:3000\/main)|(code-odyssey.site\/main)/)) {
+              userDataText.style.display = "none";
+              logoutButton.style.display = "none";
+              siteButton.textContent = "로그인 하기";
+              siteButton.style.display = "inline";
+            }
+            // 다른 url
+            else {
+              siteButton.style.display = "none";
+              logoutButton.style.display = "none";
+              userDataText.textContent = "로그인이 필요합니다";
+              userDataText.style.display = "inline";
+            }
+          }
+        );
+      }
+    });
+  }, 3000);
+};
 
 // user.js에 이벤트 알림
 const clicked = function () {
@@ -102,13 +117,8 @@ const clicked = function () {
                     if (response) {
                       if (response.result === "successed") {
                         siteButton.style.display = "none";
-                        userDataText.textContent = "로그인 되었습니다";
-                        userDataText.style.display = "inline";
-                      } else if (response.result === "failed") {
-                        console.log("token not exist");
+                        logoutButton.style.display = "inline";
                       }
-                    } else {
-                      console.log("response not exist");
                     }
                   }
                 );
@@ -125,13 +135,10 @@ const clicked = function () {
 const tokenInterval = setInterval(() => {
   chrome.storage.local.get("token", function (data) {
     if (data.token !== undefined && data.token !== null) {
-      console.log("token exist in storage, ", data.token);
       userDataText.textContent = "로그인 되었습니다";
       // 인터벌 종료
       clearInterval(tokenInterval);
-      console.log("end");
     } else {
-      console.log("token not exist in storage", data.token);
       userDataText.textContent = "로그인이 필요합니다";
     }
   });
@@ -139,5 +146,5 @@ const tokenInterval = setInterval(() => {
 
 // 유저 정보 저장
 document.getElementById("siteButton").addEventListener("click", clicked);
-
+document.getElementById("logoutButton").addEventListener("click", logout);
 /////////////////
