@@ -8,6 +8,7 @@ import code.odyssey.common.domain.problem.dto.SubmissionPageInfo;
 import code.odyssey.common.domain.problem.dto.problem.ProblemDetailInfo;
 import code.odyssey.common.domain.problem.dto.problem.ProblemRequestDto;
 import code.odyssey.common.domain.problem.dto.problem.SearchResultInfo;
+import code.odyssey.common.domain.problem.entity.enums.ProblemType;
 import code.odyssey.common.domain.problem.exception.problem.ProblemException;
 import code.odyssey.common.domain.problem.repository.ProblemRepository;
 import code.odyssey.common.domain.problem.repository.QuerydslProblemRepository;
@@ -81,9 +82,9 @@ public class ProblemServiceImpl implements ProblemService {
                 .collect(Collectors.toList());
         Collections.sort(averageDifficultyList);
 
-        log.info("Problem Average : {}", problemTypeCountInfo);
-
-        return dslRepository.getProblems(ProblemRequestDto.builder().build(), PageRequest.of(0,10));
+        log.info("Problem Average : {}", averageDifficultyList);
+        ProblemTypeCountInfo min = averageDifficultyList.get(0);
+        return dslRepository.getRandomProblems(ProblemRequestDto.builder().difficulty(min.getY()).type(ProblemType.valueOf(min.getX())).build(), PageRequest.of(0,10));
 
 
 
