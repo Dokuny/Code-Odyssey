@@ -145,7 +145,7 @@ const DailyCard = (props: DailyCardProps) => {
       <HeaderDiv>
         <Body2 children={props.day.slice(0, 3)} color={'white'} />
       </HeaderDiv>
-      <ImageStyle src={props.recommendedType !== 'RANDOM' ? AlgoData[props.recommendedType] : srcData}></ImageStyle>
+      <ImageStyle src={props.recommendedType !== 'RANDOM' && props.recommendedType !== null ? AlgoData[props.recommendedType] : '/images/algorithm/RANDOM.png'}></ImageStyle>
       <FooterDiv>
         <Wrapper
           id='problem'
