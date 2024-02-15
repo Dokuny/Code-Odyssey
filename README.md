@@ -43,11 +43,10 @@
 
 ## 👀 기능 엿보기
 
-1.  [Login](#login)
-2.  [MyPage](#my-page)
-3.  [Guild](#guild)
-4.  [IDE](#ide)
-5.  [Review](#review)
+1.  [Login](#1-login)
+2.  [MyPage](#2-my-page)
+3.  [Guild](#3-guild)
+4.  [IDE](#4-ide)
 
 ## 💻 뚝딱뚝딱 개발 기록
 
