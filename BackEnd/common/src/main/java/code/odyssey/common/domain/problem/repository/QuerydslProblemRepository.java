@@ -11,4 +11,6 @@ public interface QuerydslProblemRepository {
 
     SearchResultInfo getProblems(ProblemRequestDto request,
                                  Pageable pageable);
+
+    SearchResultInfo getRandomProblems(ProblemRequestDto request, Pageable pageable);
 }
