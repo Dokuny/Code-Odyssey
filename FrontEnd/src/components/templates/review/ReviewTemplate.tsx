@@ -95,6 +95,8 @@ const ReviewTemplate = () => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await getSourceCode(submission_id);
+      const lang = result.language.toLowerCase();
+      console.log('lang : ', lang);
       parsedCode = JSON.parse(result.code);
       setCodeLength(parsedCode.length + 1);
       let sourceCode = '';
@@ -106,9 +108,11 @@ const ReviewTemplate = () => {
       setData({
         platform: result.platform,
         title: result.title,
-        language: result.language.toLowerCase(),
+        language: lang,
         submission_id: result.submission_id,
       });
+      console.log(data);
+      console.log('lang :', lang);
       let rowData = await getCodeReviewRow(submission_id);
 
       setRow(rowData.rows);
