@@ -3,7 +3,7 @@ import BasicInput from '../../../atoms/input/BasicInput';
 import { useEffect, useState } from 'react';
 import { Spacer } from '../../../atoms/basic/Spacer';
 import GuildSearch from './GuildFind/GuildSearch';
-import GuildRecomment from './GuildFind/GuildRecomment';
+import GuildRecommend from './GuildFind/GuildRecommend';
 import { Body1, Body3 } from '../../../atoms/basic/Typography';
 import { colors } from '../../../../config/Color';
 import { findGuild } from '../../../../utils/api/guild/guild';
@@ -60,7 +60,7 @@ const GuildFind = () => {
         }
       />
       <Spacer space={'6vmin'} />
-      {resultInput === '' || searchInput === '' ? <GuildRecomment /> : <GuildSearch searchInput={resultInput} data={data} onClick={onClick} />}
+      {resultInput === '' || searchInput === '' ? <GuildRecommend /> : <GuildSearch searchInput={resultInput} data={data} onClick={onClick} />}
     </>
   );
 };
