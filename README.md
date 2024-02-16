@@ -39,6 +39,7 @@
 9. 코딩할 때 노래를 들으면서 하는 게 능률이 더 오르시나요? **노래봇 기능**을 넣어 노래를 들으면서 문제를 풀 수 있어요. 집중이 잘 되는 환경은 저희가 만들어놨으니 여러분들은 🔥빡세게 코딩🔥만 해주시면 돼요 :) <br>
 10. 변수명을 뭘로 정해야 할지 모르겠다고요😵? 영어 변수명이 어려운 분들은 **변수명 추천 기능**을 이용해보세요. Camel Case, Snake Case, Pascal Case 모두 지원해드립니다 (취향 존중). (ex. 도훈의 라마단 기간 -> DohunsRamadanPeriod) <br>
 11. 알고리즘 문제를 풀다 반례를 찾아 다니지는 않으셨나요? 다른 사람들이 **등록해놓은 반례**를 1초만에 확인해보고 내 코드에 테스트해보세요.
+12. Code Odyssey의 크롬 익스텐션을 이용해서 코드를 제출하면, 나의 코드가 저장되고 나중에 내 코드를 확인할 수 있어요. [[크롬 익스텐션 다운받기]](https://chromewebstore.google.com/detail/code-odyssey-code-submiss/impfnpgdehnmbnnigclnlfoefhgnjiam?hl=ko&utm_source=ext_sidebar)
 
 ## 👀 기능 엿보기
 
