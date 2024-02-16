@@ -31,7 +31,7 @@ public class VariableNameServiceImpl implements VariableNameService {
         }
 
         private String convertCamel(String input){
-                return IntStream.range(0, input.length())
+                String snake= IntStream.range(0, input.length())
                         .mapToObj(i -> {
                                 char c = input.charAt(i);
                                 if (Character.isSpaceChar(c) || !Character.isLetterOrDigit(c)) {
@@ -46,6 +46,8 @@ public class VariableNameServiceImpl implements VariableNameService {
                         .collect(Collectors.joining())
 
                         .replaceAll("[^a-zA-Z0-9]+", "");
+
+                return Character.toLowerCase(snake.charAt(0)) + snake.substring(1);
         }
 
         private String convertSnake(String input){
