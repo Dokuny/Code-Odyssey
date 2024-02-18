@@ -74,39 +74,39 @@
 ### 1. Login
 
 - Oauth로 간편 로그인 <br>
-  ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/2cdb23c1-04ff-4659-bff6-147cf281a5d5/%EB%A1%9C%EA%B7%B8%EC%9D%B8.gif?id=ef3c3888-821a-4769-b765-763adbc12a8d&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708099200000&signature=8KMZJSnXcDfO8FdMW_u9_hhBYHiY72obHXjVMKmDBIU)
+  ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/2cdb23c1-04ff-4659-bff6-147cf281a5d5/%EB%A1%9C%EA%B7%B8%EC%9D%B8.gif?id=ef3c3888-821a-4769-b765-763adbc12a8d&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708365600000&signature=u0C93W0Foq7Lr_HL9x-YxUrMiN-ep0vAK4WzyplVlIo)
 
 ### 2. My Page
 
 - 내 프로필: 통계 보기 및 개인정보 수정 <br>
-  ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/ac506224-f129-4b49-bc7f-014efc004c9c/%EA%B0%9C%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80-%EB%82%B4%ED%94%84%EB%A1%9C%ED%95%84.gif?id=6fb19d93-5bca-4af4-a7e9-a512530961ea&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708099200000&signature=KqUO-ZTeJIT8v0jX30s7XuRIheu0QoL1GtvhfA04SGM)
+  ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/ac506224-f129-4b49-bc7f-014efc004c9c/%EA%B0%9C%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80-%EB%82%B4%ED%94%84%EB%A1%9C%ED%95%84.gif?id=6fb19d93-5bca-4af4-a7e9-a512530961ea&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708365600000&signature=d_x2SnbEqvWh2oTOBmG1-fAGODjBJjzW2yRQcWOZTm4)
 - 문제 찾기: 문제 검색 및 IDE로 연결 <br>
-  ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/f6b7fb4f-a8fd-4f08-8ef3-dbd4ca27fc56/%EA%B0%9C%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80-%EB%AC%B8%EC%A0%9C%EA%B2%80%EC%83%89.gif?id=d87b5a66-66ea-4c18-8b4c-3fbc2773fad0&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708099200000&signature=zlSij-WlEU5pB733ak8N4YM12VEdAkg1JjD4WsNq7eA)
+  ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/f6b7fb4f-a8fd-4f08-8ef3-dbd4ca27fc56/%EA%B0%9C%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80-%EB%AC%B8%EC%A0%9C%EA%B2%80%EC%83%89.gif?id=d87b5a66-66ea-4c18-8b4c-3fbc2773fad0&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708365600000&signature=ENM3bJGjjOTx_dgX7wPqklUAoVbs6OupkW8zv7wV0Vk)
 - 스프린트 관리: 원하는 문제 유형 선택으로 편하게 문제 추천 및 지난 스프린트 확인 가능 <br>
-  ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/6a80f66c-d7ea-433e-a8e2-5a3f56a6a34a/%EA%B0%9C%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80-%EC%8A%A4%ED%94%84%EB%A6%B0%ED%8A%B8.gif?id=a4a3f184-186d-4838-92c0-bd420c4b81dc&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708099200000&signature=-_v-xBVWaNj1q8g7lduCqcZNV5dbDF02SQHjxJ95HRg)
+  ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/6a80f66c-d7ea-433e-a8e2-5a3f56a6a34a/%EA%B0%9C%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80-%EC%8A%A4%ED%94%84%EB%A6%B0%ED%8A%B8.gif?id=a4a3f184-186d-4838-92c0-bd420c4b81dc&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708365600000&signature=Cx9-F7qRm1Ch4KMDrIFcGEtMKhFFe1uEqzevt0tXu7I)
 
 ### 3. Guild
 
 - 선착장 <br>
   - 길드 검색: 길드 검색 상세 조회 / 참가 신청 가능 <br>
-    ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/d73befce-518c-400e-9440-0d2ba29ee967/%EC%84%A0%EC%B0%A9%EC%9E%A5-%EA%B8%B8%EB%93%9C%EA%B2%80%EC%83%89_%EA%B0%80%EC%9E%85%EC%8B%A0%EC%B2%AD.gif?id=a7310b18-188c-47d7-91a4-9ca6532c0839&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708099200000&signature=zb_uJ45-UiHhZpe3WsCnpoIHVUpJpD5OzZzSAOECmyM)
+    ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/d73befce-518c-400e-9440-0d2ba29ee967/%EC%84%A0%EC%B0%A9%EC%9E%A5-%EA%B8%B8%EB%93%9C%EA%B2%80%EC%83%89_%EA%B0%80%EC%9E%85%EC%8B%A0%EC%B2%AD.gif?id=a7310b18-188c-47d7-91a4-9ca6532c0839&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708365600000&signature=E_v0lHckzQZApQ0f38OLTbDdLW6NNxK28IwS1NQEk2g)
   - 길드 생성 및 조회: 길드 생성 후 관리 가능 <br>
-    ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/d28924a8-01e7-4656-8932-768d317dc740/%EC%84%A0%EC%B0%A9%EC%9E%A5_-_%EA%B8%B8%EB%93%9C_%EC%83%9D%EC%84%B1__%EA%B8%B8%EB%93%9C%EC%B0%BD_-_%EA%B8%B8%EB%93%9C_%EC%A1%B0%ED%9A%8C.gif?id=d8d33190-0ef9-4bdf-a7d3-894b6443547e&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708099200000&signature=03G9-XudXMIRjhMbG5tLGxL9DUNMMJ1A6VfBGUz0iK8)
+    ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/d28924a8-01e7-4656-8932-768d317dc740/%EC%84%A0%EC%B0%A9%EC%9E%A5_-_%EA%B8%B8%EB%93%9C_%EC%83%9D%EC%84%B1__%EA%B8%B8%EB%93%9C%EC%B0%BD_-_%EA%B8%B8%EB%93%9C_%EC%A1%B0%ED%9A%8C.gif?id=d8d33190-0ef9-4bdf-a7d3-894b6443547e&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708365600000&signature=sAHCsINQDU5YAl05tJEtX6C-ixNGOjnBqLbCSHCBDeY)
 - 길드창 <br>
   - 스프린트 생성/시작 <br>
-    ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/70c5d7d2-270d-4b48-b99b-3d1334f47086/%EA%B8%B8%EB%93%9C%EC%B0%BD-%EC%8A%A4%ED%94%84%EB%A6%B0%ED%8A%B8%EC%8B%9C%EC%9E%91.gif?id=b287c883-a0ec-4bef-9069-aaf8ca6b5a04&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708099200000&signature=j_kvduBqwKVQggxodzlHzpFkjfN4BUu3zOvKZSky-nU)
+    ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/70c5d7d2-270d-4b48-b99b-3d1334f47086/%EA%B8%B8%EB%93%9C%EC%B0%BD-%EC%8A%A4%ED%94%84%EB%A6%B0%ED%8A%B8%EC%8B%9C%EC%9E%91.gif?id=b287c883-a0ec-4bef-9069-aaf8ca6b5a04&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708365600000&signature=iPej8c1Ex-01eA3un9ChvJ07LnkWkLrGJLsVQLPPvVc)
   - 스프린트 완료/회고/리뷰 <br>
-    ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/f1785748-6a1e-448a-8d42-1b483bf95a8d/%EA%B8%B8%EB%93%9C%EC%B0%BD-%EC%8A%A4%ED%94%84%EB%A6%B0%ED%8A%B8%EC%99%84%EB%A3%8C__%EB%A6%AC%EB%B7%B0.gif?id=dff44a9e-3b84-4e8e-95f4-8c79cbce5896&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708099200000&signature=ZGkXOilTbXZTwQZIeIrPNJDOOmou6pFeArFbi0Ua7K0)
+    ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/f1785748-6a1e-448a-8d42-1b483bf95a8d/%EA%B8%B8%EB%93%9C%EC%B0%BD-%EC%8A%A4%ED%94%84%EB%A6%B0%ED%8A%B8%EC%99%84%EB%A3%8C__%EB%A6%AC%EB%B7%B0.gif?id=dff44a9e-3b84-4e8e-95f4-8c79cbce5896&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708365600000&signature=jd_8_FtKjNMWVCZ-cB1aOhWm7u9n8WUSi25q_1fq_wM)
   - 길드 채팅 <br>
-    ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/0bf36c86-211e-415a-8ce2-76160f08e1a6/%EA%B8%B8%EB%93%9C%EC%B0%BD-%EC%B1%84%ED%8C%85.gif?id=73fed8d1-3c89-42d3-85cb-8637ee7d37fe&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708099200000&signature=_J6ERxU98OzWDDth1WmhmpiQ_RX-NhnAh_EP0RxplVQ)
+    ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/0bf36c86-211e-415a-8ce2-76160f08e1a6/%EA%B8%B8%EB%93%9C%EC%B0%BD-%EC%B1%84%ED%8C%85.gif?id=73fed8d1-3c89-42d3-85cb-8637ee7d37fe&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708365600000&signature=-dSyLP7ppSvIq5I-jcZDQbkJqfrO4KL3pvfhZ8VQTks)
   - 길드 관리 <br>
-    ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/a5e65daf-d115-4b9c-a2bd-fe31916cdadd/%EA%B8%B8%EB%93%9C%EC%B0%BD-%EA%B8%B8%EB%93%9C%EA%B4%80%EB%A6%AC.gif?id=91d0be22-9894-47c7-9efb-3f1c0f9d3786&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708099200000&signature=SrWE3jz8VBTFGPN2H5cbrq1G_m2EvmLRat5RT-MvdmY)
+    ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/a5e65daf-d115-4b9c-a2bd-fe31916cdadd/%EA%B8%B8%EB%93%9C%EC%B0%BD-%EA%B8%B8%EB%93%9C%EA%B4%80%EB%A6%AC.gif?id=91d0be22-9894-47c7-9efb-3f1c0f9d3786&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708365600000&signature=gXuohZ-EMTnPgoDe46yoenyxi5uVapnGP0BxTgqB3oY)
 
 ### 4. IDE
 
 - 개인 IDE: 개별 채점 서버를 통한 input, output 체크 / 반례 등록, 조회 / 제출 기록 조회 / 변수명 조회 <br>
-  ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/3546e1f3-2a91-4154-80f9-c5b74d84bcd6/%EA%B0%9C%EC%9D%B8IDE.gif?id=0ba571b0-8a13-4891-8489-04e491d807cc&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708099200000&signature=OaIu1eNLjKUjxESNMUms5IqyMuf1lwPLV19aG4pSklc)
+  ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/3546e1f3-2a91-4154-80f9-c5b74d84bcd6/%EA%B0%9C%EC%9D%B8IDE.gif?id=0ba571b0-8a13-4891-8489-04e491d807cc&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708365600000&signature=9uO-7eHWGH25H-gyyOPxTzLZTwrEZmJqTfuCAJ9oTxI)
 - 길드 IDE: 화상 채팅 / 공동 ide 작업 <br>
-  ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/3ee35e12-4e66-4f42-a366-d73e2f10acdd/%EA%B8%B8%EB%93%9CIDE.gif?id=4c8a9188-062b-41c7-8f4d-a3dcc4f0e2d6&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708099200000&signature=iQz47Po5fSEg-i3M2pFrnmLkqNEkia9LRT2Wkh-V87U)
+  ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/3ee35e12-4e66-4f42-a366-d73e2f10acdd/%EA%B8%B8%EB%93%9CIDE.gif?id=4c8a9188-062b-41c7-8f4d-a3dcc4f0e2d6&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708365600000&signature=5K-k4kMA0yJT0cM-nOUP0_SqcRsAocD_Y5cOOfGtTu4)
 - 제출: 익스텐션을 활용한 제출 <br>
-  ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/82cb3ffa-914e-4e1c-aaaf-e29d0c5b1407/%EC%A0%9C%EC%B6%9C.gif?id=90631ad9-30a0-4407-8f3f-9c64d5aa56c5&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708106400000&signature=qrE23f2V6uGN1Xg-8A2a4t2_DMIxXJsDyqCP1PoQ4mU)
+  ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/82cb3ffa-914e-4e1c-aaaf-e29d0c5b1407/%EC%A0%9C%EC%B6%9C.gif?id=90631ad9-30a0-4407-8f3f-9c64d5aa56c5&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708365600000&signature=x045It6RC2aJ7JbOZH2FxQQ3AyKfxFbfmj32uGYbl5A)
