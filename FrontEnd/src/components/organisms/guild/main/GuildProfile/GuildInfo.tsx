@@ -47,10 +47,32 @@ const GuildInfo = (props: GuildInfoProps) => {
 
   useEffect(() => {
     const fetchData = async () => {
+      const initdata = [
+        { x: 'GRAPH', y: 0 },
+        { x: 'BRUTE_FORCE', y: 0 },
+        { x: 'BINARY_SEARCH', y: 0 },
+        { x: 'AD_HOC', y: 0 },
+        { x: 'SHORTEST_PATH', y: 0 },
+        { x: 'STRING', y: 0 },
+        { x: 'TREE', y: 0 },
+        { x: 'MATH', y: 0 },
+        { x: 'SIMULATION', y: 0 },
+        { x: 'DP', y: 0 },
+        { x: 'GREEDY', y: 0 },
+        { x: 'DATA_STRUCTURE', y: 0 },
+      ];
       const statisticFetchData = await getGuildStatistic(props.guild_id);
       setStatisticData(statisticFetchData);
       const typeCountFetchData = await getGuildTypeCnt(props.guild_id);
-      setRankData([{ id: 'solved', data: typeCountFetchData }]);
+      const newData = initdata.map((item) => {
+        const exist = typeCountFetchData.filter((problemNum: any) => problemNum.x === item.x);
+        if (exist[0]) {
+          return { x: exist[0].x.slice(0, 3), y: exist[0].y };
+        } else {
+          return { x: item.x.slice(0, 3), y: item.y };
+        }
+      });
+      setRankData([{ id: 'solved', data: newData }]);
       const strictFetchData = await getGuildStrict(props.guild_id);
       setStrictData(strictFetchData);
     };
