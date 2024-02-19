@@ -9,7 +9,7 @@ export const getYoutube = async (input:string) => {
               part: 'snippet',
               maxResults : 5,
               type: 'video',
-              key: process.env.REACT_APP_API_KEY,
+              key: 'AIzaSyC8iwm-6CPh9SqaPycyGwZuIBuBfI2gO_Y',
             },
         }
         );
