@@ -48,22 +48,22 @@ const MyPageMain = () => {
   ]);
   const [strictData, setStrictData] = useState([]);
 
-  const initdata = [
-    { x: 'SIMULATION', y: 0 },
-    { x: 'DATA_STRUCTURE', y: 0 },
-    { x: 'GRAPH', y: 0 },
-    { x: 'STRING', y: 0 },
-    { x: 'BRUTE_FORCE', y: 0 },
-    { x: 'TREE', y: 0 },
-    { x: 'AD_HOC', y: 0 },
-    { x: 'DP', y: 0 },
-    { x: 'SHORTEST_PATH', y: 0 },
-    { x: 'BINARY_SEARCH', y: 0 },
-    { x: 'GREEDY', y: 0 },
-    { x: 'MATH', y: 0 },
-  ];
-
   useEffect(() => {
+    const initdata = [
+      { x: 'SIMULATION', y: 0 },
+      { x: 'DATA_STRUCTURE', y: 0 },
+      { x: 'GRAPH', y: 0 },
+      { x: 'STRING', y: 0 },
+      { x: 'BRUTE_FORCE', y: 0 },
+      { x: 'TREE', y: 0 },
+      { x: 'AD_HOC', y: 0 },
+      { x: 'DP', y: 0 },
+      { x: 'SHORTEST_PATH', y: 0 },
+      { x: 'BINARY_SEARCH', y: 0 },
+      { x: 'GREEDY', y: 0 },
+      { x: 'MATH', y: 0 },
+    ];
+
     const fetchData = async () => {
       const MyStatistic = await getMyStatistic();
       const MyRank = await getMyRank();
@@ -78,9 +78,9 @@ const MyPageMain = () => {
       const newData = initdata.map((item) => {
         const exist = MyRank.filter((problemNum: any) => problemNum.x === item.x);
         if (exist[0]) {
-          return { x: exist[0].x.slice(0, 2), y: exist[0].y };
+          return { x: exist[0].x.slice(0, 3), y: exist[0].y };
         } else {
-          return { x: item.x.slice(0, 2), y: item.y };
+          return { x: item.x.slice(0, 3), y: item.y };
         }
       });
 
