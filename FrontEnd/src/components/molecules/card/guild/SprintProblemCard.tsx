@@ -41,6 +41,7 @@ const StyledDiffImageDiv = styled.img`
 
 const StyledProfileImg = styled.img`
   width: 8%;
+  aspect-ratio: 1/1;
   border-radius: 50%;
   margin-right: 0.4vmin;
 `;
