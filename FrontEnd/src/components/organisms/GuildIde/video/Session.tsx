@@ -33,7 +33,7 @@ interface SessionProps {
 }
 
 function Session(props: SessionProps) {
-  const [isMicOn, setIsMicOn] = useState(true);
+  const [isMicOn, setIsMicOn] = useState(false);
   const [isVideoOn, setIsVideoOn] = useState(true);
 
   const handleMicToggle = () => {

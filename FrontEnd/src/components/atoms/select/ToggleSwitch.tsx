@@ -19,7 +19,7 @@ const Toggle = styled.input`
     transition: left 250ms linear;
   }
   &:checked {
-    background-color: black;
+    background-color: #c2c2c2;
     border-color: gray;
   }
   &:checked::before {
@@ -47,13 +47,14 @@ const Toggle = styled.input`
 `;
 interface ToggleProps {
   setSelectedTheme: React.Dispatch<React.SetStateAction<boolean>>;
+  selectedTheme: boolean;
 }
 
 const ToggleSwitch = (props: ToggleProps) => {
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(props.selectedTheme);
   const handleChange = () => {
     setChecked(!checked);
-    props.setSelectedTheme(checked);
+    props.setSelectedTheme(!checked);
   };
   useEffect(() => {}, [checked]);
   return <Toggle role='switch' type='checkbox' checked={checked} onChange={handleChange} />;

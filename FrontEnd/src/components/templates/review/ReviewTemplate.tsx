@@ -4,7 +4,6 @@ import CodeBox from '../../molecules/code/CodeBox';
 import React, { useEffect, useState } from 'react';
 import ToggleSwitch from '../../atoms/select/ToggleSwitch';
 import CodeReview from '../../molecules/code/CodeReview';
-import { Spacer } from '../../atoms/basic/Spacer';
 import { useSearchParams } from 'react-router-dom';
 import { getSourceCode, getCodeReviewRow } from '../../../utils/api/guild/codeReview/codeReview';
 
@@ -76,8 +75,7 @@ const CodeBoxBorder = styled.div`
   padding: 1rem;
 `;
 const ReviewTemplate = () => {
-  const [selectedTheme, setSelectedTheme] = useState(true);
-  useEffect(() => {}, [selectedTheme]);
+  const [selectedTheme, setSelectedTheme] = useState(false);
   let [query, setQuery] = useSearchParams();
   const submission_id = query.get('submission_id') || '2';
   const [row, setRow] = useState([]);
@@ -135,7 +133,7 @@ const ReviewTemplate = () => {
           [{data.platform}] {data.title}
         </Title>
         <ToggleDiv>
-          <ToggleSwitch setSelectedTheme={setSelectedTheme} />
+          <ToggleSwitch setSelectedTheme={setSelectedTheme} selectedTheme={selectedTheme} />
         </ToggleDiv>
       </StyledTitleBox>
       <AlignDiv>
