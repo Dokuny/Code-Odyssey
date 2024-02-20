@@ -131,7 +131,7 @@ const CodeReviewForm = (props: CodeReviewProps) => {
         <InputBox1 id='line' type='number' value={line === 0 ? '' : line} placeholder='행을 입력해주세요' onChange={handleLineChange}></InputBox1>
       </div>
       <Spacer space={'1vh'}></Spacer>
-      <InputBox2 id='content' placeholder='리뷰 내용을 작성해주세요' onChange={handleContentChange}></InputBox2>
+      <InputBox2 id='content' value={content} placeholder='리뷰 내용을 작성해주세요' onChange={handleContentChange}></InputBox2>
       <Spacer space={'1vh'}></Spacer>
       <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'right' }}>
         <SubmitButton onClick={SubmitReview}>제출</SubmitButton>
