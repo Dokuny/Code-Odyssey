@@ -117,9 +117,10 @@ const CodeReviewForm = (props: CodeReviewProps) => {
 
       await postCodeReview(review);
       props.reloadReview();
+      setLine(0);
+      setContent('');
     }
   };
-  // 제출 후 제출된 리뷰 조회,..? 나중에 api 나오면 추가
 
   return (
     <ReviewInputForm>
