@@ -4,7 +4,7 @@ import { colors } from '../../../../config/Color';
 import { Spacer } from '../../../atoms/basic/Spacer';
 import { Body2 } from '../../../atoms/basic/Typography';
 
-const StyledContainer = styled.button`
+const StyledContainer = styled.div`
   display: flex;
   width: 100%;
   background-color: ${colors.Gray[800]};
@@ -12,22 +12,24 @@ const StyledContainer = styled.button`
   border: none;
   height: fit-content;
   border-radius: 20px;
-  padding: 1vmin;
   margin-top: 0.5vmin;
   margin-bottom: 0.5vmin;
   align-items: center;
+  overflow: hidden;
   box-sizing: border-box;
-  &:hover {
-    background-color: ${colors.Gray[700]};
-  }
 `;
 
 const StyledBasicContainer = styled.div`
   display: flex;
+  padding: 1vmin;
   width: 100%;
   height: 100%;
   align-items: center;
   justify-content: space-between;
+  box-sizing: border-box;
+  &:hover {
+    background-color: ${colors.Gray[700]};
+  }
 `;
 
 const StyledBasicDetailContainer = styled.div`
@@ -49,7 +51,6 @@ const StyledExampleAllContainer = styled.div`
 `;
 
 const StyledCaseContainer = styled.div`
-  
   display: flex;
   width: 100%;
   max-height: 30vh;
@@ -82,10 +83,10 @@ const CounterExampleCard = (props: CounterExampleCardProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <StyledContainer onClick={() => setIsOpen(!isOpen)}>
-      <StyledBasicContainer>
+    <StyledContainer>
+      <StyledBasicContainer onClick={() => setIsOpen(!isOpen)}>
         <StyledBasicDetailContainer>
-          <div style={{width : "10%"}}>
+          <div style={{ width: '6%' }}>
             <StyledImage src={props.thumbnail} alt='profile' style={{ borderRadius: '50%' }} />
           </div>
           <Body2 children={props.nickname} color={colors.Gray[300]} />
@@ -97,14 +98,22 @@ const CounterExampleCard = (props: CounterExampleCardProps) => {
       </StyledBasicContainer>
       {isOpen && (
         <>
-          <StyledExampleAllContainer  >
-            <StyledCaseContainer onClick={(event)=> {event.stopPropagation()}} >
-              <Body2  children={'input'} color={colors.Gray[300]} fontWeight={'bold'} />
-              <StyledExampleContainer >
+          <StyledExampleAllContainer>
+            <StyledCaseContainer
+              onClick={(event) => {
+                event.stopPropagation();
+              }}
+            >
+              <Body2 children={'input'} color={colors.Gray[300]} fontWeight={'bold'} />
+              <StyledExampleContainer>
                 <Body2 children={props.input} color={colors.Gray[300]} />
               </StyledExampleContainer>
             </StyledCaseContainer>
-            <StyledCaseContainer onClick={(event)=> {event.stopPropagation()}}>
+            <StyledCaseContainer
+              onClick={(event) => {
+                event.stopPropagation();
+              }}
+            >
               <Body2 children={'output'} color={colors.Gray[300]} fontWeight={'bold'} />
               <StyledExampleContainer>
                 <Body2 children={props.output} color={colors.Gray[300]} />

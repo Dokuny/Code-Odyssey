@@ -80,9 +80,9 @@ const GuildVideoInit = (props: GuildVideoInitProps) => {
               const newPublisher = OV.initPublisher(undefined, {
                 audioSource: undefined,
                 videoSource: undefined,
-                publishAudio: true,
+                publishAudio: false,
                 publishVideo: true,
-                mirror: false,
+                mirror: true,
               });
 
               setPublisher(newPublisher);

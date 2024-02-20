@@ -1,15 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import BasicInput from '../../../atoms/input/BasicInput';
-import MainTopCard from '../../../molecules/card/basic/MainTopCard';
 import SingChatLeftCard from '../../../molecules/card/myPage/SingChatLeftCard';
-import SingChatRightCard from '../../../molecules/card/myPage/SingChatRightCard';
 import { Spacer } from '../../../atoms/basic/Spacer';
-import { useRecoilState } from 'recoil';
-import { MusicBotChatState } from '../../../../utils/recoil/Atoms';
-import { Body1, Body3 } from '../../../atoms/basic/Typography';
-import { colors } from '../../../../config/Color';
-
-import axios from 'axios';
 import { getYoutube } from '../../../../utils/api/chatbot';
 
 interface BotChatting {
@@ -38,7 +30,7 @@ const MusicBot = () => {
   return (
     <>
       <div style={{ width: '100%' }}>
-        <BasicInput input={searchInput} placeholder={'세이렌에게 노래 부탁하기'} setInput={setSearchInput} onKeyUp={handleKeyUp} />
+        <BasicInput input={searchInput} placeholder={'세이렌에게 노래 부탁하기'} setInput={setSearchInput} onKeyUp={handleKeyUp} fontSize='0.8em' />
       </div>
       <Spacer space={'2vh'} />
       {botChatting.data && <SingChatLeftCard data={botChatting.data} />}

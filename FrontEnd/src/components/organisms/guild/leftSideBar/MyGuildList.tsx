@@ -43,19 +43,21 @@ const MyGuildList = (props: MyGuildListProps) => {
     <>
       <GuildButton event={() => props.setGuildListIndex(-1)} src={'/images/code_odyssey/MyInfo.svg'} spacer={'1vmin'} active={props.guildListIndex === -1} />
       <GuildButton event={() => props.setGuildListIndex(-2)} src={'/images/code_odyssey/Navi.svg'} spacer={'1vmin'} active={props.guildListIndex === -2} />
-      <StyledGuildContainer>
-        {guildData.map((value) => (
-          <GuildButton
-            event={() => {
-              props.setGuildListIndex(value.guildId);
-              props.setGuildName(value.name);
-            }}
-            src={value.image}
-            key={value.guildId}
-            active={props.guildListIndex === value.guildId}
-          />
-        ))}
-      </StyledGuildContainer>
+      {guildData.length !== 0 && (
+        <StyledGuildContainer>
+          {guildData.map((value) => (
+            <GuildButton
+              event={() => {
+                props.setGuildListIndex(value.guildId);
+                props.setGuildName(value.name);
+              }}
+              src={value.image}
+              key={value.guildId}
+              active={props.guildListIndex === value.guildId}
+            />
+          ))}
+        </StyledGuildContainer>
+      )}
     </>
   );
 };

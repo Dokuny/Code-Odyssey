@@ -43,7 +43,7 @@ const GuildIde = (props: GuildIdeProps) => {
   const monaco = useMonaco();
   const [input, setInput] = useState('');
   const [myInput, setMyInput] = useState<undefined | string>('');
-  const [selectedTheme, setSelectedTheme] = useState(true);
+  const [selectedTheme, setSelectedTheme] = useState(false);
 
   const handleEditorChange = (value: string | undefined) => {
     setMyInput(value);
@@ -115,7 +115,7 @@ const GuildIde = (props: GuildIdeProps) => {
           />
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '2vmin' }}>
-          <ToggleSwitch setSelectedTheme={setSelectedTheme} />
+          <ToggleSwitch setSelectedTheme={setSelectedTheme} selectedTheme={selectedTheme} />
 
           <BasicButton
             width={'auto'}
