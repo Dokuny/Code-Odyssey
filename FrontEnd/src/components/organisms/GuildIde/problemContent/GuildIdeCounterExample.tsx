@@ -36,6 +36,7 @@ const GuildIdeCounterExample = (props: GuildIdeCounterExampleProps) => {
   useEffect(() => {
     const fetchData = async () => {
       const fetchData = await counterExample(props.problem_id);
+      console.log(fetchData);
       setData(fetchData.data);
     };
     fetchData();
@@ -46,7 +47,7 @@ const GuildIdeCounterExample = (props: GuildIdeCounterExampleProps) => {
       <StyledScrollDiv>
         {data &&
           data.map((value, index) => (
-            <CounterExampleCard key={index} member_id={value.member_id} thumbnail={value.thumbnail} nickname={value.nickname} writed_at={value.writed_at} input={value.input} output={value.output} />
+            <CounterExampleCard key={index} member_id={value.member_id} thumbnail={value.thumbnail} nickname={value.nickname} created_at={value.created_at} input={value.input} output={value.output} />
           ))}
       </StyledScrollDiv>
       <Spacer space={'1vmin'} />

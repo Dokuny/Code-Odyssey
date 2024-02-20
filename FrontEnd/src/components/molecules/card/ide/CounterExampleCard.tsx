@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../../../config/Color';
 import { Spacer } from '../../../atoms/basic/Spacer';
-import { Body2 } from '../../../atoms/basic/Typography';
+import { Body2, Body3 } from '../../../atoms/basic/Typography';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -34,6 +34,7 @@ const StyledBasicContainer = styled.div`
 
 const StyledBasicDetailContainer = styled.div`
   display: flex;
+  width: 100%;
   gap: 2vmin;
   align-items: center;
 `;
@@ -74,7 +75,7 @@ interface CounterExampleCardProps {
   member_id: number;
   thumbnail: string;
   nickname: string;
-  writed_at: string;
+  created_at: string;
   input: string;
   output: string;
 }
@@ -85,14 +86,14 @@ const CounterExampleCard = (props: CounterExampleCardProps) => {
   return (
     <StyledContainer>
       <StyledBasicContainer onClick={() => setIsOpen(!isOpen)}>
-        <StyledBasicDetailContainer>
-          <div style={{ width: '6%' }}>
+        <StyledBasicDetailContainer style={{ justifyContent: 'flex-start' }}>
+          <div style={{ width: '12%' }}>
             <StyledImage src={props.thumbnail} alt='profile' style={{ borderRadius: '50%' }} />
           </div>
           <Body2 children={props.nickname} color={colors.Gray[300]} />
         </StyledBasicDetailContainer>
-        <StyledBasicDetailContainer>
-          <Body2 children={props.writed_at} color={colors.Gray[300]} />
+        <StyledBasicDetailContainer style={{ justifyContent: 'flex-end' }}>
+          <Body3 children={props.created_at} color={colors.Gray[300]} />
           <Spacer space={'1vmin'} horizontal />
         </StyledBasicDetailContainer>
       </StyledBasicContainer>
