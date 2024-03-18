@@ -1,13 +1,11 @@
 
 ## ✨ 알고리즘이 힘든 당신을 위한 Code Odyssey!
 
-![image](https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fe6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6%2F9798aa8f-502e-4418-8243-a66c2caf2213%2F%25EC%25BD%2594%25EB%2593%259C_%25EC%2598%25A4%25EB%2594%2594%25EC%2584%25B8%25EC%259D%25B4_%25EC%25A4%2591%25EA%25B0%2584%25EB%25B0%259C%25ED%2591%259C.png?table=block&id=029f431e-a962-4e58-8209-eb48f3a96d7e&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&width=2000&userId=c24c7b7b-c4c6-41c1-8fb1-5e91dc0baad4&cache=v2)
 ![image](https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fe6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6%2F885a8a9a-6d61-48f6-8ce6-16acf9891fc7%2FUntitled.png?table=block&id=a2eec58c-43bb-4158-8c22-d6f79c4539f6&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&width=2000&userId=c24c7b7b-c4c6-41c1-8fb1-5e91dc0baad4&cache=v2)
 ![image](https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fe6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6%2Fc071a070-3283-41e9-a21c-469e12adecef%2FUntitled.png?table=block&id=06c8cc6a-86ad-4dea-83a6-35577192d1f0&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&width=2000&userId=c24c7b7b-c4c6-41c1-8fb1-5e91dc0baad4&cache=v2)
 
 ## 🌙 Code Odyssey 사용하기
 
-- [**배포 URL**](https://code-odyssey.site)
 - [**Figma**](https://www.figma.com/file/gJTep9xJ6uxj917nVChNYN/Code-Odyssey?type=design&node-id=887-10799&mode=design&t=0hpjIXHhOmR3zUKm-0)
 - [**Miro**](https://miro.com/welcomeonboard/OVlkbWlxVm5jOFFVVmFPVmFzQTJHNXVxUmw0dmZaam5UYnp5MFl2SmJkTEpucTV4c084ZjFBNUpJanlsalEwTXwzNDU4NzY0NTYxNzcxNzYzMTE0fDI=?share_link_id=338933870121)
 - [**ERD**](https://aquerytool.com/aquerymain/index/?rurl=bb21a37d-a7a5-4e28-bafb-0ede78d3e284&) (pw: jj0gl5)
@@ -74,39 +72,88 @@
 ### 1. Login
 
 - Oauth로 간편 로그인 <br>
-  ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/2cdb23c1-04ff-4659-bff6-147cf281a5d5/%EB%A1%9C%EA%B7%B8%EC%9D%B8.gif?id=ef3c3888-821a-4769-b765-763adbc12a8d&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708365600000&signature=u0C93W0Foq7Lr_HL9x-YxUrMiN-ep0vAK4WzyplVlIo)
+  ![%EB%A1%9C%EA%B7%B8%EC%9D%B8](https://github.com/dev1week/Code-Odyssey/assets/119592507/2b876ff7-ab46-46fd-9bec-0ee912c3f908)
+
+  
 
 ### 2. My Page
 
 - 내 프로필: 통계 보기 및 개인정보 수정 <br>
-  ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/ac506224-f129-4b49-bc7f-014efc004c9c/%EA%B0%9C%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80-%EB%82%B4%ED%94%84%EB%A1%9C%ED%95%84.gif?id=6fb19d93-5bca-4af4-a7e9-a512530961ea&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708365600000&signature=d_x2SnbEqvWh2oTOBmG1-fAGODjBJjzW2yRQcWOZTm4)
+  ![%EA%B0%9C%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80-%EB%82%B4%ED%94%84%EB%A1%9C%ED%95%84](https://github.com/dev1week/Code-Odyssey/assets/119592507/e0dda7a9-dfb3-4a3f-ba3d-5b103503632a)
+ 
 - 문제 찾기: 문제 검색 및 IDE로 연결 <br>
-  ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/f6b7fb4f-a8fd-4f08-8ef3-dbd4ca27fc56/%EA%B0%9C%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80-%EB%AC%B8%EC%A0%9C%EA%B2%80%EC%83%89.gif?id=d87b5a66-66ea-4c18-8b4c-3fbc2773fad0&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708365600000&signature=ENM3bJGjjOTx_dgX7wPqklUAoVbs6OupkW8zv7wV0Vk)
-- 스프린트 관리: 원하는 문제 유형 선택으로 편하게 문제 추천 및 지난 스프린트 확인 가능 <br>
-  ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/6a80f66c-d7ea-433e-a8e2-5a3f56a6a34a/%EA%B0%9C%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80-%EC%8A%A4%ED%94%84%EB%A6%B0%ED%8A%B8.gif?id=a4a3f184-186d-4838-92c0-bd420c4b81dc&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708365600000&signature=Cx9-F7qRm1Ch4KMDrIFcGEtMKhFFe1uEqzevt0tXu7I)
+  ![%EA%B0%9C%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80-%EB%AC%B8%EC%A0%9C%EA%B2%80%EC%83%89](https://github.com/dev1week/Code-Odyssey/assets/119592507/38c944ab-371a-49ce-8312-ba203baab808)
+ 
+  ![%EA%B8%B8%EB%93%9C%EC%B0%BD-%EC%8A%A4%ED%94%84%EB%A6%B0%ED%8A%B8%EC%99%84%EB%A3%8C__%EB%A6%AC%EB%B7%B0](https://github.com/dev1week/Code-Odyssey/assets/119592507/723051b5-a31b-417e-a322-0eeb01cae817)
 
+- 스프린트 관리: 원하는 문제 유형 선택으로 편하게 문제 추천 및 지난 스프린트 확인 가능 <br>
+  ![%EA%B0%9C%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80-%EC%8A%A4%ED%94%84%EB%A6%B0%ED%8A%B8](https://github.com/dev1week/Code-Odyssey/assets/119592507/4493515f-b3f7-4ac8-9f47-79d491433ff2)
+ 
 ### 3. Guild
 
-- 선착장 <br>
-  - 길드 검색: 길드 검색 상세 조회 / 참가 신청 가능 <br>
-    ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/d73befce-518c-400e-9440-0d2ba29ee967/%EC%84%A0%EC%B0%A9%EC%9E%A5-%EA%B8%B8%EB%93%9C%EA%B2%80%EC%83%89_%EA%B0%80%EC%9E%85%EC%8B%A0%EC%B2%AD.gif?id=a7310b18-188c-47d7-91a4-9ca6532c0839&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708365600000&signature=E_v0lHckzQZApQ0f38OLTbDdLW6NNxK28IwS1NQEk2g)
-  - 길드 생성 및 조회: 길드 생성 후 관리 가능 <br>
-    ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/d28924a8-01e7-4656-8932-768d317dc740/%EC%84%A0%EC%B0%A9%EC%9E%A5_-_%EA%B8%B8%EB%93%9C_%EC%83%9D%EC%84%B1__%EA%B8%B8%EB%93%9C%EC%B0%BD_-_%EA%B8%B8%EB%93%9C_%EC%A1%B0%ED%9A%8C.gif?id=d8d33190-0ef9-4bdf-a7d3-894b6443547e&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708365600000&signature=sAHCsINQDU5YAl05tJEtX6C-ixNGOjnBqLbCSHCBDeY)
+- 길드 검색: 길드 검색 상세 조회 / 참가 신청 가능 <br>
+  ![%EC%84%A0%EC%B0%A9%EC%9E%A5-%EA%B8%B8%EB%93%9C%EA%B2%80%EC%83%89_%EA%B0%80%EC%9E%85%EC%8B%A0%EC%B2%AD](https://github.com/dev1week/Code-Odyssey/assets/119592507/bf21f08f-6c69-4c65-a504-c0f2b9d0c80c)
+ 
+- 길드 생성 및 조회: 길드 생성 후 관리 가능 <br>
+  ![%EC%84~2](https://github.com/dev1week/Code-Odyssey/assets/119592507/f72475fe-4734-4279-8984-927758662b2d)
+
 - 길드창 <br>
-  - 스프린트 생성/시작 <br>
-    ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/70c5d7d2-270d-4b48-b99b-3d1334f47086/%EA%B8%B8%EB%93%9C%EC%B0%BD-%EC%8A%A4%ED%94%84%EB%A6%B0%ED%8A%B8%EC%8B%9C%EC%9E%91.gif?id=b287c883-a0ec-4bef-9069-aaf8ca6b5a04&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708365600000&signature=iPej8c1Ex-01eA3un9ChvJ07LnkWkLrGJLsVQLPPvVc)
-  - 스프린트 완료/회고/리뷰 <br>
-    ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/f1785748-6a1e-448a-8d42-1b483bf95a8d/%EA%B8%B8%EB%93%9C%EC%B0%BD-%EC%8A%A4%ED%94%84%EB%A6%B0%ED%8A%B8%EC%99%84%EB%A3%8C__%EB%A6%AC%EB%B7%B0.gif?id=dff44a9e-3b84-4e8e-95f4-8c79cbce5896&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708365600000&signature=jd_8_FtKjNMWVCZ-cB1aOhWm7u9n8WUSi25q_1fq_wM)
-  - 길드 채팅 <br>
-    ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/0bf36c86-211e-415a-8ce2-76160f08e1a6/%EA%B8%B8%EB%93%9C%EC%B0%BD-%EC%B1%84%ED%8C%85.gif?id=73fed8d1-3c89-42d3-85cb-8637ee7d37fe&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708365600000&signature=-dSyLP7ppSvIq5I-jcZDQbkJqfrO4KL3pvfhZ8VQTks)
-  - 길드 관리 <br>
-    ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/a5e65daf-d115-4b9c-a2bd-fe31916cdadd/%EA%B8%B8%EB%93%9C%EC%B0%BD-%EA%B8%B8%EB%93%9C%EA%B4%80%EB%A6%AC.gif?id=91d0be22-9894-47c7-9efb-3f1c0f9d3786&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708365600000&signature=gXuohZ-EMTnPgoDe46yoenyxi5uVapnGP0BxTgqB3oY)
+- 스프린트 생성/시작 <br>
+ ![%EA%B8%B8%EB%93%9C%EC%B0%BD-%EC%8A%A4%ED%94%84%EB%A6%B0%ED%8A%B8%EC%8B%9C%EC%9E%91](https://github.com/dev1week/Code-Odyssey/assets/119592507/9790a7f5-7ac8-46ad-98a3-a7d7c889f4e2)
+
+- 스프린트 완료/회고/리뷰 <br>
+![%EA%B8%B8%EB%93%9C%EC%B0%BD-%EC%8A%A4%ED%94%84%EB%A6%B0%ED%8A%B8%EC%99%84%EB%A3%8C__%EB%A6%AC%EB%B7%B0](https://github.com/dev1week/Code-Odyssey/assets/119592507/d5146189-a7ef-4925-932d-a19246377e19)
+
+- 길드 채팅 <br>
+  ![%EA%B8%B8%EB%93%9C%EC%B0%BD-%EC%B1%84%ED%8C%85](https://github.com/dev1week/Code-Odyssey/assets/119592507/a8b2acd9-980d-4e45-b824-b7e799329e99)
+
+- 길드 관리 <br>
+  ![%EC%84%A0%EC%B0%A9%EC%9E%A5-%EA%B8%B8%EB%93%9C%EA%B2%80%EC%83%89_%EA%B0%80%EC%9E%85%EC%8B%A0%EC%B2%AD](https://github.com/dev1week/Code-Odyssey/assets/119592507/a61b5928-bd91-4625-a19b-4c3a7abc3399)
 
 ### 4. IDE
 
-- 개인 IDE: 개별 채점 서버를 통한 input, output 체크 / 반례 등록, 조회 / 제출 기록 조회 / 변수명 조회 <br>
-  ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/3546e1f3-2a91-4154-80f9-c5b74d84bcd6/%EA%B0%9C%EC%9D%B8IDE.gif?id=0ba571b0-8a13-4891-8489-04e491d807cc&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708365600000&signature=9uO-7eHWGH25H-gyyOPxTzLZTwrEZmJqTfuCAJ9oTxI)
+- 개인 IDE: 개별 채점 서버를 통한 input, output 체크 및 익스텐션 활용 소스코드 제출, 반례 등록, 조회 / 제출 기록 조회 <br>
+  ![%EC%A0%9C%EC%B6%9C](https://github.com/dev1week/Code-Odyssey/assets/119592507/9d09b7b1-0539-43ee-a52b-7616da823101)
+- 변수명 조회 <br>
+  ![image](https://github.com/dev1week/Code-Odyssey/assets/119592507/68605f61-c44f-42c6-ba25-2ae73aea42cc)
+
+ 
 - 길드 IDE: 화상 채팅 / 공동 ide 작업 <br>
-  ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/3ee35e12-4e66-4f42-a366-d73e2f10acdd/%EA%B8%B8%EB%93%9CIDE.gif?id=4c8a9188-062b-41c7-8f4d-a3dcc4f0e2d6&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708365600000&signature=5K-k4kMA0yJT0cM-nOUP0_SqcRsAocD_Y5cOOfGtTu4)
+  ![%EA%B8%B8%EB%93%9CIDE](https://github.com/dev1week/Code-Odyssey/assets/119592507/3d15312d-edb3-4df9-92f7-17ffbf99aef5)
+
+  
 - 제출: 익스텐션을 활용한 제출 <br>
-  ![image](https://file.notion.so/f/f/e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6/82cb3ffa-914e-4e1c-aaaf-e29d0c5b1407/%EC%A0%9C%EC%B6%9C.gif?id=90631ad9-30a0-4407-8f3f-9c64d5aa56c5&table=block&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&expirationTimestamp=1708365600000&signature=x045It6RC2aJ7JbOZH2FxQQ3AyKfxFbfmj32uGYbl5A)
+
+
+ ### 구현시 기여한 부분 
+ #### 문제 추천 시스템 
+- 다음 스코어 테이블이 유저와 1:1로 매핑되어있습니다.
+  ![image](https://github.com/dev1week/Code-Odyssey/assets/119592507/f9fbed77-f9a7-4622-b8d0-92e34d4a6718)
+
+- 때문에 문제 제출시 제출한 문제유형에 대해 난이도 값이 누적됩니다.
+- erd 관계상 모든 길드원의 유형별 난이도 총합을 구하고 유형별 길드원 제출수를 활용해 유형별 점수 평균을 구합니다.
+- 유형별 점수 평균 중 최소 점수 유형을 추천합니다. 때문에, 길드원이 취약한 유형의 문제를 추천받을 수 있습니다.
+  ![image](https://github.com/dev1week/Code-Odyssey/assets/119592507/59d7cb45-6200-4b3e-804f-9ba2d020df3d)
+
+ 
+#### 젠킨스, 도커 활용 MSA 배포 시스템 구축 
+- 전체 5대의 서버를 젠킨스와 도커를 활용해 ci/cd 환경을 구축하였습니다.
+  ![image](https://github.com/dev1week/Code-Odyssey/assets/119592507/788d7c52-f1ef-4cc2-9f15-0b3922dc244c)
+
+- 채점 서버의 보안상, 성능상 문제 때문에 MSA를 적용 및 설계하였습니다. 
+  ![image](https://github.com/dev1week/Code-Odyssey/assets/119592507/e01bbb78-e8a9-48cb-9bd8-5bad78c0b9ea)
+  ![image](https://github.com/dev1week/Code-Odyssey/assets/119592507/1125f320-1f97-4436-a6b3-4fc929ba46b6)
+
+
+#### 채점서버 성능 개선 
+- 독립된 환경및 오토스케일링을 구현하기 위해 aws 람다로 채점서버를 배포하였습니다.
+  ![image](https://github.com/dev1week/Code-Odyssey/assets/119592507/9f578b79-8787-4b7d-8922-6b19f979d1e8)
+  ![image](https://github.com/dev1week/Code-Odyssey/assets/119592507/ee1d9163-8f9a-44aa-b435-5f42ea3ba718)
+  ![image](https://github.com/dev1week/Code-Odyssey/assets/119592507/2ddc63d0-4480-4cec-bd68-ad141fcf19d0)
+
+
+#### 크롬 익스텐션 활용 백준/SWEA 플랫폼에서 제출 자동화 구현 
+![image](https://github.com/dev1week/Code-Odyssey/assets/119592507/266a7e56-2211-4f1b-b472-a1c2f053cccb)
+![image](https://github.com/dev1week/Code-Odyssey/assets/119592507/51738e31-1988-463f-88cf-5d827508fdd2)
+![image](https://github.com/dev1week/Code-Odyssey/assets/119592507/1336f762-b4fe-41a4-8ba9-e52d6b889d5e)
+
