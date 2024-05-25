@@ -1,8 +1,8 @@
 
 ## ✨ 알고리즘이 힘든 당신을 위한 Code Odyssey!
 
-![image](https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fe6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6%2F885a8a9a-6d61-48f6-8ce6-16acf9891fc7%2FUntitled.png?table=block&id=a2eec58c-43bb-4158-8c22-d6f79c4539f6&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&width=2000&userId=c24c7b7b-c4c6-41c1-8fb1-5e91dc0baad4&cache=v2)
-![image](https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fe6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6%2Fc071a070-3283-41e9-a21c-469e12adecef%2FUntitled.png?table=block&id=06c8cc6a-86ad-4dea-83a6-35577192d1f0&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&width=2000&userId=c24c7b7b-c4c6-41c1-8fb1-5e91dc0baad4&cache=v2)
+![image](https://github.com/Dokuny/Code-Odyssey/blob/master/exec/%EC%98%A4%EB%94%94%EC%84%B8%EC%9D%B4.png?raw=true)
+
 
 ## 🌙 Code Odyssey 사용하기
 
