@@ -1,5 +1,5 @@
 
-## ✨ 알고리즘이 힘든 당신을 위한 Code Odyssey!
+## ✨ 당신의 편안한 알고리즘 순항을 위해. Code Odyssey!
 
 ![image](https://github.com/Dokuny/Code-Odyssey/blob/master/exec/%EC%98%A4%EB%94%94%EC%84%B8%EC%9D%B4.png?raw=true)
 
