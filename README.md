@@ -64,7 +64,7 @@
 
 ### 🎯 3. 아키텍처 (Architecture)
 
-![image](https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fe6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6%2Fefac84a6-d4b5-48d1-ac64-bc09a98abc3b%2FUntitled.png?table=block&id=303710c9-6243-4eae-b5da-1b3917d2248c&spaceId=e6fd84f3-cb0e-4f1a-bcec-6c3f1dca37c6&width=2000&userId=c24c7b7b-c4c6-41c1-8fb1-5e91dc0baad4&cache=v2)
+![image](https://github.com/Dokuny/Code-Odyssey/blob/master/exec/architecture.png?raw=true)
 
 
 ## 💡 기능 상세 보기
